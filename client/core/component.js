@@ -5,29 +5,18 @@ Define("app.component", /** @lends {app.component} */({
      * @type {Object}
      * @private
      */
-	event: {},
+    event: {},
 
-	listeners: {},
 
-	behaviours: [],
-
-	init: function () {
-
-		//подключаем поведение
-		var v = this.behaviours.length;
-
-		while (v--) {
-			this.addBehaviour( this.behaviours[v] );
-		}
-
-		//подключаем обработчики событий		
-		for (event in this.listeners) {
-
-		}
-	},
+    init: function () {		
+        //подключаем обработчики событий		
+	for (event in this.listeners) {
+                   //
+	}
+    },
 	
-	//события
-	listeners: {},
+    //события
+    listeners: {},
 
     /**
      * Отправит событие на обработку с указанным объектом события
@@ -46,20 +35,13 @@ Define("app.component", /** @lends {app.component} */({
      * @param {string} name имя события
      * @param {function (Object): ?} fun функция-обработчик
      */
-	on: function (name,fun) {
-		if (typeof this.event[name]=="undefined") {
+    on: function (name,fun) {
+        if (typeof this.event[name]=="undefined") {
             this.event[name]=[];
         }
-		this.event[name].push(fun);	
-	},
+	this.event[name].push(fun);	
+    },
 
-	off: function (name) {},
-	
-	//поведение	
-	/* addBehaviour:function(name){
-		new app.behaviours[name](this);
-	},
-
-	removeBehaviour: function () {} */
+    off: function (name) {}	
 
 }));

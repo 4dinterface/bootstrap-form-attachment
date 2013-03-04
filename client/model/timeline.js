@@ -1,6 +1,6 @@
 // позже разместим код модели
 // сейчас тут эксперементальные данные с которыми можно реботать
-app.timeline=function(){
+app.Timeline=function(){
     return [
 	{
     	title:"shape 1",
@@ -81,7 +81,7 @@ app.timeline=function(){
 					easing:"sin"					
 				}
 
-			}
+                        }
                     }
 
                 }	    	    

@@ -1,6 +1,7 @@
 (function(){
 	//модель таймлайна
-	var timeline=new Timeline();
+	var timeline=new app.Timeline();
+        console.log(timeline);
 	//view
         //tlView=new TimelineView(timeline),
         //контроллер 

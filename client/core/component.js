@@ -34,12 +34,12 @@ Define("app.component", /** @lends {app.component} */({
      * @param {string} name имя события на отправку
      * @param {Object} options представляющий событие объект
      */
-	fire: function (name, options) {
+    fire: function (name, options) {
         var item;
 		for (item in this.event[name]) {
             this.event[name][item](options);
         }
-	},
+    },
 
     /**
      * Установит обработчик на событие
@@ -56,10 +56,10 @@ Define("app.component", /** @lends {app.component} */({
 	off: function (name) {},
 	
 	//поведение	
-	addBehaviour:function(name){
+	/* addBehaviour:function(name){
 		new app.behaviours[name](this);
 	},
 
-	removeBehaviour: function () {}
+	removeBehaviour: function () {} */
 
 }));

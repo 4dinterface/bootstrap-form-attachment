@@ -1,40 +1,65 @@
-Define("app.component",{
-	event:{},
-	listeners:{},	
-	behaviours:[],
+Define("app.component", /** @lends {app.component} */({
 
+    /**
+     * Регистр событий и их обработчиков
+     * @type {Object}
+     * @private
+     */
+	event: {},
 
-	init:function(){
+	listeners: {},
+
+	behaviours: [],
+
+	init: function () {
+
 		//подключаем поведение
-		var v=this.behaviours.length;
-		while(v--){
+		var v = this.behaviours.length;
+
+		while (v--) {
 			this.addBehaviour( this.behaviours[v] );
 		}
 
 		//подключаем обработчики событий		
-		for (event in this.listeners ){
+		for (event in this.listeners) {
 
 		}
 	},
 	
 	//события
-	listeners:{},	
+	listeners: {},
 
-	fire:function(name,options){
-		for (item in this.event[name]) this.event[name][item](options);
+    /**
+     * Отправит событие на обработку с указанным объектом события
+     * @param {string} name имя события на отправку
+     * @param {Object} options представляющий событие объект
+     */
+	fire: function (name, options) {
+        var item;
+		for (item in this.event[name]) {
+            this.event[name][item](options);
+        }
 	},
-	
-	on:function(name,fun){
-		if (typeof this.event[name]=="undefined") this.event[name]=[];
+
+    /**
+     * Установит обработчик на событие
+     * @param {string} name имя события
+     * @param {function (Object): ?} fun функция-обработчик
+     */
+	on: function (name,fun) {
+		if (typeof this.event[name]=="undefined") {
+            this.event[name]=[];
+        }
 		this.event[name].push(fun);	
 	},
-	
-	off:function(name){},
+
+	off: function (name) {},
 	
 	//поведение	
 	addBehaviour:function(name){
 		new app.behaviours[name](this);
 	},
 
-	removeBehaviour:function(){}	
-})
+	removeBehaviour: function () {}
+
+}));

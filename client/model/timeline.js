@@ -1,6 +1,7 @@
 // позже разместим код модели
 // сейчас тут эксперементальные данные с которыми можно реботать
-app.timeline=[
+app.timeline=function(){
+    return [
 	{
     	title:"shape 1",
 		target:{},
@@ -14,7 +15,7 @@ app.timeline=[
 				3:{
 					value:100,
 					easing:"line"										
-				}				
+				},				
 
 
 				6:{
@@ -33,7 +34,7 @@ app.timeline=[
 				3:{
 					value:0,
 					easing:"none"										
-				}				
+				},				
 
 
 				8:{
@@ -46,7 +47,7 @@ app.timeline=[
 
     },
 
-	{
+    {
     	title:"shape 2",
 		target:{},
 		prop:{
@@ -72,7 +73,7 @@ app.timeline=[
 				0:{
 					value:0,
 					easing:"none"										
-				}				
+				},				
 
 
 				8:{
@@ -81,7 +82,8 @@ app.timeline=[
 				}
 
 			}
-		}
+                    }
 
-    }	    	    
-]
+                }	    	    
+        ]
+};

@@ -4,7 +4,11 @@ app.Collection= function(prop){
 	var cash=[];
 
         //наследование
-	var R=function (){ };
+	var R=function (prop){
+            for(var i in prop) this[i]=prop[i];                        
+            var cash=Object.keys(this);
+        };
+        
         var F=function (){ };
 	F.prototype=app.Component.prototype;
 	var proto=R.prototype=new F;
@@ -18,7 +22,7 @@ app.Collection= function(prop){
 	proto.set=function(name,val){
 	    this[name]=val;
             cash=this.key();
-            //this.fire('change');	   
+            this.fire('change',{});	   
         },
 
         //возвращает значение по индексу
@@ -26,5 +30,5 @@ app.Collection= function(prop){
             return this[ cash[index] ];     
         }     		
 		    
-	return R;	
+	return new R(prop);	
 };

@@ -25,7 +25,7 @@ Define("app.Component", /** @lends {app.component} */({
      */
     fire: function (name, options) {
         var item;
-		for (item in this.event[name]) {
+	for (item in this.event[name]) {
             this.event[name][item](options);
         }
     },
@@ -39,6 +39,7 @@ Define("app.Component", /** @lends {app.component} */({
         if (typeof this.event[name]=="undefined") {
             this.event[name]=[];
         }
+        
 	this.event[name].push(fun);	
     },
 

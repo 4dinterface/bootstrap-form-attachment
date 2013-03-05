@@ -1,4 +1,6 @@
 Define=function(name,prop){
+        'use strict';
+	
 	var src=prop.extend || {},
 	    child=function(){
 		if (this.init) this.init.apply(this,arguments);

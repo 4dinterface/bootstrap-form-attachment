@@ -7,7 +7,6 @@ Define("app.Component", /** @lends {app.component} */({
      */
     event: {},
 
-
     init: function () {		
         //подключаем обработчики событий		
 	for (event in this.listeners) {

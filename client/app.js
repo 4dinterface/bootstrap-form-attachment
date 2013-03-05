@@ -9,7 +9,7 @@
                 timeLine:timeline
             }),
             
-            //view таймлайна
+            //view таймлайна            
             tlView = new app.view.Timeline({
                 model : timeline,
                 movie: movie                

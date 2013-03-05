@@ -20,11 +20,16 @@ Define("app.view.Timeline", /** @lends {app.component} */{
         //Это только демонстрационный код, от которого можно отталкнуться
         
         var m=this.model;
-        for (var i=0;i<m.length;i++){
+        
+        //цикл по обьектам
+        for (var i=0;i<m.length;i++){            
             document.write(m[i].title+"<br>");   
-            m[i].prop.each(function(ip){
-               document.write(m[i][ip].length+"<br>");   
-            });            
+
+            //цикл по свойствам
+            for(var pi in m[i].prop  ){
+               document.write(pi+"<br>");                                  
+            }            
+            
         }	
 
     }    

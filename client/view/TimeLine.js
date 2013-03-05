@@ -1,9 +1,11 @@
 Define("app.view.Timeline", /** @lends {app.component} */{
+    extend:app.Component,
     model:null,    
     init: function (prop) {		
+        //this.super();
         this.model=prop;
         
-        this.super();
+        
         
         //потом будет так
         //model.on('change',function(){
@@ -15,7 +17,7 @@ Define("app.view.Timeline", /** @lends {app.component} */{
     },
     
     render:function(){
-        
+        console.log(this.model);
     }    
     
 });

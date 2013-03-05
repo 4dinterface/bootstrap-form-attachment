@@ -3,6 +3,7 @@
 app.Timeline=function(){
     return [
 	{
+            //демонстрационный первый обьект
             title:"shape 1",
 	    target:{},
 	    prop:{
@@ -41,7 +42,8 @@ app.Timeline=function(){
             }
 
         },
-
+        
+        //демонстрационный второй обьект
         {
             title:"shape 2",
             target:{},

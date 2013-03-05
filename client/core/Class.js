@@ -5,9 +5,7 @@ Define=function(name,prop){
 	    };
 	
 	//child prototype - скопируем туда родителя
-	var F=function(){};
-	F.prototype=src.prototype;
-	child.prototype=new F;
+	child.prototype = Object.create(src.prototype);
 
 	//ссылки на класс 
 	child.prototype["proto"]=child.prototype;

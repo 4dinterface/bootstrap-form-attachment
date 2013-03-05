@@ -1,26 +1,26 @@
 //компонент в разработке
-
-app.Collection= function(prop){    
-	var cash=[];
-
-        //наследование
-	var R=function (prop){
-            for(var i in prop) this[i]=prop[i];                        
-            cash=Object.keys(this);
-            this.length=cash.length;
-        };
+//alert(100500);
+Define('app.Collection',{
+    
+	cash:[],
+                
+        extend:app.Component,
         
-        var F=function (){ };
-	F.prototype=app.Component.prototype;
-	var proto=R.prototype=new F;
+        //наследование
+	init:function (prop){
+            for(var i in prop) this[i]=prop[i];                        
+            this.cash=Object.keys(this);
+            this.length=cash.length;
+        },
+                
 
         //геттер свойств
-        proto.get=function(name){
+        get:function(name){
             return this[name];
 	},
         
 	//setter
-	proto.set=function(name,val){
+	set:function(name,val){
 	    this[name]=val;
             cash=this.key();
             this.length=cash.length;
@@ -28,13 +28,11 @@ app.Collection= function(prop){
         },
 
         //возвращает значение по индексу
-        proto.item=function(index){
+        item:function(index){
             return this[ cash[index] ];     
         },     		        
         
-        proto.each=function(index){
+        each:function(index){
             return this[ cash[index] ];     
-        }     		
-		    
-	return new R(prop);	
-};
+        }     				    	
+});

@@ -51,7 +51,7 @@ app.model.Timeline=function(){
             target:{},
             prop:{
 
-                x:{
+                x:new app.Collection({
                     2:{
                         value:100,
                         easing:"none"					
@@ -65,7 +65,7 @@ app.model.Timeline=function(){
                         value:20,
                         easing:"line"										
                     }		
-                },
+                }),
 
                 y:{
                     0:{

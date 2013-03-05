@@ -17,7 +17,14 @@ Define("app.view.Timeline", /** @lends {app.component} */{
     },
     
     render:function(){
-        console.log(this.model);
+        var m=this.model;
+        for (var i=0;i<m.length;i++){
+            document.write(m[i].title+"<br>");   
+            for (ip in m[i] ){
+               document.write(m[i][ip].length+"<br>");   
+            }            
+        }	
+
     }    
     
 });

@@ -10,7 +10,7 @@ Define('app.Collection',{
 	init:function (prop){
             for(var i in prop) this[i]=prop[i];                        
             this.cash=Object.keys(this);
-            this.length=cash.length;
+            this.length=this.cash.length;
         },
                 
 
@@ -31,7 +31,8 @@ Define('app.Collection',{
         item:function(index){
             return this[ cash[index] ];     
         },     		        
-        
+
+        //перебор в порядке следования
         each:function(index){
             return this[ cash[index] ];     
         }     				    	

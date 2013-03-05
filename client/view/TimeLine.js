@@ -5,8 +5,7 @@ Define("app.view.Timeline", /** @lends {app.component} */{
         this.super();
         this.apply(prop);
         //this.model=prop;
-        
-        
+               
         //потом будет так
         //model.on('change',function(){
         //    this.render;            

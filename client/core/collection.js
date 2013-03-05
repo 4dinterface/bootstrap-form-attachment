@@ -1,6 +1,6 @@
+//компонент в разработке
 
-
-app.collection= function(){    
+app.Collection= function(){    
 	var cash=[];
 	
 	F=function (){ };

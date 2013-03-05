@@ -1,4 +1,4 @@
-Define("app.component", /** @lends {app.component} */({
+Define("app.Component", /** @lends {app.component} */({
 
     /**
      * Регистр событий и их обработчиков

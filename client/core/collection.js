@@ -13,7 +13,7 @@ app.Collection= function(prop){
         proto.get=function(name){
             return this[name];
 	},
-
+        
 	//setter
 	proto.set=function(name,val){
 	    this[name]=val;
@@ -26,5 +26,5 @@ app.Collection= function(prop){
             return this[ cash[index] ];     
         }     		
 		    
-	return new R;	
+	return R;	
 };

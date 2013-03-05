@@ -1,10 +1,10 @@
 //компонент в разработке
 //alert(100500);
-Define('app.Collection',{
-    
-	cash:[],
+Define('app.Collection',{    
                 
         extend:app.Component,
+        
+        cash:[],
         
         //наследование
 	init:function (prop){

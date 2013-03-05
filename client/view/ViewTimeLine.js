@@ -1,4 +1,4 @@
-Define("app.Component", /** @lends {app.component} */{
+Define("app.view.Timeline", /** @lends {app.component} */{
     model:null,    
     init: function (prop) {		
         this.model=prop;

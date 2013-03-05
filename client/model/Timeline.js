@@ -9,7 +9,7 @@ app.model.Timeline=function(){
             title:"shape 1",
 	    target:{},
 	    prop:{
-                x:{
+                x:new app.Collection({
                     0:{
                         value:0,
                         easing:"none"					
@@ -28,9 +28,9 @@ app.model.Timeline=function(){
                         value:50,
                         easing:"line"										
                     }				
-                },
+                }),
 
-                y:{
+                y:new app.Collection({
                     3:{
                         value:0,
                         easing:"none"										
@@ -40,7 +40,7 @@ app.model.Timeline=function(){
                         value:150,
                         easing:"sin"					
                     }
-                }
+                })
             }
 
         },
@@ -67,7 +67,7 @@ app.model.Timeline=function(){
                     }		
                 }),
 
-                y:{
+                y:new app.Collection({
                     0:{
                         value:0,
                         easing:"none"										
@@ -79,7 +79,7 @@ app.model.Timeline=function(){
                         easing:"sin"					
                     }
 
-                }
+                })
             }
 
         }	    	    

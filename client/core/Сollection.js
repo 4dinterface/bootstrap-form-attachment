@@ -6,7 +6,8 @@ app.Collection= function(prop){
         //наследование
 	var R=function (prop){
             for(var i in prop) this[i]=prop[i];                        
-            var cash=Object.keys(this);
+            cash=Object.keys(this);
+            this.length=cash.length;
         };
         
         var F=function (){ };
@@ -22,11 +23,16 @@ app.Collection= function(prop){
 	proto.set=function(name,val){
 	    this[name]=val;
             cash=this.key();
+            this.length=cash.length;
             this.fire('change',{});	   
         },
 
         //возвращает значение по индексу
         proto.item=function(index){
+            return this[ cash[index] ];     
+        },     		        
+        
+        proto.each=function(index){
             return this[ cash[index] ];     
         }     		
 		    

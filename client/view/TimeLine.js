@@ -2,8 +2,9 @@ Define("app.view.Timeline", /** @lends {app.component} */{
     extend:app.Component,
     model:null,    
     init: function (prop) {		
-        //this.super();
-        this.model=prop;
+        this.super();
+        this.apply(prop);
+        //this.model=prop;
         
         
         

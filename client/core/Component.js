@@ -43,6 +43,13 @@ Define("app.Component", /** @lends {app.component} */({
 	this.event[name].push(fun);	
     },
 
-    off: function (name) {}	
+    off: function (name) {},
+    
+    //вставляет свойста в обьект
+    apply:function(prop){        
+       	for(var x in prop){	        		
+		this[x] = prop[x];
+	}	
+    }
 
 }));

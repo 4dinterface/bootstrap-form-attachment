@@ -1,11 +1,11 @@
-app={};
+
 
 app.collection= function(){    
 	var cash=[];
 	
 	F=function (){ };
 		
-	F.prototype.{
+	F.prototype={
 		    
 	    get:function(name){
 	        return this[name];
@@ -18,11 +18,10 @@ app.collection= function(){
 			//this.fire('change');
 	    },
 
-		//возвращает значение по индексу
-		item:function(index){
-           return this[ cash[index] ];     
-        }     
-		
+            //возвращает значение по индексу
+            item:function(index){
+               return this[ cash[index] ];     
+            }     		
 		
 	}
 

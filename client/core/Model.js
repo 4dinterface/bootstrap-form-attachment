@@ -1,25 +1,40 @@
-// бдыщ от hnoe (компонент в разработке)
-Define('app.Model', {
+/**
+ * @fileOverview
+ * @author <a href="https://github.com/amixok/">Amixok</a>
+ * @version 0.1
+ */
 
-	extend: app.Component,
+/**
+ * бдыщ от hnoe (компонент в разработке)
+ * @name app.Model
+ * @class
+ */
+Define('app.Model', /** @lends {app.Model} */ {
 
-	data: null,
+	extend : app.Component,
 
+	data : null,
+
+	/***
+	 * Конструктор экземпляров
+	 * @constructor
+	 * @param {Object} prop объект с описанием экземпляра
+	 */
 	init : function (prop) {
-            var i;
-            
-            this.data={};
+		var i;
 
-            for (i in prop) {
-                if (prop.hasOwnProperty(i)) {
-                    this.data[i] = prop[i];
+		this.data = {};
+
+		for (i in prop) {
+			if (prop.hasOwnProperty(i)) {
+				this.data[i] = prop[i];
+			}
 		}
-            }
-            //this.cash = Object.keys(this);
-            //this.length = this.cash.length;
+		//this.cash = Object.keys(this);
+		//this.length = this.cash.length;
 	},
 
-	set : function (property, value) {x
+	set : function (property, value) {
 		this.data[property] = value;
 		//cash = this.key();
 		//this.length = cash.length;
@@ -28,10 +43,10 @@ Define('app.Model', {
 
 
 	get : function (name) {
-                //alert(this.data[name]);
-                var data=this.data[name];
-                //console.log( 'this' , data );
-		return data;                
+		//alert(this.data[name]);
+		var data = this.data[name];
+		//console.log( 'this' , data );
+		return data;
 	}
 });
 

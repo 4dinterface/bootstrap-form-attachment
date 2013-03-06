@@ -8,7 +8,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
 
-
+    //model:
 
     init: function( prop ) {
         this.super();
@@ -24,10 +24,16 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //здесь твой код
         // -----------------------
 
-        // установить отношение кол-ва пикслей к миллисекунде
+        // установить кол-во пикслей в миллисекунде
         this.options.set( 'ratio', 100 );
 
-        this.render();
+        var that = this;
+
+
+        Zepto(function() {
+            that.render();
+        });
+
     },
 
 
@@ -41,18 +47,45 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         console.log( this.model );
         //Это только демонстрационный код, от которого можно отталкнуться
 
-        var m = this.model;
+        this.model.forEach(function( child ) {
 
-        //цикл по обьектам
-        for( var i = 0; i < m.length; i++ ) {
-            document.write(m[i].get('title')+"<br>");
+            // append lines & blocks
+            Object.keys( child.data.prop ).forEach(function( name ) {
+                var line = Zepto( '<div class="timeline-line" />' );
 
-            //цикл по свойствам
-            for( var pi in m[i].get( 'prop' ) ) {
-                document.write(pi+"<br>");
-            }
+                var prop = child.data.prop[ name ];
+                var points = prop.cash.slice();
+                var width;
+                var left;
 
-        }
+                points = points.filter(function( val ) {
+                    return !isNaN( +val );
+                });
+
+                points = points.sort(function( a, b ) {
+                    return a - b;
+                });
+
+                left = points[ 0 ] * 100;
+                width = points[ points.length - 1 ] * 100;
+
+                left = this.toPixels( left );
+                width = this.toPixels( width );
+
+                Zepto( '<div class="timeline-block" />' )
+                    .css({
+                        top: 0,
+                        left: left,
+                        width: width,
+                        backgroundColor: '#48d1cc'
+                    })
+                    .appendTo( line );
+
+                line.appendTo( '#timeline-editor' );
+
+            }, this );
+
+        }, this );
 
     },
 

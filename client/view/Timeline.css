@@ -16,11 +16,12 @@
     border-bottom: 1px solid #deb887;
     height: 20px;
     width: 100%;
-    margin: 0 0 5px 0;
+    margin: 0;
+    padding: 2px 0;
 }
 
 
-.timeline-object {
+.timeline-block {
     height: 20px;
     position: relative;
     margin: 0;

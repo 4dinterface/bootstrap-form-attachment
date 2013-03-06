@@ -1,13 +1,32 @@
-// ========================================================================
-// Copyright 2012 hnoe
-// Email: hnoe@hnoe.ru
-// Site: http://hnoe.ru 
-//
-// Licensed under the GNU GPLv2
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at:
-//
-// http://www.gnu.org/licenses/gpl2.txt
-// ========================================================================
+// бдыщ от hnoe (компонент в разработке)
+Define('app.Model', {
 
-тут будет Model.js
+	extend: app.Component,
+
+	cash: [],
+
+	init : function (prop) {
+		var i;
+
+		for (i in prop) {
+			if (prop.hasOwnProperty(i)) {
+				this[i] = prop[i];
+			}
+		}
+			this.cash = Object.keys(this);
+			this.length = this.cash.length;
+	},
+
+	set : function (property, value) {
+		this[property] = value;
+		cash = this.key();
+		this.length = cash.length;
+		this.fire("change", {});
+	},
+
+
+	get : function (value) {
+		return this[value];
+	}
+});
+

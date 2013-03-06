@@ -5,7 +5,8 @@
  * 
  * в качестве параметров принимает таймлайн и сцену
  * идея api взята из Flash
- * 
+ *
+ * @extends {app.Component}
  *
  * # Example
  * 
@@ -33,18 +34,18 @@
  *     
  *     
  */
+Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
-Define('app.movie.Movie',{
-    extend:app.Component,    
+    extend: app.Component,
 
     //таймлайн 
-    timeline:null,
+    timeline: null,
     
     //сцена
-    stage:null,
+    stage: null,
 
     //конструктор
-    init:function(cfg){
+    init: function(cfg){
         this.super();
         this.apply(cfg);   
         
@@ -53,31 +54,30 @@ Define('app.movie.Movie',{
     },
 
     //начать воспризведение
-    play:function(){
+    play: function(){
         
     },
     
-    stop:function(){        
+    stop: function(){
         
     },
 
     //переходит на кадр и начинаеит проигрывание
-    gotoAndPlay:function(time){
+    gotoAndPlay: function(time){
         
     },
     
     //переходит на время, и начинает проигрывание
-    gotoAndStop:function(){
+    gotoAndStop: function(){
         
     }
     
     //
-    //nextFrame:function(){        
+    //nextFrame: function(){
     //},
     
     //
-    //prevFrame:function(){
+    //prevFrame: function(){
     //}
-    
-    
-})
+
+}));

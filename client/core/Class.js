@@ -12,7 +12,7 @@ Define = function (name, prop) {
         };
 
     //child prototype - скопируем туда родителя
-    child.prototype = Object.create(src.prototype);
+    child.prototype = Object.create(src.prototype||src);
 
     //ссылки на класс
     child.prototype["proto"] = child.prototype;
@@ -37,9 +37,9 @@ Define = function (name, prop) {
                 if (src[name]) src[name].apply(this, arg);
             };
 
-			return fun.apply(this,arguments);	
-		}
+            return fun.apply(this,arguments);	
 	}
+    }
 
     //устанавливает значение по неймспейсу
     function NS(name, obj) {

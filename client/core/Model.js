@@ -1,37 +1,48 @@
-// бдыщ от hnoe (компонент в разработке)
-Define('app.Model', {
+/**
+ * @fileOverview
+ * @author <a href="https://github.com/amixok/">Amixok</a>
+ * @version 0.1
+ */
+
+/**
+ * бдыщ от hnoe (компонент в разработке)
+ * @name app.Model
+ * @class
+ */
+Define('app.Model', /** @lends {app.Model} */ ({
 
 	extend: app.Component,
 
-	data: null,
+	cash: [],
 
+    /***
+     * Конструктор экземпляров
+     * @constructor
+     * @param {Object} prop объект с описанием экземпляра
+     */
 	init : function (prop) {
-            var i;
-            
-            this.data={};
+		var i;
 
+        if (prop) {
             for (i in prop) {
                 if (prop.hasOwnProperty(i)) {
-                    this.data[i] = prop[i];
-		}
+                    this[i] = prop[i];
+                }
             }
-            //this.cash = Object.keys(this);
-            //this.length = this.cash.length;
+        }
+
+        this.cash = Object.keys(this);
+        this.length = this.cash.length;
 	},
 
-	set : function (property, value) {x
-		this.data[property] = value;
-		//cash = this.key();
-		//this.length = cash.length;
+	set : function (property, value) {
+		this[property] = value;
+		cash = this.key();
+		this.length = cash.length;
 		this.fire("change", {});
 	},
 
-
-	get : function (name) {
-                //alert(this.data[name]);
-                var data=this.data[name];
-                //console.log( 'this' , data );
-		return data;                
+	get : function (value) {
+		return this[value];
 	}
-});
-
+}));

@@ -4,11 +4,11 @@ if (!app.model) app.model={};
 
 app.model.Timeline=function(){
     return [
-	new app.Model({
+        new app.Model({
             //демонстрационный первый обьект
             title:"shape 1",
-	    target:{},
-	    prop:{
+            target:{},
+            prop:{
                 x:new app.Collection({
                     0:app.Model({
                         value:0,

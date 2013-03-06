@@ -1,5 +1,4 @@
 //компонент в разработке
-//alert(100500);
 Define('app.Collection',{    
                 
         extend:app.Component,
@@ -8,6 +7,8 @@ Define('app.Collection',{
         
         //наследование
 	init:function (prop){
+            this.cash=[];
+            
             for(var i in prop) this[i]=prop[i];                        
             this.cash=Object.keys(this);
             this.length=this.cash.length;

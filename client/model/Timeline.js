@@ -10,36 +10,39 @@ app.model.Timeline=function(){
 	    target:{},
 	    prop:{
                 x:new app.Collection({
-                    0:{
+                    0:app.Model({
                         value:0,
                         easing:"none"					
-                    },
-                    3:{
+                    }),
+                    
+                    3:app.Model({
                         value:100,
                         easing:"line"										
-                    },				
+                    }),				
 
 
-                    6:{
+                    6:app.Model({
                         value:100,
                         easing:"none"					
-                    },
-                    10:{
+                    }),
+                    
+                    10:app.Model({
                         value:50,
                         easing:"line"										
-                    }				
+                    })				
                 }),
 
                 y:new app.Collection({
-                    3:{
+                    3:app.Model({
                         value:0,
                         easing:"none"										
-                    },				
+                    }),				
 
-                    8:{
+                    8:app.Model({
                         value:150,
                         easing:"sin"					
-                    }
+                    })
+                    
                 })
             }
 
@@ -52,32 +55,32 @@ app.model.Timeline=function(){
             prop:{
 
                 x:new app.Collection({
-                    2:{
+                    2:app.Model({
                         value:100,
                         easing:"none"					
-                    },
-                    3:{
+                    }),
+                    3:app.Model({
                         value:0,
                         easing:"line"										
-                    },				
+                    }),				
 
-                    6:{
+                    6:app.Model({
                         value:20,
                         easing:"line"										
-                    }		
+                    })		
                 }),
 
                 y:new app.Collection({
-                    0:{
+                    0:app.Model({
                         value:0,
                         easing:"none"										
-                    },				
+                    }),				
 
 
-                    8:{
+                    8:app.Model({
                         value:50,
                         easing:"sin"					
-                    }
+                    })
 
                 })
             }

@@ -12,7 +12,7 @@ Define('app.Model', {
 
             for (i in prop) {
                 if (prop.hasOwnProperty(i)) {
-                    data[i] = prop[i];
+                    this.data[i] = prop[i];
 		}
             }
             //this.cash = Object.keys(this);
@@ -20,15 +20,16 @@ Define('app.Model', {
 	},
 
 	set : function (property, value) {
-		this[property] = value;
+		this.data[property] = value;
 		//cash = this.key();
 		//this.length = cash.length;
 		this.fire("change", {});
 	},
 
 
-	get : function (value) {
-		return data[value];
+	get : function (name) {
+                //alert(this.data[name]);
+		return this.data[name];
 	}
 });
 

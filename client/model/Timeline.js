@@ -4,7 +4,7 @@ if (!app.model) app.model={};
 
 app.model.Timeline=function(){
     return [
-	{
+	new app.Model({
             //демонстрационный первый обьект
             title:"shape 1",
 	    target:{},
@@ -46,10 +46,10 @@ app.model.Timeline=function(){
                 })
             }
 
-        },
+        }),
         
         //демонстрационный второй обьект
-        {
+        new app.Model({
             title:"shape 2",
             target:{},
             prop:{
@@ -85,6 +85,6 @@ app.model.Timeline=function(){
                 })
             }
 
-        }	    	    
+        })
     ]
 };

@@ -29,7 +29,7 @@
                 //movie 
                 movie:movie
             })            
-            
+ 
         //console.log(timeline);        
         //контроллер 
         //tlController=new TimeLineController(timeline);

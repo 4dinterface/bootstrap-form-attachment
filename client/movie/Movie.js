@@ -1,5 +1,5 @@
 /**
- * @docauthor Максим Сысоев <sisoev@superSite.com>
+ * @author Максим Сысоев
  * компонент отвечает за воспроизведения ролика и предоставляет api
  * позволяюще управлять воспроизведением
  * 
@@ -40,13 +40,6 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     extend: app.Component,
 
     /**
-     * Данные, которыми располагает проигрыватель и его app.movie.Fetch
-     * @type {app.model.Timeline}
-     * @private
-     */
-    timeline: null,
-
-    /**
      * Сцена, на которой проигрыватель будет отрисовывать текущие значения
      * @type {Object}
      * @private
@@ -61,26 +54,38 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     fetch: null,
 
     /**
+     * Число кадров в секунду при проигрывании
+     * 60 приблизительно равно частоте кадров при использовании requestAnimationFrame
+     * @type {number}
+     * @private
+     */
+    FPS: 60,
+
+    /**
+     * Временная метка старта проигрывания. Устанавливается методом setTime.
+     */
+    startPosition: null,
+
+    /**
      * Конструктор объекта, позволяющего управлять воспроизведением
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
      */
     init: function(cfg){
         this.super();
-        this.apply(cfg);   
-        
+        this.apply(cfg);
         this.fetch = new app.movie.Fetch();
     },
 
     /**
-     * Продолжает воспроизведение, начиная с указанной app.movie.Movie.setTime временной метки
+     * Продолжает воспроизведение, начиная с текущей временной метки
      */
     play: function() {
         
     },
 
     /**
-     * Производит остановку фильма на текущем кадре.
+     * Производит остановку фильма на текущей временной метку.
      */
     stop: function () {
 
@@ -92,6 +97,15 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      */
     setTime: function(time){
         
+    },
+
+    /**
+     * Установка таймлайна для проигрывателя. Фактически, это прокси.
+     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
+     */
+    //TODO утвердить принадлежность данных таймлайна, после утверждения её модели
+    setTimeline: function (timeline) {
+        return this.fetch.setTimeline(timeline);
     },
 
     /**
@@ -123,6 +137,14 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * Остановит проигрывание и перемотает на предыдущий кадр
      */
     prevFrame: function () {
+
+    },
+
+    /**
+     * Отрисует на сцене текущее состояние фигур и их свойств
+     * @private
+     */
+    renderFrame: function () {
 
     }
 

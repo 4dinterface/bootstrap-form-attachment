@@ -1,8 +1,13 @@
 // позже разместим код модели
 // сейчас тут эксперементальные данные с которыми можно реботать
 if (!app.model) app.model={};
-
-app.model.Timeline=function(){
+/**
+ * Конструктор таймлайнов. Это класс для складирования данных.
+ * @name app.model.Timeline
+ * @returns {Array}
+ * @constructor
+ */
+app.model.Timeline = function(){
     return [
 	new app.Model({
             //демонстрационный первый обьект

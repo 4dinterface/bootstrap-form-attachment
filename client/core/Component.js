@@ -1,4 +1,9 @@
-Define("app.Component", /** @lends {app.component} */({
+/**
+ * Класс, который наследуется всеми компонентами
+ * @name app.Component
+ * @class
+ */
+Define("app.Component", /** @lends {app.Сomponent} */({
 
     /**
      * Регистр событий и их обработчиков
@@ -7,6 +12,10 @@ Define("app.Component", /** @lends {app.component} */({
      */
     event: {},
 
+    /**
+     * Конструктор компонентов
+     * @constructor
+     */
     init: function () {		
         //подключаем обработчики событий		
 	for (event in this.listeners) {

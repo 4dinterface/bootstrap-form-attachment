@@ -1,4 +1,11 @@
 /**
+ * Глобальное пространство имён
+ * @namespace
+ * @type {Object}
+ */
+window.app;
+
+/**
  * Конструктор классов
  * @param {string} name имя класса
  * @param {Object} prop описывающий класс объект

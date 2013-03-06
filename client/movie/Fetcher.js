@@ -9,17 +9,26 @@
 // с другой хоть какнибудь резделить код на классы нужно
 //
 
+/**
+ * Класс, который будет возвращать актуальные значения свойств из модели
+ * @name app.movie.Fetch
+ * @extends {app.Component}
+ */
 Define('app.movie.Fetch',{
-    extend:app.Component,    
+    extend: app.Component,
     
     //таймлайн 
-    timeline:null,
+    timeline: null,
     
     //сцена
-    stage:null,
+    stage: null,
 
-    //конструктор
-    init:function(cfg){
+    /**
+     * Конструктор объекта, вытаскивающего значения свойств из модели
+     * @constructor
+     * @param {Object} cfg объект с аргументами
+     */
+    init: function(cfg){
         this.super();
         this.apply(cfg);        
     }    

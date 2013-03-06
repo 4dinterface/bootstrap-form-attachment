@@ -7,6 +7,7 @@
  * идея api взята из Flash
  *
  * @extends {app.Component}
+ * @name app.movie.Movie
  *
  * # Example
  * 
@@ -38,46 +39,91 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     extend: app.Component,
 
-    //таймлайн 
+    /**
+     * Данные, которыми располагает проигрыватель и его app.movie.Fetch
+     * @type {app.model.Timeline}
+     * @private
+     */
     timeline: null,
-    
-    //сцена
+
+    /**
+     * Сцена, на которой проигрыватель будет отрисовывать текущие значения
+     * @type {Object}
+     * @private
+     */
     stage: null,
 
-    //конструктор
+    /**
+     * Объект-интерполятор для проигрывателя
+     * @type {app.movie.Fetch}
+     * @private
+     */
+    fetch: null,
+
+    /**
+     * Конструктор объекта, позволяющего управлять воспроизведением
+     * @constructor
+     * @param {Object} cfg объект с дополнительными свойствами
+     */
     init: function(cfg){
         this.super();
         this.apply(cfg);   
         
-        //если будет отдельный класс для вычисления то можно р
-        //this.fetch=new app.movie.Fetch({ })
+        this.fetch = new app.movie.Fetch();
     },
 
-    //начать воспризведение
-    play: function(){
-        
-    },
-    
-    stop: function(){
+    /**
+     * Продолжает воспроизведение, начиная с указанной app.movie.Movie.setTime временной метки
+     */
+    play: function() {
         
     },
 
-    //переходит на кадр и начинаеит проигрывание
-    gotoAndPlay: function(time){
+    /**
+     * Производит остановку фильма на текущем кадре.
+     */
+    stop: function () {
+
+    },
+
+    /**
+     * Перемещает временную метку на указанную
+     * @param {number} time временная метка.
+     */
+    setTime: function(time){
         
     },
-    
-    //переходит на время, и начинает проигрывание
-    gotoAndStop: function(){
-        
+
+    /**
+     * Осуществляет немедленный безусловный переход на указанную временную метку, а затем воспроизводит текущий клип или фильм.
+     * @param {number} timestamp временная метка
+     */
+    gotoAndPlay: function (timestamp) {
+        this.setTime(timestamp);
+        this.play();
+    },
+
+    /**
+     * Осуществляет немедленный безусловный переход на указанную временную метку, а затем останавливает текущий клип или фильм.
+     * @param {number} timestamp временная метка
+     */
+    gotoAndStop: function (timestamp) {
+        this.setTime(timestamp);
+        this.stop();
+    },
+
+    /**
+     * Остановит проигрывание и перемотает на следующий кадр
+     */
+    nextFrame: function () {
+
+    },
+
+    /**
+     * Остановит проигрывание и перемотает на предыдущий кадр
+     */
+    prevFrame: function () {
+
     }
-    
-    //
-    //nextFrame: function(){
-    //},
-    
-    //
-    //prevFrame: function(){
-    //}
 
 }));

@@ -1,4 +1,4 @@
-// бдыщ от hnoe (компонент в разработке)
+// бдыщ от hnoe (компонент в разработке) :octocat:
 Define('app.Model', {
 
 	extend: app.Component,

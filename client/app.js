@@ -1,24 +1,33 @@
 ( function () {    
         'use strict'	
 	var 
-            // Экземпляр таймлайна
+            // создадим таймлайн
             timeline = new app.model.Timeline (),
 
-            // ролик
+            // создадим ролик
+            // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
+            // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
             movie=new app.movie.Movie({
                 timeLine:timeline
+                //stage:stage
             }),
             
-            //view таймлайна            
+            //view таймлайна
             tlView = new app.view.Timeline({
-                model : timeline,
+                // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
+                model : timeline,                
+                // доступ к муви, в муви хранится позиция бегунка
                 movie: movie                
             }),               
             
-            //контроллер
+            //контроллер таймлайна            
             tlController=new app.controller.TimeLine({
-                view:tlView,
-                model:timeline
+                //viev - прямой доступ контролёра к view, пока под вопросом
+                view:tlView,                
+                //модель таймлайна, которую контролёр сможет изменять
+                model:timeline,                                
+                //movie 
+                movie:movie
             })            
             
         //console.log(timeline);        

@@ -1,11 +1,13 @@
 /**
- * @docauthor Максим Сысоев <sisoev@superSite.com>
+ * @author Максим Сысоев
  * компонент отвечает за воспроизведения ролика и предоставляет api
  * позволяюще управлять воспроизведением
  * 
  * в качестве параметров принимает таймлайн и сцену
  * идея api взята из Flash
- * 
+ *
+ * @extends {app.Component}
+ * @name app.movie.Movie
  *
  * # Example
  * 
@@ -33,51 +35,117 @@
  *     
  *     
  */
+Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
-Define('app.movie.Movie',{
-    extend:app.Component,    
+    extend: app.Component,
 
-    //таймлайн 
-    timeline:null,
-    
-    //сцена
-    stage:null,
+    /**
+     * Сцена, на которой проигрыватель будет отрисовывать текущие значения
+     * @type {Object}
+     * @private
+     */
+    stage: null,
 
-    //конструктор
-    init:function(cfg){
+    /**
+     * Объект-интерполятор для проигрывателя
+     * @type {app.movie.Fetch}
+     * @private
+     */
+    fetch: null,
+
+    /**
+     * Число кадров в секунду при проигрывании
+     * 60 приблизительно равно частоте кадров при использовании requestAnimationFrame
+     * @type {number}
+     * @private
+     */
+    FPS: 60,
+
+    /**
+     * Временная метка старта проигрывания. Устанавливается методом setTime.
+     */
+    startPosition: null,
+
+    /**
+     * Конструктор объекта, позволяющего управлять воспроизведением
+     * @constructor
+     * @param {Object} cfg объект с дополнительными свойствами
+     */
+    init: function(cfg){
         this.super();
-        this.apply(cfg);   
-        
-        //если будет отдельный класс для вычисления то можно р
-        //this.fetch=new app.movie.Fetch({ })
+        this.apply(cfg);
+        this.fetch = new app.movie.Fetch();
     },
 
-    //начать воспризведение
-    play:function(){
-        
-    },
-    
-    stop:function(){        
+    /**
+     * Продолжает воспроизведение, начиная с текущей временной метки
+     */
+    play: function() {
         
     },
 
-    //переходит на кадр и начинаеит проигрывание
-    gotoAndPlay:function(time){
+    /**
+     * Производит остановку фильма на текущей временной метку.
+     */
+    stop: function () {
+
+    },
+
+    /**
+     * Перемещает временную метку на указанную
+     * @param {number} time временная метка.
+     */
+    setTime: function(time){
         
     },
-    
-    //переходит на время, и начинает проигрывание
-    gotoAndStop:function(){
-        
+
+    /**
+     * Установка таймлайна для проигрывателя. Фактически, это прокси.
+     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
+     */
+    //TODO утвердить принадлежность данных таймлайна, после утверждения её модели
+    setTimeline: function (timeline) {
+        return this.fetch.setTimeline(timeline);
+    },
+
+    /**
+     * Осуществляет немедленный безусловный переход на указанную временную метку, а затем воспроизводит текущий клип или фильм.
+     * @param {number} timestamp временная метка
+     */
+    gotoAndPlay: function (timestamp) {
+        this.setTime(timestamp);
+        this.play();
+    },
+
+    /**
+     * Осуществляет немедленный безусловный переход на указанную временную метку, а затем останавливает текущий клип или фильм.
+     * @param {number} timestamp временная метка
+     */
+    gotoAndStop: function (timestamp) {
+        this.setTime(timestamp);
+        this.stop();
+    },
+
+    /**
+     * Остановит проигрывание и перемотает на следующий кадр
+     */
+    nextFrame: function () {
+
+    },
+
+    /**
+     * Остановит проигрывание и перемотает на предыдущий кадр
+     */
+    prevFrame: function () {
+
+    },
+
+    /**
+     * Отрисует на сцене текущее состояние фигур и их свойств
+     * @private
+     */
+    renderFrame: function () {
+
     }
-    
-    //
-    //nextFrame:function(){        
-    //},
-    
-    //
-    //prevFrame:function(){
-    //}
-    
-    
-})
+
+}));

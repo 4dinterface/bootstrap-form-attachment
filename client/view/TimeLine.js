@@ -22,10 +22,10 @@ Define("app.view.Timeline", /** @lends {app.component} */{
         
         //цикл по обьектам
         for (var i=0;i<m.length;i++){            
-            document.write(m[i].title+"<br>");   
+            document.write(m[i].get('title')+"<br>");   
 
             //цикл по свойствам
-            for(var pi in m[i].prop  ){
+            for(var pi in m[i].get('prop')  ){
                document.write(pi+"<br>");                                  
             }            
             

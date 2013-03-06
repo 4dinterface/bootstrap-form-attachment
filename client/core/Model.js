@@ -19,7 +19,7 @@ Define('app.Model', {
             //this.length = this.cash.length;
 	},
 
-	set : function (property, value) {
+	set : function (property, value) {x
 		this.data[property] = value;
 		//cash = this.key();
 		//this.length = cash.length;
@@ -29,7 +29,9 @@ Define('app.Model', {
 
 	get : function (name) {
                 //alert(this.data[name]);
-		return this.data[name];
+                var data=this.data[name];
+                //console.log( 'this' , data );
+		return data;                
 	}
 });
 

@@ -34,7 +34,7 @@ Define=function(name,prop){
 				if (src[name]) src[name].apply(this,arg);
 			};
 
-			fun.apply(this,arguments);	
+			return fun.apply(this,arguments);	
 		}
 	}
 

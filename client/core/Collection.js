@@ -1,5 +1,8 @@
 //компонент в разработке
-Define('app.Collection',{    
+/**
+ * @name app.Collection
+ */
+Define('app.Collection', /** @lends {app.Collection} */ ({
                 
         extend:app.Component,
         
@@ -37,4 +40,4 @@ Define('app.Collection',{
         each:function(index){
             return this[ cash[index] ];     
         }     				    	
-});
+}));

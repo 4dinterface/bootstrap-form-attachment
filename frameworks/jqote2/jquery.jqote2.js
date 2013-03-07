@@ -122,7 +122,7 @@
                 if ( cache = $.jqotecache[template] ) return cache;
             } else {
                 elem = type === STR || template.nodeType ?
-                    $(template) : template instanceof jQuery ?
+                    $(template) : template instanceof $ ?
                         template : null;
 
                 if ( !elem[0] || !(tmpl = elem[0].innerHTML) && !(tmpl = elem.text()) )

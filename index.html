@@ -37,23 +37,15 @@
             
             <div id="timeline-editor"></div>
 
-            <p id="example"></p>
+
+             <!--<script type="text/x-jqote-template" id="timeline-line-template">-->
+                    <!--<div class="timeline-line"></div>-->
+                <!--</script>-->
 
 
-            <script type="text/x-jqote-template" id="template">
-                <![CDATA[
-                I said <strong><*= this.greet + " " + data[j].who *></strong> !!!
-                <* out = out.replace(/John/, 'World'); *>
-                ]]>
-            </script>
-
-            <script type="text/javascript">
-                // let's do some jQote magic
-                $('#example').append(
-                        $('#template').jqote({greet: 'Hello', who: 'John'}, '*')
-                );
-            </script>
-
+              <script type="text/x-jqote-template" id="timeline-block-template">
+                    <div class="timeline-block" style="top:<%=this.top%>px; left:<%=this.left%>px; width:<%=this.width%>px; background-color:<%=this.backgroundColor%>"></div>
+                </script>
 
 	</body>
 </html>

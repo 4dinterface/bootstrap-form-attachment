@@ -51,8 +51,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
             // append lines & blocks
             Object.keys( child.data.prop ).forEach(function( name ) {
-                var line = Zepto( '<div class="timeline-line" />' );
-
                 var prop = child.data.prop[ name ];
                 var points = prop.cash.slice();
                 var width;
@@ -72,16 +70,18 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 left = this.toPixels( left );
                 width = this.toPixels( width );
 
-                Zepto( '<div class="timeline-block" />' )
-                    .css({
-                        top: 0,
-                        left: left,
-                        width: width,
-                        backgroundColor: '#48d1cc'
-                    })
-                    .appendTo( line );
 
-                line.appendTo( '#timeline-editor' );
+                var block = $( '#timeline-block-template' ).jqote({
+                    top: 0,
+                    left: left,
+                    width: width,
+                    backgroundColor: '#48d1cc'
+                });
+
+                Zepto( '<div class="timeline-line" />' )
+                    .append( block )
+                    .appendTo( '#timeline-editor' );
+
 
             }, this );
 

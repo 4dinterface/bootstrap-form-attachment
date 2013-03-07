@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="client/view/Timeline.css" />
 
         <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
-        <script src="frameworks/zepto/zepto-1.0.min.js"></script>
+        <script src="frameworks/zepto/zepto.js"></script>
 
-        <script src="frameworks/jquery-tmpl/jquery.tmpl.js"></script>
+        <script src="frameworks/jqote2/jquery.jqote2.js"></script>
 
         <script src="client/core/Class.js"></script>
         <script src="client/core/Component.js"></script>
@@ -26,11 +26,32 @@
         <script src="client/app.js"></script>
 	</head>
 
+
 	<body style="">
+
             <div id="canvas-editor">
                 <canvas id="canvas"></canvas>
             </div>	
             
             <div id="timeline-editor"></div>
+
+            <p id="example"></p>
+
+
+            <script type="text/x-jqote-template" id="template">
+                <![CDATA[
+                I said <strong><*= this.greet + " " + data[j].who *></strong> !!!
+                <* out = out.replace(/John/, 'World'); *>
+                ]]>
+            </script>
+
+            <script type="text/javascript">
+                // let's do some jQote magic
+                $('#example').append(
+                        $('#template').jqote({greet: 'Hello', who: 'John'}, '*')
+                );
+            </script>
+
+
 	</body>
 </html>

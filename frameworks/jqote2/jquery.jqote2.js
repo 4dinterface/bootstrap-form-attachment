@@ -152,7 +152,7 @@
                 var fn = new Function('i, j, data, fn', str);
             } catch ( e ) { raise(e, {type: JQOTE2_TMPL_COMP_ERROR}); }
 
-            index = elem instanceof jQuery ?
+            index = elem instanceof $ ?
                 $.fn.data(elem[0], 'jqote_id', n) : elem;
 
             return $.jqotecache[index] = (fn.jqote_id = n++, fn);
@@ -200,4 +200,5 @@
             };
         }
     };
+
 })(Zepto);

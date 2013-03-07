@@ -5,7 +5,7 @@ This is the fork of jQuery Templates that we use internally here at Kanban Solut
 Docs
 ====
 
-http://plugins.jquery.com/jquery-tmpl/
+http://plugins.jquery.com/jquery-tmpl/<br />
 http://habrahabr.ru/post/112843/
 
 {%= fieldNameOrExpression %}

@@ -26,7 +26,7 @@ app.model.Timeline=function(){
                         easing:"none"					
                     }),
                     
-                    10:app.Model({
+                    8:app.Model({
                         value:50,
                         easing:"line"										
                     })				
@@ -53,7 +53,6 @@ app.model.Timeline=function(){
             title:"shape 2",
             target:{},
             prop:{
-
                 x:new app.Collection({
                     2:app.Model({
                         value:100,

@@ -21,19 +21,27 @@ Define('app.Model', /** @lends {app.Model} */ {
 	 * @param {Object} prop объект с описанием экземпляра
 	 */
 	init : function (prop) {
-		var i;
+            var i;
 
-		this.data = {};
+            this.data = {};
 
-		for (i in prop) {
-			if (prop.hasOwnProperty(i)) {
-				this.data[i] = prop[i];
-			}
-		}
-		//this.cash = Object.keys(this);
-		//this.length = this.cash.length;
+            for (i in prop) {
+                if (prop.hasOwnProperty(i)) {
+                    this.data[i] = prop[i];
+                }
+            }
+            //this.cash = Object.keys(this);
+            //this.length = this.cash.length;
+            
 	},
-
+        
+	/**
+	 * @method set
+	 * @param {property} name
+         * @param {value} value
+         * 
+	 * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
+	 **/
 	set : function (property, value) {
 		this.data[property] = value;
 		//cash = this.key();

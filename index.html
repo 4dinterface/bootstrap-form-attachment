@@ -1,7 +1,11 @@
 <html>
 	<head>
-            <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js">  </script>
+            <link rel="stylesheet" href="client/view/Timeline.css" />
             
+            <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
+            <script src="frameworks/zepto/zepto-1.0.min.js"></script>
+            
+
             <script src="client/core/Class.js">  </script>
             <script src="client/core/Component.js">  </script>
             <script src="client/core/Collection.js">  </script>
@@ -14,20 +18,20 @@
             <script src="client/view/Timeline.js">  </script>
             <script src="client/controller/Timeline.js">  </script>
 
+            <script src="client/scene/Stage.js">  </script>
+
             <script src="client/movie/Movie.js">  </script>
             <script src="client/movie/Fetcher.js">  </script>
                         
             <script src="client/app.js">  </script>
 	</head>
 
-	<body style="width:100%;height:100%;">
-            <div style="width:100%;height:50%"> 
-                <canvas id="canvas" style="width:100%;height:100%"/>
+	<body style="">
+            <div id="canvas-editor" style="height:200px">
+                <canvas id="canvas" width="900" height="200"></canvas>
             </div>	
             
-            <div id="timelineEditor" style="width:100%;height:50%"> 
-
-            </div>	
+            <div id="timeline-editor" style="top:200px"></div>
 	</body>
 
 </html>

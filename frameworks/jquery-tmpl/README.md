@@ -5,10 +5,8 @@ This is the fork of jQuery Templates that we use internally here at Kanban Solut
 Docs
 ====
 
-[.tmpl()](http://api.jquery.com/tmpl/)
-[jQuery.tmpl()](http://api.jquery.com/jquery.tmpl/)
-[.template()](http://api.jquery.com/template/)
-[jQuery.template()](http://api.jquery.com/jQuery.template/)
+http://plugins.jquery.com/jquery-tmpl/
+http://habrahabr.ru/post/112843/
 
 {%= fieldNameOrExpression %}
 ----

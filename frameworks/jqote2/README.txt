@@ -1,4 +1,4 @@
-﻿# jQote2 – Клиентский javascript шаблонизатор
+# jQote2 – Клиентский javascript шаблонизатор
 
 ## About 
 http://aefxx.com/jquery-plugins/jqote2/

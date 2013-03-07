@@ -6,19 +6,19 @@ https://github.com/aefxx/jQote2
 
 ## API
 Обзор:
-+ **<a href="$(template).jqote(data[, tag])">$(template).jqote(data[, tag])</a>**
-+ **<a href="$(elem).jqotepre(template, data[, tag])">$(elem).jqoteapp(template, data[, tag])</a>**
-+ **<a href="$(elem).jqotepre(template, data[, tag])">$(elem).jqotepre(template, data[, tag])</a>**
-+ **<a href="$(elem).jqotesub(template, data[, tag])">$(elem).jqotesub(template, data[, tag])</a>**
-+ **<a href="$.jqote(template, data[, tag])">$.jqote(template, data[, tag])</a>**
-+ **<a href="$.jqotec(template[, tag])">$.jqotec(template[, tag])</a>**
-+ **<a href="$.jqotefn(template)">$.jqotefn(template)</a>**
-+ **<a href="$.jqotetag(string)">$.jqotetag(string)</a>**
++ **<a href="#jqote">$(template).jqote(data[, tag])</a>**
++ **<a href="#jqoteapp">$(elem).jqoteapp(template, data[, tag])</a>**
++ **<a href="#jqotepre">$(elem).jqotepre(template, data[, tag])</a>**
++ **<a href="#jqotesub">$(elem).jqotesub(template, data[, tag])</a>**
++ **<a href="#jqote1">$.jqote(template, data[, tag])</a>**
++ **<a href="#jqotec">$.jqotec(template[, tag])</a>**
++ **<a href="#jqotefn">$.jqotefn(template)</a>**
++ **<a href="#jqotetag">$.jqotetag(string)</a>**
 
 [Ссылка на полное описание](http://aefxx.com/api/jqote2-reference/)
 <br/ >
 <br/ >
-### $(template).jqote(data[, tag])<a name="$(template).jqote(data[, tag])"></a>
+### $(template).jqote(data[, tag])<a name="jqote"></a>
 jQote2 способен работать с произвольным количеством шаблонов, каждый их которых может обрабатывать произвольное количество объектов данных.
 
 Каждый раз во время запуска, доступны следующие пременные:
@@ -57,7 +57,7 @@ jQote2 способен работать с произвольным колич�
 </script>
 ```
 <br/ >
-### $(elem).jqoteapp(template, data[, tag]) / append<a name="$(elem).jqotepre(template, data[, tag])"></a>
+### $(elem).jqoteapp(template, data[, tag]) / append<a name="jqoteapp"></a>
 Один из трех методов, позволяющий добавлять сгенерированную разметку к элементу, найденному ранее по селектору.
 
 **Returns**<br/>
@@ -85,19 +85,19 @@ jQote2 способен работать с произвольным колич�
 </script>
 ```
 <br/ >
-### $(elem).jqotepre(template, data[, tag]) / prepend <a name="$(elem).jqotepre(template, data[, tag])"</a>
+### $(elem).jqotepre(template, data[, tag]) / prepend <a name="jqotepre"</a>
 Аналогичен методу выше, за исключением того, что добавляет сгенерированную разметку перед элементом.
 <br />
 <br />
-### $(elem).jqotesub(template, data[, tag]) / html only <a name="$(elem).jqotesub(template, data[, tag])"></a>
+### $(elem).jqotesub(template, data[, tag]) / html only <a name="jqotesub"></a>
 Эта функция служит для замены innerHTML элемента на сгенерированную разметку.
 <br />
 <br />
-### $.jqote(template, data[, tag]) <a name="$.jqote(template, data[, tag])"></a>
+### $.jqote(template, data[, tag]) <a name="jqote1"></a>
 Предоставляет ту же функциональность, что и упомянутые выше.
 <br />
 <br />
-### $.jqotec(template[, tag]) <a name="$.jqotec(template[, tag])"></a>
+### $.jqotec(template[, tag]) <a name="jqotec"></a>
 Движок jQote2. Парсит шаблоны и генерирует ламбда функции. Единожды преобразовав шаблон, компилирует его в функцию, которую кеширует для увеличения скорости работы.<br />
 Вы можете сохранить скомпилированную функцию в переменной и/или передать ее любой из ранее упомянутых функций, или предоставить jQote2 возможность получить их из внутреннего кэша (в этом случае передавайте связанные DOM элементы).<br />
 > Обратите внимание: строка шаблона сгенерированная на лету не будет закеширована, если с ней не связан DOM элемент или лямбда функция.
@@ -112,7 +112,7 @@ jQote2 способен работать с произвольным колич�
 `tag : string (optional)`
 <br />
 <br />
-### $.jqotefn(template) <a name="$.jqotefn(template)"></a>
+### $.jqotefn(template) <a name="jqotefn"></a>
 Функция предназначена для доступа к кэшу шаблонов (`$.jqotecache`) по средствам ID - внутреннего представления DOM элементов (целое число, отсчет ведеться от 0).
 
 **Returns**<br />
@@ -122,7 +122,7 @@ jQote2 способен работать с произвольным колич�
 `template : jQuery object | jQuery selector | DOM element`
 <br />
 <br />
-### $.jqotetag(string) <a name="$.jqotetag(string)"></a>
+### $.jqotetag(string) <a name="jqotetag"></a>
 С помощью этой функции можно изменить тег идентификатор. По умолчанию это `%`.
 
 **Returns**<br />

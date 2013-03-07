@@ -15,7 +15,7 @@
             return elem.cache[ key ];
         } else {
             elem.cache[ key ] = value;
-            return this;
+            return value;
         }
 
     };

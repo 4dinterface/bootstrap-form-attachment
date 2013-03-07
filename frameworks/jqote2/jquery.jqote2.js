@@ -122,7 +122,7 @@
                 if ( cache = $.jqotecache[template] ) return cache;
             } else {
                 elem = type === STR || template.nodeType ?
-                    $(template) : template instanceof $ ?
+                    $(template) : $.zepto.isZ( template ) ?
                         template : null;
 
                 if ( !elem[0] || !(tmpl = elem[0].innerHTML) && !(tmpl = elem.text()) )
@@ -152,7 +152,7 @@
                 var fn = new Function('i, j, data, fn', str);
             } catch ( e ) { raise(e, {type: JQOTE2_TMPL_COMP_ERROR}); }
 
-            index = elem instanceof $ ?
+            index = $.zepto.isZ( elem ) ?
                 $.fn.data(elem[0], 'jqote_id', n) : elem;
 
             return $.jqotecache[index] = (fn.jqote_id = n++, fn);

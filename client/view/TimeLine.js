@@ -70,8 +70,11 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 left = this.toPixels( left );
                 width = this.toPixels( width );
 
+                $.jqotec( '#timeline-block-template' );
 
-                var block = $( '#timeline-block-template' ).jqote({
+                console.log( $.jqotefn(  '#timeline-block-template' ) );
+
+                var block = $.jqote( '#timeline-block-template', {
                     top: 0,
                     left: left,
                     width: width,

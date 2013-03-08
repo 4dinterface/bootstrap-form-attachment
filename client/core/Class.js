@@ -8,7 +8,7 @@
 Define = function (name, prop) {
     var src = prop.extend || {},
         child = function () {
-            if (this.init) this.init.apply(this, arguments);
+            if (this.init) return this.init.apply(this, arguments)||this;
         };
 
     //child prototype - скопируем туда родителя

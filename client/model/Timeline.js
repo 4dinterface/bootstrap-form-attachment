@@ -14,7 +14,7 @@ if (!app.model) app.model={};
   * Пройдётся по свойствам для указанной фигуры и вызовет callback, передав свойство первым аргументом 
   * @param {Function} callback коллбек, принимающий первым аргументом имя свойства.
   */
-// iterateProperties( callback(propertyName) );
+// .( callback(propertyName) );
 /**
   * Вернёт два ключевых кадра для указанного свойства и фигуры. 
   * Выборка ключевых кадров удволетворяет условию
@@ -47,6 +47,7 @@ app.model.Timeline=function(){
             target:{},
             prop:{
                 x:new app.Collection({
+                    
                     0:app.Model({
                         value:0,
                         easing:"none"					

@@ -5,12 +5,14 @@ Define("app.Component", /** @lends {app.component} */({
      * @type {Object}
      * @private
      */
-    event: {},
+    event: null,
 
     init: function () {		
-        //подключаем обработчики событий		
+        //подключаем обработчики событий
+        this.event={};
+        alert(x);
 	for (event in this.listeners) {
-                   //
+            
 	}
     },
 	
@@ -22,11 +24,24 @@ Define("app.Component", /** @lends {app.component} */({
      * @param {string} name имя события на отправку
      * @param {Object} options представляющий событие объект
      */
-    fire: function (name, options) {
+    fire: function (name, options) {                
         var item;
+        
+        //
+        if(options){
+            if(! 'eventName' in options) options.eventName=name;
+            if(! 'eventTarget' in options) options.eventTarget=this; 
+        }
+        
 	for (item in this.event[name]) {
             this.event[name][item](options);
-        }
+        }        
+        
+        //bubble event
+        
+        for (item in this.event['bubble']) {
+            this.event['bubble'][item](options);
+        }        
     },
 
     /**

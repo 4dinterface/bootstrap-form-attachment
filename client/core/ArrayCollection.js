@@ -2,15 +2,17 @@
 
 Define('app.ArrayCollection',{                    
     extend:app.Component,                                
+    
         ToUint32:function(value) {
 	    return value >>> 0;
 	 },
 
 	
 	getMaxIndexProperty:function(object) {                        
-            function ToUint32(value) {
-                return value >>> 0;
-            };
+    //        function ToUint32(value) {
+      //          return value >>> 0;
+        //    };
+            var me=this;
             
             var maxIndex = -1, isValidProperty,me=this;
 
@@ -21,8 +23,8 @@ Define('app.ArrayCollection',{
             for (var prop in object) {
                 
 	      isValidProperty = (
-	        String(ToUint32(prop)) === prop &&
-	        ToUint32(prop) !== MAX_SIGNED_INT_VALUE &&
+	        String(me.ToUint32(prop)) === prop &&
+	        me.ToUint32(prop) !== MAX_SIGNED_INT_VALUE &&
 	        hasOwnProperty.call(object, prop));
 	
 	      if (isValidProperty && prop > maxIndex) {
@@ -32,28 +34,19 @@ Define('app.ArrayCollection',{
             return maxIndex;
         },
             
-	init:function (prop){                      
-            this.initLength();
-            this.initToString();
-            var me=this
-            var ret=Object.create(Array.prototype,{
-                initLength: {
-                  value: me.initLength
-                },
-                
-                getMaxIndexProperty:{
-                    value: me.getMaxIndexProperty
-                },
-                ToUint32: {
-                    value :function (value){
-                        return value >>> 0;
-                    }
-                }         
-            });
+	init:function (prop){    
+
+            this.event={};
+        
+            var prep={};
+            for (i in this){
+                prep[i]={ value:this[i] }
+            }
             
+            var ret=Object.create(Array.prototype,prep);            
             ret.initLength();
-            //ret.y
-            return ret;            
+            
+            return ret;                        
         },
         
         initLength:function(){
@@ -75,17 +68,7 @@ Define('app.ArrayCollection',{
             });        
         },
         
-        initToString:function(){
-        /*    var me=this;
-            Object.defineProperty(this, "toString", {
-              get: function() {
-                  //return Array.prototype.join;
-                  alert("ghbdtn");
-                  return Object.prototype.toString(me);
-	      }              
-            });        
-            */
-        },
+        
         
         toString:function(){
             var str="";

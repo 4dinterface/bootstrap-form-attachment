@@ -1,5 +1,5 @@
 //компонент в разработке
-Define('app.Collection',{    
+Define('app.ObjectCollection',{    
                 
         extend:app.Component,
         
@@ -44,11 +44,9 @@ Define('app.Collection',{
 	 **/
         forEach:function(callback){
             for(prop in this) {
-                if ( this[prop] === this.proto[prop] ) continue;
-                if ( typeof(prop) == "number" ) continue;                
-                                
-                callback(prop, this[prop], this);
+                if ( this[prop] === this.proto[prop] ) continue;                
+                if ( prop*1 ) callback(this[prop],prop , this);
             }
-            //return this[ this.cash[index] ];     
+            return this;
         }     				    	
 });

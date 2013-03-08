@@ -72,7 +72,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 width = this.toPixels( width );
 
                 lines.push({
-                    top: 0,
                     left: left,
                     width: width,
                     backgroundColor: '#48d1cc'

@@ -24,6 +24,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //здесь твой код
         // -----------------------//
 
+
         // установить кол-во пикслей в секунде
         this.options.set( 'ratio', 100 );
 
@@ -64,7 +65,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     render: function() {
 
         // используем шаблонизатор для генерации разметки
-        $( '#timeline-editor' ).jqotesub( '#timeline-line-template', this.query() );
+        $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
 
     },
 
@@ -77,40 +78,42 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      * @returns {Array}
      */
     query: function() {
-        var keyframes = [];
+        var lines = [];
 
         this.model.forEach(function( child ) {
 
             Object.keys( child.data.prop ).forEach(function( name ) {
                 var prop = child.data.prop[ name ];
-                var points = prop.cash.slice();
+                var keyframes = prop.cash.slice();
                 var width;
                 var left;
 
-                points = points.filter(function( val ) {
+                keyframes = keyframes.filter(function( val ) {
                     return !isNaN( +val );
                 });
 
-                points = points.sort(function( a, b ) {
+                keyframes = keyframes.map(function( val ) {
+                    return this.toPixels( val * 100 ) - 4;
+                }, this );
+
+                keyframes = keyframes.sort(function( a, b ) {
                     return a - b;
                 });
 
-                left = points[ 0 ] * 100;
-                width = points[ points.length - 1 ] * 100;
+                left = keyframes[ 0 ] + 4;
+                width = keyframes[ keyframes.length - 1 ] + 4;
 
-                left = this.toPixels( left );
-                width = this.toPixels( width );
-
-                keyframes.push({
+                lines.push({
                     left: left,
-                    width: width
+                    width: width,
+                    keyframes: keyframes
                 });
 
             }, this )
 
         }, this );
 
-        return keyframes;
+        return lines;
     },
 
 

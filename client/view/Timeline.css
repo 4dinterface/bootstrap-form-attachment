@@ -29,5 +29,17 @@
     position: relative;
     margin: 0;
     top: 0px;
-    background-color: #48d1cc;
+    background-color: #87cefa;
+}
+
+
+.timeline-keyframe {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #4682b4;
+    top: 8px;
+    margin: 0;
+    -webkit-transform: rotate(50deg);
+    transform: rotate(50deg);
 }

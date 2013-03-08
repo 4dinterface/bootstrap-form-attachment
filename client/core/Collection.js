@@ -30,11 +30,25 @@ Define('app.Collection',{
 
         //возвращает значение по индексу
         item:function(index){
-            return this[ cash[index] ];     
+            return this[ this.cash[index] ];     
         },     		        
 
-        //перебор в порядке следования
-        each:function(index){
-            return this[ cash[index] ];     
+        /**
+	 * Returns a data url that contains a Base64-encoded image of the contents of the stage. The returned data url can be
+	 * @method forEach
+	 * @param {callback} ASD
+	 * value, including HEX colors, rgb and rgba. The default value is a transparent background.
+	 * @param {String} mimeType The MIME type of the image format to be create. The default is "image/png". If an unknown MIME type
+	 * is passed in, or if the browser does not support the specified MIME type, the default value will be used.
+	 * @return {String} a Base64 encoded image.
+	 **/
+        forEach:function(callback){
+            for(prop in this) {
+                if ( this[prop] === this.proto[prop] ) continue;
+                if ( typeof(prop) == "number" ) continue;                
+                                
+                callback(prop, this[prop], this);
+            }
+            //return this[ this.cash[index] ];     
         }     				    	
 });

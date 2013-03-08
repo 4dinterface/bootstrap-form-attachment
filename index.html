@@ -1,57 +1,39 @@
-<!DOCTYPE html>
 <html>
 	<head>
-        <meta charset="utf-8"/>
+            <link rel="stylesheet" href="client/view/Timeline.css" />
+            
+            <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
+            <script src="frameworks/zepto/zepto-1.0.min.js"></script>
+            
 
-        <title>sandbox</title>
+            <script src="client/core/Class.js">  </script>
+            <script src="client/core/Component.js">  </script>
+            <script src="client/core/Collection.js">  </script>
+            <script src="client/core/Model.js">  </script>
 
-        <link rel="stylesheet" href="client/view/Timeline.css" />
+            <script src="client/model/Timeline.js">  </script>                        
+            
+            
+            <script src="client/model/Timeline.js">  </script>                        
+            <script src="client/view/Timeline.js">  </script>
+            <script src="client/controller/Timeline.js">  </script>
+            
+            <script src="client/controller/Scene.js">  </script>
+            
+            <script src="client/scene/Stage.js">  </script>
 
-        <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
-        <script src="frameworks/zepto/zepto.js"></script>
-
-        <script src="frameworks/zepto/zepto.data.js"></script>
-
-        <script src="frameworks/jqote2/jquery.jqote2.js"></script>
-
-        <script src="client/core/Class.js"></script>
-        <script src="client/core/Component.js"></script>
-        <script src="client/core/Collection.js"></script>
-        <script src="client/core/Model.js"></script>
-
-        <script src="client/model/Timeline.js"></script>
-        <script src="client/view/Timeline.js"></script>
-        <script src="client/controller/Timeline.js"></script>
-
-        <script src="client/movie/Movie.js"></script>
-
-        <script src="client/app.js"></script>
+            <script src="client/movie/Movie.js">  </script>
+            <script src="client/movie/Fetcher.js">  </script>
+                        
+            <script src="client/app.js">  </script>
 	</head>
 
-
 	<body style="">
-
-            <div id="canvas-editor">
-                <canvas id="canvas"></canvas>
+            <div id="canvas-editor" style="height:200px">
+                <canvas id="canvas" width="900" height="200"></canvas>
             </div>	
             
-            <div id="timeline-editor"></div>
-
-            <input type="range" min="0.5" max="2.0" step="0.1" value="1" style="position: absolute; top: 250px; width: 200px;">
-            <input type="text" value="1" style="position: absolute; top: 250px; left: 250px; width: 50px;">
-
-
-             <script type="text/x-jqote-template" id="timeline-line-template">
-                    <div class="timeline-line">
-                        <%= $.jqote( '#timeline-block-template', this ) %>
-                    </div>
-                </script>
-
-
-              <script type="text/x-jqote-template" id="timeline-block-template">
-                        <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;"></div>
-                </script>
-
-
+            <div id="timeline-editor" style="top:200px"></div>
 	</body>
+
 </html>

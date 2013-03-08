@@ -1,37 +1,105 @@
 //array collection пока ещё в работе
 
-Define('app.arrayCollection',{                    
-        extend:app.Component,
-        length:0,
-        
-        //cash:[],
-        
-        //наследование
-	init:function (prop){
-            this.cash=[];
+Define('app.ArrayCollection',{                    
+    extend:app.Component,                                
+        ToUint32:function(value) {
+	    return value >>> 0;
+	 },
+
+	
+	getMaxIndexProperty:function(object) {                        
+            function ToUint32(value) {
+                return value >>> 0;
+            };
             
-            for(var i in prop) this[i]=prop[i];                        
-            this.cash=Object.keys(this);
-            this.length=this.cash.length;
-        },
+            var maxIndex = -1, isValidProperty,me=this;
+
+            var MAX_SIGNED_INT_VALUE = Math.pow(2, 32) - 1,
+	      hasOwnProperty = Object.prototype.hasOwnProperty;
+            
+	
+            for (var prop in object) {
                 
-
-        //геттер свойств
-        get:function(name){
-            return this[name];
-	},
-        
-	//setter
-	set:function(name,val){
-	    this[name]=val;
-            cash=this.key();
-            this.length=cash.length;
-            this.fire('change',{});	   
+	      isValidProperty = (
+	        String(ToUint32(prop)) === prop &&
+	        ToUint32(prop) !== MAX_SIGNED_INT_VALUE &&
+	        hasOwnProperty.call(object, prop));
+	
+	      if (isValidProperty && prop > maxIndex) {
+	        maxIndex = prop;
+	      }
+	    }
+            return maxIndex;
         },
-
-        //возвращает значение по индексу
-        item:function(index){
-            return this[ cash[index] ];     
+            
+	init:function (prop){                      
+            this.initLength();
+            this.initToString();
+            var me=this
+            var ret=Object.create(Array.prototype,{
+                initLength: {
+                  value: me.initLength
+                },
+                
+                getMaxIndexProperty:{
+                    value: me.getMaxIndexProperty
+                },
+                ToUint32: {
+                    value :function (value){
+                        return value >>> 0;
+                    }
+                }         
+            });
+            
+            ret.initLength();
+            //ret.y
+            return ret;            
+        },
+        
+        initLength:function(){
+            Object.defineProperty(this, "length", {
+              get: function() {
+	        var maxIndexProperty = +this.getMaxIndexProperty(this);
+	        return Math.max(length, maxIndexProperty + 1);
+              },
+              set: function(value) {
+	        var constrainedValue = this.ToUint32(value);
+	        if (constrainedValue !== +value) {
+	          throw new RangeError();
+	        }
+	        for (var i = constrainedValue, len = this.length; i < len; i++) {
+	          delete this[i];
+	        }
+	        length = constrainedValue;
+	      }
+            });        
+        },
+        
+        initToString:function(){
+        /*    var me=this;
+            Object.defineProperty(this, "toString", {
+              get: function() {
+                  //return Array.prototype.join;
+                  alert("ghbdtn");
+                  return Object.prototype.toString(me);
+	      }              
+            });        
+            */
+        },
+        
+        toString:function(){
+            var str="";
+            
+            for (i in this) if (i*1){
+                t=typeof( this[i]  );
+                
+                if( t=="string")str+="'"+this[i]+"', ";                                
+                else str+=this[i]+", ";
+            }
+            
+            return "["+str+"]";            
         }
-
+        
+        
+        //toString :function(){}//?
 });

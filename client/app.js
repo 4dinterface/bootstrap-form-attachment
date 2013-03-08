@@ -3,14 +3,23 @@
 	var 
             // создадим таймлайн
             timeline = new app.model.Timeline (),
+            
+            //контроллер таймлайна            
+            stage=new app.scene.Stage(),
+                        
 
             // создадим ролик
             // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
             // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
             movie=new app.movie.Movie({
-                timeLine:timeline
-                //stage:stage
+                timeLine:timeline,
+                stage:stage
             }),
+            
+            sceneContr=new app.controller.Scene({
+                stage:stage
+            }),
+            
             
             //view таймлайна
             tlView = new app.view.Timeline({
@@ -28,7 +37,9 @@
                 model:timeline,                                
                 //movie 
                 movie:movie
-            })            
+            });
+            
+            console.log("stage",stage);
  
         //console.log(timeline);        
         //контроллер 

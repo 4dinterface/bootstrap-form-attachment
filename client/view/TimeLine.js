@@ -47,9 +47,10 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         console.log( this.model );
         //Это только демонстрационный код, от которого можно отталкнуться
 
+        var lines = [];
+
         this.model.forEach(function( child ) {
 
-            // append lines & blocks
             Object.keys( child.data.prop ).forEach(function( name ) {
                 var prop = child.data.prop[ name ];
                 var points = prop.cash.slice();
@@ -70,25 +71,21 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 left = this.toPixels( left );
                 width = this.toPixels( width );
 
-                $.jqotec( '#timeline-block-template' );
-
-                console.log( $.jqotefn(  '#timeline-block-template' ) );
-
-                var block = $.jqote( '#timeline-block-template', {
+                lines.push({
                     top: 0,
                     left: left,
                     width: width,
                     backgroundColor: '#48d1cc'
                 });
 
-                Zepto( '<div class="timeline-line" />' )
-                    .append( block )
-                    .appendTo( '#timeline-editor' );
-
-
             }, this );
 
         }, this );
+
+        console.log( lines );
+
+        // используем шаблонизатор для генерации разметки
+        $( '#timeline-editor' ).jqoteapp( '#timeline-line-template', lines );
 
     },
 

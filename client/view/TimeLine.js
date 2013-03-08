@@ -24,14 +24,33 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //здесь твой код
         // -----------------------//
 
-        // установить кол-во пикслей в миллисекунде
+        // установить кол-во пикслей в секунде
         this.options.set( 'ratio', 100 );
+
+        // установить зум
+        this.options.set( 'zoom', 1 );
+
 
         var that = this;
 
 
         Zepto(function() {
             that.render();
+
+            // testing
+            var slider = $( '[type=range]' );
+            var filed = $( '[type=text]' );
+
+            slider.on( 'change', function() {
+                filed.val( this.value );
+                applyZoom( +this.value );
+            });
+
+            function applyZoom( value ) {
+                that.options.set( 'zoom', value );
+                that.render();
+            }
+
         });
 
     },
@@ -44,15 +63,25 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     render: function() {
 
-        console.log( this.model );
-        //Это только демонстрационный код, от которого можно отталкнуться
+        // используем шаблонизатор для генерации разметки
+        $( '#timeline-editor' ).jqotesub( '#timeline-line-template', this.query() );
+
+    },
+
+
+    /**
+     * Запрашивает у модели данные
+     * Возвращает массив обработанных данных полученных из кейфреймов
+     *
+     * @this {Timeline}
+     * @returns {Array}
+     */
+    query: function() {
+        var keyframes = [];
 
         this.model.forEach(function( child ) {
 
-            // append lines & blocks
             Object.keys( child.data.prop ).forEach(function( name ) {
-                var line = Zepto( '<div class="timeline-line" />' );
-
                 var prop = child.data.prop[ name ];
                 var points = prop.cash.slice();
                 var width;
@@ -72,21 +101,16 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 left = this.toPixels( left );
                 width = this.toPixels( width );
 
-                Zepto( '<div class="timeline-block" />' )
-                    .css({
-                        top: 0,
-                        left: left,
-                        width: width,
-                        backgroundColor: '#48d1cc'
-                    })
-                    .appendTo( line );
+                keyframes.push({
+                    left: left,
+                    width: width
+                });
 
-                line.appendTo( '#timeline-editor' );
-
-            }, this );
+            }, this )
 
         }, this );
 
+        return keyframes;
     },
 
 
@@ -119,7 +143,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  @returns {Number}
      */
     toPixels: function( milliseconds ) {
-        return milliseconds / 1000 * this.options.get( 'ratio' );
+        return milliseconds / 1000 * this.options.get( 'ratio' ) * this.options.get( 'zoom' );
     },
 
 
@@ -132,7 +156,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  @returns {Number}
      */
     toMilliseconds: function( pixels ) {
-        return pixels / this.options.get( 'ratio' ) * 1000;
+        return pixels / this.options.get( 'ratio' ) * 1000 * this.options.get( 'zoom' );;
     }
 
 } );

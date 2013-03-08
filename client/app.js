@@ -16,6 +16,11 @@
                 stage:stage
             }),
             
+            sceneContr=new app.controller.Scene({
+                stage:stage
+            }),
+            
+            
             //view таймлайна
             tlView = new app.view.Timeline({
                 // доступ к модели таймлайна нам понадобится чтобы его отрисовывать

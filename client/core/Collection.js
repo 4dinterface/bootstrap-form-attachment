@@ -30,7 +30,7 @@ Define('app.Collection',{
 
         //возвращает значение по индексу
         item:function(index){
-            return this[ cash[index] ];     
+            return this[ this.cash[index] ];     
         },     		        
 
         /**
@@ -44,11 +44,11 @@ Define('app.Collection',{
 	 **/
         forEach:function(callback){
             for(prop in this) {
-                if (!object.hasOwnProperty(prop)) continue;
-                if (prop!="length") continue;
-                
-                callback(prop,this[prop],this);
+                if ( this[prop] === this.proto[prop] ) continue;
+                if ( typeof(prop) == "number" ) continue;                
+                                
+                callback(prop, this[prop], this);
             }
-            return this[ cash[index] ];     
+            //return this[ this.cash[index] ];     
         }     				    	
 });

@@ -1,13 +1,18 @@
 
 
-#timeline-editor {
+#timeline-wrapper {
+    position: relative;
     border: 2px solid blue;
+    width: 800px;
+}
+
+
+#timeline-editor {
     position: relative;
     top: 0px;
     left: 0px;
     padding: 0;
     height: 200px;
-    width: 800px;
     overflow: auto;
 }
 
@@ -53,4 +58,32 @@
     width: 1px;
     height: 20px;
     background-color: #4682b4;
+}
+
+
+#timeline-ruler {
+    position: relative;
+    height: 20px;
+}
+
+
+.cls1, .cls2, .cls3 {
+    width: 1px;
+    margin: 0 2px 0 0;
+    float: left;
+    overflow: hidden;
+    background: gray;
+}
+
+
+.cls1 {
+    height: 15px;
+}
+
+.cls2 {
+    height: 10px;
+}
+
+.cls3 {
+    height: 5px;
 }

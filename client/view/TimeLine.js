@@ -101,7 +101,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 });
 
                 left = keyframes[ 0 ] + 4;
-                width = keyframes[ keyframes.length - 1 ] + 4;
+                width = (keyframes[ keyframes.length - 1 ] + 4) - left;     // fix
 
                 lines.push({
                     left: left,

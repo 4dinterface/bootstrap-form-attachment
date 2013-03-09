@@ -2,7 +2,7 @@
 
 #timeline-editor {
     border: 2px solid blue;
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 0px;
     padding: 0;
@@ -25,7 +25,9 @@
 
 
 .timeline-block {
-    height: 20px;
+    border-top: 1px solid #4682b4;
+    border-bottom: 1px solid #4682b4;
+    height: 18px;
     position: relative;
     margin: 0;
     top: 0px;
@@ -42,4 +44,13 @@
     margin-left: -4px;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+
+.timeline-limiter {
+    position: absolute;
+    top: 2px;
+    width: 1px;
+    height: 20px;
+    background-color: #4682b4;
 }

@@ -53,8 +53,8 @@
             </div>
         </div>
 
-        <input type="range" min="0.5" max="2.0" step="0.1" value="1" style="position: absolute; top: 250px; width: 200px;">
-        <input type="text" value="1" style="position: absolute; top: 250px; left: 250px; width: 50px;">
+       <b>Zoom</b> <input type="range" min="0.1" max="4.0" step="0.1" value="1" style="position: relative; width: 200px;">
+        <input type="text" value="1" style="position: relative; width: 50px;">
 
 
         <script type="text/x-jqote-template" id="template-timeline-line">
@@ -71,6 +71,7 @@
 
 
        <script type="text/x-jqote-template" id="template-timeline-keyframe">
+            <div class="timeline-limiter" style="left:<%=this%>px;"></div>
             <div class="timeline-keyframe" style="left:<%=this%>px;"></div>
          </script>
 

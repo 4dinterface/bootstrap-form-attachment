@@ -93,15 +93,15 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 });
 
                 keyframes = keyframes.map(function( val ) {
-                    return this.toPixels( val * 100 ) - 4;
+                    return this.toPixels( val * 100 )
                 }, this );
 
                 keyframes = keyframes.sort(function( a, b ) {
                     return a - b;
                 });
 
-                left = keyframes[ 0 ] + 4;
-                width = (keyframes[ keyframes.length - 1 ] + 4) - left;     // fix
+                left = keyframes[ 0 ];
+                width = keyframes[ keyframes.length - 1 ] - left;     // fix
 
                 lines.push({
                     left: left,

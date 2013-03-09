@@ -39,7 +39,7 @@
     height: 8px;
     background-color: #4682b4;
     top: 8px;
-    margin: 0;
-    -webkit-transform: rotate(50deg);
-    transform: rotate(50deg);
+    margin-left: -4px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

@@ -3,6 +3,6 @@ Define("app.controller.Scene", {
     init: function (prop) {
         this.super();
         this.apply(prop);
-        alert("hello Hnoy");
+        //alert("hello Hnoy");
     }
 });

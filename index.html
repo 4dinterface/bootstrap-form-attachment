@@ -4,11 +4,15 @@
             
             <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
             <script src="frameworks/zepto/zepto-1.0.min.js"></script>
-            
+
+			<script src="frameworks/zepto/zepto.data.js"></script>
+	        <script src="frameworks/jqote2/jquery.jqote2.js"></script>
+           
 
             <script src="client/core/Class.js">  </script>
             <script src="client/core/Component.js">  </script>
-            <script src="client/core/Collection.js">  </script>
+            <script src="client/core/ObjectCollection.js">  </script>
+            <script src="client/core/ArrayCollection.js">  </script>
             <script src="client/core/Model.js">  </script>
 
             <script src="client/model/Timeline.js">  </script>                        
@@ -34,6 +38,42 @@
             </div>	
             
             <div id="timeline-editor" style="top:200px"></div>
+
+
+
+            <input type="range" min="0.5" max="2.0" step="0.1" value="1" style="position: absolute; top: 250px; width: 200px;">
+            <input type="text" value="1" style="position: absolute; top: 250px; left: 250px; width: 50px;">
+
+
+
+			    <script type="text/x-jqote-template" id="timeline-line-template">
+                    <div class="timeline-line">
+                        <%= $.jqote( '#timeline-block-template', this ) %>
+                    </div>
+                </script>
+
+
+              <script type="text/x-jqote-template" id="timeline-block-template">
+                        <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;"></div>
+                </script>
+
 	</body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

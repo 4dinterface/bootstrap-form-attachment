@@ -11,7 +11,7 @@
         
     </head>
     <body>
-        <script src="/client/core/Collection.js"></script>            
+        <script src="/client/core/ObjectCollection.js"></script>            
         
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>
@@ -19,13 +19,13 @@
         <script>
             test( "test foreEach", function() {                
                 
-                var z=new app.Collection({
+                var z=new app.ObjectCollection({
                   1:100,
                   2:200
                 });
                 console.log (z);
                 
-                z.forEach(function(num){
+                z.forEach(function(val,num){
                     ok(  !isNaN(parseFloat(num)) && isFinite(num) , " Passed! "+num  );    
                 });
                 //ok( 1 == "1", "Passed!" );

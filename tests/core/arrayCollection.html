@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>QUnit Example</title>
-        <!--<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
-        <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>   -->
+        <title>ArrayCollection Testing</title>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
+        <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>  
         
         <script src="/client/core/Class.js"></script>       
         <script src="/client/core/Component.js"></script>       
@@ -14,28 +14,59 @@
         <script src="/client/core/ArrayCollection.js"></script>            
         
         <div id="qunit"></div>
-        <div id="qunit-fixture"></div>
-            
-            
+        <div id="qunit-fixture"></div>                        
               
-        <script>              
-              var a=new app.ArrayCollection();
-              a[1]=1;
-              a[2]=2;
-              a[3]="vv2";
-              a[5]=function(){
-                  return 1;
-              };
-              a.pop();
-              a.shift();
+        <script>                            
+              test( "test length", function() {                
+                  var z=new app.ArrayCollection();
+                  z.push(1);
+                  z.push(2);
+                  z.push(3);
+                  z.push(3);                  
+                  z.pop();
+                  
+                  //alert(z.length);
+                  ok( z.length==3, " push/pop Passed! " );                                                                            
+                  
+                  z[6]=100;
+                  z.push(123);
+                  z.push(123);
+                  z.push(123);
+                  z.pop(1);                  
+                  z.pop(1);   
+                  z.pop(1);   
+                  ok( z.length==7, " []/push/pop Passed! " );                                                                            
+              });             
+
+              test( "foreach", function() {                
+                var z=new app.ArrayCollection();              
+                z[1]=1;
+                z[3]=3;
+                z[5]=5;
+                z.forEach(function(val,num){
+                    ok( val==num, " for "+num+" Passed! " );                                                                            
+                })
+
+              });
               
-              a.push('1232');
               
-              alert(a.length);
-              alert(a);
+              test( "event access", function() {                
+                var z=new app.ArrayCollection();              
+                
+                ok( z.on, "method on accees" );                                                                            
+                ok( z.fire, "method fire accees" );                                
+                
+              });
               
-              console.log(a);
-               
+              test( "event used", function() {                
+                var z=new app.ArrayCollection();                                              
+                
+                z.on('hello',function(){
+                    ok( z.fire, "Event passed" ); 
+                })
+                z.fire('hello');                
+              });
+              
         </script>
     </body>
     

@@ -5,12 +5,12 @@ Define("app.controller.Scene", {
 		//вставляет свойста в обьект
 		this.apply(prop);
 
+		var stage = this.stage;
+
 		// Drag-n-Drop на канвас
 		$(function () {
-			var elem = prop["stage"];
-
-			elem.addEventListener("mousedown", function (e) {
-				var o = elem.getObjectUnderPoint(e.stageX, e.stageY);
+			stage.addEventListener("mousedown", function (e) {
+				var o = stage.getObjectUnderPoint(e.stageX, e.stageY);
 				var offset = {
 					x : o.x - e.stageX,
 					y : o.y - e.stageY
@@ -18,7 +18,7 @@ Define("app.controller.Scene", {
 				e.addEventListener("mousemove", function (e) {
 					o.x = e.stageX + offset.x;
 					o.y = e.stageY + offset.y;
-					prop["stage"].update();
+					stage.update();
 				});
 			});
 		});

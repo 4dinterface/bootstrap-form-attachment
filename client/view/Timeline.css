@@ -62,14 +62,27 @@
 
 
 #timeline-ruler {
+    background-color: #ffe4b5;
     position: relative;
     height: 20px;
+    overflow: hidden;
+}
+
+
+.timeline-ruler-pick {
+    width: 50px;
+    height: 20px;
+    float: left;
+    border-right: 1px solid gray;
+    text-align: left;
+    font-size: 0.6em;
+    font-family: Tahoma;
 }
 
 
 .cls1, .cls2, .cls3 {
     width: 1px;
-    margin: 0 2px 0 0;
+    margin: 0 10px 0 0;
     float: left;
     overflow: hidden;
     background: gray;
@@ -77,13 +90,18 @@
 
 
 .cls1 {
-    height: 15px;
+    height: 10px;
 }
 
 .cls2 {
-    height: 10px;
+    height: 5px;
 }
 
 .cls3 {
     height: 5px;
+}
+
+
+.clear-margint-right {
+    margin-right: 0;
 }

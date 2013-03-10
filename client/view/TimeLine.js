@@ -57,12 +57,32 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     },
 
 
+    // создать линейку
+    createRuler: function() {
+        var width = 800;
+        var points = new Array( width / 50 | 0 );
+        var section = 50 / this.options.get( 'zoom' ) / 100;
+
+        console.log( this.toMilliseconds( 100 ) );
+
+        var index = 0;
+
+        for( ; index < points.length; index++ ) {
+            points[ index ] = ( section * index ).toFixed( 3 );
+        }
+
+        $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
+    },
+
+
     /**
     * Рисует/обновляет представление таймлана
      *
      * @this {Timeline}
      */
     render: function() {
+
+        this.createRuler();
 
         // используем шаблонизатор для генерации разметки
         $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
@@ -93,7 +113,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 });
 
                 keyframes = keyframes.map(function( val ) {
-                    return this.toPixels( val * 100 )
+                    return this.toPixels( val * 100 ) * this.options.get( 'zoom' );
                 }, this );
 
                 keyframes = keyframes.sort(function( a, b ) {
@@ -146,7 +166,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  @returns {Number}
      */
     toPixels: function( milliseconds ) {
-        return milliseconds / 1000 * this.options.get( 'ratio' ) * this.options.get( 'zoom' );
+        return milliseconds / 1000 * this.options.get( 'ratio' );
     },
 
 
@@ -159,7 +179,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  @returns {Number}
      */
     toMilliseconds: function( pixels ) {
-        return pixels / this.options.get( 'ratio' ) * 1000 * this.options.get( 'zoom' );;
+        return pixels / this.options.get( 'ratio' ) * 1000;
     }
 
 } );

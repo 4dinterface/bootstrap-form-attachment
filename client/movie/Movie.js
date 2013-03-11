@@ -54,14 +54,6 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     fetch: null,
 
     /**
-     * Число кадров в секунду при проигрывании
-     * 60 приблизительно равно частоте кадров при использовании requestAnimationFrame
-     * @type {number}
-     * @private
-     */
-    FPS: 60,
-
-    /**
      * Временная метка старта проигрывания. Устанавливается методом setTime.
      */
     startPosition: null,
@@ -95,7 +87,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * Перемещает временную метку на указанную
      * @param {number} time временная метка.
      */
-    setTime: function(time){
+    setTime: function(time) {
         
     },
 

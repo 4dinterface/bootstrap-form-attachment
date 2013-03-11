@@ -67,6 +67,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
         this.super();
         this.apply(cfg);
         this.fetch = new app.movie.Fetch();
+        this.renderFrame = this.renderFrame.bind(this);
     },
 
     /**
@@ -137,7 +138,6 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @private
      */
     renderFrame: function () {
-
     }
 
 }));

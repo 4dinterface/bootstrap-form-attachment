@@ -36,7 +36,8 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch} */ ({
      */
     init: function(cfg){
         this.super();
-        this.apply(cfg);        
+        this.apply(cfg);
+        this.currentValues = {};
     },
 
     /**
@@ -48,19 +49,21 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch} */ ({
     },
 
     /**
-     * Высчитает значения свойств фигур на указанной временной метке и вернёт результат
-     * @param {number} timestamp временная метка
-     * @return {Array} высчитанная информация
+     * Текущие значения свойств фигур
+     * @type {Object}
+     * @private
      */
-    //TODO утвердить метод после утверждения модели фигур - Shape
-    fetch: function (timestamp) {
-        var fetchData;
+    currentValues: null,
 
-        fetchData = this.timeline.map(function ( /** @type {app.Model} */ model ) {
-            return this.fetchModel(model, timestamp);
-        }, this);
+    /**
+     * Высчитает значения свойств фигур на указанном времени с момента старта и вызовет коллбек для каждого из них.
+     * @param {number} elapsedTime время с момента старта
+     * @param {Function} callback коллбек. Первый аргумент - фигура, второй - имя свойства, третий - значение свойства
+     * */
+    fetch: function (elapsedTime, callback) {
 
-        return fetchData;
+        //TODO ещё предстоит
+
     },
 
     /**

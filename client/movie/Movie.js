@@ -54,9 +54,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     fetch: null,
 
     /**
-     * Временная метка старта проигрывания. Устанавливается методом setTime.
+     * Прошедшее с момента старта время
+     * @private
+     * @type {number}
      */
-    startPosition: null,
+    elapsedTime: null,
 
     /**
      * Конструктор объекта, позволяющего управлять воспроизведением
@@ -85,11 +87,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     },
 
     /**
-     * Перемещает временную метку на указанную
-     * @param {number} time временная метка.
+     * Устанавливает прошедшее с момента старта время
+     * @param {number} time время в миллисекундах.
      */
-    setTime: function(time) {
-        
+    setElapsedTime: function (time) {
+        this.elapsedTime = time;
     },
 
     /**
@@ -106,7 +108,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @param {number} timestamp временная метка
      */
     gotoAndPlay: function (timestamp) {
-        this.setTime(timestamp);
+        this.setElapsedTime(timestamp);
         this.play();
     },
 
@@ -115,7 +117,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @param {number} timestamp временная метка
      */
     gotoAndStop: function (timestamp) {
-        this.setTime(timestamp);
+        this.setElapsedTime(timestamp);
         this.stop();
     },
 

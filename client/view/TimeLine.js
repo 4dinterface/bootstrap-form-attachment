@@ -123,6 +123,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     query: function() {
         var lines = [];
+        var ratio = this.toPixels( 100 ) * this.options.get( 'zoom' );     // 100 is magic number : )
 
         this.model.forEach(function( child ) {
 
@@ -137,8 +138,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 });
 
                 keyframes = keyframes.map(function( val ) {
-                    return this.toPixels( val * 100 ) * this.options.get( 'zoom' );
-                }, this );
+                    return val * ratio;
+                });
 
                 keyframes = keyframes.sort(function( a, b ) {
                     return a - b;
@@ -153,9 +154,9 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                     keyframes: keyframes
                 });
 
-            }, this )
+            })
 
-        }, this );
+        });
 
         return lines;
     },

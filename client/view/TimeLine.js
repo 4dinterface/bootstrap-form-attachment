@@ -59,19 +59,43 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
     // создать линейку
     createRuler: function() {
-        var width = 800;
-        var points = new Array( width / 50 | 0 );
-        var section = 50 / this.options.get( 'zoom' ) / 100;
 
-        console.log( this.toMilliseconds( 100 ) );
+//       console.log( this.toPixels( 250 ) )
 
-        var index = 0;
+        //var real = +( this.options.get( 'zoom' ) % 1 * 10 ).toFixed();
+        //var isEven = !( real & 1 );
 
-        for( ; index < points.length; index++ ) {
-            points[ index ] = ( section * index ).toFixed( 3 );
-        }
+        // если не делиться на 5 без остатка, то
+        // увеличиваем ширину блока линейки
 
-        $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
+        //
+
+        var z = this.options.get( 'zoom' ) % 1 * 10 | 0;//.toFixed();
+        var x = this.toPixels( 1000 ) * this.options.get( 'zoom' );
+
+        //console.log( z );
+
+        console.log( x );
+
+        //console.log( this.toPixels( 1000 ) * this.options.get( 'zoom' ) );
+        //console.log( this.toPixels( 750 ) * this.options.get( 'zoom' ) );
+
+//        var points = new Array( 800 / x | 0 );
+//        var ms = this.toMilliseconds( x ) / this.options.get( 'zoom' );
+//
+////        var width = pixelsInSecond % 4 ? 110 : 100;
+////        var points = new Array( 800 / width | 0 );
+//        var index = 0;
+////
+//        for( ; index < points.length; index++ ) {
+//            points[ index ] = {
+//                width: x,
+//                value: ( index * ms / 1000 ).toFixed( 3 )
+//            };
+//        }
+//
+//
+        //$( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
     },
 
 

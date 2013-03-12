@@ -21,6 +21,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //});
 
 
+
         //здесь твой код
         // -----------------------//
 
@@ -68,14 +69,54 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         // если не делиться на 5 без остатка, то
         // увеличиваем ширину блока линейки
 
-        //
+        //var ms = this.toMilliseconds( this.options.get( 'ratio' ) * this.options.get( 'zoom' ) );
 
-        var z = this.options.get( 'zoom' ) % 1 * 10 | 0;//.toFixed();
-        var x = this.toPixels( 1000 ) * this.options.get( 'zoom' );
+
+//        var x = Math.round( ms / 1000 );
+//
+//        if ( 1000 % x !== 0 ) {
+//            x = ( x / 2 | 0 ) * 2;
+//        }
+//        //x = ( x / 2 | 0 ) * 2;
+//
+//        var step = 1000 / x;
+
+
+        //var z = this.options.get( 'zoom' ) % 1 * 10 | 0;//.toFixed();
+        //var x = this.toPixels( 1000 ) * this.options.get( 'zoom' );
+
+        var width = 800;
+        var points = [];
+
+        var ms = this.toMilliseconds( 100 ) / this.options.get( 'zoom' );
+        var m;
+
+        var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
 
         //console.log( z );
+        x.some(function( num ) {
+            if ( ms / num | 0 > 0 ) {
+                m = num;
+                return true;
+            }
+        });
 
-        console.log( x );
+        width = this.toPixels( m ) * this.options.get( 'zoom' );
+
+        points = new Array( 800 / width | 0 );
+
+
+        var index = 0;
+//
+        for( ; index < points.length; index++ ) {
+            points[ index ] = {
+                width: width,
+                value: m * index
+            };
+        }
+
+        console.log( m );
+        console.log( this.toPixels( m ) * this.options.get( 'zoom' ) );
 
         //console.log( this.toPixels( 1000 ) * this.options.get( 'zoom' ) );
         //console.log( this.toPixels( 750 ) * this.options.get( 'zoom' ) );
@@ -95,7 +136,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 //        }
 //
 //
-        //$( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
+        $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
     },
 
 
@@ -132,6 +173,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 var keyframes = prop.cash.slice();
                 var width;
                 var left;
+
+                // TODO объеденить filter и map в один цикл
 
                 keyframes = keyframes.filter(function( val ) {
                     return !isNaN( +val );

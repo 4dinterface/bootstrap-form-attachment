@@ -21,6 +21,7 @@ Define('app.Model', /** @lends {app.Model} */ {
 	 * @param {Object} prop объект с описанием экземпляра
 	 */
 	init : function (prop) {
+            this.super();
             var i;
 
             this.data = {};

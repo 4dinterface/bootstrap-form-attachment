@@ -7,6 +7,8 @@ Define('app.ObjectCollection',{
         
         //наследование
 	init:function (prop){
+            this.super();
+            
             this.cash=[];
             
             for(var i in prop) this[i]=prop[i];                        
@@ -22,17 +24,28 @@ Define('app.ObjectCollection',{
         
 	//setter
 	set:function(name,val){
+            var me=this;
 	    this[name]=val;
-            cash=this.key();
+            cash=Object.keys(this);
             this.length=cash.length;
-            this.fire('change',{});	   
+            
+            this.fire('change',{
+                operation:"set",
+                field:name,
+                value:val,                
+            });
+
+            //обеспечим всплытие событий
+            val.on('bubble',function(e){
+                me.fire(e.eventName,e);
+            })
         },
 
         //возвращает значение по индексу
         item:function(index){
             return this[ this.cash[index] ];     
         },     		        
-
+                
         /**
 	 * Returns a data url that contains a Base64-encoded image of the contents of the stage. The returned data url can be
 	 * @method forEach

@@ -1,5 +1,4 @@
 Define("app.Component", /** @lends {app.component} */({
-
     /**
      * Регистр событий и их обработчиков
      * @type {Object}
@@ -28,20 +27,24 @@ Define("app.Component", /** @lends {app.component} */({
         var item;
         
         //
-        if(options){
-            if(! 'eventName' in options) options.eventName=name;
-            if(! 'eventTarget' in options) options.eventTarget=this; 
+        if(options){   
+            
+            if( !('eventName' in options)  )  options.eventName=name;
+            if( !('eventTarget' in options) ) options.eventTarget=this; 
         }
         
-	for (item in this.event[name]) {
-            this.event[name][item](options);
-        }        
-        
+        if (name in this.event){
+            for (item in this.event[name]) {
+                this.event[name][item](options);
+            }        
+        }
         //bubble event
-        
+
         for (item in this.event['bubble']) {
-            this.event['bubble'][item](options);
-        }        
+           this.event['bubble'][item](options);
+        }     
+        
+        
     },
 
     /**
@@ -50,7 +53,7 @@ Define("app.Component", /** @lends {app.component} */({
      * @param {function (Object): ?} fun функция-обработчик
      */
     on: function (name,fun) {
-        if (typeof this.event[name]=="undefined") {
+        if ( !(name in this.event))  {
             this.event[name]=[];
         }
         

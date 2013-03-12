@@ -1,14 +1,40 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>ArrayCollection Testing</title>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
+        <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>  
+        
+        <script src="/client/core/Class.js"></script>       
+        <script src="/client/core/Component.js"></script>       
+        
     </head>
     <body>
-        <div>TODO write content</div>
+        <script src="/client/core/ObjectCollection.js"></script>            
+        <script src="/client/core/Model.js"></script>            
+        
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>                        
+              
+        <script>                            
+              test( "test length", function() {                
+                  var col=new app.ObjectCollection();                 
+                  var mod=new app.Model({
+                     hello:"122"
+                  });
+                  
+                  col.on('change',function(e){
+                      //console.log(e.eventName,e);
+                      ok( 3==3, "work" );
+                  })    
+                  
+                  col.set('100',mod);                  
+                  
+                  mod.set("hello","world");                                                                                                                                                                  
+              });             
+              
+        </script>
     </body>
+    
 </html>

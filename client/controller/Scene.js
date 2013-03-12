@@ -10,12 +10,14 @@ Define("app.controller.Scene", {
 		// Drag-n-Drop на канвас
 		$(function () {
 			stage.addEventListener("mousedown", function (e) {
+                            //alert(1);
 				var o = stage.getObjectUnderPoint(e.stageX, e.stageY);
 				var offset = {
 					x : o.x - e.stageX,
 					y : o.y - e.stageY
 				};
 				e.addEventListener("mousemove", function (e) {
+                                        console.log(e);
 					o.x = e.stageX + offset.x;
 					o.y = e.stageY + offset.y;
 					stage.update();

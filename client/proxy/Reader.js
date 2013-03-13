@@ -22,7 +22,10 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         
         for (var i=0;i<data.length;i++){            
             tlShape=this.makeTimelineShape(data[i]);
-            stShape=this.makeStageShape(data[i]);            
+            stShape=this.makeStageShape(data[i]); 
+            
+            tlShape.target=stShape;
+            stShape.timeline=tlShape;
             
             this.timeline[i]=tlShape;
             this.stage.addChild( stShape );

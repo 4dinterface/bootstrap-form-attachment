@@ -24,6 +24,10 @@
             
             <script src="client/controller/Scene.js">  </script>
             
+            <script src="client/scene/shape/HtmlElement.js">  </script> 
+            <script src="client/scene/shape/Text.js">  </script> 
+            <script src="client/scene/shape/Circle.js">  </script>            
+            <script src="client/scene/shape/Rectangle.js">  </script>
             <script src="client/scene/Stage.js">  </script>
 
             <script src="client/movie/Movie.js">  </script>
@@ -32,8 +36,9 @@
             <script src="client/app.js">  </script>
 	</head>
 
-	<body style="">
+	<body style="">                        
             <div id="canvas-editor" style="height:200px">
+                <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>    
                 <canvas id="canvas" width="900" height="200"></canvas>
             </div>	
             
@@ -56,6 +61,7 @@
               <script type="text/x-jqote-template" id="timeline-block-template">
                         <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;"></div>
                 </script>
+                
 
 	</body>
 

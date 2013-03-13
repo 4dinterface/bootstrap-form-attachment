@@ -22,7 +22,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         
         for (var i=0;i<data.length;i++){            
             tlShape=this.makeTimelineShape(data[i]);
-            stShape=this.makeStageShape();            
+            stShape=this.makeStageShape(data[i]);            
             
             this.timeline[i]=tlShape;
             this.stage.addChild( stShape );
@@ -42,10 +42,15 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
 
     //
     makeStageShape: function(shape){
-        var s = new createjs.Shape();
-        s.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, 40, 40);
-	s.x = 12;
-	s.y = 10;
-	return s;
+        //var s = new createjs.Shape();
+        //s.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, 40, 40);
+	//s.x = 12;
+	//s.y = 10;
+	//return s;
+        var cls=shape.target.xtype;
+        return new app.scene.shape[cls]({
+            x:20,
+            y:10
+        })	 
     }    
 });

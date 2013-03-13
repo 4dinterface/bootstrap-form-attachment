@@ -2,7 +2,7 @@ data=[
     {
         //обьект на сцене
         target:{
-            
+            xtype:"Rectangle"
         },
         
         // анимируемые свойства
@@ -41,7 +41,7 @@ data=[
     {
         //обьект на сцене
         target:{
-            
+            xtype:"Circle"            
         },
 
         //анимируемые свойства
@@ -217,5 +217,49 @@ data=[
                 easing:"line"
             }
          }           
-    }    
+    },    
+    {
+        //обьект на сцене
+        target:{
+            xtype:"Text"           
+        },
+        
+        // анимируемые свойства
+        x: {
+            0: {
+                value:0,
+                easing:"line"
+            }
+        },
+            
+        y: {
+            3: {
+                value:0,
+                easing:"line"
+            }
+        }              
+    },
+    {
+        //обьект на сцене
+        target:{
+            xtype:"HtmlElement"           
+        },
+        
+        // анимируемые свойства
+        x: {
+            0: {
+                value:0,
+                easing:"line"
+            }
+        },
+            
+        y: {
+            3: {
+                value:0,
+                easing:"line"
+            }
+        }              
+    }
+
+
 ]

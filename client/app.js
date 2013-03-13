@@ -1,4 +1,4 @@
-( function () {    
+$( function () {    
         'use strict'	
 	var 
             // создадим таймлайн
@@ -6,8 +6,13 @@
             
             //контроллер таймлайна            
             stage=new app.scene.Stage(),
+            
+            //загрузчик данных, который загрузит данные на сцену, и в таймлайн
+            reader=new app.proxy.Reader({
+                stage:stage,
+                timeline:timeline
+            }),
                         
-
             // создадим ролик
             // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
             // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
@@ -16,6 +21,7 @@
                 stage:stage
             }),
             
+            // контролёр сцены
             sceneContr=new app.controller.Scene({
                 stage:stage
             }),
@@ -38,10 +44,9 @@
                 //movie 
                 movie:movie
             });
-            
-            console.log("stage",stage);
- 
-        //console.log(timeline);        
-        //контроллер 
-        //tlController=new TimeLineController(timeline);
-}) ();
+
+         //коанда на загрузку   
+         //в данный момент load вызывается из конструктора reader, 
+         //как события будут готовы, то нужно будет
+         //reader.load(data);                    
+});

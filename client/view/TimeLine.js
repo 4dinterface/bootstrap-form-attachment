@@ -7,9 +7,7 @@
 Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
-
     //model:
-
     init: function( prop ) {
         this.super();
         this.apply( prop );
@@ -19,7 +17,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //model.on('change',function(){
         //    this.render;            
         //});
-
 
         //здесь твой код
         // -----------------------//
@@ -81,8 +78,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         this.model.forEach(function( child ) {
 
-            Object.keys( child.data.prop ).forEach(function( name ) {
-                var prop = child.data.prop[ name ];
+            Object.keys( child.data ).forEach(function( name ) {
+                var prop = child.get( name );
                 var points = prop.cash.slice();
                 var width;
                 var left;

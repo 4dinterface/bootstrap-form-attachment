@@ -5,21 +5,37 @@ Define("app.controller.Scene", {
 		//вставляет свойста в обьект
 		this.apply(prop);
 
-		var stage = this.stage;
+		var stage = this.stage,
+			o,
+			offset = {};
 
 		// Drag-n-Drop на канвас
+		// Координаты чуть уходят влево (?????????????????)    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		$(function () {
-			stage.addEventListener("mousedown", function (e) {
-				var o = stage.getObjectUnderPoint(e.stageX, e.stageY);
-				var offset = {
-					x : o.x - e.stageX,
-					y : o.y - e.stageY
-				};
-				e.addEventListener("mousemove", function (e) {
-					o.x = e.stageX + offset.x;
-					o.y = e.stageY + offset.y;
+			$(document).on("mousedown", function (e) {
+				if (e.target !== stage["canvas"]) {
+					return;
+				}
+				o = stage.getObjectUnderPoint(e.pageX, e.pageY);
+				if (o) {
+					offset.x = o.x - e.pageX;
+					offset.y = o.y - e.pageY;
+					console.log(e.pageX, e.pageY);
+				}
+			});
+			$(document).on("mousemove", function (e) {
+				if (o) {
+					var s = stage.globalToLocal(e.pageX, e.pageY);
+					o.x = s.x + offset.x;
+					o.y = s.y + offset.y;
 					stage.update();
-				});
+				}
+			});
+			$(document).on("mouseup", function () {
+				if (o) {
+					offset = {};
+					o = undefined;
+				}
 			});
 		});
 	}

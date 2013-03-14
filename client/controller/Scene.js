@@ -16,16 +16,19 @@ Define("app.controller.Scene", {
 				if (e.target !== stage["canvas"]) {
 					return;
 				}
-				o = stage.getObjectUnderPoint(e.pageX, e.pageY);
+				var x = e.pageX - stage["canvas"].offsetLeft,
+					y = e.pageY - stage["canvas"].offsetTop;
+				o = stage.getObjectUnderPoint(x, y);
 				if (o) {
-					offset.x = o.x - e.pageX;
-					offset.y = o.y - e.pageY;
-					console.log(e.pageX, e.pageY);
+					offset.x = o.x - x;
+					offset.y = o.y - y;
 				}
 			});
 			$(document).on("mousemove", function (e) {
 				if (o) {
-					var s = stage.globalToLocal(e.pageX, e.pageY);
+					var x = e.pageX - stage["canvas"].offsetLeft,
+						y = e.pageY - stage["canvas"].offsetTop,
+						s = stage.globalToLocal(x, y);
 					o.x = s.x + offset.x;
 					o.y = s.y + offset.y;
 					stage.update();

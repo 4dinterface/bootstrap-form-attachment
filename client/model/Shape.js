@@ -6,7 +6,6 @@
 //компонент в разработке
 Define('app.model.Shape', /** @lends {app.Model} */ {
 	extend : app.Model,
-
 	/***
 	 * Конструктор экземпляров
 	 * @constructor
@@ -21,13 +20,13 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
          * @param {value} value
 	 * @return null
 	 **/
-	set : function (property, value) {
-            this.super();
+	//set : function (property, value) {
+        //    this.super();
             //this.fire("changeKeyframe", {});
-	},
+	//},
 
-	get : function (name) {
-            this.super();
-	}
+	//get : function (name) {
+        //    this.super();
+	//}
 });
 

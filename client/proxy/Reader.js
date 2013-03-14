@@ -50,7 +50,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * @param {Object} shape обьект описывающий shape
      */
     makeTimelineShape: function(shape){
-        var ts=new app.Model({}); 
+        var ts=new app.model.Shape({}); 
         
         for (i in shape){
             if (i!="target") ts.set(i, this.makeKeyCollection(shape[i]) );                                        
@@ -80,10 +80,11 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             
     makeKeyCollection: function(col){        
 
-        var ret=new app.ObjectCollection(),
-            i;    
+        var ret=new app.model.KeyframeCollection(),
+            i=null;    
+    
         for (i in col) {                  
-            ret.set(i, new app.Model( col[i] ));            
+            ret.set(i, new app.model.Keyframe( col[i] ));            
         }        
         return ret;
     }

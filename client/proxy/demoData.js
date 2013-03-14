@@ -258,6 +258,7 @@ data=[
                 value:0,
                 easing:"line"
             }
-        }              
+        } 
+        
     }
 ]

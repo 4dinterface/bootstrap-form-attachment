@@ -26,8 +26,8 @@ Define('app.ObjectCollection',{
 	set:function(name,val){
             var me=this;
 	    this[name]=val;
-            cash=Object.keys(this);
-            this.length=cash.length;
+            this.cash=Object.keys(this);
+            this.length=this.cash.length;
             
             this.fire('change',{
                 operation:"set",
@@ -61,5 +61,6 @@ Define('app.ObjectCollection',{
                 if ( prop*1 ) callback(this[prop],prop , this);
             }
             return this;
-        }     				    	
+        }     			
+        
 });

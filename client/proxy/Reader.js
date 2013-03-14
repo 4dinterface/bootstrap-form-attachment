@@ -71,6 +71,13 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         })	         
     },
             
+
+    /**
+     * создаёт коллекцию ключей
+     * для каждого ключа создаётся экземпляр класса model
+     * @param {Object} shape обьект описывающий shape
+     */
+            
     makeKeyCollection: function(col){        
 
         var ret=new app.ObjectCollection(),

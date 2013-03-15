@@ -39,7 +39,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             this.timeline[i]=tlShape;
             this.stage.addChild( stShape );
         }
-
+        console.log('timeline',this.timeline);
         //обновление
         this.stage.update();
     },            

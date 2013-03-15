@@ -22,10 +22,13 @@ Define('app.model.Keyframe', /** @lends {app.Model} */ {
          * @param {value} value
 	 * @return null
 	 **/
-	//set : function (property, value) {
-        //    this.super();
-            //this.fire("changeKeyframe", {});
-	//},
+	set : function (property, value) {
+            this.super();
+            this.fire("keyframechange", {
+                key:name,
+                value:value
+            });
+	},
 
 
 	//get : function (name) {

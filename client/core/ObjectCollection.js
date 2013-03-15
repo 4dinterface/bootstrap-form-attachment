@@ -44,7 +44,12 @@ Define('app.ObjectCollection',{
         //возвращает значение по индексу
         item:function(index){
             return this[ this.cash[index] ];     
-        },     		        
+        },     	
+
+         // Удаляет записи
+         remove:function(){
+     
+         },       
                 
         /**
 	 * Returns a data url that contains a Base64-encoded image of the contents of the stage. The returned data url can be

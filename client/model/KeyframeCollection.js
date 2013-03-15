@@ -8,15 +8,16 @@ Define('app.model.KeyframeCollection',{
 	init:function (prop){
             this.super();
         },
-                
-
-        //геттер свойств
-        //get:function(name){
-        //    return this.super();
-        //},
-        
+                        
 	//setter
-	//set:function(name,val){
-        //    this.super();
-        //}        
+	set:function(name,val){
+            this.super();
+
+            //вызовем соответствующее событие
+            this.fire("keyframecollectionchange", {
+                key:name,
+                value:val
+            });
+            
+        }        
 });

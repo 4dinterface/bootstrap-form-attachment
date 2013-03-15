@@ -13,26 +13,50 @@
     <body>
         <script src="/client/core/ObjectCollection.js"></script>            
         <script src="/client/core/Model.js"></script>            
+        <script src="/client/model/Keyframe.js"></script>            
+        <script src="/client/model/KeyframeCollection.js"></script>            
+        <script src="/client/model/shape.js"></script>            
         
+
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>                        
+        
               
         <script>                            
-              test( "test length", function() {                
-                  var col=new app.ObjectCollection();                 
-                  var mod=new app.Model({
-                     hello:"122"
-                  });
+              test( "test length", function() { 
+                  //stop();
+                  var key=new app.model.Keyframe();                  
+                  var keyCol=new app.model.KeyframeCollection();                 
+                  var shape=new app.model.Shape();                                                                       
                   
-                  col.on('change',function(e){
-                      //console.log(e.eventName,e);
-                      ok( 3==3, "work" );
+                  shape.set('test',keyCol);
+                  keyCol.set('100',key);                                    
+                  
+                  // изменение кейфрейма
+                  shape.on('keyframechange',function(e){
+                      ok( 3==3, e.eventName );
                   })    
                   
-                  col.set('100',mod);                  
+                  // изменение в коллекции кейфреймов
+                  shape.on('keyframecollectionchange',function(e){
+                      ok( 3==3, e.eventName );
+                  })    
+
+                  // изменение в составе свойств shape
+                  shape.on('shapechange',function(e){
+                      ok( 3==3, e.eventName );
+                  })    
+
+                  //тест на изменение ключа                  
+                  key.set("easing","none");                                      
+                  // тест на изменение коллекции ключей
+                  keyCol.set("200",key);      
+
+                  //тест на изменение состава свойств
+                  shape.set("opacity",keyCol);
                   
-                  mod.set("hello","world");                                                                                                                                                                  
-              });             
+                  
+              });              
               
         </script>
     </body>

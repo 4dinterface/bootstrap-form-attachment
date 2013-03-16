@@ -1,5 +1,5 @@
 //компонент в разработке
-Define('app.Collection',{    
+Define('app.ObjectCollection',{    
                 
         extend:app.Component,
         
@@ -7,6 +7,8 @@ Define('app.Collection',{
         
         //наследование
 	init:function (prop){
+            this.super();
+            
             this.cash=[];
             
             for(var i in prop) this[i]=prop[i];                        
@@ -22,17 +24,33 @@ Define('app.Collection',{
         
 	//setter
 	set:function(name,val){
+            var me=this;
 	    this[name]=val;
-            cash=this.key();
-            this.length=cash.length;
-            this.fire('change',{});	   
+            this.cash=Object.keys(this);
+            this.length=this.cash.length;
+            
+            this.fire('change',{
+                operation:"set",
+                field:name,
+                value:val,                
+            });
+
+            //обеспечим всплытие событий
+            val.on('bubble',function(e){
+                me.fire(e.eventName,e);
+            })
         },
 
         //возвращает значение по индексу
         item:function(index){
             return this[ this.cash[index] ];     
-        },     		        
+        },     	
 
+         // Удаляет записи
+         remove:function(){
+     
+         },       
+                
         /**
 	 * Returns a data url that contains a Base64-encoded image of the contents of the stage. The returned data url can be
 	 * @method forEach
@@ -44,11 +62,10 @@ Define('app.Collection',{
 	 **/
         forEach:function(callback){
             for(prop in this) {
-                if ( this[prop] === this.proto[prop] ) continue;
-                if ( typeof(prop) == "number" ) continue;                
-                                
-                callback(prop, this[prop], this);
+                if ( this[prop] === this.proto[prop] ) continue;                
+                if ( prop*1 ) callback(this[prop],prop , this);
             }
-            //return this[ this.cash[index] ];     
-        }     				    	
+            return this;
+        }     			
+        
 });

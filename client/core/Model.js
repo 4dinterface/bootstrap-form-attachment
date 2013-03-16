@@ -21,6 +21,7 @@ Define('app.Model', /** @lends {app.Model} */ {
 	 * @param {Object} prop объект с описанием экземпляра
 	 */
 	init : function (prop) {
+            this.super();
             var i;
 
             this.data = {};
@@ -37,16 +38,26 @@ Define('app.Model', /** @lends {app.Model} */ {
         
 	/**
 	 * @method set
-	 * @param {property} name
+	 * @param {name} name
          * @param {value} value
          * 
 	 * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
 	 **/
-	set : function (property, value) {
-		this.data[property] = value;
-		//cash = this.key();
-		//this.length = cash.length;
-		this.fire("change", {});
+	set : function (name, value) {
+            var me=this;
+            this.data[name] = value;
+            //cash = this.key();
+            //this.length = cash.length;
+            this.fire("change", {
+                key:name,
+                value:value
+            });
+                
+            //обеспечим всплытие событий
+            //console.log(value);
+            if(value.on) value.on('bubble',function(e){
+                me.fire(e.eventName,e);
+            })
 	},
 
 

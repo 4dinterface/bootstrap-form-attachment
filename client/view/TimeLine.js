@@ -10,9 +10,7 @@
 Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
-
     //model:
-
     init: function( prop ) {
         this.super();
         this.apply( prop );
@@ -23,11 +21,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //    this.render;            
         //});
 
-
-
-        //здесь твой код
         // -----------------------//
-
 
         // установить кол-во пикслей в секунде
         this.options.set( 'ratio', 100 );
@@ -112,10 +106,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     render: function() {
 
-        this.createRuler();
-
         // используем шаблонизатор для генерации разметки
-        $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
+        $( '#timeline-editor' ).jqotesub( '#timeline-line-template', this.query() );
 
     },
 
@@ -131,38 +123,39 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         var lines = [];
         var ratio = this.toPixels( 100 ) * this.options.get( 'zoom' );     // 100 is magic number : )
 
-        this.model.forEach(function( child ) {
+         var childs;
 
-            Object.keys( child.data.prop ).forEach(function( name ) {
-                var prop = child.data.prop[ name ];
-                var keyframes = prop.cash.slice();
-                var width;
-                var left;
+        Object.keys( this.model ).forEach(function( key ) {
+        });
 
-                // TODO объеденить filter и map в один цикл
+        Object.keys( child.data ).forEach(function( name ) {
+            var prop = child.get( name );
+            var keyframes = prop.cash.slice();
+            var width;
+            var left;
 
-                keyframes = keyframes.filter(function( val ) {
-                    return !isNaN( +val );
-                });
+            // TODO объеденить filter и map в один цикл
 
-                keyframes = keyframes.map(function( val ) {
-                    return val * ratio;
-                });
+            keyframes = keyframes.filter(function( val ) {
+                return !isNaN( +val );
+            });
 
-                keyframes = keyframes.sort(function( a, b ) {
-                    return a - b;
-                });
+            keyframes = keyframes.map(function( val ) {
+                return val * ratio;
+            });
 
-                left = keyframes[ 0 ];
-                width = keyframes[ keyframes.length - 1 ] - left;     // fix
+            keyframes = keyframes.sort(function( a, b ) {
+                return a - b;
+            });
 
-                lines.push({
-                    left: left,
-                    width: width,
-                    keyframes: keyframes
-                });
+            left = keyframes[ 0 ];
+            width = keyframes[ keyframes.length - 1 ] - left;     // fix
 
-            })
+            lines.push({
+                left: left,
+                width: width,
+                keyframes: keyframes
+            });
 
         });
 
@@ -170,7 +163,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     },
 
 
-    /**
+/**
      *  Опции представления таймлайна. Прочитать/установить.
      *
      *  @this {Timeline}
@@ -215,4 +208,4 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         return pixels / this.options.get( 'ratio' ) * 1000;
     }
 
-} );
+});

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ArrayCollection Testing</title>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
+        <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>  
+        
+        <script src="../../client/core/Class.js"></script>       
+        <script src="../../client/core/Component.js"></script>       
+        
+    </head>
+    <body>
+        <script src="../../client/core/ObjectCollection.js"></script>            
+        <script src="../../client/core/Model.js"></script>            
+        <script src="../../client/model/Keyframe.js"></script>            
+        <script src="../../client/model/KeyframeCollection.js"></script>            
+        <script src="../../client/model/Shape.js"></script>            
+        <script src="../../client/model/Timeline.js"></script>                    
+
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>                        
+        
+              
+        <script>                            
+              test( "test length", function() { 
+                  //stop();
+                  var key=new app.model.Keyframe(),
+                      keyCol=new app.model.KeyframeCollection(),
+                      shape=new app.model.Shape(),                                                          
+                      timeline=new app.model.Timeline();                                                                       
+                  
+                  timeline.push(shape);
+                  shape.set('test',keyCol);
+                  keyCol.set('100',key);                          
+                  
+                  // изменение кейфрейма
+                  timeline.on('keyframechange',function(e){
+                      ok( 3==3, e.eventName );
+                  })    
+                  
+                  // изменение в коллекции кейфреймов
+                  timeline.on('keyframecollectionchange',function(e){
+                      ok( 3==3, e.eventName );
+                  })    
+
+                  // изменение в составе свойств shape
+                  timeline.on('shapechange',function(e){
+                      ok( 3==3, e.eventName );
+                  })    
+
+                  //тест на изменение ключа                  
+                  key.set("easing","none");                                      
+                  // тест на изменение коллекции ключей
+                  keyCol.set("200",key);      
+
+                  //тест на изменение состава свойств
+                  shape.set("opacity",keyCol);                                    
+                  
+              });              
+              
+        </script>
+    </body>
+    
+</html>

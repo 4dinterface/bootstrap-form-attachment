@@ -1,5 +1,7 @@
 
-
+/**
+ * Контейнер таймлайна
+ */
 #timeline-wrapper {
     position: relative;
     border: 2px solid blue;
@@ -7,6 +9,9 @@
 }
 
 
+/**
+ * Непосредственно редактор (так, где можно двигать блоки)
+ */
 #timeline-editor {
     position: relative;
     top: 0px;
@@ -17,6 +22,9 @@
 }
 
 
+/**
+ * Линия редактора таймлайна
+ */
 .timeline-line {
     border-bottom: 1px solid #deb887;
     position: relative;
@@ -29,6 +37,9 @@
 }
 
 
+/**
+ * Блок на линии в редакторе таймлайна
+ */
 .timeline-block {
     border-top: 1px solid #4682b4;
     border-bottom: 1px solid #4682b4;
@@ -40,6 +51,9 @@
 }
 
 
+/**
+ * Ключевой кадр блока на линии в редакторе таймлайна
+ */
 .timeline-keyframe {
     position: absolute;
     width: 8px;
@@ -52,6 +66,10 @@
 }
 
 
+/**
+ * Линия-разделитель . Отделяет (визуально) один ключевой кадр внутри
+ * блока на линии в редакторе таймлайна от другого
+ */
 .timeline-limiter {
     position: absolute;
     top: 2px;
@@ -61,6 +79,9 @@
 }
 
 
+/**
+ * Линейка таймлайна
+ */
 #timeline-ruler {
     background-color: #ffe4b5;
     position: relative;
@@ -69,6 +90,9 @@
 }
 
 
+/**
+* Блок на линейке таймлайна
+*/
 .timeline-ruler-pick {
     width: 100px;
     height: 20px;
@@ -77,31 +101,4 @@
     text-align: left;
     font-size: 0.6em;
     font-family: Tahoma;
-}
-
-
-.cls1, .cls2, .cls3 {
-    width: 1px;
-    margin: 0 10px 0 0;
-    float: left;
-    overflow: hidden;
-    background: gray;
-}
-
-
-.cls1 {
-    height: 10px;
-}
-
-.cls2 {
-    height: 5px;
-}
-
-.cls3 {
-    height: 5px;
-}
-
-
-.clear-margint-right {
-    margin-right: 0;
 }

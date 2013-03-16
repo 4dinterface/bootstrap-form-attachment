@@ -4,6 +4,9 @@
  * @returns {Object} Timeline объект представления таймлайна
  */
 
+'use strict';
+
+
 Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
@@ -61,29 +64,9 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     // создать линейку
     createRuler: function() {
 
-//       console.log( this.toPixels( 250 ) )
-
-        //var real = +( this.options.get( 'zoom' ) % 1 * 10 ).toFixed();
-        //var isEven = !( real & 1 );
-
-        // если не делиться на 5 без остатка, то
-        // увеличиваем ширину блока линейки
-
-        //var ms = this.toMilliseconds( this.options.get( 'ratio' ) * this.options.get( 'zoom' ) );
 
 
-//        var x = Math.round( ms / 1000 );
-//
-//        if ( 1000 % x !== 0 ) {
-//            x = ( x / 2 | 0 ) * 2;
-//        }
-//        //x = ( x / 2 | 0 ) * 2;
-//
-//        var step = 1000 / x;
-
-
-        //var z = this.options.get( 'zoom' ) % 1 * 10 | 0;//.toFixed();
-        //var x = this.toPixels( 1000 ) * this.options.get( 'zoom' );
+        //TODO Продумать алгоритм построения линейки и переписать черновик
 
         var width = 800;
         var points = [];
@@ -118,24 +101,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         console.log( m );
         console.log( this.toPixels( m ) * this.options.get( 'zoom' ) );
 
-        //console.log( this.toPixels( 1000 ) * this.options.get( 'zoom' ) );
-        //console.log( this.toPixels( 750 ) * this.options.get( 'zoom' ) );
-
-//        var points = new Array( 800 / x | 0 );
-//        var ms = this.toMilliseconds( x ) / this.options.get( 'zoom' );
-//
-////        var width = pixelsInSecond % 4 ? 110 : 100;
-////        var points = new Array( 800 / width | 0 );
-//        var index = 0;
-////
-//        for( ; index < points.length; index++ ) {
-//            points[ index ] = {
-//                width: x,
-//                value: ( index * ms / 1000 ).toFixed( 3 )
-//            };
-//        }
-//
-//
         $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
     },
 

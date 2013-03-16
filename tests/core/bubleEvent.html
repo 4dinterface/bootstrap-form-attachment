@@ -6,17 +6,17 @@
         <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
         <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>  
         
-        <script src="/client/core/Class.js"></script>       
-        <script src="/client/core/Component.js"></script>       
+        <script src="../../client/core/Class.js"></script>       
+        <script src="../../client/core/Component.js"></script>       
         
     </head>
     <body>
-        <script src="/client/core/ObjectCollection.js"></script>            
-        <script src="/client/core/Model.js"></script>            
-        <script src="/client/model/Keyframe.js"></script>            
-        <script src="/client/model/KeyframeCollection.js"></script>            
-        <script src="/client/model/shape.js"></script>            
-        
+        <script src="../../client/core/ObjectCollection.js"></script>            
+        <script src="../../client/core/Model.js"></script>            
+        <script src="../../client/model/Keyframe.js"></script>            
+        <script src="../../client/model/KeyframeCollection.js"></script>            
+        <script src="../../client/model/Shape.js"></script>            
+        <script src="../../client/model/Timeline.js"></script>                    
 
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>                        
@@ -25,25 +25,27 @@
         <script>                            
               test( "test length", function() { 
                   //stop();
-                  var key=new app.model.Keyframe();                  
-                  var keyCol=new app.model.KeyframeCollection();                 
-                  var shape=new app.model.Shape();                                                                       
+                  var key=new app.model.Keyframe(),
+                      keyCol=new app.model.KeyframeCollection(),
+                      shape=new app.model.Shape(),                                                          
+                      timeline=new app.model.Timeline();                                                                       
                   
+                  timeline.push(shape);
                   shape.set('test',keyCol);
-                  keyCol.set('100',key);                                    
+                  keyCol.set('100',key);                          
                   
                   // изменение кейфрейма
-                  shape.on('keyframechange',function(e){
+                  timeline.on('keyframechange',function(e){
                       ok( 3==3, e.eventName );
                   })    
                   
                   // изменение в коллекции кейфреймов
-                  shape.on('keyframecollectionchange',function(e){
+                  timeline.on('keyframecollectionchange',function(e){
                       ok( 3==3, e.eventName );
                   })    
 
                   // изменение в составе свойств shape
-                  shape.on('shapechange',function(e){
+                  timeline.on('shapechange',function(e){
                       ok( 3==3, e.eventName );
                   })    
 
@@ -53,8 +55,7 @@
                   keyCol.set("200",key);      
 
                   //тест на изменение состава свойств
-                  shape.set("opacity",keyCol);
-                  
+                  shape.set("opacity",keyCol);                                    
                   
               });              
               

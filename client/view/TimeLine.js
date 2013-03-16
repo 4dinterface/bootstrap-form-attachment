@@ -107,7 +107,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     render: function() {
 
         // используем шаблонизатор для генерации разметки
-        $( '#timeline-editor' ).jqotesub( '#timeline-line-template', this.query() );
+        $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
 
     },
 
@@ -121,42 +121,50 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     query: function() {
         var lines = [];
-        var ratio = this.toPixels( 100 ) * this.options.get( 'zoom' );     // 100 is magic number : )
+        var ratio = this.options.get( 'zoom' );
 
-         var childs;
+        var childs = [];
+        var props = [];
 
+        // TODO Костыль, переписать
         Object.keys( this.model ).forEach(function( key ) {
-        });
+            if ( !isNaN( +key ) ) {
+                childs.push( this.model[ key ] );
+            }
+        }, this );
 
-        Object.keys( child.data ).forEach(function( name ) {
-            var prop = child.get( name );
-            var keyframes = prop.cash.slice();
-            var width;
-            var left;
 
-            // TODO объеденить filter и map в один цикл
+        childs.forEach(function( child ) {
+            Object.keys( child.data ).forEach(function( name ) {
+                var prop = child.get( name );
+                var keyframes = prop.cash.slice();
+                var width;
+                var left;
 
-            keyframes = keyframes.filter(function( val ) {
-                return !isNaN( +val );
+                // TODO объеденить filter и map в один цикл
+
+                keyframes = keyframes.filter(function( val ) {
+                    return !isNaN( +val );
+                });
+
+                keyframes = keyframes.map(function( val ) {
+                    return val * ratio;
+                });
+
+                keyframes = keyframes.sort(function( a, b ) {
+                    return a - b;
+                });
+
+                left = keyframes[ 0 ];
+                width = keyframes[ keyframes.length - 1 ] - left;     // fix
+
+                lines.push({
+                    left: left,
+                    width: width,
+                    keyframes: keyframes
+                });
+
             });
-
-            keyframes = keyframes.map(function( val ) {
-                return val * ratio;
-            });
-
-            keyframes = keyframes.sort(function( a, b ) {
-                return a - b;
-            });
-
-            left = keyframes[ 0 ];
-            width = keyframes[ keyframes.length - 1 ] - left;     // fix
-
-            lines.push({
-                left: left,
-                width: width,
-                keyframes: keyframes
-            });
-
         });
 
         return lines;

@@ -109,6 +109,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         // используем шаблонизатор для генерации разметки
         $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
 
+        this.createRuler();
     },
 
 
@@ -121,7 +122,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     query: function() {
         var lines = [];
-        var ratio = this.options.get( 'zoom' );
+        var ratio = this.toPixels( this.options.get( 'zoom' ) );    // O_o ну пока так
 
         var childs = [];
         var props = [];

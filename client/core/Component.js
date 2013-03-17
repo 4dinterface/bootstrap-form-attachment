@@ -5,14 +5,21 @@ Define("app.Component", /** @lends {app.component} */({
      * @private
      */
     event: null,
+    componentCount:0,
 
-    init: function () {		
+    init: function () {	
+        
+        //увеличим счётчик компонентов и используем его как уникальный идентификатор
+        componentCount++;
+        this.id=componentCount;
+        
         //подключаем обработчики событий
         this.event={};
         //alert(x);
 	for (event in this.listeners) {
             
 	}
+        console.log('ths',this);
     },
 	
     //события
@@ -70,3 +77,6 @@ Define("app.Component", /** @lends {app.component} */({
     }
 
 }));
+
+//счётчик временно здесь, потом определим его куданибудь в утилиты
+var componentCount=0;

@@ -4,6 +4,9 @@
  * @returns {Object} Timeline объект представления таймлайна
  */
 
+'use strict';
+
+
 Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
@@ -18,7 +21,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         //    this.render;            
         //});
 
-        //здесь твой код
         // -----------------------//
 
         // установить кол-во пикслей в секунде
@@ -53,6 +55,50 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     },
 
 
+    // создать линейку
+    createRuler: function() {
+
+
+
+        //TODO Продумать алгоритм построения линейки и переписать черновик
+
+        var width = 800;
+        var points = [];
+
+        var ms = this.toMilliseconds( 100 ) / this.options.get( 'zoom' );
+        var m;
+
+        var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
+
+        //console.log( z );
+        x.some(function( num ) {
+            if ( ms / num | 0 > 0 ) {
+                m = num;
+                return true;
+            }
+        });
+
+        width = this.toPixels( m ) * this.options.get( 'zoom' );
+
+        points = new Array( 800 / width | 0 );
+
+
+        var index = 0;
+//
+        for( ; index < points.length; index++ ) {
+            points[ index ] = {
+                width: width,
+                value: m * index
+            };
+        }
+
+        console.log( m );
+        console.log( this.toPixels( m ) * this.options.get( 'zoom' ) );
+
+        $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
+    },
+
+
     /**
     * Рисует/обновляет представление таймлана
      *
@@ -61,7 +107,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     render: function() {
 
         // используем шаблонизатор для генерации разметки
-        $( '#timeline-editor' ).jqotesub( '#timeline-line-template', this.query() );
+        $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
 
     },
 
@@ -74,44 +120,58 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      * @returns {Array}
      */
     query: function() {
-        var keyframes = [];
+        var lines = [];
+        var ratio = this.options.get( 'zoom' );
 
-        this.model.forEach(function( child ) {
-                
+        var childs = [];
+        var props = [];
+
+        // TODO Костыль, переписать
+        Object.keys( this.model ).forEach(function( key ) {
+            if ( !isNaN( +key ) ) {
+                childs.push( this.model[ key ] );
+            }
+        }, this );
+
+
+        childs.forEach(function( child ) {
             Object.keys( child.data ).forEach(function( name ) {
                 var prop = child.get( name );
-                var points = prop.cash.slice();
+                var keyframes = prop.cash.slice();
                 var width;
                 var left;
 
-                points = points.filter(function( val ) {
+                // TODO объеденить filter и map в один цикл
+
+                keyframes = keyframes.filter(function( val ) {
                     return !isNaN( +val );
                 });
 
-                points = points.sort(function( a, b ) {
+                keyframes = keyframes.map(function( val ) {
+                    return val * ratio;
+                });
+
+                keyframes = keyframes.sort(function( a, b ) {
                     return a - b;
                 });
 
-                left = points[ 0 ] * 100;
-                width = points[ points.length - 1 ] * 100;
+                left = keyframes[ 0 ];
+                width = keyframes[ keyframes.length - 1 ] - left;     // fix
 
-                left = this.toPixels( left );
-                width = this.toPixels( width );
-
-                keyframes.push({
+                lines.push({
                     left: left,
-                    width: width
+                    width: width,
+                    keyframes: keyframes
                 });
 
-            }, this )
+            });
+        });
 
-        }, this );
-
-        return keyframes;
+        return lines;
     },
 
 
-    /**
+/**
      *  Опции представления таймлайна. Прочитать/установить.
      *
      *  @this {Timeline}
@@ -140,7 +200,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  @returns {Number}
      */
     toPixels: function( milliseconds ) {
-        return milliseconds / 1000 * this.options.get( 'ratio' ) * this.options.get( 'zoom' );
+        return milliseconds / 1000 * this.options.get( 'ratio' );
     },
 
 
@@ -153,7 +213,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  @returns {Number}
      */
     toMilliseconds: function( pixels ) {
-        return pixels / this.options.get( 'ratio' ) * 1000 * this.options.get( 'zoom' );;
+        return pixels / this.options.get( 'ratio' ) * 1000;
     }
 
-} );
+});

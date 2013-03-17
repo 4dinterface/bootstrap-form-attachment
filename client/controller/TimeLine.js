@@ -1,7 +1,21 @@
-Define("app.controller.TimeLine", {
+'use strict';
+
+Define( 'app.controller.TimeLine', {
+
     extend: app.Component,
-    init: function (prop) {
+
+    init: function( prop ) {
         this.super();
-        this.apply(prop);
+        this.apply( prop );
+
+
+        // объект, в котором хранится сведения о представлении таймлайна
+        this.model.timeline = {
+            pixelsPerSecond: 100,
+            zoom: 1,
+            width: 800
+        };
+
     }
+
 });

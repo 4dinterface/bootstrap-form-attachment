@@ -13,7 +13,7 @@ Define('app.scene.Stage', {
 
 	// отрисовывает сцену
 	_makeTest: function () {
-		var s = new createjs.Shape();
+/*		var s = new createjs.Shape();
 		s.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, 40, 40);
 		s.x = 12;
 		s.y = 10;
@@ -32,5 +32,6 @@ Define('app.scene.Stage', {
 		this.addChild(s1);
 
 		this.update();
+                */
 	}
 });

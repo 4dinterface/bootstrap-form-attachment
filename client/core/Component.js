@@ -67,6 +67,7 @@ Define("app.Component", /** @lends {app.component} */({
 	this.event[name].push(fun);	
     },
 
+    
     off: function (name) {},
     
     //вставляет свойста в обьект

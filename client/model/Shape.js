@@ -11,8 +11,7 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
     */
     init : function () {
         this.super();                    
-    },  
-                
+    },                  
     /**
      * @method set
      * @param {property} name

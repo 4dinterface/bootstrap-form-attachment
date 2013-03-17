@@ -36,7 +36,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             tlShape.target=stShape;
             stShape.timeline=tlShape;
             
-            this.timeline[i]=tlShape;
+            this.timeline.push(tlShape);
             this.stage.addChild( stShape );
         }
         console.log('timeline',this.timeline);

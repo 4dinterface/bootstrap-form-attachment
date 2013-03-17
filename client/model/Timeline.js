@@ -39,6 +39,7 @@ Define('app.model.Timeline', /** @lends {app.Model} */ {
     },
             
     push : function (value) {        
+        
         var me=this;
         this.data.push(value);
         this.length=this.data.length;       
@@ -63,7 +64,11 @@ Define('app.model.Timeline', /** @lends {app.Model} */ {
      **/
     get : function (num) {            
         return this.data[num];        
-    }        
+    },  
+    
+    forEach:function(callback){
+        this.data.forEach(callback)
+    }
     
 });
 

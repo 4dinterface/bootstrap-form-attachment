@@ -1,36 +1,37 @@
 Define("app.controller.Scene", {
     extend: app.Component,
-    init: function (prop) {
-        this.super();
-        //вставляет свойста в обьект
-        this.apply(prop);
+	init: function (prop) {
+		this.super();
+		//вставляет свойста в обьект
+		this.apply(prop);
 
 		var stage = this.stage,
 			o,
-			offset = {};
+			offset = {},
+			bord;
 
 		// Drag-n-Drop на канвас
 		$(function () {
 
-			function bordElemPosition (top, left) {
+			// меняет позицию рамки
+			function bordPosition (top, left) {
 				$(".bordContainer").css({
 					top : top,
 					left: left
 				});
 			}
 
-			// html поверх элемента
-			$(document).on("mousedown", function (e) {
-				if (e.target !== stage["canvas"]) {
-					return;
+			// создает рамку для фигуры на канвас
+			function createBord (width, height, top, left) {
+				if (bord) {
+					deleteBord(bord);
 				}
-				// элементы контейнера
 				var elem = $("<div />").addClass("bordContainer").css({
-					width : '100px',
-					height: "130px",
-					top   : "40px",
-					left  : "40px"
-				}),
+						width : width + "px",
+						height: height + "px",
+						top   : top + "px",
+						left  : left + "px"
+					}),
 					bordLeftTop = $("<div />").addClass("bordLeftTop"),
 					bordLeftCenter = $("<div />").addClass("bordLeftCenter"),
 					bordLeftBottom = $("<div />").addClass("bordLeftBottom"),
@@ -50,30 +51,46 @@ Define("app.controller.Scene", {
 				elem.append(bordBottomCenter);
 
 				$("body").append(elem);
-			});
+
+				bord = elem;
+				console.log(bord[0]);
+			}
+
+			// удаляет рамку
+			function deleteBord (elem) {
+				$(elem).remove();
+				bord = "";
+			}
 
 			//  Drag-n-Drop
-			$(document).on("mousedown", function (e) {
+			$(document).on("mousedown", function xxx (e) {
 				if (e.target !== stage["canvas"]) {
-					return;
+					if (e.target === bord[0]) {
+						deleteBord(bord);
+					} else {
+						return;
+					}
 				}
+
 				var x = e.pageX - stage["canvas"].offsetLeft,
 					y = e.pageY - stage["canvas"].offsetTop;
 				o = stage.getObjectUnderPoint(x, y);
 				if (o) {
 					offset.x = o.x - x;
 					offset.y = o.y - y;
+					createBord(o.w, o.h, o.y + stage["canvas"].offsetTop - 2, o.x + stage["canvas"].offsetLeft - 2);
 				}
 			});
 			$(document).on("mousemove", function (e) {
-				if (o) {
+				if (o && bord) {
 					var x = e.pageX - stage["canvas"].offsetLeft,
 						y = e.pageY - stage["canvas"].offsetTop,
 						s = stage.globalToLocal(x, y);
+
 					o.x = s.x + offset.x;
 					o.y = s.y + offset.y;
 					stage.update();
-					bordElemPosition(o.y, o.x);
+					bordPosition(o.y + stage["canvas"].offsetTop - 2, o.x + stage["canvas"].offsetLeft - 2);
 				}
 			});
 			$(document).on("mouseup", function () {
@@ -82,8 +99,6 @@ Define("app.controller.Scene", {
 					o = undefined;
 				}
 			});
-
-
 		});
 	}
 });

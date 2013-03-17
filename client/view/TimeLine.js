@@ -76,7 +76,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     query: function() {
         var keyframes = [];
 
-        this.model.forEach(function( child ) {                
+        this.model.forEach(function( child ) {
+                
             Object.keys( child.data ).forEach(function( name ) {
                 var prop = child.get( name );
                 var points = prop.cash.slice();

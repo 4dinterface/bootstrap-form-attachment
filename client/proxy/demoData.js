@@ -1,250 +1,229 @@
-data=[    
+data=[
     {
         //обьект на сцене
         target:{
             xtype:"Rectangle"
         },
-        
+
         // анимируемые свойства
         x: {
             0: {
                 value:0,
                 easing:"line"
             },
-            3: {
+            300: {
                 value:0,
                 easing:"line"
             },
-            6:  {
+            600:  {
                 value:0,
                 easing:"line"
             },
-            10: {
+            1000: {
                 value:0,
                 easing:"line"
             }
         },
-            
+
         y: {
-            3: {
+            300: {
                 value:0,
                 easing:"line"
             },
-            8: {
+            800: {
                 value:0,
                 easing:"line"
             }
-        }              
+        }
     },
 
     // 2
     {
         //обьект на сцене
         target:{
-            xtype:"Circle"            
+            xtype:"Circle"
         },
 
         //анимируемые свойства
         x: {
-            15: {
+            1500: {
                 value:0,
                 easing:"line"
             },
-            18: {
+            1800: {
                 value:0,
                 easing:"line"
             },
-            19: {
+            1900: {
                 value:0,
                 easing:"line"
             },
-            34: {
+            3400: {
                 value:0,
                 easing:"line"
             }
-        },       
-                
+        },
+
         y: {
-            20: {
+            200: {
                 value:0,
                 easing:"line"
             },
-            30: {
+            300: {
                 value:0,
                 easing:"line"
             }
-         },                
-                 
-         z: {
-            14: {
+        },
+
+        z: {
+            1400: {
                 value:0,
                 easing:"line"
             },
-            
-            18: {
+
+            1800: {
                 value:0,
                 easing:"line"
             }
-         },
-          
-         w:{
-            2: {
+        },
+
+        w:{
+            200: {
                 value:0,
                 easing:"line"
             },
-            7: {
+            700: {
                 value:0,
                 easing:"line"
             }
-         },
-         o: {
-            9: {
+        },
+        o: {
+            900: {
                 value:0,
                 easing:"line"
             },
-            12: {
+            1200: {
                 value:0,
                 easing:"line"
             }
-         },
-         u:{
-            23: {
+        },
+        u:{
+            2300: {
                 value:0,
                 easing:"line"
             },
-            25:  {
+            2500:  {
                 value:0,
                 easing:"line"
             }
-         },
-         h:{
-            27:  {
+        },
+        h:{
+            2700:  {
                 value:0,
                 easing:"line"
             },
-            33:  {
+            3300:  {
                 value:0,
                 easing:"line"
             }
-         },
-         f:{
-            33:  {
+        },
+        f:{
+            3300:  {
                 value:0,
                 easing:"line"
             },
-            42:  {
+            4200:  {
                 value:0,
                 easing:"line"
             }
-         },
-         g: {
-            17:  {
+        },
+        g: {
+            1700:  {
                 value:0,
                 easing:"line"
             },
-            21:  {
+            2100:  {
                 value:0,
                 easing:"line"
             }
-         },
-         k: {
-            14:  {
+        },
+        k: {
+            1400:  {
                 value:0,
                 easing:"line"
             },
-            19:  {
+            1900:  {
                 value:0,
                 easing:"line"
             }
-         },
-         r: {
+        },
+        r: {
             10:  {
                 value:0,
                 easing:"line"
             },
-            15:  {
-                value:0,
-                easing:"line"
-            }
-         },
-         b: {
-             11:  {
-                value:0,
-                easing:"line"
-            },
-            12:  {
-                value:0,
-                easing:"line"
-            }
-         },
-         m:{
-            30:  {
-                value:0,
-                easing:"line"
-            },
-            35:  {
-                value:0,
-                easing:"line"
-            }
-         },
-         n:{
-            2:  {
-                value:0,
-                easing:"line"
-            },
-            15:  {
-                value:0,
-                easing:"line"
-            }
-         },
-         v: {
-            3:  {
-                value:0,
-                easing:"line"
-            },
-            4:  {
-                value:0,
-                easing:"line"
-            }
-         },
-         c: {
-            16:  {
-                value:0,
-                easing:"line"
-            },
-            19:  {
-                value:0,
-                easing:"line"
-            }
-         }           
-    },    
-    {
-        //обьект на сцене
-        target:{
-            xtype:"Text"           
-        },
-        
-        // анимируемые свойства
-        x: {
-            0: {
+            1500:  {
                 value:0,
                 easing:"line"
             }
         },
-            
-        y: {
-            3: {
+        b: {
+            1100:  {
+                value:0,
+                easing:"line"
+            },
+            1200:  {
                 value:0,
                 easing:"line"
             }
-        }              
+        },
+        m:{
+            300:  {
+                value:0,
+                easing:"line"
+            },
+            3500:  {
+                value:0,
+                easing:"line"
+            }
+        },
+        n:{
+            200:  {
+                value:0,
+                easing:"line"
+            },
+            1500:  {
+                value:0,
+                easing:"line"
+            }
+        },
+        v: {
+            300:  {
+                value:0,
+                easing:"line"
+            },
+            400:  {
+                value:0,
+                easing:"line"
+            }
+        },
+        c: {
+            1600:  {
+                value:0,
+                easing:"line"
+            },
+            1900:  {
+                value:0,
+                easing:"line"
+            }
+        }
     },
     {
         //обьект на сцене
         target:{
-            xtype:"HtmlElement"           
+            xtype:"Text"
         },
-        
+
         // анимируемые свойства
         x: {
             0: {
@@ -252,13 +231,34 @@ data=[
                 easing:"line"
             }
         },
-            
+
         y: {
-            3: {
+            300: {
                 value:0,
                 easing:"line"
             }
-        } 
-        
+        }
+    },
+    {
+        //обьект на сцене
+        target:{
+            xtype:"HtmlElement"
+        },
+
+        // анимируемые свойства
+        x: {
+            0: {
+                value:0,
+                easing:"line"
+            }
+        },
+
+        y: {
+            300: {
+                value:0,
+                easing:"line"
+            }
+        }
+
     }
 ]

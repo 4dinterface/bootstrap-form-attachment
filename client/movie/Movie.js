@@ -44,6 +44,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @type {Object}
      * @private
      */
+    //TODO Класс сцены ещё не готов
     stage: null,
 
     /**
@@ -54,17 +55,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     fetch: null,
 
     /**
-     * Число кадров в секунду при проигрывании
-     * 60 приблизительно равно частоте кадров при использовании requestAnimationFrame
-     * @type {number}
+     * Прошедшее с момента старта время
      * @private
+     * @type {number}
      */
-    FPS: 60,
-
-    /**
-     * Временная метка старта проигрывания. Устанавливается методом setTime.
-     */
-    startPosition: null,
+    elapsedTime: null,
 
     /**
      * Конструктор объекта, позволяющего управлять воспроизведением
@@ -75,28 +70,30 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
         this.super();
         this.apply(cfg);
         this.fetch = new app.movie.Fetch();
+        this.tick = this.tick.bind(this);
     },
 
     /**
      * Продолжает воспроизведение, начиная с текущей временной метки
      */
     play: function() {
-        
+        createjs.Ticker.addEventListener('tick', this.tick);
+        this.renderFrame();
     },
 
     /**
      * Производит остановку фильма на текущей временной метку.
      */
     stop: function () {
-
+        createjs.Ticker.removeEventListener('tick', this.tick);
     },
 
     /**
-     * Перемещает временную метку на указанную
-     * @param {number} time временная метка.
+     * Устанавливает прошедшее с момента старта время
+     * @param {number} time время в миллисекундах.
      */
-    setTime: function(time){
-        
+    setElapsedTime: function (time) {
+        this.elapsedTime = time;
     },
 
     /**
@@ -109,43 +106,71 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     },
 
     /**
-     * Осуществляет немедленный безусловный переход на указанную временную метку, а затем воспроизводит текущий клип или фильм.
-     * @param {number} timestamp временная метка
+     * Осуществляет немедленный безусловный переход на указанное время с момента старта, а затем воспроизводит текущий клип или фильм.
+     * @param {number} elapsedTime временная метка
      */
-    gotoAndPlay: function (timestamp) {
-        this.setTime(timestamp);
+    gotoAndPlay: function (elapsedTime) {
+        this.setElapsedTime(elapsedTime);
         this.play();
     },
 
     /**
-     * Осуществляет немедленный безусловный переход на указанную временную метку, а затем останавливает текущий клип или фильм.
-     * @param {number} timestamp временная метка
+     * Осуществляет немедленный безусловный переход на указанное время с момента старта, а затем останавливает текущий клип или фильм.
+     * @param {number} elapsedTime временная метка
      */
-    gotoAndStop: function (timestamp) {
-        this.setTime(timestamp);
+    gotoAndStop: function (elapsedTime) {
         this.stop();
+        this.setElapsedTime(elapsedTime);
+        this.renderFrame();
     },
 
     /**
      * Остановит проигрывание и перемотает на следующий кадр
      */
     nextFrame: function () {
-
+        this.stop();
+        this.onetimeTick();
     },
 
     /**
      * Остановит проигрывание и перемотает на предыдущий кадр
      */
     prevFrame: function () {
-
+        this.stop();
+        this.elapsedTime -= createjs.Ticker.getInterval();
+        this.renderFrame();
     },
 
     /**
-     * Отрисует на сцене текущее состояние фигур и их свойств
+     * Отрисует текущее состояние фигур
      * @private
      */
     renderFrame: function () {
+        //TODO как будут высчитываться значения свойств?
+        //TODO как будут рисоваться фигуры на сцене?
+    },
 
+    /**
+     * Вызовет tick после отрисовки, но только один раз.
+     * @private
+     */
+    onetimeTick: function () {
+        var self = this;
+        var paperTick = function (e) {
+            self.tick(e);
+            createjs.Ticker.removeEventListener('tick', paperTick);
+        };
+        createjs.Ticker.addEventListener('tick', paperTick);
+    },
+
+    /**
+     * Враппер отрисовщика. Вызывается из Ticker.
+     * @param {Object} e объект события из createjs.Ticker
+     * @private
+     */
+    tick: function (e) {
+        this.elapsedTime += e.delta;
+        this.renderFrame();
     }
 
 }));

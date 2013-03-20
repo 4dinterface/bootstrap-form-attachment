@@ -7,6 +7,7 @@
             <script src="frameworks/zepto/zepto-1.0.min.js"></script>
 
             <script src="frameworks/zepto/zepto.data.js"></script>
+            <script src="frameworks/zepto/zepto.draggable.js"></script>
             <script src="frameworks/jqote2/jquery.jqote2.js"></script>
                        
             <script src="client/core/Class.js">  </script>
@@ -27,6 +28,7 @@
             <script src="client/controller/Timeline.js">  </script>
             
             <script src="client/controller/Scene.js">  </script>
+            <script src="client/controller/TimeLine.js"></script>
             
             <script src="client/scene/shape/HtmlElement.js">  </script> 
             <script src="client/scene/shape/Text.js">  </script> 
@@ -38,6 +40,22 @@
             <script src="client/movie/Fetcher.js">  </script>
                         
             <script src="client/app.js">  </script>
+
+            <script>
+
+                // Zepto draggable test
+                $(function() {
+
+                    $( '.timeline-block' ).draggable({
+                        axis: 'x',
+                        area: {
+                            left: 0,
+                            right: 800
+                        }
+                    });
+
+                });
+            </script>
 	</head>
 
 	<body style="">
@@ -83,7 +101,13 @@
                 <div class="timeline-limiter" style="left:<%=this%>px;"></div>
                 <div class="timeline-keyframe" style="left:<%=this%>px;"></div>
             </script>
-                
+
+
+            <script type="text/x-jqote-template" id="template-timeline-ruler">
+                     <div class="timeline-ruler-pick" style="width:<%=this.width%>px;">
+                         <%=this.value%>
+                     </div>
+               </script>
 
 	</body>
 

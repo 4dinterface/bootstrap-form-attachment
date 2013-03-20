@@ -7,9 +7,6 @@
 'use strict';
 
 
-'use strict';
-
-
 Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
@@ -112,6 +109,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         // используем шаблонизатор для генерации разметки
         $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
 
+        this.createRuler();
     },
 
 
@@ -124,20 +122,20 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     query: function() {
         var lines = [];
-        var ratio = this.options.get( 'zoom' );
+        var ratio = this.toPixels( this.options.get( 'zoom' ) );    // O_o ну пока так
 
         var childs = [];
         var props = [];
 
         // TODO Костыль, переписать
-        //Object.keys( this.model.data ).forEach(function( key ) {
-            //if ( !isNaN( +key ) ) {
-                //childs.push( this.model.get( key ) );
-            //}
-        //}, this );
+        Object.keys( this.model ).forEach(function( key ) {
+            if ( !isNaN( +key ) ) {
+                childs.push( this.model[ key ] );
+            }
+        }, this );
 
 
-        this.model.forEach(function( child ) {
+        childs.forEach(function( child ) {
             Object.keys( child.data ).forEach(function( name ) {
                 var prop = child.get( name );
                 var keyframes = prop.cash.slice();

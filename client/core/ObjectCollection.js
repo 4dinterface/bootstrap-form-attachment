@@ -35,10 +35,6 @@ Define('app.ObjectCollection',{
                 value:val,                
             });
 
-            //обеспечим всплытие событий
-            val.on('bubble',function(e){
-                me.fire(e.eventName,e);
-            })
         },
 
         //возвращает значение по индексу

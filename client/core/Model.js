@@ -51,13 +51,7 @@ Define('app.Model', /** @lends {app.Model} */ {
             this.fire("change", {
                 key:name,
                 value:value
-            });
-                
-            //обеспечим всплытие событий
-            //console.log(value);
-            if(value.on) value.on('bubble',function(e){
-                me.fire(e.eventName,e);
-            })
+            });                           
 	},
 
 

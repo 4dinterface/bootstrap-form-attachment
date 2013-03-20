@@ -58,8 +58,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     // создать линейку
     createRuler: function() {
 
-
-
         //TODO Продумать алгоритм построения линейки и переписать черновик
 
         var width = 800;
@@ -135,7 +133,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         }, this );
 
 
-        childs.forEach(function( child ) {
+        this.model.forEach(function( child ) {
             Object.keys( child.data ).forEach(function( name ) {
                 var prop = child.get( name );
                 var keyframes = prop.cash.slice();

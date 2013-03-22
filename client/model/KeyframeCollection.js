@@ -46,5 +46,22 @@ Define('app.model.KeyframeCollection',{
                 keyframeCollection:this,
                 value:keyframe
             });
+        },
+                
+
+       /**
+        * Удаляет ключ
+        * @param {int}  time - время на которой распложен ключ
+        */          
+                
+        remove:function(time){
+            //this[time].fire('onRemove');
+            var keyframe=this[time]
+            delete this[time];
+            this.fire("keyframecollectionchange", {
+                key:time,
+                keyframeCollection:this,
+                value:keyframe
+            });    
         }
 });

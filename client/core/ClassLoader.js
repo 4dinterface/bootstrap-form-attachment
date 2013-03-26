@@ -17,6 +17,7 @@ Define("app.ClassLoader",{
     require:function(prop,callback){
         var me=this,
             count=0;    
+    
         prop.forEach(function(el){
             count++;
             me.loadScript(el,function(){

@@ -1,6 +1,6 @@
 'use strict';
 
-Define( 'app.controller.TimeLine', {
+Define( 'app.controller.Timeline', {
 
     extend: app.Component,
 

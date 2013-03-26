@@ -1,4 +1,4 @@
-/**
+﻿/**
  * This is jquery compatible method
  * Store arbitrary data associated with the specified element and/or return the value that was set.
  * http://api.jquery.com/jQuery.data/

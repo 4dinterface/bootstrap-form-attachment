@@ -1,4 +1,4 @@
-/* Reset defaults -> */
+﻿/* Reset defaults -> */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,caption { margin:0; padding:0; border:0; outline:0; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; vertical-align:baseline; }
 table,tbody,tfoot,thead,tr,th,td { margin:0; border:0; outline:0; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; }
 :focus { outline:0; }
@@ -265,41 +265,6 @@ html, body {
 .tab-head-title__timeline {
     margin-top: -2px;
 }
-.timeline {
-    -webkit-box-ordinal-group: 1;
-    -moz-box-ordinal-group: 1;
-    -webkit-order: 0;
-    -ms-flex-order: 0;
-    order: 0;
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    -webkit-align-self: auto;
-    -ms-flex-item-align: auto;
-    align-self: auto;
-    min-height: 222px;
-    margin: 0px 0 0 2px;
-}
-.timeline-tape {
-    height: 22px;
-    background-color: #dadada;
-    background: -webkit-linear-gradient(bottom, #5e5e5e 10%, #8a8a8a 90%);
-    background: -moz-linear-gradient(bottom, #5e5e5e 10%, #8a8a8a 90%);
-    background: -ms-linear-gradient(bottom, #5e5e5e 0%,#8a8a8a 100%);
-    background: -o-linear-gradient(bottom, #5e5e5e 0%,#8a8a8a 100%);
-    background: linear-gradient(to top, #5e5e5e 0%,#8a8a8a 100%);
-}
-.timeline-tape-dot {
-    margin-top: -22px;
-    height: 22px;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMTEB0DHTu5JgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY2CAgv///5vjYDAwMAAAvw0JnXzCDWwAAAAASUVORK5CYII=");
-}
-.timeline-line {
-    height: 200px;
-    background-color: #b2b2b2;
-}
 /* menu -> */
 .menu {
     margin: 7px 0 0 20px;
@@ -323,4 +288,107 @@ html, body {
     background: -o-linear-gradient(bottom, #252525 0%,#3a3a3a 100%);
     background: linear-gradient(to top, #252525 0%,#3a3a3a 100%);
     cursor: pointer;
+}
+
+
+
+/******************** TIMELINE STYLES **********************/
+
+#timeline-editor {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+    min-height: 222px;
+    margin: 0px 0 0 2px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#timeline-ruler {
+    height: 22px;
+    background-color: #dadada;
+    background: -webkit-linear-gradient(bottom, #5e5e5e 10%, #8a8a8a 90%);
+    background: -moz-linear-gradient(bottom, #5e5e5e 10%, #8a8a8a 90%);
+    background: -ms-linear-gradient(bottom, #5e5e5e 0%,#8a8a8a 100%);
+    background: -o-linear-gradient(bottom, #5e5e5e 0%,#8a8a8a 100%);
+    background: linear-gradient(to top, #5e5e5e 0%,#8a8a8a 100%);
+}
+
+#timeline-ruler-background {
+    height: 22px;
+    margin-top: -22px;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMTEB0DHTu5JgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY2CAgv///5vjYDAwMAAAvw0JnXzCDWwAAAAASUVORK5CYII=");
+}
+
+/**
+ * Линия редактора таймлайна
+ */
+.timeline-line {
+    height: 18px;
+
+    /* TODO Пока так. Как должно быть https://webdav.yandex.ru/inkscape-amix20.png */
+    background-color: #dadada;
+
+    /* TODO Этот стиль под вопросом */
+    border-bottom: 1px solid #b2b2b2;
+
+    position: relative;
+    padding: 2px 0;
+    top: 0px;
+    left: 0px;
+}
+
+/**
+ * Блок на линии в редакторе таймлайна
+ */
+.timeline-block {
+    /*border-top: 1px solid #4682b4;*/
+    /*border-bottom: 1px solid #4682b4;*/
+    height: 18px;
+    position: relative;
+    margin: 0;
+    top: 0px;
+    background-color: #a3b852;
+}
+
+/**
+ * Ключевой кадр блока на линии в редакторе таймлайна
+ */
+.timeline-keyframe {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #545454;
+    top: 7px;
+    border: 1px solid #ebebeb;
+    margin-left: -4px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+/**
+* Блок на линейке таймлайна
+*/
+.timeline-ruler-pick {
+    color: #fffae5;
+    width: 100px;
+    height: 20px;
+    float: left;
+    border-right: 1px solid gray;
+    text-align: left;
+    font-size: 0.6em;
+    font-family: Tahoma;
 }

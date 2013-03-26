@@ -52,11 +52,27 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         });
 
+        this.render();
+
     },
 
 
     // создать линейку
     createRuler: function() {
+
+        // 0 ... 1 ... 2 ... 3 ... 4 ... 5
+        // 0 ... 2,5 ... 5 ... 7,5 ... 10 ... 12,5
+        // 0 ... 5 ... 10 ... 15 ... 20 ... 25
+        // 0 ... 10 ... 20 ... 30 ... 40 ... 50
+        // 0 ... 25 ... 50 ... 75 ... 100 ... 125
+        // 0 ... 50 ... 100 ... 150 ... 200 ... 250
+        // 0 ... 100 ... 200 ... 300 ... 400 ... 500
+        // 0 ... 250 ... 500 ... 750 ... 1000 ... 1250
+        // 0 ... 500 ... 1000 ... 1500 ... 2000 ... 2500
+        // 0 ... 1000 ... 2000 ... 3000 ... 4000 ... 5000
+        // 0 ... 2500 ... 5000 ... 7500 ... 10000 ... 12500
+        // 0 ... 5000 ... 10000 ... 15000 ... 20000 ... 25000
+
 
         //TODO Продумать алгоритм построения линейки и переписать черновик
 
@@ -90,8 +106,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
             };
         }
 
-        console.log( m );
-        console.log( this.toPixels( m ) * this.options.get( 'zoom' ) );
+        // console.log( m );
+        // console.log( this.toPixels( m ) * this.options.get( 'zoom' ) );
 
         $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
     },
@@ -105,7 +121,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     render: function() {
 
         // используем шаблонизатор для генерации разметки
-        $( '#timeline-editor' ).jqotesub( '#template-timeline-line', this.query() );
+        $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.query() );
 
         this.createRuler();
     },
@@ -133,7 +149,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         }, this );
 
 
-        this.model.forEach(function( child ) {
+        childs.forEach(function( child ) {
             Object.keys( child.data ).forEach(function( name ) {
                 var prop = child.get( name );
                 var keyframes = prop.cash.slice();
@@ -168,7 +184,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         return lines;
     },
-
 
 /**
      *  Опции представления таймлайна. Прочитать/установить.

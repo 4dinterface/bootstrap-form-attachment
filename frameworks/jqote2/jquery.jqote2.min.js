@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jQote2 - client-side Javascript templating engine
  * Copyright (C) 2010, aefxx
  * http://aefxx.com/

@@ -1,192 +1,202 @@
-﻿<html>
-	<head>
-            <link rel="stylesheet" href="client/view/Timeline.css"/>
-            <link rel="stylesheet" href="client/view/Stage.css">
-            
-            <link rel="stylesheet" href="./css/style.css"/>                        
-                        
-            <script src="frameworks/zepto/zepto-1.0.min.js">  </script>                                                
-            <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js">  </script>             
-            
-            <script src="frameworks/zepto/zepto.data.js">  </script> 
-            <script src="frameworks/zepto/zepto.draggable.js">  </script> 
-            <script src="frameworks/jqote2/jquery.jqote2.js">  </script> 
-                    
-            <script src="client/core/Class.js">  </script> 
-            
-            <script src="client/core/Deferred.js">  </script> 
-            <script src="client/core/classLoader.js">  </script> 
-            <script src="client/app.js">  </script>
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="./css/style.css"/>
 
-            <script>
+        <!--Отключены. Частично перенесены в style.css-->
+        <!--<link rel="stylesheet" href="client/view/Timeline.css"/>-->
 
-                // Zepto draggable test
-                $(function() {
+        <link rel="stylesheet" href="client/view/Stage.css">
 
-                    $( '.timeline-block' ).draggable({
-                        axis: 'x',
-                        area: {
-                            left: 0,
-                            right: 800
-                        }
-                    });
+        <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
+        <script src="frameworks/zepto/zepto-1.0.min.js"></script>
 
-                });
-            </script>
-	</head>
+        <script src="frameworks/zepto/zepto.data.js"></script>
+        <script src="frameworks/zepto/zepto.draggable.js"></script>
+        <script src="frameworks/jqote2/jquery.jqote2.js"></script>
 
-	<body style="">
-<!-- ================================================================================== -->
-            <div class="head">
-                <div class="logo"></div>
-                <div class="menu">
-                    <div class="menu-item">File</div>
-                    <div class="menu-item">Edit</div>
-                    <div class="menu-item">Modify</div>
-                    <div class="menu-item">Window</div>
-                    <div class="menu-item">Preferenses</div>
-                    <div class="menu-item">Help</div>
-                </div>
+        <script src="client/core/Class.js"></script>
+        <script src="client/core/Component.js"></script>
+        <script src="client/core/ObjectCollection.js"></script>
+        <script src="client/core/ArrayCollection.js"></script>
+        <script src="client/core/Model.js"></script>
+
+        <script src="client/proxy/demoData.js"></script>
+        <script src="client/proxy/Reader.js"></script>
+
+        <script src="client/model/Keyframe.js"></script>
+        <script src="client/model/KeyframeCollection.js"></script>
+        <script src="client/model/Shape.js"></script>
+        <script src="client/model/Timeline.js"></script>
+
+        <script src="client/view/Timeline.js"></script>
+        <script src="client/controller/Timeline.js"></script>
+
+        <script src="client/controller/Scene.js"></script>
+        <script src="client/controller/Timeline.js"></script>
+
+        <script src="client/scene/shape/HtmlElement.js"></script>
+        <script src="client/scene/shape/Text.js"></script>
+        <script src="client/scene/shape/Circle.js"></script>
+        <script src="client/scene/shape/Rectangle.js"></script>
+        <script src="client/scene/Stage.js"></script>
+
+        <script src="client/movie/Movie.js"></script>
+        <script src="client/movie/Fetcher.js"></script>
+
+        <script src="client/app.js"></script>
+    </head>
+    <body>
+
+        <div class="head">
+            <div class="logo"></div>
+            <div class="menu">
+                <div class="menu-item">File</div>
+                <div class="menu-item">Edit</div>
+                <div class="menu-item">Modify</div>
+                <div class="menu-item">Window</div>
+                <div class="menu-item">Preferenses</div>
+                <div class="menu-item">Help</div>
             </div>
-            <div class="body">
-                <div class="body-block">
-                    <!-- left panels -->
-                    <div class="body-panels">
+        </div>
 
-                        <div class="tab">
-                            <div class="tab-head">
-                                <div class="tab-head-circle"></div>
-                                <div class="tab-head-title">
-                                    <div class="tab-head-title-glass"></div>
-                                    <div class="tab-head-title-text">Properties</div>
-                                </div>
-                            </div>
-                            <div class="tab-body"></div>
-                        </div>
+        <div class="body">
+            <div class="body-block">
 
-                        <div class="tab">
-                            <div class="tab-head">
-                                <div class="tab-head-circle"></div>
-                                <div class="tab-head-title">
-                                    <div class="tab-head-title-glass"></div>
-                                    <div class="tab-head-title-text">Library</div>
-                                </div>
-                            </div>
-                            <div class="tab-body"></div>
-                        </div>
 
-                    </div>
+                <!-- LEFT PANELS -->
+                <div class="body-panels">
 
-                    <div class="body-tools">
-                        <div class="tab-head tab-head__tools">
+                    <div class="tab">
+                        <div class="tab-head">
                             <div class="tab-head-circle"></div>
-                        </div>
-                        <div class="tab-body tab-body__tools">
-                            <div class="tool"><div class="tool-item tool-pointer"></div></div>
-                            <div class="tool"><div class="tool-item tool-select"></div></div>
-                            <div class="tool"><div class="tool-item tool-square"></div></div>
-                            <div class="tool"><div class="tool-item tool-circle"></div></div>
-                            <div class="tool"><div class="tool-item tool-lens"></div></div>
-                            <div class="tool"><div class="tool-item tool-text"></div></div>
-                            <div class="tool"><div class="tool-item tool-pipette"></div></div>
-                        </div>
-                    </div>
-                    <!-- scene -->
-                    <div class="body-scene">
-
-                        <div class="tab">
-                            <div class="tab-head">
-                                <div class="tab-head-circle"></div>
-                                <div class="tab-head-title">
-                                    <div class="tab-head-title-glass"></div>
-                                    <div class="tab-head-title-text">Scene</div>
-                                </div>
+                            <div class="tab-head-title">
+                                <div class="tab-head-title-glass"></div>
+                                <div class="tab-head-title-text">Properties</div>
                             </div>
+                        </div>
+                        <div class="tab-body"></div>
+                    </div>
+
+                    <div class="tab">
+                        <div class="tab-head">
+                            <div class="tab-head-circle"></div>
+                            <div class="tab-head-title">
+                                <div class="tab-head-title-glass"></div>
+                                <div class="tab-head-title-text">Library</div>
+                            </div>
+                        </div>
+                        <div class="tab-body"></div>
+                    </div>
+
+                </div>
+                <!-- END LEFT PANELS -->
+
+
+                <!-- TOOLS -->
+                <div class="body-tools">
+                    <div class="tab-head tab-head__tools">
+                        <div class="tab-head-circle"></div>
+                    </div>
+                    <div class="tab-body tab-body__tools">
+                        <div class="tool"><div class="tool-item tool-pointer"></div></div>
+                        <div class="tool"><div class="tool-item tool-select"></div></div>
+                        <div class="tool"><div class="tool-item tool-square"></div></div>
+                        <div class="tool"><div class="tool-item tool-circle"></div></div>
+                        <div class="tool"><div class="tool-item tool-lens"></div></div>
+                        <div class="tool"><div class="tool-item tool-text"></div></div>
+                        <div class="tool"><div class="tool-item tool-pipette"></div></div>
+                    </div>
+                </div>
+                <!-- END TOOLS -->
+
+
+                <!-- SCENE -->
+                <div class="body-scene">
+
+                    <div class="tab">
+                        <div class="tab-head">
+                            <div class="tab-head-circle"></div>
+                            <div class="tab-head-title">
+                                <div class="tab-head-title-glass"></div>
+                                <div class="tab-head-title-text">Scene</div>
+                            </div>
+                        </div>
                             <div class="tab-body tab-body-scene">
                                 <div id="canvas-editor" style="height:200px">
-                                    <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>    
+                                    <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>
                                     <canvas id="canvas" width="900" height="200"></canvas>
                                 </div>
                             </div>
-                        </div>
-
                     </div>
+
                 </div>
-                <!-- timeline -->
+                <!-- END SCENE -->
 
-                    <div class="body-block">
 
-                        <div class="body-timeline">
-                            <div class="tab tab-timeline">
-                                <div class="tab-head">
-                                    <div class="tab-head-circle"></div>
-                                    <div class="tab-head-title tab-head-title__timeline">
-                                        <div class="tab-head-title-glass"></div>
-                                        <div class="tab-head-title-text">Timeline</div>
-                                    </div>
-                                </div>
-                                <div class="tab-body tab-body-timeline">
+            </div>
 
-                                </div>
+            <div class="body-block">
+
+
+                <!-- TIMELINE -->
+                <div class="body-timeline">
+                    <div class="tab tab-timeline">
+                        <div class="tab-head">
+                            <div class="tab-head-circle"></div>
+                            <div class="tab-head-title tab-head-title__timeline">
+                                <div class="tab-head-title-glass"></div>
+                                <div class="tab-head-title-text">Timeline</div>
                             </div>
                         </div>
+                        <div class="tab-body tab-body-timeline">
 
-                        <div class="timeline">
-                            <div class="timeline-tape"></div>
-                            <div class="timeline-tape-dot"></div>
-                            <div class="timeline-line"></div>
                         </div>
-
                     </div>
+                </div>
+
+                <div id="timeline-editor">
+                    <div id="timeline-editor-head">
+                        <div id="timeline-ruler"></div>
+                        <div id="timeline-ruler-background"></div>
+                    </div>
+                    <div id="timeline-editor-body">
+                        <div class="timeline-line">
+                            <div class="timeline-line-block">
+                        </div>
+                        <div class="timeline-line"></div>
+                    </div>
+                </div>
 
             </div>
-<!-- ================================================================================== -->                        
-
-            
+        <!-- END TIMELINE -->
 
 
+        <!-- TEMPLATES -->
+                <script type="text/x-jqote-template" id="template-timeline-line">
+                    <div class="timeline-line">
+                        <%= $.jqote( '#template-timeline-block', this ) %>
+                    </div>
+                </script>
 
-            <div id="timeline-wrapper">
-                <div style="position: relative; height: 20px; width: 100px; background-color: #dcdcdc"></div>
-                <div id="timeline-ruler">
-                    <div class="timeline-ruler-pick">20</div>
-                </div>
-                <div id="timeline-editor"></div>
+                <script type="text/x-jqote-template" id="template-timeline-block">
+                    <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;"></div>
+                    <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
+                </script>
+
+                <script type="text/x-jqote-template" id="template-timeline-keyframe">
+                    <div class="timeline-keyframe" style="left:<%=this%>px;"></div>
+                </script>
+
+                <script type="text/x-jqote-template" id="template-timeline-ruler">
+                    <div class="timeline-ruler-pick" style="width:<%=this.width%>px;">
+                        <%=this.value%>
+                    </div>
+                </script>
+        <!-- END TEMPLATES -->
+
             </div>
-
-
-            <b>Zoom</b> <input type="range" min="1" max="400" step="0.1" value="1" style="position: relative; width: 200px;">
-            <input type="text" value="1" style="position: relative; width: 50px;">
-
-
-            <script type="text/x-jqote-template" id="template-timeline-line">
-
-                <!--TODO заменить дивы-линии на список?-->
-
-                <div class="timeline-line">
-                    <%= $.jqote( '#template-timeline-block', this ) %>
-                </div>
-            </script>
-
-
-            <script type="text/x-jqote-template" id="template-timeline-block">
-                <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;"></div>
-                <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
-            </script>
-
-
-            <script type="text/x-jqote-template" id="template-timeline-keyframe">
-                <div class="timeline-limiter" style="left:<%=this%>px;"></div>
-                <div class="timeline-keyframe" style="left:<%=this%>px;"></div>
-            </script>
-
-
-            <script type="text/x-jqote-template" id="template-timeline-ruler">
-                     <div class="timeline-ruler-pick" style="width:<%=this.width%>px;">
-                         <%=this.value%>
-                     </div>
-               </script>
-
-	</body>
-
+        </div>
+    </body>
 </html>

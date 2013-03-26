@@ -1,36 +1,36 @@
 ﻿$( function () {    
         'use strict'	
-        // var a=new app.ClassLoader();                
-        // a.require([                                               
-            // "client/core/Component.js",
-            // "client/core/ObjectCollection.js",
-            // "client/core/ArrayCollection.js",
-            // "client/core/Model.js",
+         var a=new app.ClassLoader();                
+         a.require([                                               
+             "client/core/Component.js",
+             "client/core/ObjectCollection.js",
+             "client/core/ArrayCollection.js",
+             "client/core/Model.js",
 
-            // "client/proxy/demoData.js",
-            // "client/proxy/Reader.js",
+             "client/proxy/demoData.js",
+             "client/proxy/Reader.js",
             
-            // "client/model/Keyframe.js",
-            // "client/model/KeyframeCollection.js",
-            // "client/model/Shape.js",   
-            // "client/model/Timeline.js",
+             "client/model/Keyframe.js",
+             "client/model/KeyframeCollection.js",
+             "client/model/Shape.js",   
+             "client/model/Timeline.js",
             
-            // "client/view/Timeline.js",
-            // "client/controller/Timeline.js",
+             "client/view/Timeline.js",
+             "client/controller/Timeline.js",
             
-            // "client/controller/Scene.js",
-            // "client/controller/TimeLine.js",
+             "client/controller/Scene.js",
+             "client/controller/TimeLine.js",
             
             
-            // "client/scene/shape/HtmlElement.js",
-            // "client/scene/shape/Text.js",
-            // "client/scene/shape/Circle.js",
-            // "client/scene/shape/Rectangle.js",
-            // "client/scene/Stage.js",
+             "client/scene/shape/HtmlElement.js",
+             "client/scene/shape/Text.js",
+             "client/scene/shape/Circle.js",
+             "client/scene/shape/Rectangle.js",
+             "client/scene/Stage.js",
             
-            // 'client/movie/Fetcher.js',
-            // 'client/movie/Movie.js'
-            // ], function(){
+             'client/movie/Fetcher.js',
+             'client/movie/Movie.js'
+             ], function(){
             var 
                 // создадим таймлайн
                 timeline = new app.model.Timeline (),
@@ -80,5 +80,5 @@
              //в данный момент load вызывается из конструктора reader, 
              //как события будут готовы, то эту строку можно разремарить
              //reader.load(data);                        
-        //})	
+        })	
 });

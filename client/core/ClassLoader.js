@@ -1,7 +1,7 @@
 // компонент в разработке
 Define("app.classLoader",{       
     //подгружает скрипты   
-    reqire:function(prop){
+    require:function(prop){
         
     },
             

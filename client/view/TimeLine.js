@@ -142,14 +142,9 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         var props = [];
 
         // TODO Костыль, переписать
-        Object.keys( this.model ).forEach(function( key ) {
-            if ( !isNaN( +key ) ) {
-                childs.push( this.model[ key ] );
-            }
-        }, this );
 
 
-        childs.forEach(function( child ) {
+        this.model.forEach(function( child ) {
             Object.keys( child.data ).forEach(function( name ) {
                 var prop = child.get( name );
                 var keyframes = prop.cash.slice();

@@ -3,6 +3,8 @@
             <link rel="stylesheet" href="client/view/Timeline.css"/>
             <link rel="stylesheet" href="client/view/Stage.css">
             
+            <link rel="stylesheet" href="./css/style.css"/>
+            
             <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
             <script src="frameworks/zepto/zepto-1.0.min.js"></script>
 
@@ -59,12 +61,113 @@
 	</head>
 
 	<body style="">
-
-
-            <div id="canvas-editor" style="height:200px">
-                <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>    
-                <canvas id="canvas" width="900" height="200"></canvas>
+<!-- ================================================================================== -->
+            <div class="head">
+                <div class="logo"></div>
+                <div class="menu">
+                    <div class="menu-item">File</div>
+                    <div class="menu-item">Edit</div>
+                    <div class="menu-item">Modify</div>
+                    <div class="menu-item">Window</div>
+                    <div class="menu-item">Preferenses</div>
+                    <div class="menu-item">Help</div>
+                </div>
             </div>
+            <div class="body">
+                <div class="body-block">
+                    <!-- left panels -->
+                    <div class="body-panels">
+
+                        <div class="tab">
+                            <div class="tab-head">
+                                <div class="tab-head-circle"></div>
+                                <div class="tab-head-title">
+                                    <div class="tab-head-title-glass"></div>
+                                    <div class="tab-head-title-text">Properties</div>
+                                </div>
+                            </div>
+                            <div class="tab-body"></div>
+                        </div>
+
+                        <div class="tab">
+                            <div class="tab-head">
+                                <div class="tab-head-circle"></div>
+                                <div class="tab-head-title">
+                                    <div class="tab-head-title-glass"></div>
+                                    <div class="tab-head-title-text">Library</div>
+                                </div>
+                            </div>
+                            <div class="tab-body"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="body-tools">
+                        <div class="tab-head tab-head__tools">
+                            <div class="tab-head-circle"></div>
+                        </div>
+                        <div class="tab-body tab-body__tools">
+                            <div class="tool"><div class="tool-item tool-pointer"></div></div>
+                            <div class="tool"><div class="tool-item tool-select"></div></div>
+                            <div class="tool"><div class="tool-item tool-square"></div></div>
+                            <div class="tool"><div class="tool-item tool-circle"></div></div>
+                            <div class="tool"><div class="tool-item tool-lens"></div></div>
+                            <div class="tool"><div class="tool-item tool-text"></div></div>
+                            <div class="tool"><div class="tool-item tool-pipette"></div></div>
+                        </div>
+                    </div>
+                    <!-- scene -->
+                    <div class="body-scene">
+
+                        <div class="tab">
+                            <div class="tab-head">
+                                <div class="tab-head-circle"></div>
+                                <div class="tab-head-title">
+                                    <div class="tab-head-title-glass"></div>
+                                    <div class="tab-head-title-text">Scene</div>
+                                </div>
+                            </div>
+                            <div class="tab-body tab-body-scene">
+                                <div id="canvas-editor" style="height:200px">
+                                    <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>    
+                                    <canvas id="canvas" width="900" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- timeline -->
+
+                    <div class="body-block">
+
+                        <div class="body-timeline">
+                            <div class="tab tab-timeline">
+                                <div class="tab-head">
+                                    <div class="tab-head-circle"></div>
+                                    <div class="tab-head-title tab-head-title__timeline">
+                                        <div class="tab-head-title-glass"></div>
+                                        <div class="tab-head-title-text">Timeline</div>
+                                    </div>
+                                </div>
+                                <div class="tab-body tab-body-timeline">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline">
+                            <div class="timeline-tape"></div>
+                            <div class="timeline-tape-dot"></div>
+                            <div class="timeline-line"></div>
+                        </div>
+
+                    </div>
+
+            </div>
+<!-- ================================================================================== -->                        
+
+            
 
 
 

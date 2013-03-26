@@ -1,5 +1,8 @@
 // компонент в разработке
-Define("app.ClassLoader",{           
+Define("app.ClassLoader",{       
+    init:function(){
+        
+    },
     loadScript:function(src,callback){
         var script = document.createElement("script");				
 	script.src = src+"?ns="+( Math.random()*1000 );

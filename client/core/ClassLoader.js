@@ -6,6 +6,8 @@ Define("app.ClassLoader",{
     loadScript:function(src,callback){
         var script = document.createElement("script");				
 	script.src = src+"?ns="+( Math.random()*1000 );
+        script.async=false;        
+
 	document.getElementsByTagName("head")[0].appendChild(script);
         
 	//обработчик загрузки

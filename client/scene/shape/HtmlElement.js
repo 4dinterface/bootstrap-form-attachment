@@ -23,4 +23,6 @@ Define('app.scene.shape.HtmlElement', {
             this.regX = 0;
 	    this.regY = 0;            
 	}
+                
+        
 });

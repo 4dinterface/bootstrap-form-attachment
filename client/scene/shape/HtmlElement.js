@@ -1,5 +1,5 @@
 /* 
- * Text
+ * Html Element
  */
 Define('app.scene.shape.HtmlElement', {
 	extend: createjs.DOMElement,
@@ -22,7 +22,7 @@ Define('app.scene.shape.HtmlElement', {
             
             this.regX = 0;
 	    this.regY = 0;            
-	}
+	},
                 
-        
+        renderToCache:function(){   }
 });

@@ -20,6 +20,8 @@ Define('app.scene.shape.Text', {
             this.y = cnf.y;		            
 	},
                 
+        renderToCache:function(){   }
+                
         //renderToCache:function(){                        
             //var me=this;
             //this.cache(0,0,this.width,this.height);

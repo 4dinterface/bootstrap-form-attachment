@@ -3,7 +3,9 @@
  */
 Define('app.scene.shape.Rectangle', {
 	extend: createjs.Shape,
-        
+
+    
+        //свойства влияющие на кэш
         width:100,
         height:40,
         
@@ -15,13 +17,15 @@ Define('app.scene.shape.Rectangle', {
             //this.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, me.width, me.height);
             this.x = cnf.x;
             this.y = cnf.y;	
-            this.renderToCache();         
+            //var blurFilter = new createjs.BoxBlurFilter(2,  1, 2);
+            //this.filters = [blurFilter];                                              
+            me.renderToCache();                                     
             //console.log('this',this.width);
 	},
         hihi:0,
         
         //эксперементальное решение
-        //draw:function(ctx, ignoreCache) {                      
+        //draw:function(ctx, ignoreCache) {  Ы                    
            //this.hihi+=.01;
            //if (this.hihi>1) return this.super(); 
            //this.renderToCash();
@@ -34,7 +38,9 @@ Define('app.scene.shape.Rectangle', {
         renderToCache:function(){                        
             var me=this;
             this.cache(0,0,this.width,this.height);
-            this.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, me.width, me.height);            
+            this.graphics
+                    .beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130)
+                    .drawRect(0, 0, me.width, me.height);            
             //console.log('gr',this.graphics);                        
             this.updateCache();
             this.graphics.clear();

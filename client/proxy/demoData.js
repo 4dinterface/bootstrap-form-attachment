@@ -11,30 +11,59 @@ data=[
                 value:0,
                 easing:"line"
             },
-            300: {
-                value:0,
+            600: {
+                value:100,
                 easing:"line"
             },
-            600:  {
-                value:0,
+            1000:  {
+                value:50,
                 easing:"line"
             },
-            1000: {
-                value:0,
+            2000: {
+                value:200,
                 easing:"line"
             }
         },
 
         y: {
             300: {
-                value:0,
+                value:50,
                 easing:"line"
             },
-            800: {
+            2000: {
                 value:0,
                 easing:"line"
             }
+        },
+        
+        //Ширина
+        width: {
+            500: {
+                value:100,
+                easing:"line"
+            },
+
+            3000: {
+                value:250,
+                easing:"line"
+            }
+            
+        },
+
+        //Высота
+        height: {
+            1000: {
+                value:100,
+                easing:"line"
+            },
+
+            2000: {
+                value:180,
+                easing:"line"
+            }
+            
         }
+
     },
 
     // 2
@@ -47,176 +76,33 @@ data=[
         //анимируемые свойства
         x: {
             1500: {
-                value:0,
+                value:200,
                 easing:"line"
             },
             1800: {
-                value:0,
+                value:300,
                 easing:"line"
             },
             1900: {
-                value:0,
+                value:100,
                 easing:"line"
             },
             3400: {
-                value:0,
+                value:300,
                 easing:"line"
             }
         },
 
         y: {
-            200: {
-                value:0,
+            2000: {
+                value:170,
                 easing:"line"
             },
-            300: {
-                value:0,
+            4000: {
+                value:10,
                 easing:"line"
             }
-        },
-
-        z: {
-            1400: {
-                value:0,
-                easing:"line"
-            },
-
-            1800: {
-                value:0,
-                easing:"line"
-            }
-        },
-
-        w:{
-            200: {
-                value:0,
-                easing:"line"
-            },
-            700: {
-                value:0,
-                easing:"line"
-            }
-        },
-        o: {
-            900: {
-                value:0,
-                easing:"line"
-            },
-            1200: {
-                value:0,
-                easing:"line"
-            }
-        },
-        u:{
-            2300: {
-                value:0,
-                easing:"line"
-            },
-            2500:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        h:{
-            2700:  {
-                value:0,
-                easing:"line"
-            },
-            3300:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        f:{
-            3300:  {
-                value:0,
-                easing:"line"
-            },
-            4200:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        g: {
-            1700:  {
-                value:0,
-                easing:"line"
-            },
-            2100:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        k: {
-            1400:  {
-                value:0,
-                easing:"line"
-            },
-            1900:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        r: {
-            10:  {
-                value:0,
-                easing:"line"
-            },
-            1500:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        b: {
-            1100:  {
-                value:0,
-                easing:"line"
-            },
-            1200:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        m:{
-            300:  {
-                value:0,
-                easing:"line"
-            },
-            3500:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        n:{
-            200:  {
-                value:0,
-                easing:"line"
-            },
-            1500:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        v: {
-            300:  {
-                value:0,
-                easing:"line"
-            },
-            400:  {
-                value:0,
-                easing:"line"
-            }
-        },
-        c: {
-            1600:  {
-                value:0,
-                easing:"line"
-            },
-            1900:  {
-                value:0,
-                easing:"line"
-            }
-        }
+        }        
     },
     {
         //обьект на сцене
@@ -229,12 +115,26 @@ data=[
             0: {
                 value:0,
                 easing:"line"
+            },
+            5000: {
+                value:400,
+                easing:"line"
             }
         },
 
         y: {
             300: {
-                value:0,
+                value:10,
+                easing:"line"
+            },
+            
+            2500: {
+                value:100,
+                easing:"line"
+            },
+            
+            5000: {
+                value:20,
                 easing:"line"
             }
         }
@@ -250,15 +150,32 @@ data=[
             0: {
                 value:0,
                 easing:"line"
+            },
+            6000: {
+                value:300,
+                easing:"line"
             }
         },
 
         y: {
             300: {
+                value:200,
+                easing:"line"
+            },
+            6000: {
                 value:0,
                 easing:"line"
             }
+        },
+        rotate:{
+            1000: {
+                value:10,
+                easing:"line"
+            },
+            6000: {
+                value:180,
+                easing:"line"
+            }
         }
-
     }
 ]

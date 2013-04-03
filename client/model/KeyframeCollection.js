@@ -47,6 +47,52 @@ Define('app.model.KeyframeCollection',{
                 value:keyframe
             });
         },
+
+        // Подумать и сделать       
+        moveLineKeyframe:function(time,newTime){
+            var me=this,
+                    
+               // определим насколько нужно переместить
+               offsetTime=newTime-time,
+            
+                //границы блока            
+                start=0, //начало блока
+                end=0;   //конец блока
+
+            //попробуем найти границ блока
+            this.forEach(function(el,thTime){
+                
+                //если время меньше искомого то мы ищем старт
+                if (thTime<time) {
+                    if (el['easing']=='none') start=0
+                    else if (start==0) start=thTime;
+                } 
+                // если время больше искомого то мы ищем end
+                else {
+                    if (el['easing']=='none' && end==0 ) end=thTime;
+                    
+                }          
+                
+            });
+
+            // применим перемещение к блокам
+            this.forEach(function(n){
+                if(n ){
+                    var keyframe=this[oldTime];
+                    delete this[oldTime];
+                    this[newTime]=keyframe;       
+                }                
+            })
+            
+            
+            //вызовем соответствующее событие
+            this.fire("keyframecollectionchange", {
+                key:newTime, 
+                oldKey:oldTime,//возможножно бесполезные данные
+                keyframeCollection:this,
+                value:keyframe
+            });
+        },        
                 
 
        /**

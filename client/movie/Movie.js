@@ -168,8 +168,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @private
      */
     tick: function (e) {
-        this.elapsedTime += e.delta;
+        var elapsedTime = this.elapsedTime += e.delta;
         this.renderFrame();
+        this.fire("onframe", {
+            elapsedTime: elapsedTime
+        });
     }
 
 }));

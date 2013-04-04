@@ -145,8 +145,69 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @private
      */
     renderFrame: function () {
-        //TODO как будут высчитываться значения свойств?
-        //TODO как будут рисоваться фигуры на сцене?
+
+        var elapsedTime = this.elapsedTime;
+        //TODO продолжительность всего таймлайна
+        var duration = 1e3 * this.timeline.timeline.width / (this.timeline.timeline.pixelsPerSecond * this.timeline.timeline.zoom);
+        var progress = elapsedTime === 0 ? 0 : duration / elapsedTime;
+
+        // обход фигур
+        this.timeline.forEach(function (item) {
+
+            var data = item.data,
+                prop,
+                keyframes,
+                firstKeyframe,
+                secondKeyframe;
+
+            // обход свойств
+            for (prop in data) if (data.hasOwnProperty(prop)) {
+                keyframes = data[prop];
+
+                // поиск двух ключевых кадров для текущей временной метки
+                keyframes.forEach(function (keyframe, key) {
+
+                    key = key | 0;
+
+                    if (typeof keyframe.get("key") !== "number") {
+                        keyframe.set("key", key);
+                    }
+
+                    if (!firstKeyframe) {
+                        firstKeyframe = keyframe;
+                    } else if (!secondKeyframe) {
+                        secondKeyframe = keyframe;
+                    } else {
+                        // есть 2 ключевых кадра. теперь выборка
+                        if (keyframe.get("key") > elapsedTime) {
+                            secondKeyframe = keyframe;
+                        } else {
+                            firstKeyframe = keyframe;
+                        }
+                    }
+
+                });
+
+                // интерполяция
+                var offset,
+                    scale,
+                    fractionalTime,
+                    currentValue;
+
+                offset = firstKeyframe.get('key');
+                scale = 1.0 / (secondKeyframe.get('key') - firstKeyframe.get('key'));
+
+                fractionalTime = ( progress - offset) * scale;
+
+                currentValue = (1.0 - fractionalTime) * firstKeyframe.get('value') + fractionalTime * secondKeyframe.get('value');
+
+                item.target[ prop ] = Math.floor(currentValue);
+            }
+
+        });
+
+        // на этом моменте все свойства просчитаны
+        this.stage.update();
     },
 
     /**

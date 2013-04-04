@@ -16,7 +16,7 @@ Define('app.model.Timeline', /** @lends {app.Model} */ {
     */
     init : function () {
         this.data=[];
-        this.super();                    
+        this._super();                    
     },  
                 
     /**

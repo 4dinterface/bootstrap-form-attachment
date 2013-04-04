@@ -7,7 +7,7 @@ Define('app.ObjectCollection',{
         
         //наследование
 	init:function (prop){
-            this.super();
+            this._super();
             
             this.cash=[];
             

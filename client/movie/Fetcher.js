@@ -35,7 +35,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch} */ ({
      * @param {Object} cfg объект с аргументами
      */
     init: function(cfg){
-        this.super();
+        this._super();
         this.apply(cfg);
         this.currentValues = {};
     },

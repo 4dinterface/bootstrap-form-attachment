@@ -67,7 +67,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      * @param {Object} cfg объект с дополнительными свойствами
      */
     init: function(cfg){
-        this.super();
+        this._super();
         this.apply(cfg);
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);

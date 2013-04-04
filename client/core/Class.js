@@ -9,7 +9,8 @@ Define = function (name, prop) {
     var src = prop.extend || {},
         child = function () {
             if (this.init) return this.init.apply(this, arguments)||this;
-        };
+        },
+        fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
     //child prototype - скопируем туда родителя
     child.prototype = Object.create(src.prototype||src);
@@ -17,10 +18,13 @@ Define = function (name, prop) {
     //ссылки на класс
     child.prototype["proto"] = child.prototype;
 
+
     //скопируем свойства текущего класса
-    for (var x in prop) {
-        if (typeof prop[x] == "function") prop[x] = wrapper(x, prop[x], src.prototype);
-        child.prototype[x] = prop[x];
+    for (var x in prop) {                    
+        if (typeof prop[x] == "function")
+            if ( fnTest.test(prop[x]) ) prop[x] = wrapper(x, prop[x], src.prototype);
+        
+        child.prototype[x] = prop[x];                
     }
 
     //console.log(child.prototype);
@@ -33,10 +37,9 @@ Define = function (name, prop) {
     function wrapper(name, fun, src) {
         return function () {
             var arg = arguments;
-            this.super = function () {
+            this._super = function () {
                 if (src[name]) src[name].apply(this, arg);
             };
-
             return fun.apply(this,arguments);	
 	}
     }

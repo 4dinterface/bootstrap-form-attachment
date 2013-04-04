@@ -14,7 +14,7 @@ Define('app.model.Keyframe', /** @lends {app.Model} */ {
 	 * @param {Object} prop объект с описанием экземпляра
 	 */
 	init : function () {
-            this.super();                    
+            this._super();                    
 	},        
 	/**
 	 * @method set
@@ -23,7 +23,7 @@ Define('app.model.Keyframe', /** @lends {app.Model} */ {
 	 * @return null
 	 **/
 	set : function (property, value) {
-            this.super();
+            this._super();
             this.fire("keyframechange", {
                 key:name,
                 value:value

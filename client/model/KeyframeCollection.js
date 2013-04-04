@@ -4,13 +4,13 @@ Define('app.model.KeyframeCollection',{
                 
         //наследование
 	init:function (prop){
-            this.super();
+            this._super();
         },
                         
 	//setter
 	set:function(name,val){
             var me=this;
-            this.super();
+            this._super();
 
             //вызовем соответствующее событие
             this.fire("keyframecollectionchange", {

@@ -5,7 +5,7 @@ Define( 'app.controller.Timeline', {
     extend: app.Component,
 
     init: function( prop ) {
-        this.super();
+        this._super();
         this.apply( prop );
 
 

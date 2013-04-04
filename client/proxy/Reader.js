@@ -13,7 +13,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * в качестве аргументов передаётся сцена и модель таймлайна
      */
     init: function( cfg) {
-        this.super();
+        this._super();
         this.apply( cfg);                         
 
         //загрузка эксперементальных данных(потом это нужно удалить)

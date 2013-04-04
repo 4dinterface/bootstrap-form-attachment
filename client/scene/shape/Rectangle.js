@@ -27,10 +27,10 @@ Define('app.scene.shape.Rectangle', {
         //эксперементальное решение
         //draw:function(ctx, ignoreCache) {  Ы                    
            //this.hihi+=.01;
-           //if (this.hihi>1) return this.super(); 
+           //if (this.hihi>1) return this._super(); 
            //this.renderToCash();
            //стандартная перерисовка
-           //this.super();           
+           //this._super();           
            //ручная           
            //console.log(ctx);
         //},

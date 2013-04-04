@@ -10,7 +10,7 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
     * @param {Object} prop объект с описанием экземпляра
     */
     init : function () {
-        this.super();                    
+        this._super();                    
     },                  
     /**
      * @method set
@@ -20,7 +20,7 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
      **/
     set : function (name, value) {
         var me=this;
-        this.super();
+        this._super();
         this.fire("shapechange", {
             name:name,
             value:value

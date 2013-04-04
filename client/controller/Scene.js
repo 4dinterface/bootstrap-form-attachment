@@ -10,7 +10,7 @@ Define("app.controller.Scene", {
     mode:1,
         
     init: function (prop) {
-        this.super();
+        this._super();
         //вставляет свойста в обьект
         this.apply(prop);
 

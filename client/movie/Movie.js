@@ -41,10 +41,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     /**
      * Сцена, на которой проигрыватель будет отрисовывать текущие значения
-     * @type {Object}
+     * @type {app.scene.Stage}
      * @private
      */
-    //TODO Класс сцены ещё не готов
     stage: null,
 
     /**

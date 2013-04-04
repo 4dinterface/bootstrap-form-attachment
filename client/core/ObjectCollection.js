@@ -59,7 +59,7 @@ Define('app.ObjectCollection',{
         forEach:function(callback){
             for(prop in this) {
                 if ( this[prop] === this.proto[prop] ) continue;                
-                if ( isFinite(prop | 0) ) callback(this[prop],prop , this);
+                if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
             }
             return this;
         }     			

@@ -25,6 +25,12 @@ Define('app.scene.shape.Text', {
             //TextAlign - :)
             
 	},
+
+        //get height ideya
+        getHeight:function(){
+            return this.getMeasuredHeight ();		
+        },
+        
                 
         renderToCache:function(){   
             this.lineWidth=this.width;            

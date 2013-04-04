@@ -19,7 +19,7 @@
              "client/controller/Timeline.js",
             
              "client/controller/Scene.js",
-             "client/controller/TimeLine.js",
+             "client/controller/Timeline.js",
             
             
              "client/scene/shape/HtmlElement.js",

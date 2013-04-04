@@ -19,7 +19,7 @@ Define("app.Component", /** @lends {app.component} */({
 	for (event in this.listeners) {
             
 	}
-        console.log('ths',this);
+        //console.log('ths',this);
     },
 	
     //события

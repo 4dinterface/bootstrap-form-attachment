@@ -76,8 +76,15 @@
                     movie:movie
                 });
 
-             // СОЗДАТЬ ХАОС
-             //movie.play();
+             // СОЗДАТЬ ХАОС - демка для Movie
+             var CHAOS = false;
+             if (CHAOS) {
+                 movie.play();
+                 setTimeout(function () {
+                     movie.stop();
+                 }, 8000);
+             }
+
 
              //команда на загрузку   
              //в данный момент load вызывается из конструктора reader, 

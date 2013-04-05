@@ -121,8 +121,40 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
         /*findKey:function(time){
             var i=0,
                 result=0;
-            for (i=0; i<this.cash.length;i++){                
+            for (i=0; i<this.cash.length;i++){
+
                 alert(this.cash[i]);
             }
-        }*/
+        },
+
+    /**
+     * Попытается найти в коллекции 2 ключевых кадра, удволетворяющих условию
+     * ВРЕМЯ_ПЕРВОГО <= ТЕКУЩЕЕ_ВРЕМЯ < ВРЕМЯ_ВТОРОГО
+     * @param {number} elapsedTime текущее время с момента старта
+     * @return {{ first: app.model.KeyframeCollection, second: app.model.KeyframeCollection }}
+     */
+    lookupKeyframes: function (elapsedTime) {
+
+        var firstKeyframe,
+            secondKeyframe,
+            key,
+            keyframe;
+
+        for (var i = 0, m = this.cache.length; i < m; i++) {
+            key = parseInt(this.cache[i], 10);
+            if (isFinite(key)) {
+                keyframe = this[ key ];
+                if (elapsedTime < key) {
+                    secondKeyframe = keyframe;
+                    break;
+                }
+                firstKeyframe = keyframe;
+            }
+        }
+
+        return {
+            first: firstKeyframe,
+            second: secondKeyframe
+        };
+    }
 }));

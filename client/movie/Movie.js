@@ -70,6 +70,8 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
         this.apply(cfg);
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
+
+        this.elapsedTime = 0;
     },
 
     /**
@@ -147,62 +149,44 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     renderFrame: function () {
 
         var elapsedTime = this.elapsedTime;
-        //TODO продолжительность всего таймлайна
-        var duration = 1e3 * this.timeline.timeline.width / (this.timeline.timeline.pixelsPerSecond * this.timeline.timeline.zoom);
-        var progress = elapsedTime === 0 ? 0 : duration / elapsedTime;
 
         // обход фигур
-        this.timeline.forEach(function (item) {
+        this.timeline.forEach(function ( /** @type {app.model.Timeline} */ item) {
 
             var data = item.data,
-                prop,
                 keyframes,
                 firstKeyframe,
                 secondKeyframe;
 
             // обход свойств
-            for (prop in data) if (data.hasOwnProperty(prop)) {
-                keyframes = data[prop];
+            item.iterateProperties(function (prop, keyframesCollection) {
 
-                // поиск двух ключевых кадров для текущей временной метки
-                keyframes.forEach(function (keyframe, key) {
+                keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
 
-                    key = key | 0;
+                firstKeyframe = keyframes.first;
+                secondKeyframe = keyframes.second;
 
-                    if (typeof keyframe.get("key") !== "number") {
-                        keyframe.set("key", key);
-                    }
-
-                    if (!firstKeyframe) {
-                        firstKeyframe = keyframe;
-                    } else if (!secondKeyframe) {
-                        secondKeyframe = keyframe;
-                    } else {
-                        // есть 2 ключевых кадра. теперь выборка
-                        if (keyframe.get("key") > elapsedTime) {
-                            secondKeyframe = keyframe;
-                        } else {
-                            firstKeyframe = keyframe;
-                        }
-                    }
-
-                });
+                if (!secondKeyframe || !firstKeyframe) {
+                    // отсутствует один из ключевых кадров
+                    // для текущего времени
+                    return;
+                }
 
                 // интерполяция
-                var offset,
-                    scale,
+                var deltaTime,
                     fractionalTime,
                     currentValue;
 
-                offset = firstKeyframe.get('key');
-                scale = 1.0 / (secondKeyframe.get('key') - firstKeyframe.get('key'));
+                deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
 
-                fractionalTime = ( progress - offset) * scale;
+                // из-за специфики чисел JS может вылезти за "1"
+                fractionalTime = Math.min(deltaTime / elapsedTime, 1.0);
 
-                currentValue = (1.0 - fractionalTime) * firstKeyframe.get('value') + fractionalTime * secondKeyframe.get('value');
+                currentValue = ( secondKeyframe.get('value') - firstKeyframe.get('value') ) * fractionalTime + firstKeyframe.get('value');
 
                 item.target[ prop ] = Math.floor(currentValue);
-            }
+
+            });
 
         });
 

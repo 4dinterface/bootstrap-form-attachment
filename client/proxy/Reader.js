@@ -81,10 +81,13 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
     makeKeyCollection: function(col){        
 
         var ret=new app.model.KeyframeCollection(),
-            i=null;    
+            i=null,
+            keyframe;
     
-        for (i in col) {                  
-            ret.set(i, new app.model.Keyframe( col[i] ));            
+        for (i in col) {
+            keyframe = new app.model.Keyframe( col[i] );
+            keyframe.set('key', parseInt(i, 10));
+            ret.set(i, keyframe);
         }        
         return ret;
     }

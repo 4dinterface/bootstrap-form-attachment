@@ -1,11 +1,19 @@
 //компонент в разработке
-Define('app.ObjectCollection',{    
+/**
+ * @name app.ObjectCollection
+ * @class
+ */
+Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
                 
         extend:app.Component,
         
         cash:[],
         
         //наследование
+    /**
+     * @constructor
+     * @param {Object} prop
+     */
 	init:function (prop){
             this._super();
             
@@ -68,4 +76,4 @@ Define('app.ObjectCollection',{
             return this;
         }     			
         
-});
+}));

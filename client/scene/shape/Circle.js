@@ -11,9 +11,9 @@ Define('app.scene.shape.Circle', {
             
             this.x = cnf.x;
             this.y = cnf.y;		
-            this.renderToCache();
-            
+            this.renderToCache();            
 	},
+                
         renderToCache:function(){                        
             var me=this;
             this.cache(0,0,this.width,this.height);

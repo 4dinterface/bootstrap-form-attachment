@@ -116,7 +116,7 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
                 keyframeCollection:this,
                 value:keyframe
             });    
-        }
+        },
                 
         /*findKey:function(time){
             var i=0,

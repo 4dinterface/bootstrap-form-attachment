@@ -50,6 +50,7 @@
                 movie=new app.movie.Movie({
                     timeline:timeline,
                     stage:stage
+                    //CHAOS:true
                 }),
 
                 // контролёр сцены
@@ -77,7 +78,7 @@
                 });
 
              // СОЗДАТЬ ХАОС - демка для Movie
-             var CHAOS = false;
+             var CHAOS = true;
              if (CHAOS) {
                  movie.play();
                  setTimeout(function () {

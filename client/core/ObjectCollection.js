@@ -27,6 +27,8 @@ Define('app.ObjectCollection',{
             var me=this;
 	    this[name]=val;
             this.cash=Object.keys(this);
+            this.cache=Object.keys(this);
+            
             this.length=this.cash.length;
             
             this.fire('change',{
@@ -59,7 +61,8 @@ Define('app.ObjectCollection',{
         forEach:function(callback){
             for(prop in this) {
                 if ( this[prop] === this.proto[prop] ) continue;                
-                if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
+                //if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
+                if(prop*1) callback(this[prop],prop , this);
             }
             return this;
         }     			

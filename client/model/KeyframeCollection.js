@@ -38,7 +38,7 @@ Define('app.model.KeyframeCollection',{
             var keyframe=this[oldTime];
             delete this[oldTime];
             this[newTime]=keyframe;
-            
+                                    
             //вызовем соответствующее событие
             this.fire("keyframecollectionchange", {
                 key:newTime, 
@@ -109,5 +109,14 @@ Define('app.model.KeyframeCollection',{
                 keyframeCollection:this,
                 value:keyframe
             });    
+        },
+                
+        findKey:function(time){
+            var i=0,
+                result=0;
+            for (i=0; i<this.cash.length;i++){
+                
+                alert(this.cash[i]);
+            }
         }
 });

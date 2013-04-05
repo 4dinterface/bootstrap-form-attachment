@@ -106,8 +106,7 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
        /**
         * Удаляет ключ
         * @param {int}  time - время на которой распложен ключ
-        */          
-                
+        */                          
         remove:function(time){
             //this[time].fire('onRemove');
             var keyframe=this[time]
@@ -119,7 +118,7 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
             });    
         },
                 
-        findKey:function(time){
+        /*findKey:function(time){
             var i=0,
                 result=0;
             for (i=0; i<this.cash.length;i++){

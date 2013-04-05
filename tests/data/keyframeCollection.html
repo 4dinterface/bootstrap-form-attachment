@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>QUnit Example</title>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
+        <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>   
+        
+        <script src="../../client/core/Class.js"></script>       
+        <script src="../../client/core/Component.js"></script>       
+        
+    </head>
+    <body>
+        <script src="/client/core/ObjectCollection.js"></script>            
+        <script src="/client/model/KeyframeCollection.js"></script>            
+        <script src="/client/core/Model.js"></script>            
+        <script src="/client/model/Keyframe.js"></script>            
+            
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+                              
+        <script>
+            var z=new app.model.KeyframeCollection({
+                  1:100,
+                  3:300,
+                  2:200
+            });
+            console.log (z);
+
+            // убедимся что forEach возвращает только числа
+            test( "test foreEach", function() {                                
+                z.forEach(function(val,num){
+                    ok( !isNaN(parseFloat(num)) && isFinite(num) , " Passed! "+num  );    
+                });
+                //ok( 1 == "1", "Passed!" );               
+            });    
+
+            //проверим в правильной ли последовательности перебераются ключи
+            test( "test foreEach (order)", function() {                                
+                var oldVal=-1;
+                z.forEach(function(val,num){
+                    ok( num>oldVal,"key="+num);    
+                    oldVal=num;
+                });                              
+            });    
+            
+            test( "test set/get ", function() {
+                var z=new app.model.KeyframeCollection({
+                  1:100,
+                  3:300,
+                  2:200
+                });
+                
+                z.on("keyframecollectionchange",function(){
+                    ok(z.get(50),"create key 50ms");
+                });
+                z.set(50,new app.model.Keyframe (  ) );
+            });
+            
+
+            //проверим перемещение ключа            
+            test( "test moveKeyframe", function() {
+                
+                var z=new app.model.KeyframeCollection({
+                  1:100,
+                  3:300,
+                  2:200
+                });
+                
+                //ужесточим тестирование так чтобы оно срабатывало по событию
+                z.on("keyframecollectionchange",function(){                  
+                    //убедимся что ключ 2 исчез
+                    ok(!z[2],"2 notFound");
+                    //убедимся что ключ 30 появился
+                    ok(z[30],"30 Found");
+
+                    //переберём ключи убедимся что порядок ненарушен
+                    var oldVal=-1;
+                    z.forEach(function(val,num){
+                        ok( num>oldVal,"key="+num);    
+                        oldVal=num;
+                    }); 
+                })                
+                z.moveKeyframe(2,30);
+            });    
+            
+            test( "test deleting key ", function() {                
+                var testCol=new app.model.KeyframeCollection({
+                      10:100,
+                      30:300,
+                      50:200
+                });
+                
+                testCol.on("keyframecollectionchange",function(){
+                    ok(!testCol.get(50),"remove key 50ms");
+                });
+                
+                testCol.remove(50);
+            });
+            
+            speedTest=new app.model.KeyframeCollection({});
+            for (var i=0;i<10000;i++) speedTest[i]=i;
+            
+            test( "speed test foreEach", function() {                                
+                var oldVal=0;
+                speedTest.forEach(function(val,num){
+                    oldVal=oldVal+num*1;
+               });                              
+               ok( 1==1,'ok '+oldVal);    
+            });    
+            
+            test( "speed test fore in", function() {                                
+                var oldVal=0;
+                for(i in speedTest){
+                    if(i*1)oldVal+=i*1;
+               };                              
+               ok( 1==1,'ok '+oldVal);    
+            });    
+            
+            console.log(speedTest);
+            speedTest.cache=Object.keys(speedTest);
+            
+            test( "speed test for cache", function() {                                
+                var oldVal=0,n=0;
+                for(var i=0;i<9999;i++){
+                    n=speedTest.cache[i];
+                    if(n*1) oldVal+=n*1;;
+                    //oldVal=n;
+               };                              
+               ok( 1==1,'ok='+oldVal);    
+            });    
+            
+            //z.findKey();
+            //test( "hello test", function() {
+                //ok( 1 == "1", "Passed!" );
+            //});    
+        </script>
+    </body>
+    
+</html>

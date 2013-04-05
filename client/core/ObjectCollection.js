@@ -7,7 +7,7 @@ Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
                 
         extend:app.Component,
         
-        cash:[],
+        cache:[],
         
         //наследование
     /**
@@ -17,11 +17,11 @@ Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
 	init:function (prop){
             this._super();
             
-            this.cash=[];
+            this.cache=[];            
             
             for(var i in prop) this[i]=prop[i];                        
-            this.cash=Object.keys(this);
-            this.length=this.cash.length;
+            this.cache=Object.keys(this);
+            this.length=this.cache.length;
         },
                 
 
@@ -34,10 +34,10 @@ Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
 	set:function(name,val){
             var me=this;
 	    this[name]=val;
-            this.cash=Object.keys(this);
+            this.cache=Object.keys(this);
             this.cache=Object.keys(this);
             
-            this.length=this.cash.length;
+            this.length=this.cache.length;
             
             this.fire('change',{
                 operation:"set",
@@ -49,7 +49,7 @@ Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
 
         //возвращает значение по индексу
         item:function(index){
-            return this[ this.cash[index] ];     
+            return this[ this.cache[index] ];     
         },     	
 
          // Удаляет записи

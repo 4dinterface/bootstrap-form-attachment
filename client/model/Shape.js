@@ -62,5 +62,6 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
 
         }
     }
+
 });
 

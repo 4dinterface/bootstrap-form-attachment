@@ -145,11 +145,10 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
         this.model.forEach(function( child ) {
-            Object.keys( child.data ).forEach(function( name ) {
-                var prop = child.get( name );
-                var keyframes = prop.cash.slice();
-                var width;
-                var left;
+            child.forEach(function( prop,name ) {                
+                var keyframes = prop.cache.slice(),
+                    width,
+                    left;
 
                 // TODO объеденить filter и map в один цикл
 

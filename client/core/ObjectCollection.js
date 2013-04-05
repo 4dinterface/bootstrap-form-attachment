@@ -59,6 +59,7 @@ Define('app.ObjectCollection',{
 	 * @return {String} a Base64 encoded image.
 	 **/
         forEach:function(callback){
+            var prop;
             for(prop in this) {
                 if ( this[prop] === this.proto[prop] ) continue;                
                 //if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);

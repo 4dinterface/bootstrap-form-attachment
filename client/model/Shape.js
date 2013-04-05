@@ -35,6 +35,32 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
             e.propertyName=name;
             me.fire(e.eventName,e);
         })
-    }        
+    },
+
+    /**
+     * Пройдётся по анимируемым свойствам и вызовет callback для каждого
+     * Первый аргумент - имя свойства
+     * Второй - коллекция ключевых кадров для свойства
+     * @param {function(string, app.model.KeyframeCollection)} callback
+     */
+    iterateProperties: function (callback) {
+        var propertyName,
+            keyframes,
+            properties,
+            shape;
+
+        properties = this.data;
+        shape = this.target;
+
+        for (propertyName in properties) if (properties.hasOwnProperty(propertyName)) {
+
+            // если у фигуры есть такое свойство - т.е. оно анимируется
+            if (propertyName in this.target) {
+                keyframes = properties[ propertyName ];
+                callback(propertyName, keyframes);
+            }
+
+        }
+    }
 });
 

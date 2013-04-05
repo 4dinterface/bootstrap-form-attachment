@@ -36,6 +36,10 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
             me.fire(e.eventName,e);
         })
     },
+     
+    forEach:function(callback){
+       for (n in this.data) callback(this.data[n],n,this.data);       
+    },
 
     /**
      * Пройдётся по анимируемым свойствам и вызовет callback для каждого

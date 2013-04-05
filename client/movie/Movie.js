@@ -185,12 +185,12 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
                 currentValue = ( secondKeyframe.get('value') - firstKeyframe.get('value') ) * fractionalTime + firstKeyframe.get('value');
 
                 item.target[ prop ] = Math.floor(currentValue);
-
+                item.target.renderToCache();    
             });
 
         });
 
-        // на этом моменте все свойства просчитаны
+        // на этом моменте все свойства просчитаны        
         this.stage.update();
     },
 

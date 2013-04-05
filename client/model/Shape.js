@@ -35,6 +35,16 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
             e.propertyName=name;
             me.fire(e.eventName,e);
         })
+    },
+
+    /**
+     * Перебор с
+     */
+    forEach:function(f){
+        for(i in this.data){
+            f(this.data[i],i,this.data)
+        }
     }        
+    
 });
 

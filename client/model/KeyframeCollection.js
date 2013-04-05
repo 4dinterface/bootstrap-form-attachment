@@ -1,8 +1,16 @@
 //компонент в разработке
-Define('app.model.KeyframeCollection',{                    
+/**
+ * @name app.model.KeyframeCollection
+ * @extends {app.ObjectCollection}
+ */
+Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection} */({
         extend:app.ObjectCollection,
                 
         //наследование
+    /**
+     * @constructor
+     * @param prop
+     */
 	init:function (prop){
             this._super();
         },
@@ -117,4 +125,4 @@ Define('app.model.KeyframeCollection',{
                 alert(this.cash[i]);
             }
         }*/
-});
+}));

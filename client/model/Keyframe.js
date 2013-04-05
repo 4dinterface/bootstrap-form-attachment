@@ -1,10 +1,11 @@
 /**
- * @name app.model.keyFrame
+ * @name app.model.Keyframe
  * @class
+ * @extends {app.Model}
  */
 
 //компонент в разработке
-Define('app.model.Keyframe', /** @lends {app.Model} */ {
+Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 
 	extend : app.Model,
 

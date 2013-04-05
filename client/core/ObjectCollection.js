@@ -1,11 +1,19 @@
 //компонент в разработке
-Define('app.ObjectCollection',{    
+/**
+ * @name app.ObjectCollection
+ * @class
+ */
+Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
                 
         extend:app.Component,
         
         cache:[],
         
         //наследование
+    /**
+     * @constructor
+     * @param {Object} prop
+     */
 	init:function (prop){
             this._super();
             
@@ -59,6 +67,7 @@ Define('app.ObjectCollection',{
 	 * @return {String} a Base64 encoded image.
 	 **/
         forEach:function(callback){
+            var prop;
             for(prop in this) {
                 if ( this[prop] === this.proto[prop] ) continue;                
                 //if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
@@ -67,4 +76,4 @@ Define('app.ObjectCollection',{
             return this;
         }     			
         
-});
+}));

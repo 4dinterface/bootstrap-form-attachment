@@ -167,6 +167,10 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 left = keyframes[ 0 ];
                 width = keyframes[ keyframes.length - 1 ] - left;     // fix
 
+                keyframes = keyframes.map(function( item ) {
+                    return item - left;
+                });
+
                 lines.push({
                     left: left,
                     width: width,

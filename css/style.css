@@ -272,7 +272,7 @@ html, body {
     min-width: 244px;
 }
 .tab-body-timeline {
-    min-height: 200px;
+    min-height: 300px;
 }
 .tab-head-title__timeline {
     margin-top: -2px;
@@ -320,9 +320,20 @@ html, body {
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-    min-height: 222px;
     margin: 0px 0 0 2px;
 }
+
+#timeline-editor-head {
+    /* some css */
+}
+
+#timeline-editor-body{
+    height: 300px;
+    overflow: scroll;
+    background-color: #dadada;
+    position: relative;
+}
+
 
 #timeline-ruler {
     height: 22px;
@@ -351,11 +362,7 @@ html, body {
 
     /* TODO Этот стиль под вопросом */
     border-bottom: 1px solid #b2b2b2;
-
-    position: relative;
     padding: 2px 0;
-    top: 0px;
-    left: 0px;
 }
 
 /**
@@ -365,26 +372,39 @@ html, body {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
-    position: relative;
     margin: 0;
-    top: 0px;
     background-color: #a3b852;
+    position: relative;
+}
+
+/**
+ * Выделенный блок
+ */
+.timeline-block-select {
+    background-color: #7a9900;
+}
+
+/**
+* Класс, присваиваемый при перетаскивании
+*/
+.cursor-drag {
+    cursor: pointer;
 }
 
 /**
  * Ключевой кадр блока на линии в редакторе таймлайна
  */
 .timeline-keyframe {
-    position: absolute;
     width: 6px;
     height: 6px;
     background-color: #545454;
-    top: 7px;
-    border: 1px solid #ebebeb;
     margin-left: -4px;
+    margin-top: 5px;
+    border: 1px solid #ebebeb;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
+    position: absolute;
 }
 
 /**

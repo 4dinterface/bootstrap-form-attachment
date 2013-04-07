@@ -2,7 +2,7 @@
  * @name app.model.Shape
  * @class
  */
-Define('app.model.Shape', /** @lends {app.Model} */ {
+Define('app.model.Shape', /** @lends {app.model.Shape.prototype} */ {
     extend : app.Model,
     /***
      * Конструктор экземпляров
@@ -36,6 +36,12 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
             me.fire(e.eventName,e);
         })
     },
+
+    /**
+     * Сама фигура
+     * @type {createjs.Shape}
+     */
+    target: null,
      
     forEach:function(callback){
        for (n in this.data) callback(this.data[n],n,this.data);       

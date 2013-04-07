@@ -3,7 +3,7 @@
  * @name app.model.KeyframeCollection
  * @extends {app.ObjectCollection}
  */
-Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection} */({
+Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection.prototype} */({
         extend:app.ObjectCollection,
                 
         //наследование
@@ -131,7 +131,7 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
      * Попытается найти в коллекции 2 ключевых кадра, удволетворяющих условию
      * ВРЕМЯ_ПЕРВОГО <= ТЕКУЩЕЕ_ВРЕМЯ < ВРЕМЯ_ВТОРОГО
      * @param {number} elapsedTime текущее время с момента старта
-     * @return {{ first: app.model.KeyframeCollection, second: app.model.KeyframeCollection }}
+     * @return {{ first: app.model.Keyframe, second: app.model.Keyframe }}
      */
     lookupKeyframes: function (elapsedTime) {
 

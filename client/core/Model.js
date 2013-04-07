@@ -5,11 +5,12 @@
  */
 
 /**
- * бдыщ от hnoe (компонент в разработке)
+ * Базовый класс для моделей
  * @name app.Model
  * @class
+ * @extends {app.Component}
  */
-Define('app.Model', /** @lends {app.Model} */ {
+Define('app.Model', /** @lends {app.Model.prototype} */ ({
 
 	extend : app.Component,
 
@@ -55,11 +56,17 @@ Define('app.Model', /** @lends {app.Model} */ {
 	},
 
 
+    /**
+     * Получение значения свойства
+     * @method get
+     * @param {string} name
+     * @returns {*}
+     */
 	get : function (name) {
 		//alert(this.data[name]);
 		var data = this.data[name];
 		//console.log( 'this' , data );
 		return data;
 	}
-});
+}));
 

@@ -2,6 +2,8 @@
  * @author Максим Сысоев
  * компонент отвечает за воспроизведения ролика и предоставляет api
  * позволяюще управлять воспроизведением
+ *
+ * управляет классом-просчитывателем Fetcher
  * 
  * в качестве параметров принимает таймлайн и сцену
  * идея api взята из Flash
@@ -38,12 +40,12 @@
 
 createjs.Ticker.setFPS(60);
 
-Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
+Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
     extend: app.Component,
 
     /**
-     * Сцена, на которой проигрыватель будет отрисовывать текущие значения
+     * Сцена, на которой отрисовываются текущие значения
      * @type {app.scene.Stage}
      * @private
      */
@@ -211,7 +213,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     /**
      * Враппер отрисовщика. Вызывается из Ticker.
-     * @param {Object} e объект события из createjs.Ticker
+     * @param {{type: string, paused: boolean, delta: number, time: number, runTime: number}} e объект события из createjs.Ticker
      * @private
      */
     tick: function (e) {

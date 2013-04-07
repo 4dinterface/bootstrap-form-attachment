@@ -19,6 +19,27 @@
         <script src="client/core/Class.js"></script>
         <script src="client/core/ClassLoader.js"></script>
 
+        <script>
+
+            Zepto(function() {
+                $( '#timeline-editor-body' ).on( 'mousedown', '.timeline-block', function( e ) {
+
+                    $( this )
+                        // TODO: Выделение блоков. Перенести в контроллер
+                        .toggleClass( 'timeline-block-select' )
+                        // TODO: Перетаскивание блоков. Перенести в контроллер
+                        // TODO: Убрать объект события из параметров
+                        .draggable( e, {
+                        axis: 'x',
+                        clazz: 'cursor-drag',
+                        area: {
+                            left: 0
+                        }
+                    });
+
+                });
+            });
+        </script>
         
         <script src="client/app.js"></script>
     </head>
@@ -156,8 +177,9 @@
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-block">
-                    <div class="timeline-block" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;"></div>
-                    <!-- <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %> -->
+                    <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;">
+                        <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
+                    </div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-keyframe">

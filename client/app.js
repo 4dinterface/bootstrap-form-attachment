@@ -78,7 +78,7 @@
                 });
 
              // СОЗДАТЬ ХАОС - демка для Movie
-             var CHAOS = true;
+             var CHAOS = false;
              if (CHAOS) {
                  movie.play();
                  setTimeout(function () {

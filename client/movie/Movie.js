@@ -68,13 +68,16 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     /**
      * Конструктор объекта, позволяющего управлять воспроизведением
      * @constructor
-     * @param {Object} cfg объект с дополнительными свойствами
+     * @param {{ stage: app.scene.Stage, timeline: app.model.Timeline }} cfg объект с дополнительными свойствами
      */
-    init: function(cfg){
+    init: function (cfg) {
         this._super();
-        this.apply(cfg);
+
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
+
+        this.setStage(cfg.stage);
+        this.setTimeline(cfg.timeline);
 
         this.elapsedTime = 0;
     },
@@ -103,12 +106,19 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     },
 
     /**
-     * Установка таймлайна для проигрывателя. Фактически, это прокси.
+     * Установка таймлайна для проигрывателя.
      * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
      */
-    //TODO утвердить принадлежность данных таймлайна, после утверждения её модели
     setTimeline: function (timeline) {
-        return this.fetch.setTimeline(timeline);
+        this.fetch.timeline = timeline;
+    },
+
+    /**
+     * Установка сцены для проигрывателя.
+     * @param {app.scene.Stage} stage объект сцены
+     */
+    setStage: function (stage) {
+        this.stage = stage;
     },
 
     /**
@@ -152,49 +162,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
      * @private
      */
     renderFrame: function () {
-
-        var elapsedTime = this.elapsedTime;
-
-        // обход фигур
-        this.timeline.forEach(function ( /** @type {app.model.Timeline} */ item) {
-
-            var data = item.data,
-                keyframes,
-                firstKeyframe,
-                secondKeyframe;
-
-            // обход свойств
-            item.iterateProperties(function (prop, keyframesCollection) {
-
-                keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
-
-                firstKeyframe = keyframes.first;
-                secondKeyframe = keyframes.second;
-
-                if (!secondKeyframe || !firstKeyframe) {
-                    // отсутствует один из ключевых кадров
-                    // для текущего времени
-                    return;
-                }
-
-                // интерполяция
-                var deltaTime,
-                    offset,
-                    fractionalTime,
-                    currentValue;
-
-                deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
-                offset = firstKeyframe.get('key');
-                fractionalTime = ( elapsedTime - offset ) / deltaTime;
-                currentValue = ( secondKeyframe.get('value') - firstKeyframe.get('value') ) * fractionalTime + firstKeyframe.get('value');
-
-                item.target[ prop ] = Math.floor(currentValue);
-                item.target.renderToCache();
-            });
-
-        });
-
-        // на этом моменте все свойства просчитаны        
+        this.fetch.fetch(this.elapsedTime);
         this.stage.update();
     },
 

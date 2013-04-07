@@ -35,6 +35,9 @@
  *     
  *     
  */
+
+createjs.Ticker.setFPS(60);
+
 Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     extend: app.Component,

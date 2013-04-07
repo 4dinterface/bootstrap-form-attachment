@@ -174,18 +174,17 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
                 // интерполяция
                 var deltaTime,
+                    offset,
                     fractionalTime,
                     currentValue;
 
                 deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
-
-                // из-за специфики чисел JS может вылезти за "1"
-                fractionalTime = Math.min(deltaTime / elapsedTime, 1.0);
-
+                offset = firstKeyframe.get('key');
+                fractionalTime = ( elapsedTime - offset ) / deltaTime;
                 currentValue = ( secondKeyframe.get('value') - firstKeyframe.get('value') ) * fractionalTime + firstKeyframe.get('value');
 
                 item.target[ prop ] = Math.floor(currentValue);
-                item.target.renderToCache();    
+                item.target.renderToCache();
             });
 
         });

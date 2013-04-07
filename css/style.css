@@ -318,9 +318,19 @@ html, body {
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-    min-height: 222px;
+    height: 222px;
     margin: 0px 0 0 2px;
+    overflow: scroll;
 }
+
+#timeline-editor-head {
+    width: 100%;
+}
+
+#timeline-editor-body{
+    height: 200px;
+}
+
 
 #timeline-ruler {
     height: 22px;
@@ -349,11 +359,7 @@ html, body {
 
     /* TODO Этот стиль под вопросом */
     border-bottom: 1px solid #b2b2b2;
-
-    position: relative;
     padding: 2px 0;
-    top: 0px;
-    left: 0px;
 }
 
 /**
@@ -363,9 +369,8 @@ html, body {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
-    position: relative;
+    display: inline-block;
     margin: 0;
-    top: 0px;
     background-color: #a3b852;
 }
 

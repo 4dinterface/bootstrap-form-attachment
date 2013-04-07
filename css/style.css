@@ -318,17 +318,18 @@ html, body {
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-    height: 222px;
     margin: 0px 0 0 2px;
 }
 
 #timeline-editor-head {
-    /* ... */
+    /* some css */
 }
 
 #timeline-editor-body{
     height: 300px;
     overflow: scroll;
+    background-color: #dadada;
+    position: relative;
 }
 
 
@@ -369,25 +370,39 @@ html, body {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
-    display: inline-block;
     margin: 0;
     background-color: #a3b852;
+    position: relative;
+}
+
+/**
+ * Выделенный блок
+ */
+.timeline-block-select {
+    background-color: #7a9900;
+}
+
+/**
+* Класс, присваиваемый при перетаскивании
+*/
+.cursor-drag {
+    cursor: pointer;
 }
 
 /**
  * Ключевой кадр блока на линии в редакторе таймлайна
  */
 .timeline-keyframe {
-    position: absolute;
     width: 6px;
     height: 6px;
     background-color: #545454;
-    top: 7px;
-    border: 1px solid #ebebeb;
     margin-left: -4px;
+    margin-top: 5px;
+    border: 1px solid #ebebeb;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
+    position: absolute;
 }
 
 /**

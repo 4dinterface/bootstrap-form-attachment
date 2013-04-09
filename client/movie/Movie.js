@@ -155,7 +155,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
         // обход фигур
         // get('shapeCollection') есть
-        this.timeline.forEach(function ( /** @type {app.model.Timeline} */ item) {
+        this.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Timeline} */ item) {
 
             var data = item.data,
                 keyframes,
@@ -163,7 +163,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
                 secondKeyframe;
 
             // обход свойств
-            item.iterateProperties(function (prop, keyframesCollection) {
+            item.get('propertyCollection').iterateProperties(function (prop, keyframesCollection) {
 
                 keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
 

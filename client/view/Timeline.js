@@ -128,9 +128,11 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // TODO Костыль, переписать
 
-        //евгений доступ через get('shapeCollection') 
-        this.model.forEach(function( child ) {
-            child.forEach(function( prop,name ) {                
+        // Изменено diablo 
+        // дабавил get('shapeCollection'),  get('propertyCollection')
+        // Только две эти строчки, других изменений нет
+        this.model.get('shapeCollection').forEach(function( child ) {
+            child.get('propertyCollection').forEach(function( prop,name ) {                
                 var keyframes = prop.cache.slice(),
                     width,
                     left;

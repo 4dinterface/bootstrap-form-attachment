@@ -56,12 +56,13 @@ Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
             shape;
 
         properties = this.data;
-        shape = this.target;
+        //fix 
+        shape = this.parent.target;
 
         for (propertyName in properties) if (properties.hasOwnProperty(propertyName)) {
 
             // если у фигуры есть такое свойство - т.е. оно анимируется
-            if (propertyName in this.target) {
+            if (propertyName in shape) {
                 keyframes = properties[ propertyName ];
                 callback(propertyName, keyframes);
             }

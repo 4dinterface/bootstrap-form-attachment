@@ -14,7 +14,8 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
 	 */
 	init : function () {
             this._super(); 
-            this.set("propertyCollection", new app.model.PropertyCollection() );            
+            this.set("propertyCollection", new app.model.PropertyCollection() ); 
+            this.get("propertyCollection").parent=this;
 	},        
 	/**
 	 * @method set

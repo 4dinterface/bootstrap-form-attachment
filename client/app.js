@@ -82,7 +82,7 @@
              // СОЗДАТЬ ХАОС - демка для Movie
              var CHAOS = true;
              if (CHAOS) {
-                 //movie.play();
+                 movie.play();
                  setTimeout(function () {
                      movie.stop();
                  }, 8000);

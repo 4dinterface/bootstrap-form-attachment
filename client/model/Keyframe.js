@@ -2,9 +2,11 @@
  * @name app.model.Keyframe
  * @class
  * @extends {app.Model}
+ * 
+ * Этот класс описывает ключ
+ * основным методом здесь является set который генерирует событие keyframechange
  */
 
-//компонент в разработке
 Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 
 	extend : app.Model,

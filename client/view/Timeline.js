@@ -10,16 +10,26 @@
 Define( "app.view.Timeline", /** @lends {app.component} */{
 
     extend: app.Component,
-    //model:
+
+    /**
+     * Данные модели таймлайна
+     * @type {app.model.Timeline}
+     * @private
+     */
+    model: null,
+
+
     init: function( prop ) {
         this._super();
         this.apply( prop );
-        //this.model=prop;
 
-        //потом будет так
-        //model.on('change',function(){
-        //    this.render;            
-        //});
+
+
+        // Готовность модели.
+        // Предполагается, что это события срабатывает после готовности документа
+        this.model.on( 'load', function( e ) {
+            this.render();
+        }.bind( this ));
 
         // -----------------------//
 
@@ -28,31 +38,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // установить зум
         this.options.set( 'zoom', 1 );
-
-
-        var that = this;
-
-
-        Zepto(function() {
-            that.render();
-
-            // testing
-            var slider = $( '[type=range]' );
-            var filed = $( '[type=text]' );
-
-            slider.on( 'change', function() {
-                filed.val( this.value );
-                applyZoom( +this.value );
-            });
-
-            function applyZoom( value ) {
-                that.options.set( 'zoom', value );
-                that.render();
-            }
-
-        });
-
-        this.render();
 
     },
 

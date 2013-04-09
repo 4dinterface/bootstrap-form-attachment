@@ -5,15 +5,19 @@ app.model.Timeline=function(){
     var data=[];
     return data;
 };*/
-
-Define('app.model.ShapeCollection', /** @lends {app.Model} */ {
+/**
+ * Коллекция фигур
+ * @class
+ * @name app.model.ShapeCollection
+ * @extends {app.Component}
+ */
+Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     extend : app.Component,
     data:null,
-    /***
-     * Конструктор экземпляров
-    * @constructor
-    * @param {Object} prop объект с описанием экземпляра
-    */
+
+    /**
+     * @constructor
+     */
     init : function () {
         this.data=[];
         this._super();                   

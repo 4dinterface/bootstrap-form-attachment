@@ -1,4 +1,9 @@
-Define("app.Component", /** @lends {app.component} */({
+/**
+ * Базовый класс компонента
+ * @class
+ * @name app.Component
+ */
+Define("app.Component", /** @lends {app.Component.prototype} */({
     /**
      * Регистр событий и их обработчиков
      * @type {Object}
@@ -7,6 +12,9 @@ Define("app.Component", /** @lends {app.component} */({
     event: null,
     componentCount:0,
 
+    /**
+     * @constructor
+     */
     init: function () {	
         
         //увеличим счётчик компонентов и используем его как уникальный идентификатор

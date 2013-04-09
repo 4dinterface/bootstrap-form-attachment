@@ -4,8 +4,12 @@ Define("app.ClassLoader",{
         
     },
     loadScript:function(src,callback){
-        var script = document.createElement("script");				
-	script.src = src+"?ns="+( Math.random()*1000 );
+        var script = document.createElement("script");
+
+    //TODO: Временно закомментировал, т.к. слетают точки останова
+	//script.src = src+"?ns="+( Math.random()*1000 );
+
+        script.src = src;
         script.async=false;        
 
 	document.getElementsByTagName("head")[0].appendChild(script);

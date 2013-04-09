@@ -37,11 +37,13 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             tlShape.target=stShape;
             stShape.timeline=tlShape;
             
-            //this.timeline.get('shapeCollection').push(tlShape);            
+            this.timeline.get('shapeCollection').push(tlShape);            
             console.log("z",this.timeline);            
             this.stage.addChild( stShape );
         }
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
+        console.log('timeline',this.timeline);
+        
         //обновление
         
         //Имитация асинхронности
@@ -59,9 +61,10 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      */
     makeTimelineShape: function(shape){
         var ts=new app.model.Shape({}); 
+        //console.log('ts',ts.get('propertyCollection'));
         
         for (i in shape){
-            if (i!="target") ts.set(i, this.makeKeyCollection(shape[i]) );                                        
+            if (i!="target") ts.get('propertyCollection').set(i, this.makeKeyCollection(shape[i]) );                                        
         }
         return ts;
     },

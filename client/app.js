@@ -12,6 +12,7 @@
             
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
+             "client/model/PropertyCollection.js",       
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",                
              "client/model/Timeline.js",
@@ -81,7 +82,7 @@
              // СОЗДАТЬ ХАОС - демка для Movie
              var CHAOS = true;
              if (CHAOS) {
-                 movie.play();
+                 //movie.play();
                  setTimeout(function () {
                      movie.stop();
                  }, 8000);

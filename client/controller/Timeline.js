@@ -4,6 +4,14 @@ Define( 'app.controller.Timeline', {
 
     extend: app.Component,
 
+    /**
+     * Данные модели таймлайна
+     * @type {app.model.Timeline}
+     * @private
+     */
+    model: null,
+
+
     init: function( prop ) {
         this._super();
         this.apply( prop );
@@ -15,8 +23,6 @@ Define( 'app.controller.Timeline', {
             zoom: 1,
             width: 800
         };
-
-        // test
 
     }
 

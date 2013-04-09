@@ -16,6 +16,7 @@
         <script src="../../client/model/Keyframe.js"></script>            
         <script src="../../client/model/KeyframeCollection.js"></script>            
         <script src="../../client/model/Shape.js"></script>            
+        <script src="../../client/model/ShapeCollection.js"></script> 
         <script src="../../client/model/Timeline.js"></script>                    
 
         <div id="qunit"></div>
@@ -28,9 +29,10 @@
                   var key=new app.model.Keyframe(),
                       keyCol=new app.model.KeyframeCollection(),
                       shape=new app.model.Shape(),                                                          
-                      timeline=new app.model.Timeline();                                                                       
+                      //timeline=new app.model.ShapeCollection();
+                      timeline=new app.model.Timeline();                      
                   
-                  timeline.push(shape);
+                  timeline.get('shapeCollection').push(shape);
                   shape.set('test',keyCol);
                   keyCol.set('100',key);                          
                   

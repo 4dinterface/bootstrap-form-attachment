@@ -13,6 +13,7 @@
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
              "client/model/Shape.js",   
+             "client/model/ShapeCollection.js",                
              "client/model/Timeline.js",
             
              "client/view/Timeline.js",

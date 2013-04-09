@@ -37,7 +37,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             tlShape.target=stShape;
             stShape.timeline=tlShape;
             
-            this.timeline.push(tlShape);
+            //this.timeline.get('shapeCollection').push(tlShape);            
+            console.log("z",this.timeline);            
             this.stage.addChild( stShape );
         }
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
@@ -86,7 +87,6 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      */
             
     makeKeyCollection: function(col){        
-
         var ret=new app.model.KeyframeCollection(),
             i=null,
             keyframe;

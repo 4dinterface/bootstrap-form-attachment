@@ -154,6 +154,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
         var elapsedTime = this.elapsedTime;
 
         // обход фигур
+        // get('shapeCollection') есть
         this.timeline.forEach(function ( /** @type {app.model.Timeline} */ item) {
 
             var data = item.data,

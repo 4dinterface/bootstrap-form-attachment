@@ -27,7 +27,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // Готовность модели.
         // Предполагается, что это события срабатывает после готовности документа
-        this.model.on( 'load', function( e ) {
+        this.model.on( 'load', function( e ) {            
             this.render();
         }.bind( this ));
 
@@ -128,7 +128,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // TODO Костыль, переписать
 
-
+        //евгений доступ через get('shapeCollection') 
         this.model.forEach(function( child ) {
             child.forEach(function( prop,name ) {                
                 var keyframes = prop.cache.slice(),

@@ -2,7 +2,7 @@
  * @name app.model.Shape
  * @class
  */
-Define('app.model.Shape', /** @lends {app.Model} */ {
+Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
     extend : app.Model,
     /***
      * Конструктор экземпляров
@@ -21,7 +21,7 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
     set : function (name, value) {
         var me=this;
         this._super();
-        this.fire("shapechange", {
+        this.fire("propertycollectionchange", {
             name:name,
             value:value
         });
@@ -30,13 +30,15 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
         
         if(value.on) value.on('bubble',function(e){
             //добавим инфу о shape
-            e.shape=me;
+            //e.shape=me;
+            e.propertCollection=me;
             //укажем имя свойства
             e.propertyName=name;
             me.fire(e.eventName,e);
         })
     },
-     
+
+    //forEach - forEach
     forEach:function(callback){
        for (n in this.data) callback(this.data[n],n,this.data);       
     },
@@ -66,6 +68,6 @@ Define('app.model.Shape', /** @lends {app.Model} */ {
 
         }
     }
-
+    
 });
 

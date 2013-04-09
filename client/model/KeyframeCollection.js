@@ -7,10 +7,10 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
         extend:app.ObjectCollection,
                 
         //наследование
-    /**
-     * @constructor
-     * @param prop
-     */
+        /**
+        * @constructor
+        * @param prop
+        */
 	init:function (prop){
             this._super();
         },

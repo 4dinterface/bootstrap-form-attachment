@@ -27,7 +27,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      */     
      load:function(data){
         var tlShape,
-            stShape;
+            stShape,
+            me=this;
         
         for (var i=0;i<data.length;i++){            
             tlShape=this.makeTimelineShape(data[i]);
@@ -39,8 +40,14 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             this.timeline.push(tlShape);
             this.stage.addChild( stShape );
         }
-        console.log('timeline',this.timeline);
+        //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
         //обновление
+        
+        //Имитация асинхронности
+        setTimeout(function(){
+           me.timeline.fire("load",{}); 
+        },1);
+        
         this.stage.update();
     },            
 

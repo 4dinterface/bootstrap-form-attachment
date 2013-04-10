@@ -24,8 +24,10 @@ Define( "app.properties.View", /** @lends {app.component} */{
         // Готовность модели.
         // Предполагается, что это события срабатывает после готовности документа
         var me=this;        
-        this.model.on( 'load', function( e ) {                      
-            var shape=this.model.get("shapeCollection").get(0).target.properties;
+        this.model.on( 'load', function( e ) {                                  
+            this.target=this.model.get("shapeCollection").get(0).target;
+            var shape=this.target.properties;
+            
             for(var i in shape){                
                 this.makeGroup(shape[i], $('#property-panel') );
             }            
@@ -44,10 +46,11 @@ Define( "app.properties.View", /** @lends {app.component} */{
         var fields="";
         
         for(var i in item) if(i!=="name"){
-            fields+=(item[i].name+": <input type='text' style='color:#773;font-size:11px;border:solid 0px;background-color:#d8d8d8;width:35px;' ><br/>");
+            fields+="<div style='margin-left:7px;'>"+item[i].name+": <input value='"+this.target[i]+"' type='text' style='color:#000;font-size:12px;border:solid 0px;background-color:#d8d8d8;width:30px;' ></div>";
         }        
         if(!item.name) item.name="";       
-        var e="<fieldset style='border:1px solid #ccc; width:80px;display:inline;padding:2px;margin:2px;'> <legend>"+item.name+"</legend>"+fields+"</fieldset>"
+        var e="<fieldset style='border:1px solid #ccc; width:81px;display:inline;padding:2px;margin:2px;'> <legend>"+item.name+"</legend>"+fields+"</fieldset>"
         var el=panel.append(e);
     }
+    
 });

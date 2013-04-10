@@ -7,7 +7,10 @@ Define('app.scene.shape.Rectangle', {
         //свойства влияющие на кэш
         width:100,
         height:40,
-        
+
+        //====================================================================//
+        //                           Настройки SHAPE                          //
+        //====================================================================//
         properties:{
             base:{
                 name:"Позиция и размер",
@@ -32,18 +35,22 @@ Define('app.scene.shape.Rectangle', {
             transform:{                
                 name:"трансформации",
                 origin:{
-                    name:"Базовые",
+                    name:"origin",
                     x:{type:"int",name:"x"},
                     y:{type:"int",name:"y"}                    
                 },
-                rotate:{type:"int",name:"rotate"},
+                
+                rotate:{
+                    rotate:{type:"int",name:"rotate"}
+                },
+                
                 skew:{
                     name:"Skew",
-                    x:{type:"int",name:"h"},
-                    y:{type:"int",name:"w"}                                        
+                    x:{type:"int",name:"x"},
+                    y:{type:"int",name:"y"}                                        
                 },                
                 scale:{
-                    name:"Базовые",
+                    name:"Scale",
                     h:{type:"int",name:"h"},
                     w:{type:"int",name:"v"}                                        
                 }                
@@ -52,6 +59,8 @@ Define('app.scene.shape.Rectangle', {
             stroke:{ name:"Линии" },
             fill:{ name:"заливка" }
         },
+        //======================================================================//
+        
         
 	// инициализация
 	init  : function (cnf){            

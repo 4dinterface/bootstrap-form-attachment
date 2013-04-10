@@ -18,12 +18,11 @@
              "client/model/Timeline.js",
             
              "client/view/Timeline.js",
-             "client/controller/Timeline.js",
-            
+             "client/controller/Timeline.js",            
              "client/controller/Scene.js",
-             "client/controller/Timeline.js",
-            
-            
+
+            "client/properties/view.js",
+                        
              "client/scene/shape/HtmlElement.js",
              "client/scene/shape/Text.js",
              "client/scene/shape/Circle.js",
@@ -33,6 +32,8 @@
              'client/movie/Fetcher.js',
              'client/movie/Movie.js'
              ], function(){
+                              
+        $(function(){
             var 
                 // создадим таймлайн
                 timeline = new app.model.Timeline (),
@@ -60,7 +61,7 @@
                     stage:stage
                 }),
 
-
+                
                 //view таймлайна
                 tlView = new app.view.Timeline({
                     // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
@@ -74,10 +75,15 @@
                     //viev - прямой доступ контролёра к view, пока под вопросом
                     view:tlView,                
                     //модель таймлайна, которую контролёр сможет изменять
-                    model:timeline,                                
+                    model:timeline,
                     //movie 
                     movie:movie
-                });
+                }),
+
+                //панель свойств
+                propertiesView=new app.properties.View({
+                    model:timeline,
+                });                
 
              // СОЗДАТЬ ХАОС - демка для Movie
              var CHAOS = true;
@@ -93,5 +99,6 @@
              //в данный момент load вызывается из конструктора reader, 
              //как события будут готовы, то эту строку можно разремарить
              //reader.load(data);                        
-        })	
+        })
+    })          
 });

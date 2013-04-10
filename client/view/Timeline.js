@@ -201,8 +201,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     toPixels: function( milliseconds ) {
         return milliseconds / 1000 * this.options.get( 'ratio' );
     },
-
-
     /**
      *  Переводит пиксили в миллисекунды в зависимости
      *  от настроек представления таймлана, например, зума.

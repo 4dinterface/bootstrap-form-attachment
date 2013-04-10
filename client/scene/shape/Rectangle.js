@@ -3,11 +3,55 @@
  */
 Define('app.scene.shape.Rectangle', {
 	extend: createjs.Shape,
-
     
         //свойства влияющие на кэш
         width:100,
         height:40,
+        
+        properties:{
+            base:{
+                name:"Позиция",
+                location:{
+                    //name:"Базовые",
+                    x:{type:"int",name:"x"},
+                    y:{type:"int",name:"y"}      
+                },
+                
+                size:{
+                    //name:"Базовые",
+                    width:{type:"int",name:"width"},
+                    height:{type:"int",name:"height"}
+                },                
+                opacity:{                    
+                    opacity:{type:"procent",name:"Opacity"}//TODO  от 0-1 подумать над именами
+                }
+                
+            },  
+            
+            //Трансформации
+            transform:{                
+                name:"трансформации",
+                origin:{
+                    name:"Базовые",
+                    x:{type:"int",name:"x"},
+                    y:{type:"int",name:"y"}                    
+                },
+                rotate:{type:"int",name:"rotate"},
+                skew:{
+                    name:"Базовые",
+                    h:{type:"int",name:"h"},
+                    w:{type:"int",name:"w"}                                        
+                },                
+                scale:{
+                    name:"Базовые",
+                    h:{type:"int",name:"h"},
+                    w:{type:"int",name:"v"}                                        
+                }                
+            },            
+            //Трансформации
+            stroke:{ name:"Линии" },
+            fill:{ name:"заливка" }
+        },
         
 	// инициализация
 	init  : function (cnf){            
@@ -50,5 +94,3 @@ Define('app.scene.shape.Rectangle', {
         //update:function(){}
         
 });
-
-

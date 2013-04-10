@@ -10,7 +10,7 @@ Define('app.scene.shape.Rectangle', {
         
         properties:{
             base:{
-                name:"Позиция",
+                name:"Позиция и размер",
                 location:{
                     //name:"Базовые",
                     x:{type:"int",name:"x"},
@@ -38,9 +38,9 @@ Define('app.scene.shape.Rectangle', {
                 },
                 rotate:{type:"int",name:"rotate"},
                 skew:{
-                    name:"Базовые",
-                    h:{type:"int",name:"h"},
-                    w:{type:"int",name:"w"}                                        
+                    name:"Skew",
+                    x:{type:"int",name:"h"},
+                    y:{type:"int",name:"w"}                                        
                 },                
                 scale:{
                     name:"Базовые",

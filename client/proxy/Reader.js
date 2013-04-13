@@ -74,11 +74,9 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * @param {Object} shape обьект описывающий shape
      */
     makeStageShape: function(shape){        
-        var cls=shape.target.xtype;
-        return new app.scene.shape[cls]({
-            x:20,
-            y:10
-        })	         
+        //console.log('shape=',shape);
+        var cls=shape.target.xtype;                        
+        return new app.scene.shape[cls](shape.target);
     },
             
 

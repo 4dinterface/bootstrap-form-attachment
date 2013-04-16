@@ -1,7 +1,7 @@
 ﻿/**
  * Представление таймлана
  *
- * @returns {Object} Timeline объект представления таймлайна
+ * @return {Object} Timeline объект представления таймлайна
  */
 
 'use strict';
@@ -24,13 +24,27 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         this.apply( prop );
 
 
-
-        // Готовность модели.
-        // Предполагается, что это события срабатывает после готовности документа
+        // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {            
             this.render();
         }.bind( this ));
 
+
+        this.model.on( 'propertyselect', function( e /*
+        e: {
+            selector: DOM Selector,
+            data: {
+                shapeId: Number,
+                propName: String
+            },
+            clazz: String
+        }
+        */ ) {
+            var shape = this.model.get( 'shapeCollection' ).get( e.data.shapeId );
+            var prop = shape.get( 'propertyCollection' ).get( e.data.propName );
+
+            this.render( e.selector, prop, clazz );
+        }.bind( this ));
         // -----------------------//
 
         // установить кол-во пикслей в секунде
@@ -38,7 +52,6 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // установить зум
         this.options.set( 'zoom', 1 );
-
     },
 
 
@@ -100,81 +113,141 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
     /**
     * Рисует/обновляет представление таймлана
-     *
-     * @this {Timeline}
-     */
-    render: function() {
+    *
+    * item: {
+    *     selector: String,
+    *
+    *     clazz: String
+    * }
+    *
+    * @param {Array} items
+    * @this {Timeline}
+    */
+    render: function( items ) {
 
-        // используем шаблонизатор для генерации разметки
-        $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.query() );
+        if ( arguments.length === 0 ) {
+            // используем шаблонизатор для генерации разметки
+            $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
 
-        this.createRuler();
+            this.createRuler();
+            return;
+        }
+
+
+        $( selector ).jqotesub( '#template-timeline-block', this.query() );
     },
 
 
     /**
-     * Запрашивает у модели данные
-     * Возвращает массив обработанных данных полученных из кейфреймов
+     *  Создает таймлайн
      *
-     * @this {Timeline}
-     * @returns {Array}
+     *  @this {Timeline}
+     *  @return {Array} lines
      */
-    query: function() {
-        var lines = [];
-        var ratio = this.toPixels( this.options.get( 'zoom' ) );    // O_o ну пока так
+    createTimeline: function() {
+        var data = [];
 
-        var childs = [];
-        var props = [];
+        this.model.get( 'shapeCollection' ).forEach(function( shape ) {
+            shape.get( 'propertyCollection' ).forEach(function( prop ) {
+                 data.push({
+                     shape: shape,
+                     props: [ prop ]
+                 });
+            }, this );
+        }, this );
 
-        // TODO Костыль, переписать
-
-        // Изменено diablo 
-        // дабавил get('shapeCollection'),  get('propertyCollection')
-        // Только две эти строчки, других изменений нет
-        this.model.get('shapeCollection').forEach(function( child ) {
-            child.get('propertyCollection').forEach(function( prop,name ) {                
-                var keyframes = prop.cache.slice(),
-                    width,
-                    left;
-
-                // TODO объеденить filter и map в один цикл
-
-                keyframes = keyframes.filter(function( val ) {
-                    return !isNaN( +val );
-                });
-
-                keyframes = keyframes.map(function( val ) {
-                    return val * ratio;
-                });
-
-                keyframes = keyframes.sort(function( a, b ) {
-                    return a - b;
-                });
-
-                left = keyframes[ 0 ];
-                width = keyframes[ keyframes.length - 1 ] - left;     // fix
-
-                keyframes = keyframes.map(function( item ) {
-                    return item - left;
-                });
-
-                lines.push({
-                    left: left,
-                    width: width,
-                    keyframes: keyframes
-                });
-
-            });
-        });
-
-        return lines;
+        return this.createLines( data );
     },
 
-/**
+
+    /**
+     *  Создает линии таймлайна
+     *
+     *  @param {Array} arr Массив данных для построения линий на таймлайне
+     *  @this {Timeline}
+     *  @return {Array} lines Массив для создания разметки
+     */
+    createLines: (function() {
+        var index = -1;
+
+        return function( arr ) {
+          // item.shape: a shape
+          // item.props: array of properties
+            return arr.map(function( item ) {
+                index += 1;
+                return {
+                    index: index,
+                    shapeId: item.shape.id,
+                    properties:  this.createProperties( item.props )
+                };
+            }, this );
+        };
+    }()),
+
+
+    /**
+     *  Создает свойства
+     *
+     *  @param {Array} props Массив данных для построения свойств на таймлайне
+     *  @this {Timeline}
+     *  @return {Array} props Массив для создания разметки
+     */
+    createProperties: function( props ) {
+        return props.map(function( prop ) {
+            var keyframes = prop.cache.slice();
+            var left = this.toPixels( +keyframes[ 0 ] );        // TODO: Не забыть про zoom
+
+            keyframes = this.createKeyframes( keyframes );
+
+            return {
+                id: prop.id,
+                left: left,
+                width: keyframes[ keyframes.length - 1 ],
+                keyframes: keyframes
+            }
+        }, this );
+    },
+
+
+    /**
+     * Создает ключи
+     *
+     * @param {Array} keyframes Массив данных для построения ключей на таймлайне
+     * @this {Timeline}
+     * @return {Array} keyframes Массив для создания разметки
+     */
+    createKeyframes: function( keyframes ) {
+        var zoom = this.toPixels( this.options.get( 'zoom' ) ); // TODO: Не забыть про zoom
+
+        // get only numbers
+        keyframes = keyframes.filter(function( val ) {
+            return !isNaN( +val );
+        });
+
+        // apply zoom
+        keyframes = keyframes.map(function( item ) {
+            return item * zoom;
+        });
+
+        // order by asc
+        keyframes = keyframes.sort(function( a, b ) {
+            return a - b;
+        });
+
+        // fix position
+        keyframes = keyframes.map(function( item ) {
+            return item - keyframes[ 0 ];
+        });
+
+        return keyframes;
+    },
+
+
+    /**
      *  Опции представления таймлайна. Прочитать/установить.
      *
      *  @this {Timeline}
-     *  @returns {Object} options
+     *  @return {Object} options
      */
     options: (function() {
         var data = {};
@@ -192,22 +265,24 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
     /**
      *  Переводит миллисекунды в пиксили в зависимости
-     *  от настроек представления таймлана, например, зума.
+     *  от настроек представления таймлана.
      *
      *  @this {Timeline}
      *  @param {Number} milliseconds
-     *  @returns {Number}
+     *  @return {Number}
      */
     toPixels: function( milliseconds ) {
         return milliseconds / 1000 * this.options.get( 'ratio' );
     },
+
+
     /**
      *  Переводит пиксили в миллисекунды в зависимости
-     *  от настроек представления таймлана, например, зума.
+     *  от настроек представления таймлана.
      *
      *  @this {Timeline}
      *  @param {Number} pixels
-     *  @returns {Number}
+     *  @return {Number}
      */
     toMilliseconds: function( pixels ) {
         return pixels / this.options.get( 'ratio' ) * 1000;

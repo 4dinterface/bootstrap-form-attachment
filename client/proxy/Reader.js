@@ -46,9 +46,9 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         //обновление
         
         //Имитация асинхронности
-        setTimeout(function(){
-           me.timeline.fire("load",{}); 
-        },1);
+//        setTimeout(function(){
+//           me.timeline.fire("load",{});
+//        },1);
         
         this.stage.update();
     },            

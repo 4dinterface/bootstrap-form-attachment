@@ -39,8 +39,8 @@ Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
     },
 
     //forEach - forEach
-    forEach:function(callback){
-       for (n in this.data) callback(this.data[n],n,this.data);       
+    forEach:function(callback, context ) {
+       for (n in this.data) callback.call( context|| window, this.data[ n ], n, this.data );
     },
 
     /**

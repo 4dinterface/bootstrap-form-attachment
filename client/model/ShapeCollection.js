@@ -69,8 +69,8 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
         return this.data[num];        
     },  
     
-    forEach:function(callback){
-        this.data.forEach(callback)
+    forEach:function(callback, context ) {
+        this.data.forEach(callback, context );
     }
     
 });

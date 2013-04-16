@@ -42,7 +42,7 @@ Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
             this.fire('change',{
                 operation:"set",
                 field:name,
-                value:val,                
+                value:val
             });
 
         },
@@ -66,12 +66,12 @@ Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
 	 * is passed in, or if the browser does not support the specified MIME type, the default value will be used.
 	 * @return {String} a Base64 encoded image.
 	 **/
-        forEach:function(callback){
+        forEach:function( callback, context ) {
             var prop;
             for(prop in this) {
                 if ( this[prop] === this.proto[prop] ) continue;                
                 //if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
-                if(prop*1) callback(this[prop],prop , this);
+                if(prop*1) callback.call( context || window, this[prop], prop , this );
             }
             return this;
         }     			

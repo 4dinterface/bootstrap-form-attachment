@@ -38,7 +38,7 @@ Define( "app.properties.View", /** @lends {app.component} */{
         var cont="<div><div style='background-color:#ccc;'><b>  + "+gr.name+"</b></div></div>";
         var el=panel.append(cont);
         
-        for (i in gr) if(i!=="name") {
+        for (var i in gr) if(i!=="name") {
              this.makeSubGroup(gr[i],el);
         }                        
     },

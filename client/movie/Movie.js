@@ -163,8 +163,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
                 secondKeyframe;
 
             // обход свойств
-            item.get('propertyCollection').iterateProperties(function (prop, keyframesCollection) {
+            item.get('propertyCollection').iterateProperties(function (prop,property ) {
 
+                var keyframesCollection=property.get('keyframeCollection');
                 keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
 
                 firstKeyframe = keyframes.first;

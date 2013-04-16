@@ -12,6 +12,7 @@
             
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
+             "client/model/Property.js",       
              "client/model/PropertyCollection.js",       
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",                
@@ -63,7 +64,7 @@
 
                 
                 //view таймлайна
-                tlView = new app.view.Timeline({
+                /*tlView = new app.view.Timeline({
                     // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
                     model : timeline,                
                     // доступ к муви, в муви хранится позиция бегунка
@@ -78,7 +79,7 @@
                     model:timeline,
                     //movie 
                     movie:movie
-                }),
+                }),*/
 
                 //панель свойств
                 propertiesView=new app.properties.View({

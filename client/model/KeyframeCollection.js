@@ -13,7 +13,7 @@
  * здесь следует размещать все методы оперирирующие ключами
  */
 Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection} */({
-        extend:app.ObjectCollection,
+        extend:'app.ObjectCollection',
                 
         //наследование
         /**

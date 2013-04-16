@@ -4,6 +4,7 @@
  * @returns {Object} Proxy объект представления таймлайна
  */
 Define( "app.proxy.Reader", /** @lends {app.component} */{
+
     extend: app.Component,
     
     /**
@@ -17,7 +18,9 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         this.apply( cfg);                         
 
         //загрузка эксперементальных данных(потом это нужно удалить)
-        this.load(data);
+        this.load(data);                
+        
+        //alert ( this.timeline.getId(8) );
     },
 
             
@@ -63,7 +66,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         //console.log('ts',ts.get('propertyCollection'));
         
         for (i in shape){
-            if (i!="target") ts.get('propertyCollection').set(i, this.makeKeyCollection(shape[i]) );                                        
+            //if (i!="target") ts.get('propertyCollection').set(i, this.makeKeyCollection(shape[i]) );                                        
+            if (i!="target") ts.get('propertyCollection').set(i, this.makeProperty(shape[i],i) );                                        
         }
         return ts;
     },
@@ -79,13 +83,24 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         return new app.scene.shape[cls](shape.target);
     },
             
-
+    /**
+     * создаёт модель свойства
+     * для каждого ключа создаётся экземпляр класса model
+     * @param {Object} shape обьект описывающий shape
+     */                                
+    makeProperty: function(col,name){                
+        console.log(col);
+        var prop =new app.model.Property(col);
+        prop.set('name',name);
+        prop.set('keyframeCollection',new this.makeKeyCollection(col) );
+        return prop;
+    },
+            
     /**
      * создаёт коллекцию ключей
      * для каждого ключа создаётся экземпляр класса model
      * @param {Object} shape обьект описывающий shape
-     */
-            
+     */                
     makeKeyCollection: function(col){        
         var ret=new app.model.KeyframeCollection(),
             i=null,

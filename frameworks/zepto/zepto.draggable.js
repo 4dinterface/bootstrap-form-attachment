@@ -23,7 +23,7 @@
             var position = elem.position();
 
             // TODO: выделение блока. Подумать
-            elem.addClass( 'timeline-block-select' );
+            //elem.addClass( 'timeline-block-select' );
 
             // фиксируем начальную позицию блока
             this._position = position;

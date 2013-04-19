@@ -17,30 +17,22 @@ Define( 'app.controller.Timeline', {
         this.apply( prop );
 
 
-
         // После того, как документ готов (ready), загрузить данные модели таймлайна
         $(function() {
             this.model.fire( 'load' );
         }.bind( this ));
 
 
-//        var shapeCol = this.model.get( 'shapeCollection' );
-//        var shape = shapeCol.get( 0 )
-//        var propCol = shape.get( 'propertyCollection' );
-//        var prop = propCol.get( 12 );
-
-
-        // Выделение блока
-        $( '.timeline-block' ).click(function( e ) {
-            var line = $( e.target ).parent( '.timeline-line' );
-            var data = $.parseJSON( line.attr( 'data-value' ) );
-            var block = line.find( '.timeline-block' );
-            var selector = line.attr( 'id' );
-            var clazz = block.hasClass( 'timeline-block-select' ) ? '' : 'timeline-block-select';
+        // Выделение свойства/блока
+        $( '#timeline-editor-body' ).on( 'mousedown', '.timeline-property', function( e ) {
+            var prop = $( e.target );
+            var id = prop.attr( 'data-property-id' );
+            var selector = '[data-property-id="' + id + '"]';
+            var clazz = prop.hasClass( 'timeline-property-select' ) ? '' : 'timeline-property-select';
 
             this.model.fire( 'propertyselect', {
                 selector: selector,
-                data: data,
+                id: id,
                 clazz: clazz
             });
         }.bind( this ));

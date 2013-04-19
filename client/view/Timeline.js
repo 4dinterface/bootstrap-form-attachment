@@ -31,21 +31,14 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         }.bind( this ));
 
 
-        this.model.on( 'propertyselect', function( e /*
-        e: {
-            selector: DOM Selector,
-            data: {
-                shapeId: Number,
-                propName: String
-            },
-            clazz: String
-        }
-        */ ) {
-            var shape = this.model.get( 'shapeCollection' ).get( e.data.shapeId );
-            var prop = shape.get( 'propertyCollection' ).get( e.data.propName );
+        // Выделение свойства/блока
+        this.model.on( 'propertyselect', function( e ) {
+            var prop = this.model.getId( e.id );
+            var html = $.jqote( '#template-timeline-property', this.createProperties( [ prop ], e.clazz ) );
 
-            this.render( e.selector, prop, clazz );
+            $( e.selector ).replaceWith( html );
         }.bind( this ));
+
         // -----------------------//
 
         // установить кол-во пикслей в секунде
@@ -112,19 +105,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     },
 
 
-
+    // reserved
     render: function( items ) {
-
-        if ( arguments.length === 0 ) {
-            // используем шаблонизатор для генерации разметки
-            $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
-
-            this.createRuler();
-            return;
-        }
-
-
-        $( selector ).jqotesub( '#template-timeline-block', this.query() );
     },
 
 
@@ -154,13 +136,14 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  Создает линии таймлайна
      *
      *  @param {Array} arr Массив данных для построения линий на таймлайне
+     *  @param {String} clazz Класс, присваемый элементам
      *  @this {Timeline}
      *  @return {Array} lines Массив для создания разметки
      */
     createLines: (function() {
         var index = -1;
 
-        return function( arr ) {
+        return function( arr, clazz ) {
           // item.shape: a shape
           // item.props: array of properties
             return arr.map(function( item ) {
@@ -168,7 +151,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 return {
                     index: index,
                     shapeId: item.shape.id,
-                    properties:  this.createProperties( item.props )
+                    properties:  this.createProperties( item.props ),
+                    clazz: clazz || ''
                 };
             }, this );
         };
@@ -179,10 +163,11 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      *  Создает свойства
      *
      *  @param {Array} props Массив данных для построения свойств на таймлайне
+     *  @param {String} clazz Класс, присваемый элементам
      *  @this {Timeline}
      *  @return {Array} props Массив для создания разметки
      */
-    createProperties: function( props ) {
+    createProperties: function( props, clazz ) {
         return props.map(function( prop ) {
             var keyframes = prop.get( 'keyframeCollection' );
             var left = this.toPixels( +keyframes.cache[ 0 ] );        // TODO: Не забыть про zoom; по возможности убрать этот "хак"
@@ -193,7 +178,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
                 id: prop.id,
                 left: left,
                 width: keyframes[ keyframes.length - 1 ].left,
-                keyframes: keyframes
+                keyframes: keyframes,
+                clazz: clazz || ''
             }
         }, this );
     },
@@ -202,11 +188,12 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     /**
      * Создает ключи
      *
-     * @param {Array} keyframes Массив данных для построения ключей на таймлайне
+     * @param {Array} keyframesCollection Массив данных для построения ключей на таймлайне
+     *  @param {String} clazz Класс, присваемый элементам
      * @this {Timeline}
      * @return {Array} keyframes Массив для создания разметки
      */
-    createKeyframes: function( keyframesCollection ) {
+    createKeyframes: function( keyframesCollection, clazz ) {
         var zoom = this.toPixels( this.options.get( 'zoom' ) ); // TODO: Не забыть про zoom
         var keyframes = [];
 
@@ -217,7 +204,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
             if ( !isNaN( +key ) ) {
                 keyframes.push({
                     id: keyframe.id,
-                    left: +key
+                    left: +key,
+                    clazz: clazz || ''
                 });
             }
         });

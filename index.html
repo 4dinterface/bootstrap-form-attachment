@@ -21,24 +21,24 @@
 
         <script>
 
-            Zepto(function() {
-                $( '#timeline-editor-body' ).on( 'mousedown', '.timeline-block', function( e ) {
-
-                    $( this )
-                        // TODO: Выделение блоков. Перенести в контроллер
-                        .toggleClass( 'timeline-block-select' )
-                        // TODO: Перетаскивание блоков. Перенести в контроллер
-                        // TODO: Убрать объект события из параметров
-                        .draggable( e, {
-                        axis: 'x',
-                        clazz: 'cursor-drag',
-                        area: {
-                            left: 0
-                        }
-                    });
-
-                });
-            });
+//            Zepto(function() {
+//                $( '#timeline-editor-body' ).on( 'mousedown', '.timeline-block', function( e ) {
+//
+//                    $( this )
+//                        // TODO: Выделение блоков. Перенести в контроллер
+//                        //.toggleClass( 'timeline-block-select' )
+//                        // TODO: Перетаскивание блоков. Перенести в контроллер
+//                        // TODO: Убрать объект события из параметров
+//                        .draggable( e, {
+//                        axis: 'x',
+//                        clazz: 'cursor-drag',
+//                        area: {
+//                            left: 0
+//                        }
+//                    });
+//
+//                });
+//            });
         </script>
         
         <script src="client/app.js"></script>
@@ -158,10 +158,7 @@
                         <div id="timeline-ruler-background"></div>
                     </div>
                     <div id="timeline-editor-body">
-                        <div class="timeline-line">
-                            <div class="timeline-line-block">
-                        </div>
-                        <div class="timeline-line"></div>
+                        <!--properties and keyframes -->
                     </div>
                 </div>
 
@@ -171,13 +168,13 @@
 
         <!-- TEMPLATES -->
                 <script type="text/x-jqote-template" id="template-timeline-line">
-                    <div class="timeline-line" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">
-                        <%= $.jqote( '#template-timeline-block', this.properties ) %>
+                    <div class="timeline-line <%=this.clazz%>" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">
+                        <%= $.jqote( '#template-timeline-property', this.properties ) %>
                     </div>
                 </script>
 
-                <script type="text/x-jqote-template" id="template-timeline-block">
-                    <div class="timeline-block" data-property-id="<%=this.id%>" style="left:<%=this.left%>px; width:<%=this.width%>px;">
+                <script type="text/x-jqote-template" id="template-timeline-property">
+                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="left:<%=this.left%>px; width:<%=this.width%>px;">
                         <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
                     </div>
                 </script>

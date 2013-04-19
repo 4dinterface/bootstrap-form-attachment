@@ -5,7 +5,7 @@
 Define('app.scene.shape.Text', {
 	extend: createjs.Text,
         
-        text:"текст Big big big text very very very",
+        //text:"текст Big big big text very very very",
         font:"35px Arial",
         color:"#F00",       
         
@@ -20,6 +20,7 @@ Define('app.scene.shape.Text', {
             //console.log("TEXT====",this);
             this.x = cnf.x;
             this.y = cnf.y;
+            this.text=cnf.text;
             this.lineWidth=this.width;            
             //this.maxWidth=600;
             //TextAlign - :)

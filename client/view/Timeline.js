@@ -184,15 +184,15 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     createProperties: function( props ) {
         return props.map(function( prop ) {
-            var keyframes = prop.cache.slice();
-            var left = this.toPixels( +keyframes[ 0 ] );        // TODO: Не забыть про zoom
+            var keyframes = prop.get( 'keyframeCollection' );
+            var left = this.toPixels( +keyframes.cache[ 0 ] );        // TODO: Не забыть про zoom; по возможности убрать этот "хак"
 
             keyframes = this.createKeyframes( keyframes );
 
             return {
                 id: prop.id,
                 left: left,
-                width: keyframes[ keyframes.length - 1 ],
+                width: keyframes[ keyframes.length - 1 ].left,
                 keyframes: keyframes
             }
         }, this );
@@ -206,27 +206,37 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      * @this {Timeline}
      * @return {Array} keyframes Массив для создания разметки
      */
-    createKeyframes: function( keyframes ) {
+    createKeyframes: function( keyframesCollection ) {
         var zoom = this.toPixels( this.options.get( 'zoom' ) ); // TODO: Не забыть про zoom
+        var keyframes = [];
 
-        // get only numbers
-        keyframes = keyframes.filter(function( val ) {
-            return !isNaN( +val );
+        // get time and id
+        Object.keys( keyframesCollection ).filter(function( key ) {
+            var keyframe = keyframesCollection[ key ];
+
+            if ( !isNaN( +key ) ) {
+                keyframes.push({
+                    id: keyframe.id,
+                    left: +key
+                });
+            }
         });
 
         // apply zoom
         keyframes = keyframes.map(function( item ) {
-            return item * zoom;
+            item.left = item.left * zoom
+            return item;
         });
 
         // order by asc
         keyframes = keyframes.sort(function( a, b ) {
-            return a - b;
+            return a.left - b.left;
         });
 
         // fix position
         keyframes = keyframes.map(function( item ) {
-            return item - keyframes[ 0 ];
+            item.left = item.left - keyframes[ 0 ].left;
+            return item;
         });
 
         return keyframes;

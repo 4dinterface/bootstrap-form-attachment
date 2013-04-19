@@ -107,7 +107,8 @@ data=[
     {
         //обьект на сцене
         target:{
-            xtype:"Text"
+            xtype:"Text",
+            text:"HTML example long text"
         },
 
         // анимируемые свойства
@@ -142,8 +143,9 @@ data=[
     {
         //обьект на сцене
         target:{
-            xtype:"HtmlElement"
-        },
+            xtype:"HtmlElement",
+            html:"hello world"
+        },                
 
         // анимируемые свойства
         x: {
@@ -167,6 +169,7 @@ data=[
                 easing:"line"
             }
         },
+        
         rotate:{
             1000: {
                 value:10,
@@ -177,5 +180,6 @@ data=[
                 easing:"line"
             }
         }
+        
     }
 ]

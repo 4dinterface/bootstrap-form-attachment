@@ -72,7 +72,8 @@
                                 <div class="tab-head-title-text">Properties</div>
                             </div>
                         </div>
-                        <div class="tab-body"></div>
+                        
+                        <div class="tab-body" id="property-panel" style="overflow-y: scroll; height:210px;"></div>
                     </div>
 
                     <div class="tab">
@@ -120,8 +121,7 @@
                             </div>
                         </div>
                             <div class="tab-body tab-body-scene">
-                                <div id="canvas-editor" style="height:200px">
-                                    <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>
+                                <div id="canvas-editor" style="height:200px">                                    
                                     <canvas id="canvas" width="900" height="200"></canvas>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-keyframe">
-                    <div class="timeline-keyframe" style="left:<%=this%>px;"></div>
+                    <div class="timeline-keyframe" data-keyframe-id="<%=this.id%>" style="left:<%=this.left%>px;"></div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-ruler">

@@ -6,7 +6,7 @@
 
 'use strict';
 
-Define( "app.properties.View", /** @lends {app.component} */{    
+Define( "app.properties.View", /** @lends {app.component} */ {
     extend: app.Component,
     
     /**
@@ -15,7 +15,6 @@ Define( "app.properties.View", /** @lends {app.component} */{
      * @private
      */
     model: null,
-
 
     init: function( prop ) {
         this._super();
@@ -35,22 +34,26 @@ Define( "app.properties.View", /** @lends {app.component} */{
     },
             
     makeGroup:function(gr,panel){
-        var cont="<div><div style='background-color:#ccc;'><b>  + "+gr.name+"</b></div></div>";
+        //Создадим группу
+        var cont="<div><div style='background-color:#ccc;'><b>" + gr.name + "</b></div></div>";
         var el=panel.append(cont);
-        
-        for (var i in gr) if(i!=="name") {
-             this.makeSubGroup(gr[i],el);
-        }                        
+
+        //Создадим вложенные подгруппы
+        for (var i in gr.items) if(i!=="name") {
+             this.makeSubGroup(gr.items[i],el);
+        }
     },
-    makeSubGroup:function(item,panel){        
+    
+    makeSubGroup:function(item,panel){
         var fields="";
-        
-        for(var i in item) if(i!=="name"){
-            fields+="<div style='margin-left:7px;'>"+item[i].name+": <input value='"+this.target[i]+"' type='text' style='color:#000;font-size:12px;border:solid 0px;background-color:#d8d8d8;width:30px;' ></div>";
-        }        
-        if(!item.name) item.name="";       
+
+        for(var i in item.items) if(i!=="name"){
+            fields+="<div style='margin-left:7px;'>"+item.items[i].name+": <input value='"+this.target[i]+"' type='text' style='color:#000;font-size:12px;border:solid 0px;background-color:#d8d8d8;width:30px;' ></div>";
+        }
+        if(!item.name) item.name="";
         var e="<fieldset style='border:1px solid #ccc; width:81px;display:inline;padding:2px;margin:2px;'> <legend>"+item.name+"</legend>"+fields+"</fieldset>"
         var el=panel.append(e);
     }
     
 });
+

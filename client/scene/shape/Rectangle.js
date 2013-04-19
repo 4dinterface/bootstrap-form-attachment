@@ -14,46 +14,65 @@ Define('app.scene.shape.Rectangle', {
         properties:{
             base:{
                 name:"Позиция и размер",
-                location:{
-                    //name:"Базовые",
-                    x:{type:"int",name:"x"},
-                    y:{type:"int",name:"y"}      
-                },
-                
-                size:{
-                    //name:"Базовые",
-                    width:{type:"int",name:"width"},
-                    height:{type:"int",name:"height"}
-                },                
-                opacity:{                    
-                    opacity:{type:"procent",name:"Opacity"}//TODO  от 0-1 подумать над именами
+                items:{
+                    location:{
+                        //name:"Базовые",
+                        items:{
+                            x:{type:"int",name:"x"},
+                            y:{type:"int",name:"y"}                              
+                        }
+                    },
+
+                    size:{
+                        //name:"Базовые",
+                        items:{
+                            width:{type:"int",name:"width"},
+                            height:{type:"int",name:"height"}                        
+                        }
+                    },                
+                    
+                    opacity:{
+                        items:{
+                            opacity:{type:"procent",name:"Opacity"}//TODO  от 0-1 подумать над именами                            
+                        }
+                    }                
+                    
                 }
-                
             },  
             
             //Трансформации
             transform:{                
                 name:"трансформации",
-                origin:{
-                    name:"origin",
-                    x:{type:"int",name:"x"},
-                    y:{type:"int",name:"y"}                    
-                },
-                
-                rotate:{
-                    rotate:{type:"int",name:"rotate"}
-                },
-                
-                skew:{
-                    name:"Skew",
-                    x:{type:"int",name:"x"},
-                    y:{type:"int",name:"y"}                                        
-                },                
-                scale:{
-                    name:"Scale",
-                    h:{type:"int",name:"h"},
-                    w:{type:"int",name:"v"}                                        
-                }                
+                items:{
+                    origin:{                        
+                        name:"origin",
+                        items:{
+                            x:{type:"int",name:"x"},
+                            y:{type:"int",name:"y"}                                                
+                        }
+                    },
+
+                    rotate:{
+                        items:{
+                            rotate:{type:"int",name:"rotate"}                           
+                        }
+                    },
+
+                    skew:{
+                        name:"Skew",
+                        items:{
+                            x:{type:"int",name:"x"},
+                            y:{type:"int",name:"y"}                            
+                        }
+                    },                
+                    scale:{
+                        name:"Scale",
+                        items:{
+                            h:{type:"int",name:"h"},
+                            w:{type:"int",name:"v"}                                                                    
+                        }
+                    }
+                }
             },            
             //Трансформации
             stroke:{ name:"Линии" },

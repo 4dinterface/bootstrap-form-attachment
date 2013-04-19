@@ -12,6 +12,7 @@
             
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
+             "client/model/Property.js",       
              "client/model/PropertyCollection.js",       
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",                
@@ -82,7 +83,7 @@
 
                 //панель свойств
                 propertiesView=new app.properties.View({
-                    model:timeline,
+                    model:timeline
                 });                
 
              // СОЗДАТЬ ХАОС - демка для Movie

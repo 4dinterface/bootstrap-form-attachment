@@ -366,9 +366,9 @@ html, body {
 }
 
 /**
- * Блок на линии в редакторе таймлайна
+ * Свойство/блок на линии в редакторе таймлайна
  */
-.timeline-block {
+.timeline-property {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
@@ -378,9 +378,9 @@ html, body {
 }
 
 /**
- * Выделенный блок
+ * Выделенное свойство/блок
  */
-.timeline-block-select {
+.timeline-property-select {
     background-color: #7a9900;
 }
 

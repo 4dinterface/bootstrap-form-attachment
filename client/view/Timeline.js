@@ -25,8 +25,9 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
         // Предполагается, что событие срабатывает после готовности документа
-        this.model.on( 'load', function( e ) {            
-            this.render();
+        this.model.on( 'load', function( e ) {
+            $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            this.createRuler();
         }.bind( this ));
 
 
@@ -111,18 +112,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     },
 
 
-    /**
-    * Рисует/обновляет представление таймлана
-    *
-    * item: {
-    *     selector: String,
-    *
-    *     clazz: String
-    * }
-    *
-    * @param {Array} items
-    * @this {Timeline}
-    */
+
     render: function( items ) {
 
         if ( arguments.length === 0 ) {

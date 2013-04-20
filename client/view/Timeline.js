@@ -204,7 +204,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
             if ( !isNaN( +key ) ) {
                 keyframes.push({
                     id: keyframe.id,
-                    left: +key,
+                    left: key,
                     clazz: clazz || ''
                 });
             }

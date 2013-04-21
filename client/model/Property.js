@@ -32,7 +32,8 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
 	 * @return null
 	 **/
 	set : function (property, value) {
-            var me=this;
+            var me=this;            
+            value.parent=me;
             this._super();
             this.fire("propertychange", {
                 key:name,

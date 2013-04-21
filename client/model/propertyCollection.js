@@ -20,6 +20,8 @@ Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
      **/
     set : function (name, value) {
         var me=this;
+        value.parent=me;
+        
         this._super();
         this.fire("propertycollectionchange", {
             name:name,

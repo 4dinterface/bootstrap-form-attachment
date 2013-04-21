@@ -24,6 +24,7 @@ Define('app.model.Timeline', /** @lends {app.model.Keyframe.prototype} */ {
 	 **/
 	set : function (property, value) {
             var me=this;
+            value.parent=me;
             this._super();
             this.fire("timelinepropertychange", {
                 key:name,

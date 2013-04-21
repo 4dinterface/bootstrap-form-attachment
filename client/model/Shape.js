@@ -29,6 +29,7 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
 	 **/
 	set : function (property, value) {
             var me=this;
+            value.parent=me;
             this._super();
             this.fire("timelinepropertychange", {
                 key:name,

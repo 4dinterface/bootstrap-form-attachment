@@ -20,10 +20,15 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
 	 * @constructor
 	 * @param {Object} prop объект с описанием экземпляра
 	 */
-	init : function () {
+	init : function () {                        
             this._super(); 
-            this.set("keyframeCollection", new app.model.KeyframeCollection() ); 
-            this.get("keyframeCollection").parent=this;
+            
+            //если ключ отсутствует keyframeCollection, тогда создадим keyframeCollection
+            if (!this.get("keyframeCollection")){
+                this.set("keyframeCollection", new app.model.KeyframeCollection() ); 
+                this.get("keyframeCollection").parent=this;
+            }
+            
 	},        
 	/**
 	 * @method set

@@ -22,7 +22,7 @@
              "client/controller/Timeline.js",            
              "client/controller/Scene.js",
 
-            "client/properties/view.js",
+            "client/properties/View.js",
                         
              "client/scene/shape/HtmlElement.js",
              "client/scene/shape/Text.js",

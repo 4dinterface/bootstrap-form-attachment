@@ -22,13 +22,14 @@ Define('app.Model', /** @lends {app.Model} */ {
 	 */
 	init : function (prop) {
             this._super();
-            var i;
+            var i,me=this;
 
             this.data = {};
 
             for (i in prop) {
                 if (prop.hasOwnProperty(i)) {
-                    this.data[i] = prop[i];
+                    //this.data[i] = prop[i];
+                    me.set(i,prop[i]);                    
                 }
             }
             //this.cash = Object.keys(this);

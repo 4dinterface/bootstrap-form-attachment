@@ -31,7 +31,9 @@
              "client/scene/Stage.js",
             
              'client/movie/Fetcher.js',
-             'client/movie/Movie.js'
+             'client/movie/Movie.js',
+             
+             "client/controller/Menu.js"
              ], function(){
                               
         $(function(){
@@ -84,16 +86,27 @@
                 //панель свойств
                 propertiesView=new app.properties.View({
                     model:timeline
-                });                
+                }),              
+                
+                //верхнее меню
+                menu=new app.controller.Menu({
+                    reader:reader
+                });
 
              // СОЗДАТЬ ХАОС - демка для Movie
-             var CHAOS = true;
-             if (CHAOS) {
-                 movie.play();
-                 setTimeout(function () {
-                     movie.stop();
-                 }, 8000);
-             }
+             timeline.on('load',function(){                
+                
+                var CHAOS = true;
+                if (CHAOS) {
+                    movie.play();
+                    setTimeout(function () {
+                        //movie.stop();
+                        movie.gotoAndStop(1);
+                    }, 8000);
+                }
+             })
+             
+             
 
 
              //команда на загрузку   

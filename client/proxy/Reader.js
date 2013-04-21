@@ -17,7 +17,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         this._super();        
         this.apply( cfg );                                                 
         //загрузка эксперементальных данных(потом это нужно удалить)
-        this.load(data);                       
+        //this.load(data);                       
     },
 
             
@@ -29,6 +29,9 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         var tlShape,
             stShape,
             me=this;
+    
+        this.timeline.clear();
+        this.stage.removeAllChildren ();
         
         for (var i=0;i<data.length;i++){            
             tlShape=this.makeTimelineShape(data[i]);

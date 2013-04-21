@@ -14,7 +14,7 @@ Define('app.model.Timeline', /** @lends {app.model.Keyframe.prototype} */ {
 	 */
 	init : function () {
             this._super(); 
-            this.set("shapeCollection", new app.model.ShapeCollection() );            
+            this.set("shapeCollection", new app.model.ShapeCollection() );                        
 	},        
 	/**
 	 * @method set
@@ -74,5 +74,10 @@ Define('app.model.Timeline', /** @lends {app.model.Keyframe.prototype} */ {
                     
             return result;
             
+        },
+        
+        //очистка
+        clear:function(){
+            this.set("shapeCollection", new app.model.ShapeCollection() );
         }
 });

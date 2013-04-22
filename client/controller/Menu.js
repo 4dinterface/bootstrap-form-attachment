@@ -25,8 +25,8 @@ Define("app.controller.Menu", {
                 //замыкание на всякий пожарный
                 reader.onload = (function(f) {
                     return function(evt){                        
-                        console.log(evt.target.result);
-                        me.reader.load(data);
+                        //console.log(evt.target.result);
+                        me.reader.load( JSON.parse(evt.target.result) );
                     }                    
                 })(f);
                 

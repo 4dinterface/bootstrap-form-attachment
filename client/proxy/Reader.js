@@ -30,6 +30,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             stShape,
             me=this;
     
+        //this.movie.gotoAndStop(1);
         this.timeline.clear();
         this.stage.removeAllChildren ();
         

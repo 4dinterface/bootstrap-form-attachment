@@ -82,7 +82,9 @@ Define('app.scene.shape.Rectangle', {
         
         
 	// инициализация
-	init  : function (cnf){            
+	init  : function (cnf){          
+            alert (createjs.BoxBlurFilter);
+            
             this.initialize();
             
             var me = this;
@@ -110,15 +112,16 @@ Define('app.scene.shape.Rectangle', {
         renderToCache:function(){                        
             this.regX=50;
             this.regY=50;
-            
+            // shadow сначало X, затем Y, затем Размытие
             this.shadow = new createjs.Shadow("#000000", 15, 15, 10);
             var me=this;
             this.cache(0,0,this.width,this.height);
             this.graphics
                     .beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130)
-                    //.setStrokeStyle(1)
-                    //.beginStroke(Graphics.getRGB(0,0,0))
-                    .drawRect(0, 0, me.width, me.height);            
+                    .setStrokeStyle(7)
+                    .beginStroke("rgba(190,50,50,1)")                    
+                    .drawRect(0, 0, me.width, me.height)
+                    .endStroke();                      
             //console.log('gr',this.graphics);                        
             this.updateCache();
             this.graphics.clear();

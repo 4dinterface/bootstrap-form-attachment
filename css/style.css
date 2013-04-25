@@ -321,6 +321,9 @@ html, body {
     -ms-flex-item-align: auto;
     align-self: auto;
     margin: 0px 0 0 2px;
+
+    /* исключительно для бегунка */
+    position: relative;
 }
 
 #timeline-editor-head {
@@ -419,4 +422,18 @@ html, body {
     text-align: left;
     font-size: 0.6em;
     font-family: Tahoma;
+}
+
+/**
+* Бегунок
+*/
+.timeline-runner {
+    position: absolute;
+    top: 0px;
+
+    /* судя по всему придется получать высоту полосы прокрутки */
+    bottom: 18px;
+
+    background-color: #f08080;
+    width: 2px;
 }

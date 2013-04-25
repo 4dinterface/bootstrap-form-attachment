@@ -27,6 +27,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {
             $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            $( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
+
             this.createRuler();
         }.bind( this ));
 
@@ -107,6 +109,12 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
     // reserved
     render: function( items ) {
+    },
+
+
+    createRunner: function() {
+        // test only
+        return 150;
     },
 
 

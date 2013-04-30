@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="client/view/Stage.css">
 
         <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
+        <script src="frameworks/easelJs/filters/BoxBlurFilter.js"></script>
         <script src="frameworks/zepto/zepto-1.0.min.js"></script>
 
         <script src="frameworks/zepto/zepto.data.js"></script>
@@ -48,12 +49,12 @@
         <div class="head">
             <div class="logo"></div>
             <div class="menu">
-                <div class="menu-item">File</div>
+                <div class="menu-item" id="menu-item-FileOpen" >File <input type="file" id="files" name="files[]" style="display:none; margin-top:-4px;"/></div>
                 <div class="menu-item">Edit</div>
                 <div class="menu-item">Modify</div>
                 <div class="menu-item">Window</div>
                 <div class="menu-item">Preferenses</div>
-                <div class="menu-item">Help</div>
+                <div class="menu-item">Help</div>                
             </div>
         </div>
 

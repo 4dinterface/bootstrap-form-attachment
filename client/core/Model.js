@@ -61,6 +61,13 @@ Define('app.Model', /** @lends {app.Model} */ {
 		var data = this.data[name];
 		//console.log( 'this' , data );
 		return data;
+	},
+
+        //очистка  модели от данных
+        clear : function (name) {		
+            this.data={};		
+            this.event={};
 	}
+        
 });
 

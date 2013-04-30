@@ -3,7 +3,7 @@
  * @class
  */
 Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
-    extend : app.Model,
+    extend : app.Model,    
     /***
      * Конструктор экземпляров
     * @constructor

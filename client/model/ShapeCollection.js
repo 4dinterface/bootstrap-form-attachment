@@ -30,6 +30,9 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
      * @return null
      **/
     set : function (num, value) {        
+        
+        value.parent=me;
+        
         this.data[i]=value;
         this.fire("timelinechange", {
             name:name,

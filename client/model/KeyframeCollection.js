@@ -27,6 +27,8 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
 	//setter
 	set:function(name,val){
             var me=this;
+            
+            val.parent=me;
             this._super();
 
             //вызовем соответствующее событие

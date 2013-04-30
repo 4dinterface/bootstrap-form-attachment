@@ -14,13 +14,10 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * в качестве аргументов передаётся сцена и модель таймлайна
      */
     init: function( cfg) {
-        this._super();
-        this.apply( cfg);                         
-
+        this._super();        
+        this.apply( cfg );                                                 
         //загрузка эксперементальных данных(потом это нужно удалить)
-        this.load(data);                
-        
-        //alert ( this.timeline.getId(8) );
+        this.load(data);                       
     },
 
             
@@ -88,12 +85,13 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * для каждого ключа создаётся экземпляр класса model
      * @param {Object} shape обьект описывающий shape
      */                                
-    makeProperty: function(col,name){                
-        console.log(col);
-        var prop =new app.model.Property(col);
-        prop.set('name',name);
-        prop.set('keyframeCollection',new this.makeKeyCollection(col) );
-        return prop;
+    makeProperty: function(col,name){                        
+        var me=this;
+        return new app.model.Property({
+            'name':name,
+            'keyframeCollection': me.makeKeyCollection(col)
+        });
+        
     },
             
     /**
@@ -105,13 +103,17 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         var ret=new app.model.KeyframeCollection(),
             i=null,
             keyframe;
-    
-        for (i in col) {
-            keyframe = new app.model.Keyframe( col[i] );
-            keyframe.set('key', parseInt(i, 10));
-            ret.set(i, keyframe);
-        }        
+                        
+        for (i in col) 
+            ret.set(i, this.makeKeyframe ( i, col[i] )  );
+        
         return ret;
+    },
+            
+            
+    makeKeyframe:function(i, col){
+        col.key=parseInt(i, 10);            
+        return new app.model.Keyframe( col );
     }
 
 });

@@ -20,9 +20,10 @@
             
              "client/view/Timeline.js",
              "client/controller/Timeline.js",            
+             "client/controller/Toolbar.js",
              "client/controller/Scene.js",
 
-            "client/properties/view.js",
+            "client/properties/View.js",
                         
              "client/scene/shape/HtmlElement.js",
              "client/scene/shape/Text.js",
@@ -57,10 +58,15 @@
                     //CHAOS:true
                 }),
 
+                // контроллер панели инструментов
+                toolbar = new app.controller.Toolbar(),
+
                 // контролёр сцены
-                sceneContr=new app.controller.Scene({
-                    stage:stage
+                sceneController = new app.controller.Scene({
+                    stage:stage,
+                    toolbar: toolbar
                 }),
+
 
                 
                 //view таймлайна

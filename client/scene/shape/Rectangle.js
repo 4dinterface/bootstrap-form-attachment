@@ -84,7 +84,7 @@ Define('app.scene.shape.Rectangle', {
         
 	// инициализация
 	init  : function (cnf){          
-            alert (createjs.BoxBlurFilter);
+            //alert (createjs.BoxBlurFilter);
             
             this.initialize();
             

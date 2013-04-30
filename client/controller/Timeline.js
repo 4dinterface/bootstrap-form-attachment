@@ -19,7 +19,7 @@ Define( 'app.controller.Timeline', {
 
         // После того, как документ готов (ready), загрузить данные модели таймлайна
         $(function() {
-            this.model.fire( 'load' );
+            //this.model.fire( 'load' );
         }.bind( this ));
 
 

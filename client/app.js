@@ -108,7 +108,7 @@
              
              
              //команда на загрузку                
-             //reader.load(data);                        
+             reader.load(data);
         })
     })          
 });

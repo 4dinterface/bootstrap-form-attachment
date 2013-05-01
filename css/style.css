@@ -439,7 +439,7 @@ html, body {
 /**
 * Бегунок
 */
-.timeline-runner {
+#timeline-runner {
     position: absolute;
     top: 0px;
 

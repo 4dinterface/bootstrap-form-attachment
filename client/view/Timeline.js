@@ -20,6 +20,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
     init: function( prop ) {
+        var me=this;
+        
         this._super();
         this.apply( prop );
 
@@ -47,7 +49,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         this.options.set( 'ratio', 100 );
 
         // установить зум
-        this.options.set( 'zoom', 1 );
+        this.options.set( 'zoom', 1 );                
+        
     },
 
 

@@ -90,10 +90,12 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * @param {Object} shape обьект описывающий shape
      */                                
     makeProperty: function(col,name){                        
+        console.log('log',col);
         var me=this;
         return new app.model.Property({
             'name':name,
-            'keyframeCollection': me.makeKeyCollection(col)
+            'keyframeCollection': me.makeKeyCollection(col.keyframes),
+            'type':col.type
         });
         
     },

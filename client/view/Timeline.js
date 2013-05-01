@@ -23,7 +23,8 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         var me=this;
         
         this._super();
-        this.apply( prop );
+        this.apply( cfg );
+
 
 
         // Предполагается, что событие срабатывает после готовности документа
@@ -35,6 +36,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
         }.bind( this ));
 
 
+
         // Выделение свойства/блока
         this.model.on( 'propertyselect', function( e ) {
             var prop = this.model.getId( e.id );
@@ -43,7 +45,14 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
             $( e.selector ).replaceWith( html );
         }.bind( this ));
 
-        // -----------------------//
+
+
+        // Передвижение бегунка при проигрывании анимации
+        this.movie.on( 'onframe', function( e ) {
+            $( '.timeline-runner' ).css( 'left', this.toPixels( e.elapsedTime ) );
+        }.bind( this ));
+
+
 
         // установить кол-во пикслей в секунде
         this.options.set( 'ratio', 100 );
@@ -263,7 +272,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
     /**
-     *  Переводит миллисекунды в пиксили в зависимости
+     *  Переводит миллисекунды в пиксели в зависимости
      *  от настроек представления таймлана.
      *
      *  @this {Timeline}
@@ -276,7 +285,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
     /**
-     *  Переводит пиксили в миллисекунды в зависимости
+     *  Переводит пиксели в миллисекунды в зависимости
      *  от настроек представления таймлана.
      *
      *  @this {Timeline}

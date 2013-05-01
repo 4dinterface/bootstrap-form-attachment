@@ -5,6 +5,28 @@
  * @class
  * @extends {app.Model}
  * 
+ * ====================================================================== *
+ *  
+ *                          Timeline
+ *                              |
+ *                      ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      (PropertyCollection)             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *      KeyframeCollection            (PropertyCollection)
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection   
+ *                                           |
+ *                                        Keyframe
+ *                                        
+ * ====================================================================== *
+ * 
  * property описывает свойство на таймлайне
  * Может содержать множество полезных данных для view timeline,controller timeline 
  * К сожалению я несмог придумать ниодного полезного свойства :)  Но мне кажется нерв придумает 

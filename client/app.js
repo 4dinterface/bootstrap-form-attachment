@@ -1,4 +1,10 @@
-﻿$( function () {    
+/**
+ * APP 
+ *      
+ *     
+ *     (Stage) -- (sceneController)
+*/
+$( function () {    
         'use strict'	
          var a=new app.ClassLoader();                
          a.require([                                               

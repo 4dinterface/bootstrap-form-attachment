@@ -19,7 +19,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
     model: null,
 
 
-    init: function( prop ) {
+    init: function( cfg ) {
         var me=this;
         
         this._super();

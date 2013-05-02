@@ -4,7 +4,7 @@
  * @extends {app.Model}
  * 
  *          
- *                          (Timeline) <- есть смысл переименовать
+ *                          (Timeline) <- есть смысл переименовать в composition
  *                              |
  *                       ShapeCollection
  *                              |

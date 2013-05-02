@@ -115,7 +115,7 @@ $( function () {
                 }
              })*/
              
-             $("#playMovie").click(function(){                 
+             $(".player-play").click(function(){                 
                  movie.play();                 
                  setTimeout(function () {
                         //movie.stop();
@@ -123,11 +123,11 @@ $( function () {
                  }, 60000);
              });
              
-             $("#pauseMovie").click(function(){                 
+             $(".player-pause").click(function(){                 
                  movie.stop();                 
              });
              
-             $("#movieToStart").click(function(){
+             $(".player-back").click(function(){
                  movie.gotoAndStop(1);
              })
              

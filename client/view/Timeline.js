@@ -38,7 +38,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
         // Выделение свойства/блока
-        this.model.on( 'propertyselect', function( e ) {
+        this.model.on( 'onpropertyselect', function( e ) {
             var prop = this.model.getId( e.id );
             var html = $.jqote( '#template-timeline-property', this.createProperties( [ prop ], e.clazz ) );
 
@@ -47,11 +47,23 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
 
+        // ---------------------- CURSOR ------------------------
+
+
+        // Перемещение бегунка при клике в области таймлайна
+        this.model.on( 'oncursorchange', function( e ) {
+            console.log( e );
+            $( '#timeline-runner' ).css( 'left', e.x );
+        }.bind( this ));
+
+
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
             $( '#timeline-runner' ).css( 'left', this.toPixels( e.elapsedTime ) );
         }.bind( this ));
 
+
+        // ------------------- END CURSOR ------------------------
 
 
         // установить кол-во пикслей в секунде

@@ -27,7 +27,7 @@ $( function () {
              "client/view/Timeline.js",
              "client/controller/Timeline.js",            
              "client/controller/Toolbar.js",
-             "client/controller/Scene.js",
+             "client/editor/Controller.js",
 
             "client/properties/View.js",
                         
@@ -70,7 +70,7 @@ $( function () {
                 toolbar = new app.controller.Toolbar(),
 
                 // контролёр сцены
-                sceneController = new app.controller.Scene({
+                sceneController = new app.editor.Сontroller({
                     stage:stage,
                     toolbar: toolbar
                 }),

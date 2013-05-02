@@ -36,6 +36,7 @@ Define( 'app.controller.Timeline', {
                 prop = keyframe.parent( '.timeline-property' );
             }
 
+            this.movie.gotoAndStop( this.toMilliseconds( e.x ) );
             console.log( prop );
 
             // Перемещение бегунка при клике

@@ -1,4 +1,4 @@
-Define("app.controller.Scene", {
+Define("app.editor.Сontroller", {
 
     extend: app.Component,
 

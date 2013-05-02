@@ -1,6 +1,6 @@
 'use strict';
 
-Define( 'app.controller.Timeline', {
+Define( 'app.timeline.controller', {
 
     extend: app.Component,
 
@@ -12,9 +12,9 @@ Define( 'app.controller.Timeline', {
     model: null,
 
 
-    init: function( prop ) {
+    init: function( cfg ) {
         this._super();
-        this.apply( prop );
+        this.apply( cfg );
 
 
         // После того, как документ готов (ready), загрузить данные модели таймлайна

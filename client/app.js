@@ -29,7 +29,7 @@ $( function () {
              "client/timeline/controller.js",
              "client/timeline/utilites.js",
 
-             "client/controller/Toolbar.js",
+             "client/panels/Toolbar.js",
              "client/editor/Controller.js",
 
             "client/properties/View.js",
@@ -43,7 +43,7 @@ $( function () {
              'client/movie/Fetcher.js',
              'client/movie/Movie.js',
              
-             "client/controller/Menu.js"
+             "client/panels/Menu.js"
              ], function(){
                               
         $(function(){
@@ -70,7 +70,7 @@ $( function () {
                 }),
 
                 // контроллер панели инструментов
-                toolbar = new app.controller.Toolbar(),
+                toolbar = new app.panels.Toolbar(),
 
                 // контролёр сцены
                 sceneController = new app.editor.Сontroller({
@@ -104,7 +104,7 @@ $( function () {
                 }),              
                 
                 //верхнее меню
-                menu=new app.controller.Menu({
+                menu=new app.panels.Menu({
                     reader:reader
                 });
 
@@ -134,7 +134,25 @@ $( function () {
                  movie.gotoAndStop(1);
              })
              
+             var playPrev,f;             
+             $(".player-frame-back").on('mousedown',function(){
+                 f=function(){ movie.prevFrame(); playPrev=setTimeout(f,13); }
+                 f();
+             });
              
+             $(".player-frame-back").on('mouseup',function(){                 
+                clearTimeout(playPrev);                 
+             });
+            
+            $(".player-frame-forward").on('mousedown',function(){
+                 f=function(){ movie.nextFrame(); playPrev=setTimeout(f,13); }
+                 f();
+             });
+             
+             $(".player-frame-forward").on('mouseup',function(){                 
+                clearTimeout(playPrev);                 
+             });
+            
              //команда на загрузку                
              reader.load(data);
         })

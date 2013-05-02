@@ -1,4 +1,4 @@
-Define("app.controller.Toolbar", {
+Define("app.panels.Toolbar", {
 
     extend: app.Component,
 

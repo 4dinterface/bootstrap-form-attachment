@@ -1,4 +1,4 @@
-Define("app.controller.Transport", {
+Define("app.panels.Transport", {
     extend: app.Component,
 
     init: function (cfg) {

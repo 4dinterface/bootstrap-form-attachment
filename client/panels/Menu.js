@@ -1,4 +1,4 @@
-Define("app.controller.Menu", {
+Define("app.panels.Menu", {
     extend: app.Component,
        
     init: function (prop) {

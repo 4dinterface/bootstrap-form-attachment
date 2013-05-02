@@ -2,28 +2,6 @@
  * @name app.model.Filter
  * @class
  * @extends {app.Model}
- *
- * ====================================================================== *
- * 
- *                          Timeline
- *                              |
- *                      ShapeCollection
- *                              |
- *                            Shape
- *                         /         \
- *      PropertyCollection             FilterCollection
- *             |                             |
- *         Property                      ( Filter )
- *             |                             |
- *     KeyframeCollection             PropertyCollection
- *             |                             |
- *          Keyframe                      Property
- *                                           |
- *                                     KeyframeCollection
- *                                           |
- *                                        Keyframe                        
- *                                                          
- * ====================================================================== *
  * 
  * Класс описывает фильтр
  */

@@ -1,15 +1,27 @@
-// Верхний уровень, по сути коллекция shape, содержимое пока доступно как массив
-/*if (!app.model) app.model={};
-
-app.model.Timeline=function(){
-    var data=[];
-    return data;
-};*/
 /**
  * Коллекция фигур
  * @class
  * @name app.model.ShapeCollection
  * @extends {app.Component}
+ * 
+ *                          Timeline
+ *                              |
+ *                      (ShapeCollection)
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *      KeyframeCollection            PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection   
+ *                                           |
+ *                                        Keyframe
+ *                                        
  */
 Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     extend : app.Component,

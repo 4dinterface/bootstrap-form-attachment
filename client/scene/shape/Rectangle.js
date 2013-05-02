@@ -109,11 +109,15 @@ Define('app.scene.shape.Rectangle', {
         //},
         
         renderToCache:function(){                        
-            //this.regX=50;
-            //this.regY=50;            
-            var blurFilter = new createjs.BoxBlurFilter( this.blurX,  1, 1);
-            this.filters = [blurFilter];                                              
-            var bounds = blurFilter.getBounds();
+            
+            if (this.blurX>0){
+                var blurFilter = new createjs.BoxBlurFilter( this.blurX,  1, 1);
+                this.filters = [blurFilter];                                              
+                var bounds = blurFilter.getBounds();
+            } 
+            else bounds={x:0,y:0,width:0,height:0} ;
+            
+            console.log(this.blurX);
             
             // shadow сначало X, затем Y, затем Размытие
             this.shadow = new createjs.Shadow("#000000", 15, 15, 10);

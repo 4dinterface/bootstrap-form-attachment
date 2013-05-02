@@ -3,6 +3,28 @@
  * @name app.model.KeyframeCollection
  * @extends {app.ObjectCollection}
  * 
+ * ====================================================================== *
+ * 
+ *                          Timeline
+ *                              |
+ *                      ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *   (( KeyframeCollection ))            PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                  ( ( KeyframeCollection ) )   
+ *                                           |
+ *                                         Keyframe                       
+ *                                                         
+ * ====================================================================== *
+ * 
  * Это коллекция ключей. Содержит метода позволяющие оперировать коллекцией
  * Set -создаёт или заменяет ключ в указанном времени
  * Get - возвращает ключ по времени

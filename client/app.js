@@ -1,4 +1,10 @@
-﻿$( function () {    
+/**
+ * APP 
+ *      
+ *     
+ *     (Stage) -- (sceneController)
+*/
+$( function () {    
         'use strict'	
          var a=new app.ClassLoader();                
          a.require([                                               
@@ -111,8 +117,7 @@
                     }, 60000);
                 }
              })
-             
-             
+                          
              //команда на загрузку                
              reader.load(data);
         })

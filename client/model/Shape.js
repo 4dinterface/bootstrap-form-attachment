@@ -3,6 +3,26 @@
  * @class
  * @extends {app.Model}
  * 
+ *
+ *                          Timeline
+ *                              |
+ *                       ShapeCollection
+ *                              |
+ *                            (Shape)
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *      KeyframeCollection            PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection   
+ *                                           |
+ *                                        Keyframe
+ *                                        
+ *                                        
  * shape описывает shape
  * Может содержать множество полезных данных для view, таки как имя shape, цвет, свёрнут/развёрнут и тд
  * Каждый shape создаётся изначально со свойством propertyCollection, которое указывает на коллекцию анимируемых свойст
@@ -20,6 +40,11 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
             this._super(); 
             this.set("propertyCollection", new app.model.PropertyCollection() ); 
             this.get("propertyCollection").parent=this;
+           
+           // непонятно как назвать толи filter толи FX
+           //this.set("filterCollection", new app.model.FilterCollection() ); 
+           //this.get("filterCollection").parent=this;
+
 	},        
 	/**
 	 * @method set

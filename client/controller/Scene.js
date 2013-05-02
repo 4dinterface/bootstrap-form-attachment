@@ -10,5 +10,6 @@ Define("app.controller.Scene", {
             var name = e.name;
             console.log(name);
         });
+        
     }
 });

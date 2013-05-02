@@ -2,7 +2,26 @@
  * @name app.model.Keyframe
  * @class
  * @extends {app.Model}
- */
+ * 
+ *          
+ *                          (Timeline) <- есть смысл переименовать
+ *                              |
+ *                       ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *      KeyframeCollection            PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection   
+ *                                           |
+ *                                        Keyframe
+ */                  
 
 //компонент в разработке
 Define('app.model.Timeline', /** @lends {app.model.Keyframe.prototype} */ {

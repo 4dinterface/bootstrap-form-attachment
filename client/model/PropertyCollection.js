@@ -1,6 +1,29 @@
 /**
  * @name app.model.Shape
  * @class
+ * 
+ * ====================================================================== *
+ * 
+ *                          Timeline
+ *                              |
+ *                      ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      (PropertyCollection)           FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *      KeyframeCollection         ( PropertyCollection )
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection   
+ *                                           |
+ *                                        Keyframe
+ *                                        
+ * ====================================================================== *
+ *                                                                                
  */
 Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
     extend : app.Model,    

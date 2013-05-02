@@ -52,8 +52,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // Перемещение бегунка при клике в области таймлайна
         this.model.on( 'oncursorchange', function( e ) {
-            console.log( e );
-            $( '#timeline-runner' ).css( 'left', e.x );
+            this.movie.gotoAndStop( this.toMilliseconds( e.x ) );
         }.bind( this ));
 
 

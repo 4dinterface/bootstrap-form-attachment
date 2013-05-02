@@ -28,12 +28,28 @@ Define( 'app.controller.Timeline', {
 
         // Ловим mousedown на таймлайне
         $( '#timeline-editor' ).on( 'mousedown', function( elem, e ) {
-            
+            var target = $( e.target );
+            var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
+            var prop = target.is( '.timeline-property' ) ? target : null;
+
+            if ( keyframe ) {
+                prop = keyframe.parent( '.timeline-property' );
+            }
+
+            console.log( prop );
+
             // Перемещение бегунка при клике
             /*this.model.fire( 'oncursorchange', {
                 x: e.pageX - elem.offset().left
             });*/
 
+        }.bind( this, $( '#timeline-editor' ) ));
+
+
+
+        // Ловим mousedown на свойствах в таймлайне
+//        $( '#timeline-editor' ).on( 'mousedown', '.timeline-property', function( e ) {
+//
 //            var prop = $( e.target );
 //            var id = prop.attr( 'data-property-id' );
 //            var selector = '[data-property-id="' + id + '"]';
@@ -44,7 +60,7 @@ Define( 'app.controller.Timeline', {
 //                id: id,
 //                clazz: clazz
 //            });
-        }.bind( this, $( '#timeline-editor' ) ));
+//        }.bind( this ));
 
 
 

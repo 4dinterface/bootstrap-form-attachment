@@ -38,7 +38,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
         // Выделение свойства/блока
-        this.model.on( 'propertyselect', function( e ) {
+        this.model.on( 'onpropertyselect', function( e ) {
             var prop = this.model.getId( e.id );
             var html = $.jqote( '#template-timeline-property', this.createProperties( [ prop ], e.clazz ) );
 
@@ -47,11 +47,23 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
 
 
-        // Передвижение бегунка при проигрывании анимации
-        this.movie.on( 'onframe', function( e ) {
-            $( '.timeline-runner' ).css( 'left', this.toPixels( e.elapsedTime ) );
+        // ---------------------- CURSOR ------------------------
+
+
+        // Перемещение бегунка при клике в области таймлайна
+        this.model.on( 'oncursorchange', function( e ) {
+            console.log( e );
+            $( '#timeline-runner' ).css( 'left', e.x );
         }.bind( this ));
 
+
+        // Передвижение бегунка при воспроизведении анимации
+        this.movie.on( 'onframe', function( e ) {
+            $( '#timeline-runner' ).css( 'left', this.toPixels( e.elapsedTime ) );
+        }.bind( this ));
+
+
+        // ------------------- END CURSOR ------------------------
 
 
         // установить кол-во пикслей в секунде
@@ -189,16 +201,14 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      */
     createProperties: function( props, clazz ) {
         return props.map(function( prop ) {
-            var keyframes = prop.get( 'keyframeCollection' );
-            var left = this.toPixels( +keyframes.cache[ 0 ] );        // TODO: Не забыть про zoom; по возможности убрать этот "хак"
-
-            keyframes = this.createKeyframes( keyframes );
+            var keyframeCollection = prop.get( 'keyframeCollection' );
+            var keyframes = this.createKeyframes( keyframeCollection );
 
             return {
                 id: prop.id,
-                left: left,
-                width: keyframes[ keyframes.length - 1 ].left,
-                keyframes: keyframes,
+                left: keyframes.shift,
+                width: keyframes.items[ keyframes.items.length - 1 ].left,
+                keyframes: keyframes.items,
                 clazz: clazz || ''
             }
         }, this );
@@ -211,11 +221,12 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
      * @param {Array} keyframesCollection Массив данных для построения ключей на таймлайне
      *  @param {String} clazz Класс, присваемый элементам
      * @this {Timeline}
-     * @return {Array} keyframes Массив для создания разметки
+     * @return {Object} keyframes Массив ключей для создания разметки + сдвиг
      */
     createKeyframes: function( keyframesCollection, clazz ) {
         var zoom = this.toPixels( this.options.get( 'zoom' ) ); // TODO: Не забыть про zoom
         var keyframes = [];
+        var shift = 0;
 
         // get time and id
         Object.keys( keyframesCollection ).filter(function( key ) {
@@ -241,13 +252,19 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
             return a.left - b.left;
         });
 
+        shift = keyframes[ 0 ].left;
+
         // fix position
         keyframes = keyframes.map(function( item ) {
             item.left = item.left - keyframes[ 0 ].left;
             return item;
         });
 
-        return keyframes;
+        return {
+            items: keyframes,
+            shift: shift
+        };
+
     },
 
 

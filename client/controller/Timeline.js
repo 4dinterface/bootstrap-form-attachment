@@ -18,24 +18,32 @@ Define( 'app.controller.Timeline', {
 
 
         // После того, как документ готов (ready), загрузить данные модели таймлайна
+        // TODO: Надобность под вопросом
         $(function() {
             //this.model.fire( 'load' );
         }.bind( this ));
 
 
-        // Выделение свойства/блока
-        $( '#timeline-editor-body' ).on( 'mousedown', '.timeline-property', function( e ) {
-            var prop = $( e.target );
-            var id = prop.attr( 'data-property-id' );
-            var selector = '[data-property-id="' + id + '"]';
-            var clazz = prop.hasClass( 'timeline-property-select' ) ? '' : 'timeline-property-select';
 
-            this.model.fire( 'propertyselect', {
-                selector: selector,
-                id: id,
-                clazz: clazz
+        // Ловим mousedown на таймлайне
+        $( '#timeline-editor' ).on( 'mousedown', function( elem, e ) {
+
+            // Перемещение бегунка при клике
+            this.model.fire( 'oncursorchange', {
+                x: e.pageX - elem.offset().left
             });
-        }.bind( this ));
+
+//            var prop = $( e.target );
+//            var id = prop.attr( 'data-property-id' );
+//            var selector = '[data-property-id="' + id + '"]';
+//            var clazz = prop.hasClass( 'timeline-property-select' ) ? '' : 'timeline-property-select';
+//
+//            this.model.fire( 'propertyselect', {
+//                selector: selector,
+//                id: id,
+//                clazz: clazz
+//            });
+        }.bind( this, $( '#timeline-editor' ) ));
 
 
 

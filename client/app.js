@@ -106,18 +106,32 @@ $( function () {
                 });
 
              // СОЗДАТЬ ХАОС - демка для Movie
-             timeline.on('load',function(){                
+             /*timeline.on('load',function(){                
                 
                 var CHAOS = true;
                 if (CHAOS) {
-                    movie.play();
-                    setTimeout(function () {
+                    
+                    
+                }
+             })*/
+             
+             $("#playMovie").click(function(){                 
+                 movie.play();                 
+                 setTimeout(function () {
                         //movie.stop();
                         movie.gotoAndStop(1);
-                    }, 60000);
-                }
+                 }, 60000);
+             });
+             
+             $("#pauseMovie").click(function(){                 
+                 movie.stop();                 
+             });
+             
+             $("#movieToStart").click(function(){
+                 movie.gotoAndStop(1);
              })
-                          
+             
+             
              //команда на загрузку                
              reader.load(data);
         })

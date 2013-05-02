@@ -196,6 +196,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
         // на этом моменте все свойства просчитаны        
         this.stage.update();
+        this.fire("onframe", {
+            elapsedTime: this.elapsedTime
+        });
     },
 
     /**
@@ -219,9 +222,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     tick: function (e) {
         var elapsedTime = this.elapsedTime += e.delta;
         this.renderFrame();
-        this.fire("onframe", {
+/*        this.fire("onframe", {
             elapsedTime: elapsedTime
-        });
+        });*/
     }
 
 }));

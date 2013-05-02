@@ -13,6 +13,7 @@ Define( 'app.controller.Timeline', {
 
 
     init: function( prop ) {
+        var me=this;
         this._super();
         this.apply( prop );
 
@@ -27,11 +28,11 @@ Define( 'app.controller.Timeline', {
 
         // Ловим mousedown на таймлайне
         $( '#timeline-editor' ).on( 'mousedown', function( elem, e ) {
-
+            
             // Перемещение бегунка при клике
-            this.model.fire( 'oncursorchange', {
+            /*this.model.fire( 'oncursorchange', {
                 x: e.pageX - elem.offset().left
-            });
+            });*/
 
 //            var prop = $( e.target );
 //            var id = prop.attr( 'data-property-id' );

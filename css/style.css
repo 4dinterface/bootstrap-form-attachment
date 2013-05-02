@@ -320,6 +320,7 @@ html, body {
     position: absolute;
     margin: -21px 0 0 114px;
     height: 16px;
+    /*float:left; */
 }
 
 .player-item {

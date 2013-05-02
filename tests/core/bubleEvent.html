@@ -31,7 +31,7 @@
                       keyCol=new app.model.KeyframeCollection(),
                       shape=new app.model.Shape(),                                                          
                       //timeline=new app.model.ShapeCollection();
-                      timeline=new app.model.Timeline();                      
+                      timeline=new app.timeline.model();
                   
                   timeline.get('shapeCollection').push(shape);
                   shape.get('propertyCollection').set('test',keyCol);

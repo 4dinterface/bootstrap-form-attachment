@@ -1,6 +1,6 @@
 'use strict';
 
-Define( 'app.controller.Timeline', {
+Define( 'app.timeline.controller', {
 
     extend: app.Component,
 
@@ -12,10 +12,9 @@ Define( 'app.controller.Timeline', {
     model: null,
 
 
-    init: function( prop ) {
-        var me=this;
+    init: function( cfg ) {
         this._super();
-        this.apply( prop );
+        this.apply( cfg );
 
 
         // После того, как документ готов (ready), загрузить данные модели таймлайна
@@ -36,13 +35,12 @@ Define( 'app.controller.Timeline', {
                 prop = keyframe.parent( '.timeline-property' );
             }
 
-            this.movie.gotoAndStop( this.toMilliseconds( e.x ) );
             console.log( prop );
 
             // Перемещение бегунка при клике
-            /*this.model.fire( 'oncursorchange', {
+            this.model.fire( 'oncursorchange', {
                 x: e.pageX - elem.offset().left
-            });*/
+            });
 
         }.bind( this, $( '#timeline-editor' ) ));
 

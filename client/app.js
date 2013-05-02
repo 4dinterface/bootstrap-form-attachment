@@ -21,11 +21,14 @@ $( function () {
              "client/model/Property.js",       
              "client/model/PropertyCollection.js",       
              "client/model/Shape.js",   
-             "client/model/ShapeCollection.js",                
-             "client/model/Timeline.js",
-            
-             "client/view/Timeline.js",
-             "client/controller/Timeline.js",            
+             "client/model/ShapeCollection.js",
+
+             // ---------- Timeline -------------
+             "client/timeline/model.js",
+             "client/timeline/view.js",
+             "client/timeline/controller.js",
+             "client/timeline/utilites.js",
+
              "client/controller/Toolbar.js",
              "client/editor/Controller.js",
 
@@ -46,7 +49,7 @@ $( function () {
         $(function(){
             var 
                 // создадим таймлайн
-                timeline = new app.model.Timeline (),
+                timeline = new app.timeline.model(),
 
                 //сцена         
                 stage=new app.scene.Stage(),
@@ -78,7 +81,7 @@ $( function () {
 
                 
                 //view таймлайна
-                tlView = new app.view.Timeline({
+                tlView = new app.timeline.view({
                     // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
                     model : timeline,                
                     // доступ к муви, в муви хранится позиция бегунка
@@ -86,7 +89,7 @@ $( function () {
                 }),               
 
                 //контроллер таймлайна            
-                tlController=new app.controller.Timeline({
+                tlController=new app.timeline.controller({
                     //viev - прямой доступ контролёра к view, пока под вопросом
                     view:tlView,                
                     //модель таймлайна, которую контролёр сможет изменять

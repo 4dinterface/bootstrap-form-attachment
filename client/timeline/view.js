@@ -7,7 +7,7 @@
 'use strict';
 
 
-Define( "app.view.Timeline", /** @lends {app.component} */{
+Define( "app.timeline.view", /** @lends {app.component} */{
 
     extend: app.Component,
 
@@ -52,7 +52,7 @@ Define( "app.view.Timeline", /** @lends {app.component} */{
 
         // Перемещение бегунка при клике в области таймлайна
         this.model.on( 'oncursorchange', function( e ) {
-            
+            this.movie.gotoAndStop( this.toMilliseconds( e.x ) );
         }.bind( this ));
 
 

@@ -22,10 +22,10 @@ $( function () {
              "client/model/PropertyCollection.js",       
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",
+             "client/model/Composition.js",
 
              // ---------- Timeline -------------
              "client/timeline/utilites.js",
-             "client/timeline/model.js",
              "client/timeline/view.js",
              "client/timeline/controller.js",
 
@@ -49,7 +49,7 @@ $( function () {
         $(function(){
             var 
                 // создадим таймлайн
-                timeline = new app.timeline.model(),
+                timeline = new app.model.Composition(),
 
                 //сцена         
                 stage=new app.scene.Stage(),

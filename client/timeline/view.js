@@ -36,8 +36,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
         this.apply( cfg );
 
 
-        console.log( app.timeline.utilites );
-        console.log( this );
+        console.log( this.model.zoom );
 
 
         // Предполагается, что событие срабатывает после готовности документа

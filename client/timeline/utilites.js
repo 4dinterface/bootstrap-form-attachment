@@ -13,7 +13,7 @@ app.timeline.utilites = {
      *  @param {Number} milliseconds
      *  @return {Number}
      */
-    toPixels: function( milliseconds ) {
+    toPixels: function( milliseconds, pixelsPerSecond ) {
         return milliseconds / 1000 * this.model.pixelsPerSecond;
     },
 

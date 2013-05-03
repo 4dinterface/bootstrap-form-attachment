@@ -4,7 +4,7 @@
  * @extends {app.Model}
  * 
  *          
- *                          (Timeline) <- есть смысл переименовать в composition
+ *                        (Composition)
  *                              |
  *                       ShapeCollection
  *                              |
@@ -53,14 +53,14 @@ Define( 'app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
     visibleWidth: 800,
 
 
-	/**
-	 * Конструктор экземпляров
-	 * @constructor
-	 */
-	init: function() {
+    /**
+     * Конструктор экземпляров
+     * @constructor
+     */
+    init: function() {
         this._super();
         this.set( 'shapeCollection', new app.model.ShapeCollection() );
-	},
+    },
 
 	/**
 	 * @method set

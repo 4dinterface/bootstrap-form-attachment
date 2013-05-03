@@ -35,25 +35,39 @@ Define("app.panels.Transport", {
                 
         //перемотка назад
         ".player-frame-back mousedown":function(){ 
-            var me=this;
-            this.f=function(){ me.movie.prevFrame(); me.timer=setTimeout(me.f,13); }
-            this.f();
+            this.rewind('prevFrame')
         },
              
         ".player-frame-back mouseup":function(){                 
-             clearTimeout(this.timer);                 
+             this.rewindStop();  
         },
 
          //перемотка вперёд        
-        ".player-frame-forward mousedown":function(){
-            var me=this;
-            me.f=function(){ me.movie.nextFrame(); me.timer=setTimeout(me.f,13) ; }
-            me.f();
+        ".player-frame-forward mousedown":function(){            
+            this.rewind('nextFrame')
          },
              
          ".player-frame-forward mouseup":function(){                 
-            clearTimeout(this.timer);                 
+            this.rewindStop();
          }
-    }
+    },
+    
+    rewind:function(fun){
+        var me=this;
+        me.movie[fun]();
+        
+        this.f=function(){ 
+            me.movie[fun](); 
+            me.timer=setTimeout(me.f,13); 
+        }
+        //запуск проигрывания происходит только через 100 лилисекунд
+        //если пользователь успеет отпустить мышку то смещение будет всеголишь на один кадр
+        //предположительно пользователь одиночными кликами сможет перемещать более точно бегунок
+        me.timer=setTimeout(me.f,100); 
+    },
+
+    rewindStop:function(fun){
+        clearTimeout(this.timer);    
+    }            
         
 });

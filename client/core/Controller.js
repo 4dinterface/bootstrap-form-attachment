@@ -8,6 +8,7 @@ Define("app.Controller", /** @lends {app.Component.prototype} */({
     /**
      * @constructor
      */
+    el:"document",
     init: function () {	
         var me=this;
         this.apply();        

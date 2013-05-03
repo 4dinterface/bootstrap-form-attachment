@@ -23,8 +23,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
         var me=this;
         
         this._super();
-        this.apply( cfg );
-
+        this.apply( cfg );                
 
 
         // Предполагается, что событие срабатывает после готовности документа

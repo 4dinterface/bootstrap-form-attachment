@@ -94,6 +94,7 @@ Define('app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
             return result;
             
         },
+        zoom:100,
         
         //очистка
         clear:function(){

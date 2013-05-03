@@ -15,8 +15,7 @@ Define( 'app.timeline.controller', {
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-
-
+        
         // После того, как документ готов (ready), загрузить данные модели таймлайна
         // TODO: Надобность под вопросом
         $(function() {

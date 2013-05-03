@@ -9,7 +9,6 @@ Define("app.editor.Сontroller", {
         this.toolbar.on("toolbarchange", function (e) {
             var name = e.name;
             console.log(name);
-        });
-        
+        });        
     }
 });

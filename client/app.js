@@ -12,6 +12,7 @@ $( function () {
              "client/core/ObjectCollection.js",
              "client/core/ArrayCollection.js",
              "client/core/Model.js",
+             "client/core/Controller.js",
 
              "client/proxy/demoData.js",
              "client/proxy/Reader.js",
@@ -25,14 +26,17 @@ $( function () {
              "client/model/Composition.js",
 
              // ---------- Timeline -------------             
+             "client/timeline/utilites.js",
              "client/timeline/view.js",
              "client/timeline/controller.js",
-             "client/timeline/utilites.js",
+             
 
              "client/panels/Toolbar.js",
+             "client/panels/Transport.js",
+             "client/properties/View.js", 
              "client/editor/Controller.js",
 
-            "client/properties/View.js",
+            
                         
              "client/scene/shape/HtmlElement.js",
              "client/scene/shape/Text.js",
@@ -106,6 +110,10 @@ $( function () {
                 //верхнее меню
                 menu=new app.panels.Menu({
                     reader:reader
+                }),
+                
+                transport=new app.panels.Transport({
+                    movie:movie                    
                 });
 
              // СОЗДАТЬ ХАОС - демка для Movie
@@ -118,40 +126,6 @@ $( function () {
                 }
              })*/
              
-             $(".player-play").click(function(){                 
-                 movie.play();                 
-                 setTimeout(function () {
-                        //movie.stop();
-                        movie.gotoAndStop(1);
-                 }, 60000);
-             });
-             
-             $(".player-pause").click(function(){                 
-                 movie.stop();                 
-             });
-             
-             $(".player-back").click(function(){
-                 movie.gotoAndStop(1);
-             })
-             
-             var playPrev,f;             
-             $(".player-frame-back").on('mousedown',function(){
-                 f=function(){ movie.prevFrame(); playPrev=setTimeout(f,13); }
-                 f();
-             });
-             
-             $(".player-frame-back").on('mouseup',function(){                 
-                clearTimeout(playPrev);                 
-             });
-            
-            $(".player-frame-forward").on('mousedown',function(){
-                 f=function(){ movie.nextFrame(); playPrev=setTimeout(f,13); }
-                 f();
-             });
-             
-             $(".player-frame-forward").on('mouseup',function(){                 
-                clearTimeout(playPrev);                 
-             });
             
              //команда на загрузку                
              reader.load(data);

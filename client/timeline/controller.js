@@ -61,15 +61,6 @@ Define( 'app.timeline.controller', {
 //            });
 //        }.bind( this ));
 
-
-
-        // объект, в котором хранится сведения о представлении таймлайна
-        this.model.timeline = {
-            pixelsPerSecond: 100,
-            zoom: 1,
-            width: 800
-        };
-
     }
 
 });

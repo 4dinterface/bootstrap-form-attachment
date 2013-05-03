@@ -24,7 +24,7 @@
  */                  
 
 //компонент в разработке
-Define('app.timeline.model', /** @lends {app.model.Keyframe.prototype} */ {
+Define('app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
 	extend : app.Model,
 	/***
 	 * Конструктор экземпляров

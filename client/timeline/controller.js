@@ -1,4 +1,9 @@
+/**
+ * Контроллер таймлана
+ *
+ */
 'use strict';
+
 
 Define( 'app.timeline.controller', {
 
@@ -12,6 +17,19 @@ Define( 'app.timeline.controller', {
     model: null,
 
 
+    /**
+     * Подключаем утилиты таймлайна
+     * @type {Object}
+     * @private
+     */
+    utilites: app.timeline.utilites,
+
+
+    /**
+     * Конструктор объекта контроллера
+     * @constructor
+     * @param {Object} cfg объект с дополнительными свойствами
+     */
     init: function( cfg ) {
         this._super();
         this.apply( cfg );

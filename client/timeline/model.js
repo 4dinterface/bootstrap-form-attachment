@@ -1,5 +1,5 @@
 /**
- * @name app.model.Keyframe
+ * @name app.timeline.model
  * @class
  * @extends {app.Model}
  * 
@@ -23,80 +23,110 @@
  *                                        Keyframe
  */                  
 
+'use strict';
+
+
 //компонент в разработке
-Define('app.timeline.model', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : app.Model,
-	/***
+Define( 'app.timeline.model', /** @lends {app.model.Keyframe.prototype} */ {
+
+	extend: app.Model,
+
+    /**
+     * Пикселей в секунде. Одна из составляющих визуализации таймлайна
+     * @type {Number}
+     * @private
+     */
+    pixelsPerSecond: 100,
+
+    /**
+     * Зум. Одна из составляющих визуализации таймлайна
+     * @type {Number}
+     * @private
+     */
+    zoom: 1,
+
+    /**
+     * Ширина видимой области таймлайна. Одна из составляющих визуализации таймлайна
+     * @type {Number}
+     * @private
+     */
+    visibleWidth: 800,
+
+
+	/**
 	 * Конструктор экземпляров
 	 * @constructor
-	 * @param {Object} prop объект с описанием экземпляра
 	 */
-	init : function () {
-            this._super(); 
-            this.set("shapeCollection", new app.model.ShapeCollection() );                        
-	},        
+	init: function() {
+        this._super();
+        this.set( 'shapeCollection', new app.model.ShapeCollection() );
+	},
+
 	/**
 	 * @method set
-	 * @param {property} name
-         * @param {value} value
-	 * @return null
+	 * @param {*} property
+     * @param {Object} value
+	 * @return undefined
 	 **/
-	set : function (property, value) {
-            var me=this;
-            value.parent=me;
-            this._super();
-            this.fire("timelinepropertychange", {
-                key:name,
-                value:value
-            });
+    set: function( property, value ) {
+        var me = this;
 
-            // всплытие
-            if(value.on) value.on('bubble',function(e){                
-                //e.propertyName=name;
-                me.fire(e.eventName,e);
-            })            
-	},
-                
-        //getId
-        getId:function(id){
-            //результат            
-            var result=false;
-            
-            var shapeCollection=this.get('shapeCollection');
-            var propertyCollection=null;
-            var keyCollection=null;
-            
-            shapeCollection.forEach(function(shape){
-                
-                if (shape.id==id) {
-                    result=shape;
-                }
-                
-                if (result===false){
-                    propertyCollection=shape.get('propertyCollection');
-                    propertyCollection.forEach(function(prop){                                                
-                        if (prop.id==id) {
-                            result=prop;                            
-                        }
-                        
-                        if (result===false){                            
-                            keyCollection=prop.get('keyframeCollection');
-                            keyCollection.forEach(function(key){
-                                if (key.id==id) result=key;
-                            })
-                        }
-                        
-                    })
-                }                
-            });                        
-            //alert (result);            
-                    
-            return result;
-            
-        },
-        
-        //очистка
-        clear:function(){
-            this.set("shapeCollection", new app.model.ShapeCollection() );
-        }
+        value.parent = me;
+
+        this._super();
+        this.fire( 'timelinepropertychange', {
+            key: name,
+            value: value
+        });
+
+        // всплытие
+        if( value.on ) value.on( 'bubble', function( e ) {
+            //e.propertyName=name;
+            me.fire( e.eventName, e );
+        })
+    },
+
+
+    //getId
+    getId: function( id ) {
+        //результат
+        var result = false;
+
+        var shapeCollection = this.get( 'shapeCollection' );
+        var propertyCollection = null;
+        var keyCollection = null;
+
+        shapeCollection.forEach( function( shape ) {
+
+            if( shape.id == id ) {
+                result = shape;
+            }
+
+            if( result === false ) {
+                propertyCollection = shape.get( 'propertyCollection' );
+                propertyCollection.forEach( function( prop ) {
+                    if( prop.id == id ) {
+                        result = prop;
+                    }
+
+                    if( result === false ) {
+                        keyCollection = prop.get( 'keyframeCollection' );
+                        keyCollection.forEach( function( key ) {
+                            if( key.id == id ) result = key;
+                        });
+                    }
+
+                });
+            }
+        });
+
+        return result;
+    },
+
+
+    //очистка
+    clear: function() {
+        this.set( 'shapeCollection', new app.model.ShapeCollection() );
+    }
+
 });

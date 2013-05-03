@@ -18,9 +18,19 @@ Define( "app.timeline.view", /** @lends {app.component} */{
      */
     model: null,
 
+    /**
+     * Подключаем утилиты таймлайна
+     * @type {Object}
+     * @private
+     */
     utilites: app.timeline.utilites,
 
 
+    /**
+     * Конструктор объекта представления
+     * @constructor
+     * @param {Object} cfg объект с дополнительными свойствами
+     */
     init: function( cfg ) {
         this._super();
         this.apply( cfg );

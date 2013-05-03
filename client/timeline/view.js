@@ -49,14 +49,14 @@ Define( "app.timeline.view", /** @lends {app.component} */{
 
 
 
-        // Выделение свойства/блока
-        this.model.on( 'onpropertyselect', function( e ) {
-            var prop = this.model.getId( e.id );
-            var html = $.jqote( '#template-timeline-property', this.createProperties( [ prop ], e.clazz ) );
+        this.model.on( 'onclassadd', function( e ) {
+            e.elems.addClass( e.clazz );
+        });
 
-            $( e.selector ).replaceWith( html );
-        }.bind( this ));
 
+        this.model.on( 'onclassremove', function( e ) {
+            e.elems.removeClass( e.clazz );
+        });
 
 
         // ---------------------- CURSOR ------------------------

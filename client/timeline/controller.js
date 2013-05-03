@@ -35,14 +35,6 @@ Define( 'app.timeline.controller', {
         this.apply( cfg );
 
 
-        // После того, как документ готов (ready), загрузить данные модели таймлайна
-        // TODO: Надобность под вопросом
-        $(function() {
-            //this.model.fire( 'load' );
-        }.bind( this ));
-
-
-
         // Ловим mousedown на таймлайне
         $( '#timeline-editor' ).on( 'mousedown', function( elem, e ) {
             var target = $( e.target );
@@ -50,12 +42,40 @@ Define( 'app.timeline.controller', {
             var prop = target.is( '.timeline-property' ) ? target : null;
             var cursorPosition = e.pageX - elem.offset().left;
 
+
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline-property' );
+
+                // here drag ...
             }
 
-            console.log( prop );
 
+            if ( prop ) {
+
+                if ( !e.ctrlKey ) {
+
+                    this.model.fire( 'onclassremove', {
+                        elems: $( '.timeline-property-select' ),
+                        clazz: 'timeline-property-select'
+                    });
+
+                }
+
+                this.model.fire( 'onclassadd', {
+                    elems: prop,
+                    clazz: 'timeline-property-select'
+                });
+
+                // here drag ...
+
+            } else {
+
+                this.model.fire( 'onclassremove', {
+                    elems: $( '.timeline-property-select' ),
+                    clazz: 'timeline-property-select'
+                });
+
+            }
 
             // Перемещение бегунка при клике
             this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, cursorPosition ) );

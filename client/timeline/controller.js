@@ -7,7 +7,7 @@
 
 Define( 'app.timeline.controller', {
 
-    extend: app.Component,
+    extend: app.Controller,
 
     /**
      * Данные модели таймлайна
@@ -26,6 +26,14 @@ Define( 'app.timeline.controller', {
 
 
     /**
+     * Корневой элемент относительно которого навешиваются обработчики событий
+     * @type {Object}
+     * @private
+     */
+    domTarget: document,
+
+
+    /**
      * Конструктор объекта контроллера
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
@@ -34,6 +42,7 @@ Define( 'app.timeline.controller', {
         this._super();
         this.apply( cfg );
 
+/*
 
         // Ловим mousedown на таймлайне
         $( '#timeline-editor' ).on( 'mousedown', function( elem, e ) {
@@ -84,7 +93,29 @@ Define( 'app.timeline.controller', {
             }
 
         }.bind( this, $( '#timeline-editor' ) ));
+*/
+
+    },
+
+
+    domListeners: {
+
+        // клики по таймлайну
+        '#timeline-editor % mousedown': function() {
+            //alert( 1 );
+        },
+
+
+        '% mouseup': function() {
+            alert( 1 );
+        }
 
     }
+
+
+
+    // TODO: щелчок по линейке сбрасывает выделение
+
+    // TODO: при зажатом ctrl клик на блок выделяет его, еще один (на этот же блок) снимает выделение
 
 });

@@ -9,12 +9,13 @@ app.timeline.utilites = {
      *  Переводит миллисекунды в пиксели в зависимости
      *  от настроек представления таймлана.
      *
-     *  @this {Timeline}
+     *  @this {Object}
+     *  @param {Object} model
      *  @param {Number} milliseconds
      *  @return {Number}
      */
-    toPixels: function( milliseconds, pixelsPerSecond ) {
-        return milliseconds / 1000 * this.model.pixelsPerSecond;
+    toPixels: function( model, milliseconds ) {
+        return milliseconds / 1000 * model.pixelsPerSecond;
     },
 
 
@@ -22,12 +23,13 @@ app.timeline.utilites = {
      *  Переводит пиксели в миллисекунды в зависимости
      *  от настроек представления таймлана.
      *
-     *  @this {Timeline}
+     *  @this {Object}
+     *  @param {Object} model
      *  @param {Number} pixels
      *  @return {Number}
      */
-    toMilliseconds: function( pixels ) {
-        return pixels / this.model.pixelsPerSecond * 1000;
+    toMilliseconds: function( model, pixels ) {
+        return pixels / model.pixelsPerSecond * 1000;
     }
 
 };

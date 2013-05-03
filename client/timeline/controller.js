@@ -48,6 +48,7 @@ Define( 'app.timeline.controller', {
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
+            var cursorPosition = e.pageX - elem.offset().left;
 
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline-property' );
@@ -55,10 +56,9 @@ Define( 'app.timeline.controller', {
 
             console.log( prop );
 
+
             // Перемещение бегунка при клике
-            this.model.fire( 'oncursorchange', {
-                x: e.pageX - elem.offset().left
-            });
+            this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, cursorPosition ) );
 
         }.bind( this, $( '#timeline-editor' ) ));
 

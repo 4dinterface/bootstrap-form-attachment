@@ -62,15 +62,9 @@ Define( "app.timeline.view", /** @lends {app.component} */{
         // ---------------------- CURSOR ------------------------
 
 
-        // Перемещение бегунка при клике в области таймлайна
-        this.model.on( 'oncursorchange', function( e ) {
-            this.movie.gotoAndStop( this.utilites.toMilliseconds( e.x ) );
-        }.bind( this ));
-
-
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            $( '#timeline-runner' ).css( 'left', this.utilites.toPixels( e.elapsedTime ) );
+            $( '#timeline-runner' ).css( 'left', this.utilites.toPixels( this.model, e.elapsedTime ) );
         }.bind( this ));
 
 
@@ -101,7 +95,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
         var width = 800;
         var points = [];
 
-        var ms = this.utilites.toMilliseconds( 100 ) / this.model.zoom;
+        var ms = this.utilites.toMilliseconds( this.model, 100 ) / this.model.zoom;
         var m;
 
         var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
@@ -114,7 +108,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
             }
         });
 
-        width = this.utilites.toPixels( m ) * this.model.zoom;
+        width = this.utilites.toPixels( this.model, m ) * this.model.zoom;
 
         points = new Array( 800 / width | 0 );
 
@@ -226,7 +220,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
      */
     createKeyframes: function( keyframesCollection, clazz ) {
 
-        var zoom = this.utilites.toPixels( this.model.zoom ); // TODO: Не забыть про zoom
+        var zoom = this.utilites.toPixels( this.model, this.model.zoom ); // TODO: Не забыть про zoom
         var keyframes = [];
         var shift = 0;
 

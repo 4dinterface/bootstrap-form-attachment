@@ -1,16 +1,46 @@
-//компонент в разработке
 /**
  * @name app.model.KeyframeCollection
  * @extends {app.ObjectCollection}
+ * 
+ * ====================================================================== *
+ * 
+ *                          Timeline
+ *                              |
+ *                      ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *   (( KeyframeCollection ))            PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                  ( ( KeyframeCollection ) )   
+ *                                           |
+ *                                         Keyframe                       
+ *                                                         
+ * ====================================================================== *
+ * 
+ * Это коллекция ключей. Содержит метода позволяющие оперировать коллекцией
+ * Set -создаёт или заменяет ключ в указанном времени
+ * Get - возвращает ключ по времени
+ * moveKeyframe - перемещает ключ
+ * remove - удаляет ключ
+ * lookupKeyframes - Попытается найти в коллекции 2 ключевых кадра, удволетворяющих условию
+ * 
+ * здесь следует размещать все методы оперирирующие ключами
  */
-Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection.prototype} */({
-        extend:app.ObjectCollection,
+Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection} */({
+        extend:'app.ObjectCollection',
                 
         //наследование
-    /**
-     * @constructor
-     * @param prop
-     */
+        /**
+        * @constructor
+        * @param prop
+        */
 	init:function (prop){
             this._super();
         },
@@ -18,6 +48,8 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection.
 	//setter
 	set:function(name,val){
             var me=this;
+            
+            val.parent=me;
             this._super();
 
             //вызовем соответствующее событие
@@ -56,7 +88,8 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection.
             });
         },
 
-        // Подумать и сделать       
+        // Подумать и сделать (нерв этот метод можеш написать ты)
+        // групповое перемещание ключей 
         moveLineKeyframe:function(time,newTime){
             var me=this,
                     
@@ -131,7 +164,7 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection.
      * Попытается найти в коллекции 2 ключевых кадра, удволетворяющих условию
      * ВРЕМЯ_ПЕРВОГО <= ТЕКУЩЕЕ_ВРЕМЯ < ВРЕМЯ_ВТОРОГО
      * @param {number} elapsedTime текущее время с момента старта
-     * @return {{ first: app.model.Keyframe, second: app.model.Keyframe }}
+     * @return {{ first: app.model.KeyframeCollection, second: app.model.KeyframeCollection }}
      */
     lookupKeyframes: function (elapsedTime) {
 
@@ -157,4 +190,5 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection.
             second: secondKeyframe
         };
     }
+    
 }));

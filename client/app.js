@@ -1,4 +1,10 @@
-﻿$( function () {    
+﻿/**
+ * APP 
+ *      
+ *     
+ *     (Stage) -- (sceneController)
+*/
+$( function () {    
         'use strict'	
          var a=new app.ClassLoader();                
          a.require([                                               
@@ -12,16 +18,22 @@
             
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
+             "client/model/Property.js",       
+             "client/model/PropertyCollection.js",       
              "client/model/Shape.js",   
-             "client/model/Timeline.js",
-            
-             "client/view/Timeline.js",
-             "client/controller/Timeline.js",
-            
-             "client/controller/Scene.js",
-             "client/controller/Timeline.js",
-            
-            
+             "client/model/ShapeCollection.js",
+
+             // ---------- Timeline -------------
+             "client/timeline/model.js",
+             "client/timeline/view.js",
+             "client/timeline/controller.js",
+             "client/timeline/utilites.js",
+
+             "client/panels/Toolbar.js",
+             "client/editor/Controller.js",
+
+            "client/properties/View.js",
+                        
              "client/scene/shape/HtmlElement.js",
              "client/scene/shape/Text.js",
              "client/scene/shape/Circle.js",
@@ -29,11 +41,15 @@
              "client/scene/Stage.js",
             
              'client/movie/Fetcher.js',
-             'client/movie/Movie.js'
+             'client/movie/Movie.js',
+             
+             "client/panels/Menu.js"
              ], function(){
+                              
+        $(function(){
             var 
                 // создадим таймлайн
-                timeline = new app.model.Timeline (),
+                timeline = new app.timeline.model(),
 
                 //сцена         
                 stage=new app.scene.Stage(),
@@ -53,14 +69,19 @@
                     //CHAOS:true
                 }),
 
+                // контроллер панели инструментов
+                toolbar = new app.panels.Toolbar(),
+
                 // контролёр сцены
-                sceneContr=new app.controller.Scene({
-                    stage:stage
+                sceneController = new app.editor.Сontroller({
+                    stage:stage,
+                    toolbar: toolbar
                 }),
 
 
+                
                 //view таймлайна
-                tlView = new app.view.Timeline({
+                tlView = new app.timeline.view({
                     // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
                     model : timeline,                
                     // доступ к муви, в муви хранится позиция бегунка
@@ -68,28 +89,72 @@
                 }),               
 
                 //контроллер таймлайна            
-                tlController=new app.controller.Timeline({
+                tlController=new app.timeline.controller({
                     //viev - прямой доступ контролёра к view, пока под вопросом
                     view:tlView,                
                     //модель таймлайна, которую контролёр сможет изменять
-                    model:timeline,                                
+                    model:timeline,
                     //movie 
                     movie:movie
+                }),
+
+                //панель свойств
+                propertiesView=new app.properties.View({
+                    model:timeline
+                }),              
+                
+                //верхнее меню
+                menu=new app.panels.Menu({
+                    reader:reader
                 });
 
              // СОЗДАТЬ ХАОС - демка для Movie
-             var CHAOS = false;
-             if (CHAOS) {
-                 movie.play();
+             /*timeline.on('load',function(){                
+                
+                var CHAOS = true;
+                if (CHAOS) {
+                    
+                    
+                }
+             })*/
+             
+             $(".player-play").click(function(){                 
+                 movie.play();                 
                  setTimeout(function () {
-                     movie.stop();
-                 }, 8000);
-             }
-
-
-             //команда на загрузку   
-             //в данный момент load вызывается из конструктора reader, 
-             //как события будут готовы, то эту строку можно разремарить
-             //reader.load(data);                        
-        })	
+                        //movie.stop();
+                        movie.gotoAndStop(1);
+                 }, 60000);
+             });
+             
+             $(".player-pause").click(function(){                 
+                 movie.stop();                 
+             });
+             
+             $(".player-back").click(function(){
+                 movie.gotoAndStop(1);
+             })
+             
+             var playPrev,f;             
+             $(".player-frame-back").on('mousedown',function(){
+                 f=function(){ movie.prevFrame(); playPrev=setTimeout(f,13); }
+                 f();
+             });
+             
+             $(".player-frame-back").on('mouseup',function(){                 
+                clearTimeout(playPrev);                 
+             });
+            
+            $(".player-frame-forward").on('mousedown',function(){
+                 f=function(){ movie.nextFrame(); playPrev=setTimeout(f,13); }
+                 f();
+             });
+             
+             $(".player-frame-forward").on('mouseup',function(){                 
+                clearTimeout(playPrev);                 
+             });
+            
+             //команда на загрузку                
+             reader.load(data);
+        })
+    })          
 });

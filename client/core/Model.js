@@ -12,48 +12,49 @@
  */
 Define('app.Model', /** @lends {app.Model.prototype} */ ({
 
-	extend : app.Component,
+    extend: app.Component,
 
-	data : null,
+    data: null,
 
-	/***
-	 * Конструктор экземпляров
-	 * @constructor
-	 * @param {Object} prop объект с описанием экземпляра
-	 */
-	init : function (prop) {
-            this._super();
-            var i;
+    /***
+     * Конструктор экземпляров
+     * @constructor
+     * @param {Object} prop объект с описанием экземпляра
+     */
+    init: function (prop) {
+        this._super();
+        var i, me = this;
 
-            this.data = {};
+        this.data = {};
 
-            for (i in prop) {
-                if (prop.hasOwnProperty(i)) {
-                    this.data[i] = prop[i];
-                }
+        for (i in prop) {
+            if (prop.hasOwnProperty(i)) {
+                //this.data[i] = prop[i];
+                me.set(i, prop[i]);
             }
-            //this.cash = Object.keys(this);
-            //this.length = this.cash.length;
-            
-	},
-        
-	/**
-	 * @method set
-	 * @param {name} name
-         * @param {value} value
-         * 
-	 * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
-	 **/
-	set : function (name, value) {
-            var me=this;
-            this.data[name] = value;
-            //cash = this.key();
-            //this.length = cash.length;
-            this.fire("change", {
-                key:name,
-                value:value
-            });                           
-	},
+        }
+        //this.cash = Object.keys(this);
+        //this.length = this.cash.length;
+
+    },
+
+    /**
+     * @method set
+     * @param {name} name
+     * @param {value} value
+     *
+     * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
+     **/
+    set: function (name, value) {
+        var me = this;
+        this.data[name] = value;
+        //cash = this.key();
+        //this.length = cash.length;
+        this.fire("change", {
+            key: name,
+            value: value
+        });
+    },
 
 
     /**
@@ -62,11 +63,18 @@ Define('app.Model', /** @lends {app.Model.prototype} */ ({
      * @param {string} name
      * @returns {*}
      */
-	get : function (name) {
-		//alert(this.data[name]);
-		var data = this.data[name];
-		//console.log( 'this' , data );
-		return data;
-	}
+    get: function (name) {
+        //alert(this.data[name]);
+        var data = this.data[name];
+        //console.log( 'this' , data );
+        return data;
+    },
+
+    //очистка  модели от данных
+    clear: function (name) {
+        this.data = {};
+        this.event = {};
+    }
+
 }));
 

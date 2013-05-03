@@ -1,77 +1,70 @@
 /**
- * @name app.model.Shape
+ * @name app.model.Keyframe
  * @class
+ * @extends {app.Model}
+ * 
+ *
+ *                          Timeline
+ *                              |
+ *                       ShapeCollection
+ *                              |
+ *                            (Shape)
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *      KeyframeCollection            PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection   
+ *                                           |
+ *                                        Keyframe
+ *                                        
+ *                                        
+ * shape описывает shape
+ * Может содержать множество полезных данных для view, таки как имя shape, цвет, свёрнут/развёрнут и тд
+ * Каждый shape создаётся изначально со свойством propertyCollection, которое указывает на коллекцию анимируемых свойст
  */
-Define('app.model.Shape', /** @lends {app.model.Shape.prototype} */ {
-    extend : app.Model,
-    /***
-     * Конструктор экземпляров
-    * @constructor
-    * @param {Object} prop объект с описанием экземпляра
-    */
-    init : function () {
-        this._super();                    
-    },                  
-    /**
-     * @method set
-     * @param {property} name
-     * @param {value} value
-     * @return null
-     **/
-    set : function (name, value) {
-        var me=this;
-        this._super();
-        this.fire("shapechange", {
-            name:name,
-            value:value
-        });
-        //обеспечим всплытие событий
-        //console.log(value);
-        
-        if(value.on) value.on('bubble',function(e){
-            //добавим инфу о shape
-            e.shape=me;
-            //укажем имя свойства
-            e.propertyName=name;
-            me.fire(e.eventName,e);
-        })
-    },
 
-    /**
-     * Сама фигура
-     * @type {createjs.Shape}
-     */
-    target: null,
-     
-    forEach:function(callback){
-       for (n in this.data) callback(this.data[n],n,this.data);       
-    },
+//компонент в разработке
+Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
+	extend : app.Model,
+	/***
+	 * Конструктор экземпляров
+	 * @constructor
+	 * @param {Object} prop объект с описанием экземпляра
+	 */
+	init : function () {
+            this._super(); 
+            this.set("propertyCollection", new app.model.PropertyCollection() ); 
+            this.get("propertyCollection").parent=this;
+           
+           // непонятно как назвать толи filter толи FX
+           //this.set("filterCollection", new app.model.FilterCollection() ); 
+           //this.get("filterCollection").parent=this;
 
-    /**
-     * Пройдётся по анимируемым свойствам и вызовет callback для каждого
-     * Первый аргумент - имя свойства
-     * Второй - коллекция ключевых кадров для свойства
-     * @param {function(string, app.model.KeyframeCollection)} callback
-     */
-    iterateProperties: function (callback) {
-        var propertyName,
-            keyframes,
-            properties,
-            shape;
+	},        
+	/**
+	 * @method set
+	 * @param {property} name
+         * @param {value} value
+	 * @return null
+	 **/
+	set : function (property, value) {
+            var me=this;
+            value.parent=me;
+            this._super();
+            this.fire("timelinepropertychange", {
+                key:name,
+                value:value
+            });
 
-        properties = this.data;
-        shape = this.target;
-
-        for (propertyName in properties) if (properties.hasOwnProperty(propertyName)) {
-
-            // если у фигуры есть такое свойство - т.е. оно анимируется
-            if (propertyName in this.target) {
-                keyframes = properties[ propertyName ];
-                callback(propertyName, keyframes);
-            }
-
-        }
-    }
-
+            // всплытие
+            if(value.on) value.on('bubble',function(e){                
+                e.shape=me;
+                me.fire(e.eventName,e);
+            })            
+	}
 });
-

@@ -8,7 +8,33 @@ app;
  * @name app.model.Keyframe
  * @class
  * @extends {app.Model}
+ * 
+ * ====================================================================== *
+ * 
+ *                          Timeline
+ *                              |
+ *                      ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      PropertyCollection             FilterCollection
+ *             |                             |
+ *         Property                        Filter
+ *             |                             |
+ *     KeyframeCollection             PropertyCollection
+ *             |                             |
+ *        ( Keyframe )                    Property
+ *                                           |
+ *                                     KeyframeCollection
+ *                                           |
+ *                                       ( Keyframe )                       
+ *                                                          
+ * ====================================================================== *
+ * 
+ * Этот класс описывает ключ
+ * основным методом здесь является set который генерирует событие keyframechange
  */
+
 Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 
 	extend : app.Model,

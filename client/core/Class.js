@@ -1,4 +1,10 @@
 /**
+ * Главный неймспейс для проекта
+ * @namespace
+ */
+window.app;
+
+/**
  * Конструктор классов
  * @param {string} name имя класса
  * @param {Object} prop описывающий класс объект
@@ -6,6 +12,10 @@
  * @constructor
  */
 Define = function (name, prop) {
+    
+    //если extend( родительский класс ) передали строкой
+    prop.extend =typeof prop.extend == "string" ? NS(prop.extend): prop.extend;
+    
     var src = prop.extend || {},
         child = function () {
             if (this.init) return this.init.apply(this, arguments)||this;
@@ -18,6 +28,8 @@ Define = function (name, prop) {
     //ссылки на класс
     child.prototype["proto"] = child.prototype;
 
+    //prop
+    //NS child.prototype[x]
 
     //скопируем свойства текущего класса
     for (var x in prop) {                    
@@ -48,7 +60,7 @@ Define = function (name, prop) {
     function NS(name, obj) {
         var result = window;
         name.split(".").forEach(function (val, num, arr) {
-            if (num == arr.length - 1) result[val] = obj;
+            if (num == arr.length - 1) result[val] = obj||result[val];
             else result[val] = result[val] || {};
             result = result[val];
         });

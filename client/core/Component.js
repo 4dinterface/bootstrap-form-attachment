@@ -1,7 +1,7 @@
 /**
- * Базовый класс для компонентов
- * @name app.Component
+ * Базовый класс компонента
  * @class
+ * @name app.Component
  */
 Define("app.Component", /** @lends {app.Component.prototype} */({
     /**
@@ -31,7 +31,7 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
     },
 	
     //события
-    listeners: {},
+    listeners: null,
 
     /**
      * Отправит событие на обработку с указанным объектом события
@@ -42,8 +42,7 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
         var item;
         
         //
-        if(options){   
-            
+        if(options){               
             if( !('eventName' in options)  )  options.eventName=name;
             if( !('eventTarget' in options) ) options.eventTarget=this; 
         }
@@ -53,8 +52,8 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
                 this.event[name][item](options);
             }        
         }
+        
         //bubble event
-
         for (item in this.event['bubble']) {
            this.event['bubble'][item](options);
         }     

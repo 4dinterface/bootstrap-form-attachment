@@ -7,9 +7,10 @@
         <!--Отключены. Частично перенесены в style.css-->
         <!--<link rel="stylesheet" href="client/view/Timeline.css"/>-->
 
-        <link rel="stylesheet" href="client/view/Stage.css">
+        <link rel="stylesheet" href="client/editor/Stage.css">
 
         <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
+        <script src="frameworks/easelJs/filters/BoxBlurFilter.js"></script>
         <script src="frameworks/zepto/zepto-1.0.min.js"></script>
 
         <script src="frameworks/zepto/zepto.data.js"></script>
@@ -19,6 +20,27 @@
         <script src="client/core/Class.js"></script>
         <script src="client/core/ClassLoader.js"></script>
 
+        <script>
+
+//            Zepto(function() {
+//                $( '#timeline-editor-body' ).on( 'mousedown', '.timeline-block', function( e ) {
+//
+//                    $( this )
+//                        // TODO: Выделение блоков. Перенести в контроллер
+//                        //.toggleClass( 'timeline-block-select' )
+//                        // TODO: Перетаскивание блоков. Перенести в контроллер
+//                        // TODO: Убрать объект события из параметров
+//                        .draggable( e, {
+//                        axis: 'x',
+//                        clazz: 'cursor-drag',
+//                        area: {
+//                            left: 0
+//                        }
+//                    });
+//
+//                });
+//            });
+        </script>
         
         <script src="client/app.js"></script>
     </head>
@@ -27,12 +49,12 @@
         <div class="head">
             <div class="logo"></div>
             <div class="menu">
-                <div class="menu-item">File</div>
+                <div class="menu-item" id="menu-item-FileOpen" >File <input type="file" id="files" name="files[]" style="display:none; margin-top:-4px;"/></div>
                 <div class="menu-item">Edit</div>
                 <div class="menu-item">Modify</div>
                 <div class="menu-item">Window</div>
                 <div class="menu-item">Preferenses</div>
-                <div class="menu-item">Help</div>
+                <div class="menu-item">Help</div>                
             </div>
         </div>
 
@@ -51,7 +73,8 @@
                                 <div class="tab-head-title-text">Properties</div>
                             </div>
                         </div>
-                        <div class="tab-body"></div>
+                        
+                        <div class="tab-body" id="property-panel" style="overflow-y: scroll; height:210px;"></div>
                     </div>
 
                     <div class="tab">
@@ -76,12 +99,12 @@
                     </div>
                     <div class="tab-body tab-body__tools">
                         <div class="tool"><div class="tool-item tool-pointer"></div></div>
-                        <div class="tool"><div class="tool-item tool-select"></div></div>
+                        <div class="tool"><div class="tool-item tool-line"></div></div>
                         <div class="tool"><div class="tool-item tool-square"></div></div>
                         <div class="tool"><div class="tool-item tool-circle"></div></div>
-                        <div class="tool"><div class="tool-item tool-lens"></div></div>
                         <div class="tool"><div class="tool-item tool-text"></div></div>
                         <div class="tool"><div class="tool-item tool-pipette"></div></div>
+                        <div class="tool"><div class="tool-item tool-lens"></div></div>
                     </div>
                 </div>
                 <!-- END TOOLS -->
@@ -96,20 +119,27 @@
                             <div class="tab-head-title">
                                 <div class="tab-head-title-glass"></div>
                                 <div class="tab-head-title-text">Scene</div>
+<!--                                <div class="tab-head-title-text">Scene</div>                                                                
+                                <img style="float:left;" src="data:image/png;base64,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"> </img>   -->                         
+                            </div>                            
+                            <div class="player">
+                                <div class="player-item player-back"></div>
+                                <div class="player-item player-frame-back"></div>
+                                <div class="player-item player-pause"></div>
+                                <div class="player-item player-stop"></div>
+                                <div class="player-item player-play"></div>
+                                <div class="player-item player-frame-forward"></div>
+                                <div class="player-item player-forward"></div>
                             </div>
                         </div>
-                            <div class="tab-body tab-body-scene">
-                                <div id="canvas-editor" style="height:200px">
-                                    <div id="htmlExperement" style="z-index: 1; position: absolute; background-color: #00F; color:#FFF; width:50px; height:36px; padding: 5px; visibility: hidden;"> HTML </div>
-                                    <canvas id="canvas" width="900" height="200"></canvas>
-                                </div>
-                            </div>
-                    </div>
-
+                        <div class="tab-body tab-body-scene">
+                            <div id="canvas-editor" style="height:200px">                                    
+                                <canvas id="canvas" width="900" height="200"></canvas>
+                            </div>                                                        
+                        </div>                        
+                    </div>                    
                 </div>
                 <!-- END SCENE -->
-
-
             </div>
 
             <div class="body-block">
@@ -137,31 +167,31 @@
                         <div id="timeline-ruler-background"></div>
                     </div>
                     <div id="timeline-editor-body">
-                        <div class="timeline-line">
-                            <div class="timeline-line-block">
-                        </div>
-                        <div class="timeline-line"></div>
+                        <!--properties, keyframes and runner -->
                     </div>
                 </div>
 
             </div>
         <!-- END TIMELINE -->
-
+<div>
+    hello
+</div>    
 
         <!-- TEMPLATES -->
                 <script type="text/x-jqote-template" id="template-timeline-line">
-                    <div class="timeline-line">
-                        <%= $.jqote( '#template-timeline-block', this ) %>
+                    <div class="timeline-line <%=this.clazz%>" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">
+                        <%= $.jqote( '#template-timeline-property', this.properties ) %>
                     </div>
                 </script>
 
-                <script type="text/x-jqote-template" id="template-timeline-block">
-                    <div class="timeline-block" style="left:<%=this.left%>px; width:<%=this.width%>px;"></div>
-                    <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
+                <script type="text/x-jqote-template" id="template-timeline-property">
+                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="left:<%=this.left%>px; width:<%=this.width%>px;">
+                        <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
+                    </div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-keyframe">
-                    <div class="timeline-keyframe" style="left:<%=this%>px;"></div>
+                    <div class="timeline-keyframe" data-keyframe-id="<%=this.id%>" style="left:<%=this.left%>px;"></div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-ruler">
@@ -169,6 +199,10 @@
                         <%=this.value%>
                     </div>
                 </script>
+
+            <script type="text/x-jqote-template" id="template-timeline-runner">
+                <div id="timeline-runner" style="left: <%=this%>px;"></div>
+            </script>
         <!-- END TEMPLATES -->
 
             </div>

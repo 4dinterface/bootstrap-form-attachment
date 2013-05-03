@@ -2,8 +2,6 @@
  * @author Максим Сысоев
  * компонент отвечает за воспроизведения ролика и предоставляет api
  * позволяюще управлять воспроизведением
- *
- * управляет классом-просчитывателем Fetcher
  * 
  * в качестве параметров принимает таймлайн и сцену
  * идея api взята из Flash
@@ -40,12 +38,12 @@
 
 createjs.Ticker.setFPS(60);
 
-Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
+Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     extend: app.Component,
 
     /**
-     * Сцена, на которой отрисовываются текущие значения
+     * Сцена, на которой проигрыватель будет отрисовывать текущие значения
      * @type {app.scene.Stage}
      * @private
      */
@@ -68,16 +66,13 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     /**
      * Конструктор объекта, позволяющего управлять воспроизведением
      * @constructor
-     * @param {{ stage: app.scene.Stage, timeline: app.model.Timeline }} cfg объект с дополнительными свойствами
+     * @param {Object} cfg объект с дополнительными свойствами
      */
-    init: function (cfg) {
+    init: function(cfg){
         this._super();
-
+        this.apply(cfg);
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
-
-        this.setStage(cfg.stage);
-        this.setTimeline(cfg.timeline);
 
         this.elapsedTime = 0;
     },
@@ -106,19 +101,12 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     },
 
     /**
-     * Установка таймлайна для проигрывателя.
+     * Установка таймлайна для проигрывателя. Фактически, это прокси.
      * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
      */
+    //TODO утвердить принадлежность данных таймлайна, после утверждения её модели
     setTimeline: function (timeline) {
-        this.fetch.timeline = timeline;
-    },
-
-    /**
-     * Установка сцены для проигрывателя.
-     * @param {app.scene.Stage} stage объект сцены
-     */
-    setStage: function (stage) {
-        this.stage = stage;
+        return this.fetch.setTimeline(timeline);
     },
 
     /**
@@ -162,8 +150,55 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
      * @private
      */
     renderFrame: function () {
-        this.fetch.fetch(this.elapsedTime);
+
+        var elapsedTime = this.elapsedTime;
+
+        // обход фигур
+        // get('shapeCollection') есть
+        this.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Timeline} */ item) {
+
+            var data = item.data,
+                keyframes,
+                firstKeyframe,
+                secondKeyframe;
+
+            // обход свойств
+            item.get('propertyCollection').iterateProperties(function (prop,property ) {
+
+                var keyframesCollection=property.get('keyframeCollection');
+                keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
+
+                firstKeyframe = keyframes.first;
+                secondKeyframe = keyframes.second;
+
+                if (!secondKeyframe || !firstKeyframe) {
+                    // отсутствует один из ключевых кадров
+                    // для текущего времени
+                    return;
+                }
+
+                // интерполяция
+                var deltaTime,
+                    offset,
+                    fractionalTime,
+                    currentValue;
+
+                deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
+                offset = firstKeyframe.get('key');
+                fractionalTime = ( elapsedTime - offset ) / deltaTime;
+                currentValue = ( secondKeyframe.get('value') - firstKeyframe.get('value') ) * fractionalTime + firstKeyframe.get('value');
+
+                item.target[ prop ] = Math.floor(currentValue);
+                item.target.renderToCache();
+            });
+
+        });
+
+        // на этом моменте все свойства просчитаны        
         this.stage.update();
+        this.fire("onframe", {
+            elapsedTime: this.elapsedTime
+        });
     },
 
     /**
@@ -181,15 +216,15 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
     /**
      * Враппер отрисовщика. Вызывается из Ticker.
-     * @param {{type: string, paused: boolean, delta: number, time: number, runTime: number}} e объект события из createjs.Ticker
+     * @param {Object} e объект события из createjs.Ticker
      * @private
      */
     tick: function (e) {
         var elapsedTime = this.elapsedTime += e.delta;
         this.renderFrame();
-        this.fire("onframe", {
+/*        this.fire("onframe", {
             elapsedTime: elapsedTime
-        });
+        });*/
     }
 
 }));

@@ -77,27 +77,13 @@ Define( 'app.timeline.controller', {
 
             }
 
-            // Перемещение бегунка при клике
-            this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, cursorPosition ) );
+
+            if ( !e.ctrlKey ) {
+                // Перемещение бегунка при клике
+                this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, cursorPosition ) );
+            }
 
         }.bind( this, $( '#timeline-editor' ) ));
-
-
-
-        // Ловим mousedown на свойствах в таймлайне
-//        $( '#timeline-editor' ).on( 'mousedown', '.timeline-property', function( e ) {
-//
-//            var prop = $( e.target );
-//            var id = prop.attr( 'data-property-id' );
-//            var selector = '[data-property-id="' + id + '"]';
-//            var clazz = prop.hasClass( 'timeline-property-select' ) ? '' : 'timeline-property-select';
-//
-//            this.model.fire( 'propertyselect', {
-//                selector: selector,
-//                id: id,
-//                clazz: clazz
-//            });
-//        }.bind( this ));
 
     }
 

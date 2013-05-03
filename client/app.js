@@ -24,10 +24,10 @@ $( function () {
              "client/model/ShapeCollection.js",
 
              // ---------- Timeline -------------
+             "client/timeline/utilites.js",
              "client/timeline/model.js",
              "client/timeline/view.js",
              "client/timeline/controller.js",
-             "client/timeline/utilites.js",
 
              "client/panels/Toolbar.js",
              "client/editor/Controller.js",

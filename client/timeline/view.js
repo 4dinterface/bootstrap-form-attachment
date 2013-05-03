@@ -18,12 +18,25 @@ Define( "app.timeline.view", /** @lends {app.component} */{
      */
     model: null,
 
+    /**
+     * Подключаем утилиты таймлайна
+     * @type {Object}
+     * @private
+     */
+    utilites: app.timeline.utilites,
 
+
+    /**
+     * Конструктор объекта представления
+     * @constructor
+     * @param {Object} cfg объект с дополнительными свойствами
+     */
     init: function( cfg ) {
-        var me=this;
-        
         this._super();
-        this.apply( cfg );                
+        this.apply( cfg );
+
+
+        console.log( this.model.zoom );
 
 
         // Предполагается, что событие срабатывает после готовности документа
@@ -36,39 +49,26 @@ Define( "app.timeline.view", /** @lends {app.component} */{
 
 
 
-        // Выделение свойства/блока
-        this.model.on( 'onpropertyselect', function( e ) {
-            var prop = this.model.getId( e.id );
-            var html = $.jqote( '#template-timeline-property', this.createProperties( [ prop ], e.clazz ) );
+        this.model.on( 'onclassadd', function( e ) {
+            e.elems.addClass( e.clazz );
+        });
 
-            $( e.selector ).replaceWith( html );
-        }.bind( this ));
 
+        this.model.on( 'onclassremove', function( e ) {
+            e.elems.removeClass( e.clazz );
+        });
 
 
         // ---------------------- CURSOR ------------------------
 
 
-        // Перемещение бегунка при клике в области таймлайна
-        this.model.on( 'oncursorchange', function( e ) {
-            this.movie.gotoAndStop( this.toMilliseconds( e.x ) );
-        }.bind( this ));
-
-
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            $( '#timeline-runner' ).css( 'left', this.toPixels( e.elapsedTime ) );
+            $( '#timeline-runner' ).css( 'left', this.utilites.toPixels( this.model, e.elapsedTime ) );
         }.bind( this ));
 
 
         // ------------------- END CURSOR ------------------------
-
-
-        // установить кол-во пикслей в секунде
-        this.options.set( 'ratio', 100 );
-
-        // установить зум
-        this.options.set( 'zoom', 1 );                
         
     },
 
@@ -95,7 +95,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
         var width = 800;
         var points = [];
 
-        var ms = this.toMilliseconds( 100 ) / this.options.get( 'zoom' );
+        var ms = this.utilites.toMilliseconds( this.model, 100 ) / this.model.zoom;
         var m;
 
         var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
@@ -108,7 +108,7 @@ Define( "app.timeline.view", /** @lends {app.component} */{
             }
         });
 
-        width = this.toPixels( m ) * this.options.get( 'zoom' );
+        width = this.utilites.toPixels( this.model, m ) * this.model.zoom;
 
         points = new Array( 800 / width | 0 );
 
@@ -121,9 +121,6 @@ Define( "app.timeline.view", /** @lends {app.component} */{
                 value: m * index
             };
         }
-
-        // console.log( m );
-        // console.log( this.toPixels( m ) * this.options.get( 'zoom' ) );
 
         $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
     },
@@ -222,7 +219,8 @@ Define( "app.timeline.view", /** @lends {app.component} */{
      * @return {Object} keyframes Массив ключей для создания разметки + сдвиг
      */
     createKeyframes: function( keyframesCollection, clazz ) {
-        var zoom = this.toPixels( this.options.get( 'zoom' ) ); // TODO: Не забыть про zoom
+
+        var zoom = this.utilites.toPixels( this.model, this.model.zoom ); // TODO: Не забыть про zoom
         var keyframes = [];
         var shift = 0;
 
@@ -263,52 +261,6 @@ Define( "app.timeline.view", /** @lends {app.component} */{
             shift: shift
         };
 
-    },
-
-
-    /**
-     *  Опции представления таймлайна. Прочитать/установить.
-     *
-     *  @this {Timeline}
-     *  @return {Object} options
-     */
-    options: (function() {
-        var data = {};
-
-        return {
-            get: function( key ) {
-                return data[ key ];
-            },
-            set: function( key, value ) {
-                data[ key ] = value;
-            }
-        };
-    }()),
-
-
-    /**
-     *  Переводит миллисекунды в пиксели в зависимости
-     *  от настроек представления таймлана.
-     *
-     *  @this {Timeline}
-     *  @param {Number} milliseconds
-     *  @return {Number}
-     */
-    toPixels: function( milliseconds ) {
-        return milliseconds / 1000 * this.options.get( 'ratio' );
-    },
-
-
-    /**
-     *  Переводит пиксели в миллисекунды в зависимости
-     *  от настроек представления таймлана.
-     *
-     *  @this {Timeline}
-     *  @param {Number} pixels
-     *  @return {Number}
-     */
-    toMilliseconds: function( pixels ) {
-        return pixels / this.options.get( 'ratio' ) * 1000;
     }
 
 });

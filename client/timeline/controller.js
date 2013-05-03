@@ -1,4 +1,9 @@
+/**
+ * Контроллер таймлана
+ *
+ */
 'use strict';
+
 
 Define( 'app.timeline.controller', {
 
@@ -12,16 +17,22 @@ Define( 'app.timeline.controller', {
     model: null,
 
 
+    /**
+     * Подключаем утилиты таймлайна
+     * @type {Object}
+     * @private
+     */
+    utilites: app.timeline.utilites,
+
+
+    /**
+     * Конструктор объекта контроллера
+     * @constructor
+     * @param {Object} cfg объект с дополнительными свойствами
+     */
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-        
-        // После того, как документ готов (ready), загрузить данные модели таймлайна
-        // TODO: Надобность под вопросом
-        $(function() {
-            //this.model.fire( 'load' );
-        }.bind( this ));
-
 
 
         // Ловим mousedown на таймлайне
@@ -29,17 +40,45 @@ Define( 'app.timeline.controller', {
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
+            var cursorPosition = e.pageX - elem.offset().left;
+
 
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline-property' );
+
+                // here drag ...
             }
 
-            console.log( prop );
+
+            if ( prop ) {
+
+                if ( !e.ctrlKey ) {
+
+                    this.model.fire( 'onclassremove', {
+                        elems: $( '.timeline-property-select' ),
+                        clazz: 'timeline-property-select'
+                    });
+
+                }
+
+                this.model.fire( 'onclassadd', {
+                    elems: prop,
+                    clazz: 'timeline-property-select'
+                });
+
+                // here drag ...
+
+            } else {
+
+                this.model.fire( 'onclassremove', {
+                    elems: $( '.timeline-property-select' ),
+                    clazz: 'timeline-property-select'
+                });
+
+            }
 
             // Перемещение бегунка при клике
-            this.model.fire( 'oncursorchange', {
-                x: e.pageX - elem.offset().left
-            });
+            this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, cursorPosition ) );
 
         }.bind( this, $( '#timeline-editor' ) ));
 
@@ -59,15 +98,6 @@ Define( 'app.timeline.controller', {
 //                clazz: clazz
 //            });
 //        }.bind( this ));
-
-
-
-        // объект, в котором хранится сведения о представлении таймлайна
-        this.model.timeline = {
-            pixelsPerSecond: 100,
-            zoom: 1,
-            width: 800
-        };
 
     }
 

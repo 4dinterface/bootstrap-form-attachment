@@ -23,8 +23,9 @@ Define("app.panels.Transport", {
         },  
 
         //пауза      
-        ".player-pause click":function(){
-            this.movie.stop();                       
+        ".player-pause click":function(e){
+            this.movie.stop();          
+            console.log(e);
         },
 
         //перемотка в начало

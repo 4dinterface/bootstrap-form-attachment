@@ -5,7 +5,7 @@
 'use strict';
 
 
-Define( 'app.timeline.controller', {
+Define( 'app.timeline.Controller', {
 
     extend: app.Controller,
 
@@ -107,7 +107,7 @@ Define( 'app.timeline.controller', {
 
 
         '% mouseup': function() {
-            alert( 1 );
+            // alert( 1 );
         }
 
     }

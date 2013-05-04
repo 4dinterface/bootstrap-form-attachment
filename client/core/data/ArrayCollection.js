@@ -1,88 +1,49 @@
-//array collection пока ещё в работе
+/**
+ * Коллекция фигур
+ * @class
+ * @name app.model.ShapeCollection
+ * @extends {app.Component}
+ */
+Define('app.ArrayCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
+    extend : app.Component,
+    data:null,
 
-Define('app.ArrayCollection',{                    
-    extend:app.Component,                                
+    /**
+     * @constructor
+     */
+    init : function () {
+        this.data=[];
+        this._super();                   
+    },  
+                
+    /**
+     * @method set
+     * @param {name} name
+     * @param {value} value
+     * @return null
+     **/
+    set : function (num, value) {                                
+        this.data[i]=value;        
+    },
+            
+    push : function (value) {                
+        this.data.push(value);
+        this.length=this.data.length;               
+    },
+       
+    /**
+     * @method get
+     * @param {property} name
+     * @param {value} value
+     * @return null
+     **/
+    get : function (num) {            
+        return this.data[num];        
+    },  
     
-        ToUint32:function(value) {
-	    return value >>> 0;
-	 },
-
-	
-	getMaxIndexProperty:function(object) {                        
-    //        function ToUint32(value) {
-      //          return value >>> 0;
-        //    };
-            var me=this;
-            
-            var maxIndex = -1, isValidProperty,me=this;
-
-            var MAX_SIGNED_INT_VALUE = Math.pow(2, 32) - 1,
-	      hasOwnProperty = Object.prototype.hasOwnProperty;
-            
-	
-            for (var prop in object) {
-                
-	      isValidProperty = (
-	        String(me.ToUint32(prop)) === prop &&
-	        me.ToUint32(prop) !== MAX_SIGNED_INT_VALUE &&
-	        hasOwnProperty.call(object, prop));
-	
-	      if (isValidProperty && prop > maxIndex) {
-	        maxIndex = prop;
-	      }
-	    }
-            return maxIndex;
-        },
-            
-	init:function (prop){    
-
-            this.event={};
-        
-            var prep={};
-            for (i in this){
-                prep[i]={ value:this[i] }
-            }
-            
-            var ret=Object.create(Array.prototype,prep);            
-            ret.initLength();
-            
-            return ret;                        
-        },
-        
-        initLength:function(){
-            Object.defineProperty(this, "length", {
-              get: function() {
-	        var maxIndexProperty = +this.getMaxIndexProperty(this);
-	        return Math.max(length, maxIndexProperty + 1);
-              },
-              set: function(value) {
-	        var constrainedValue = this.ToUint32(value);
-	        if (constrainedValue !== +value) {
-	          throw new RangeError();
-	        }
-	        for (var i = constrainedValue, len = this.length; i < len; i++) {
-	          delete this[i];
-	        }
-	        length = constrainedValue;
-	      }
-            });        
-        },
-        
-        
-        
-        toString:function(){
-            var str="";
-            
-            for (i in this) if (i*1){
-                t=typeof( this[i]  );
-                
-                if( t=="string")str+="'"+this[i]+"', ";                                
-                else str+=this[i]+", ";
-            }
-            
-            return "["+str+"]";            
-        }
-        
-        
-        //toString :function(){}//?
+    forEach:function(callback, context ) {
+        this.data.forEach(callback, context );
+    }
+    
 });
+

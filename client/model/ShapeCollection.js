@@ -24,14 +24,14 @@
  *                                        
  */
 Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
-    extend : app.Component,
+    //по сути это arrayCollection
+    extend : app.ArrayCollection,
     data:null,
 
     /**
      * @constructor
      */
-    init : function () {
-        this.data=[];
+    init : function () {        
         this._super();                   
     },  
                 
@@ -44,49 +44,32 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
     set : function (num, value) {        
         
         value.parent=me;
+                        
+        this._super();
         
-        this.data[i]=value;
         this.fire("timelinechange", {
             name:name,
             value:value
         });
         
-        if(value.on) value.on('bubble',function(e){
-            me.fire(e.eventName,e);
-        })
-
+        //поднимем события из value на этот уровень
+        //this.liftEvent(value);
     },
             
-    push : function (value) {        
-        
+    push : function (value) {                
         var me=this;
-        this.data.push(value);
-        this.length=this.data.length;       
+        
+        this._super();
         
         this.fire("timelinechange", {
             name:this.length,
             value:value
         });
-        
-        if(value.on) value.on('bubble',function(e){
-            me.fire(e.eventName,e);
-        })
 
-    },
-       
-    /**
-     * @method get
-     * @param {property} name
-     * @param {value} value
-     * @return null
-     **/
-    get : function (num) {            
-        return this.data[num];        
-    },  
+        //поднимем события из value на этот уровень
+        this.liftEvent(value);
+    }         
+
     
-    forEach:function(callback, context ) {
-        this.data.forEach(callback, context );
-    }
     
 });
-

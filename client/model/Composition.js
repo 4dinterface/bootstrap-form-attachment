@@ -79,12 +79,8 @@ Define( 'app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
             key: name,
             value: value
         });
-
-        // всплытие
-        if( value.on ) value.on( 'bubble', function( e ) {
-            //e.propertyName=name;
-            me.fire( e.eventName, e );
-        })
+        
+        this.liftEvent(value);        
     },
 
 

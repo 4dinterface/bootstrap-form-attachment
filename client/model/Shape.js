@@ -60,11 +60,10 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
                 key:name,
                 value:value
             });
-
-            // всплытие
-            if(value.on) value.on('bubble',function(e){                
+            
+            this.liftEvent(value,function(e){                
                 e.shape=me;
                 me.fire(e.eventName,e);
-            })            
+            })
 	}
 });

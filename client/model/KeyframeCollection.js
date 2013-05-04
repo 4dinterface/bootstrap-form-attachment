@@ -61,7 +61,7 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
             });
             
             //обеспечим всплытие событий
-            val.on('bubble',function(e){
+            this.liftEvent(val,function(e){                
                 //добавим в соыие информацию о колекции кейфреймов
                 e.collectionKeyframes=me;
                 me.fire(e.eventName,e);

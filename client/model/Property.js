@@ -68,7 +68,7 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
             });
 
             // всплытие
-            if(value.on) value.on('bubble',function(e){                
+            this.liftEvent(value,function(e){                
                 e.property=me;
                 me.fire(e.eventName,e);
             })            

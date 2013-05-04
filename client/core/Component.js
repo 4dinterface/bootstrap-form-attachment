@@ -73,9 +73,34 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
         
 	this.event[name].push(fun);	
     },
-
     
     off: function (name) {},
+
+    //метод обеспечивающий всплытие
+    liftEvent:function(src,opt){
+        var me=this;
+        if(!src.on) return;        
+        
+        switch(typeof opt){
+            //undefined
+            case "undefined":                
+               src.on('bubble',function(e){
+                   me.fire(e.eventName,e);
+               })
+            break; 
+
+           //функция
+            case "function":                
+               src.on('bubble',opt)
+            break;        
+        
+            case "object":                
+               /*src.on('bubble',function(e){
+                   me.fire(e.eventName,e);
+               })*/
+            break;        
+        }
+    },
     
     //вставляет свойста в обьект
     apply:function(prop){        

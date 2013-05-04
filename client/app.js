@@ -27,8 +27,8 @@ $( function () {
 
              // ---------- Timeline -------------
              "client/timeline/utilites.js",
-             "client/timeline/view.js",
-             "client/timeline/controller.js",
+             "client/timeline/View.js",
+             "client/timeline/Controller.js",
 
              "client/panels/Toolbar.js",
              "client/panels/Transport.js",
@@ -84,7 +84,7 @@ $( function () {
 
                 
                 //view таймлайна
-                tlView = new app.timeline.view({
+                tlView = new app.timeline.View({
                     // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
                     model : timeline,                
                     // доступ к муви, в муви хранится позиция бегунка
@@ -92,7 +92,7 @@ $( function () {
                 }),               
 
                 //контроллер таймлайна            
-                tlController=new app.timeline.controller({
+                tlController=new app.timeline.Controller({
                     //viev - прямой доступ контролёра к view, пока под вопросом
                     view:tlView,                
                     //модель таймлайна, которую контролёр сможет изменять

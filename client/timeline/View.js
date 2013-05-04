@@ -7,7 +7,7 @@
 'use strict';
 
 
-Define( "app.timeline.view", /** @lends {app.component} */{
+Define( "app.timeline.View", /** @lends {app.component} */{
 
     extend: app.Component,
 

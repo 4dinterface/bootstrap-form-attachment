@@ -5,7 +5,7 @@
 'use strict';
 
 
-Define( 'app.timeline.controller', {
+Define( 'app.timeline.Controller', {
 
     extend: app.Controller,
 
@@ -107,11 +107,17 @@ Define( 'app.timeline.controller', {
 
 
         '% mouseup': function() {
-            //alert( 1 );
+            // alert( 1 );
         }
 
     }
     
+
+
+
+    // TODO: щелчок по линейке сбрасывает выделение
+
+    // TODO: при зажатом ctrl клик на блок выделяет его, еще один (на этот же блок) снимает выделение
 
 
 

@@ -30,7 +30,24 @@ Define( 'app.timeline.Controller', {
      * @type {Object}
      * @private
      */
-    domTarget: document,
+    domTarget: $( document ),
+
+
+    /**
+     * Редактор таймлайна
+     * @type {Object}
+     * @private
+     */
+    domEditor: $( '#timeline-editor' ),
+
+
+    dragShiftX: null,
+
+    dragElems: null,
+
+    dragPositions: null,
+
+    dragHandler: null,
 
 
     /**
@@ -41,7 +58,7 @@ Define( 'app.timeline.Controller', {
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-        this.editor = $( '#timeline-editor' );
+        this.domTarget.off( '.drag' );
     },
 
 
@@ -62,28 +79,46 @@ Define( 'app.timeline.Controller', {
                 prop = keyframe.parent( '.timeline-property' );
             }
 
-            this.propertySelect( e, prop );
-            this.runnerMove( e );
+            this.propertySelect( e.ctrlKey, prop );
+            this.runnerMove( e.ctrlKey, e.pageX - this.domEditor.offset().left );
+
+            // this.domTarget.on( '.drag' );
         },
+
 
         /**
          * Ловит событие и вызывает функции поведения
          */
         '#timeline-editor % mousedown % #timeline-runner-head': function( e ) {
+            this.dragElems = $( e.target );
+            //this.dragPositions = this.dragElems.offset();
+            this.dragShiftX = this.domEditor.offset().left
 
+            //console.log( this.dragShiftX )
+
+            this.dragHandler = 'runnerMove';
+
+            this.bind([ '% mousemove.drag', '% mouseup.drag' ]);
         },
+
 
         /**
          * Ловит событие и вызывает функции поведения
          */
-        '% mousemove': function() {
+        '% mousemove.drag': function( e ) {
+            var x = e.pageX - this.dragShiftX;
+
+            // console.log( x );
+
+            this[ this.dragHandler ]( false, x );
         },
 
 
         /**
-         * Ловит событие и вызывает функции поведения
+         * Ловит событие и отключает обработчики перетаскивания
          */
-        '% mouseup': function() {
+        '% mouseup.drag': function() {
+            this.domTarget.off( '.drag' );
         }
 
     },
@@ -91,17 +126,17 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Выделение свойств
-     * @param {Object} e event object
+     * @param {Boolean} ctrlKey
      * @param {Object|Null} prop
      */
-    propertySelect: function( e, prop ) {
+    propertySelect: function( ctrlKey, prop ) {
 
-        if ( !prop && !e.ctrlKey ) {
+        if ( !prop && !ctrlKey ) {
             unselect( this.model, $( '.timeline-property-select' ) );
             return;
         }
 
-        if ( e.ctrlKey ) {
+        if ( ctrlKey ) {
             if ( prop.hasClass( 'timeline-property-select' ) ) {
                 unselect( this.model, prop );
             } else {
@@ -147,12 +182,11 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Перемещение бегунка
-     * @param {Object} e event object
+     * @param {Boolean} ctrlKey
+     * @param {Number} position
      */
-    runnerMove: function( e ) {
-        var position = e.pageX - this.editor.offset().left;
-
-        if ( e.ctrlKey ) {
+    runnerMove: function( ctrlKey, position ) {
+        if ( ctrlKey ) {
             return
         }
 

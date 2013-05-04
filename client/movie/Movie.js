@@ -102,6 +102,13 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         this.fps(this.framesPerSecond);
         this.elapsedTime = 0;
+
+        var self = this;
+
+        this.fetch.on('missingboth', function () {
+            console.log("MOVIE: stop!");
+            self.pause();
+        });
     },
 
     /**
@@ -113,10 +120,17 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     },
 
     /**
+     * Производит приостановку воспроизведения
+     */
+    pause: function () {
+        createjs.Ticker.removeEventListener('tick', this.tick);
+    },
+
+    /**
      * Производит остановку фильма на текущей временной метку.
      */
     stop: function () {
-        createjs.Ticker.removeEventListener('tick', this.tick);
+        this.pause();
         this.renderFrame();
     },
 
@@ -144,7 +158,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         this.stage = stage;
      },
 
-/**
+    /**
      * Осуществляет немедленный безусловный переход на указанное время с момента старта, а затем воспроизводит текущий клип или фильм.
      * @param {number} elapsedTime временная метка
      */

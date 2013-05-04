@@ -120,7 +120,7 @@ $( function () {
              
              $(".player-play").click(function(){                 
                  movie.play();                 
-                 setTimeout(function () {
+                 false && setTimeout(function () {
                         //movie.stop();
                         movie.gotoAndStop(1);
                  }, 60000);

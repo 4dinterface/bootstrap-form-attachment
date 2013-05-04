@@ -49,6 +49,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
     fetchShape: function (item, elapsedTime) {
 
         var self = this;
+        var someoneRendered = false;
 
         item.get('propertyCollection').forEach(function (prop, propertyName) {
 
@@ -59,22 +60,22 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
             var missingRight = !keyframes.second;
 
             if (missingLeft || missingRight) {
-                if (missingLeft && missingRight) {
-                    // не из чего считать
-                    return;
-                } else if (!missingLeft && missingRight) {
-                    // только левый
+                if (!missingLeft && missingRight) {
                     item.target[ propertyName ] = keyframes.first.get('value');
                 } else if (missingLeft && !missingRight) {
-                    // только правый
                     item.target[ propertyName ] = keyframes.second.get('value');
                 }
             } else {
+                someoneRendered = true;
                 item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
             }
 
             item.target.renderToCache();
         });
+
+        if (!someoneRendered) {
+            self.fire('missingboth');
+        }
 
     },
 

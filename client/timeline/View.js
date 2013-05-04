@@ -18,7 +18,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
     model: null,
 
     /**
-     * Подключаем утилиты таймлайна
+     * Утилиты таймлайна
      * @type {Object}
      * @private
      */

@@ -3,6 +3,26 @@ data=[
         "target":{
             "xtype":"Rectangle"
         },
+        
+        "alpha":{
+            "type":"float",
+            "keyframes":{                
+                "0": {
+                    "value":0,
+                    "easing":"line"
+                },
+                
+                "1000": {
+                    "value":0,
+                    "easing":"line"
+                },            
+                
+                "2000": {
+                    "value":1,
+                    "easing":"line"
+                }
+            }            
+        },
 
         "x": {
             "type":"int",
@@ -242,6 +262,7 @@ data=[
                     "easing":"line"
                 }           
            }
+           
 
         }
                               

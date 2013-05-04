@@ -55,13 +55,23 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
             var keyframesCollection = prop.get('keyframeCollection');
             var keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
 
-            if (!keyframes.first || !keyframes.second) {
-                // отсутствует один из ключевых кадров
-                // для текущего времени
-                return;
-            }
+            var missingLeft = !keyframes.first;
+            var missingRight = !keyframes.second;
 
-            item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
+            if (missingLeft || missingRight) {
+                if (missingLeft && missingRight) {
+                    // не из чего считать
+                    return;
+                } else if (!missingLeft && missingRight) {
+                    // только левый
+                    item.target[ propertyName ] = keyframes.first.get('value');
+                } else if (missingLeft && !missingRight) {
+                    // только правый
+                    item.target[ propertyName ] = keyframes.second.get('value');
+                }
+            } else {
+                item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
+            }
 
             item.target.renderToCache();
         });

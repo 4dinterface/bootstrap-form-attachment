@@ -16,11 +16,11 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
      */
     init: function() {
         //this.apply();
+        this._super();
+
 
         var listener;
-        var selector;
-        var event;
-        var index;
+        var params;
 
 
         for( listener in this.domListeners ) {
@@ -28,19 +28,29 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
             // Один обработчик на все события
             if ( $.isFunction( this.domListeners[ listener ] ) ) {
 
-                listener = $.trim( listener );
-                index = listener.indexOf( '%' );
+                params = listener.split( '%' );
 
-                if ( index > 0 ) {
-                    selector = listener.slice( 0, index );
-                    event = listener.slice( index + 1 );
+                if ( !params[ 0 ].length ) {
+                    params.shift();
+                }
 
-                    $( this.domTarget ).find( selector ).on( event, this.domListeners[ listener ].bind( this ) );
-                } else {
-                    index = !index < 0 ? 0: index + 1;
-                    event = listener.slice( index );
+                switch ( params.length ) {
 
-                    $( this.domTarget ).on( event, this.domListeners[ listener ].bind( this ) );
+                    case 3:
+                        $( params[ 0 ], this.domTarget )
+                            .on( params[ 1 ], params[ 2 ], this.domListeners[ listener ].bind( this ) );
+                        break;
+
+                    case 2:
+                        $( params[ 0 ], this.domTarget )
+                            .on( params[ 1 ], this.domListeners[ listener ].bind( this ) );
+                        break;
+
+                    case 1:
+                        $( this.domTarget )
+                            .on( params[ 0 ], this.domListeners[ listener ].bind( this ) );
+                        break;
+
                 }
 
             // Несколько обработчиков
@@ -53,8 +63,7 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
             }
 
         }
-
-        this._super();
+1
     },
 
 

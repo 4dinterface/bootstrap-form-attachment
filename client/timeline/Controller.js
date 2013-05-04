@@ -66,6 +66,12 @@ Define( 'app.timeline.Controller', {
             this.runnerMove( e );
         },
 
+        /**
+         * Ловит событие и вызывает функции поведения
+         */
+        '#timeline-editor % mousedown % #timeline-runner-head': function( e ) {
+
+        },
 
         /**
          * Ловит событие и вызывает функции поведения

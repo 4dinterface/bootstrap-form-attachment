@@ -64,8 +64,6 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
             //черезподписку на buble
             
             this.liftEvent(val,function(e){   
-                //alert( e.eventName );
-                //console.log('buble e=',e);
                 //добавим в соыие информацию о колекции кейфреймов
                 e.collectionKeyframes=me;
                 me.fire(e.eventName,e);

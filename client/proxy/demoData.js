@@ -4,6 +4,20 @@ data=[
             "xtype":"Rectangle"
         },
 
+        "alpha": {
+            "type":"int",
+            "keyframes":{
+                "0": {
+                    "value": 0,
+                    "easing":"line"
+                },
+                "1000": {
+                    "value": 1,
+                    "easing":"line"
+                }
+            }
+        },
+
         "x": {
             "type":"int",
             "keyframes":{                

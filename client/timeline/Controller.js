@@ -18,7 +18,7 @@ Define( 'app.timeline.Controller', {
 
 
     /**
-     * Подключаем утилиты таймлайна
+     * Утилиты таймлайна
      * @type {Object}
      * @private
      */
@@ -41,88 +41,116 @@ Define( 'app.timeline.Controller', {
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
+        this.editor = $( '#timeline-editor' );
+    },
 
-/*
 
-        // Ловим mousedown на таймлайне
-        $( '#timeline-editor' ).on( 'mousedown', function( elem, e ) {
+    /**
+     * Обработчики dom событий
+     */
+    domListeners: {
+
+        /**
+         * Ловит событие и вызывает функции поведения
+         */
+        '#timeline-editor-body % mousedown': function( e ) {
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
-            var cursorPosition = e.pageX - elem.offset().left;
-
 
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline-property' );
-
-                // here drag ...
             }
 
-
-            if ( prop ) {
-
-                if ( !e.ctrlKey ) {
-
-                    this.model.fire( 'onclassremove', {
-                        elems: $( '.timeline-property-select' ),
-                        clazz: 'timeline-property-select'
-                    });
-
-                }
-
-                this.model.fire( 'onclassadd', {
-                    elems: prop,
-                    clazz: 'timeline-property-select'
-                });
-
-                // here drag ...
-
-            } else {
-
-                this.model.fire( 'onclassremove', {
-                    elems: $( '.timeline-property-select' ),
-                    clazz: 'timeline-property-select'
-                });
-
-            }
+            this.propertySelect( e, prop );
+            this.runnerMove( e );
+        },
 
 
-            if ( !e.ctrlKey ) {
-                // Перемещение бегунка при клике
-                this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, cursorPosition ) );
-            }
+        /**
+         * Ловит событие и вызывает функции поведения
+         */
+        '% mousemove': function() {
+        },
 
-        }.bind( this, $( '#timeline-editor' ) ));
-*/
+
+        /**
+         * Ловит событие и вызывает функции поведения
+         */
+        '% mouseup': function() {
+        }
 
     },
 
 
-    domListeners: {
+    /**
+     * Выделение свойств
+     * @param {Object} e event object
+     * @param {Object|Null} prop
+     */
+    propertySelect: function( e, prop ) {
 
-        // клики по таймлайну
-        '#timeline-editor % mousedown': function() {
-            //alert( 1 );
-        },
-
-
-        '% mouseup': function() {
-            // alert( 1 );
+        if ( !prop && !e.ctrlKey ) {
+            unselect( this.model, $( '.timeline-property-select' ) );
+            return;
         }
 
+        if ( e.ctrlKey ) {
+            if ( prop.hasClass( 'timeline-property-select' ) ) {
+                unselect( this.model, prop );
+            } else {
+                select( this.model, prop );
+            }
+        } else {
+            unselect( this.model, $( '.timeline-property-select' ) );
+            select( this.model, prop );
+        }
+
+        // --- helper functions ---
+
+        function select( model, elems ) {
+            model.fire( 'onclassadd', {
+                elems: elems,
+                clazz: 'timeline-property-select'
+            });
+        }
+
+        function unselect( model, elems ) {
+            model.fire( 'onclassremove', {
+                elems: elems,
+                clazz: 'timeline-property-select'
+            });
+        }
+    },
+
+
+    propertyMove: function() {
+
+    },
+
+
+    keyframeSelect: function() {
+
+    },
+
+
+    keyframeMove: function() {
+
+    },
+
+
+    /**
+     * Перемещение бегунка
+     * @param {Object} e event object
+     */
+    runnerMove: function( e ) {
+        var position = e.pageX - this.editor.offset().left;
+
+        if ( e.ctrlKey ) {
+            return
+        }
+
+        this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
     }
-    
-
-
-
-    // TODO: щелчок по линейке сбрасывает выделение
-
-    // TODO: при зажатом ctrl клик на блок выделяет его, еще один (на этот же блок) снимает выделение
-
-
-
-    // TODO: щелчок по линейке сбрасывает выделение
-
-    // TODO: при зажатом ctrl клик на блок выделяет его, еще один (на этот же блок) снимает выделение
 
 });

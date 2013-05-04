@@ -37,10 +37,13 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
      * Отправит событие на обработку с указанным объектом события
      * @param {string} name имя события на отправку
      * @param {Object} options представляющий событие объект
+     * @param {Object} context контекст исполнения
      */
-    fire: function (name, options) {                
+    fire: function (name, options, context) {
         var item;
-        
+
+        context = context || this;
+
         //
         if(options){               
             if( !('eventName' in options)  )  options.eventName=name;
@@ -49,13 +52,13 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
         
         if (name in this.event){
             for (item in this.event[name]) {
-                this.event[name][item](options);
+                this.event[name][item].call(options, context);
             }        
         }
         
         //bubble event
         for (item in this.event['bubble']) {
-           this.event['bubble'][item](options);
+           this.event['bubble'][item].call(options, context);
         }     
         
         

@@ -36,7 +36,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
     fetch: function (elapsedTime) {
         var self = this;
 
-        self.timeline.forEach(function ( /** @type {app.model.Shape} */ item) {
+        self.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Shape} */ item) {
             self.fetchShape(item, elapsedTime);
         });
     },
@@ -50,8 +50,9 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
 
         var self = this;
 
-        item.iterateProperties(function (prop, keyframesCollection) {
+        item.get('propertyCollection').forEach(function (prop, propertyName) {
 
+            var keyframesCollection = prop.get('keyframeCollection');
             var keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
 
             if (!keyframes.first || !keyframes.second) {
@@ -60,7 +61,8 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
                 return;
             }
 
-            item.target[ prop ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, prop);
+            item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
+
             item.target.renderToCache();
         });
 

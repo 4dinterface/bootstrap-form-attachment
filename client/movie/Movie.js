@@ -114,6 +114,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
      */
     stop: function () {
         createjs.Ticker.removeEventListener('tick', this.tick);
+        this.renderFrame();
     },
 
     /**

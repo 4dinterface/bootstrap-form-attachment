@@ -33,24 +33,24 @@
         <script>           
               test( "test length", function() { 
                   //stop();                  
-                  var key=new app.model.Keyframe(),                      
-                      property= new app.model.Property,                                            
+                  var key=new app.model.Keyframe(),
+                      property= new app.model.Property();
                       shape=new app.model.Shape(),                                                                                
                       composition=new app.model.Composition();
                                     
                                     
                   composition.get('shapeCollection').push(shape);                  
-                  shape.get('propertyCollection').set('test',property);
+                  shape.get('propertyCollection').set('test',property);                  
                   property.get('keyframeCollection').set('100',key);
                   
-                  
-                  
+                                                      
                   // изменение кейфрейма                  
-                  composition.on('keyframechange',function(e){
+                  property.get('keyframeCollection').on('keyframechange',function(e){                                            
                       ok( 3==3, e.eventName );
-                  })    
+                  })
+
                   
-                  
+                          
                   // изменение в коллекции кейфреймов
                   composition.on('keyframecollectionchange',function(e){
                       ok( 3==3, e.eventName );
@@ -62,10 +62,13 @@
                       ok( 3==3, e.eventName );
                   })    
     
-    
+                  
     
                   //тест на изменение ключа                  
-                  key.set("easing","none");                                      
+                  //console.log( );
+                  key.set("easing","none");
+                  
+                  
                   // тест на изменение коллекции ключей
                   property.get('keyframeCollection').set("200",key);      
                   

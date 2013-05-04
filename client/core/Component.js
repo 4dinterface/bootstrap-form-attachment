@@ -40,28 +40,30 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
      * @param {Object} context контекст исполнения
      */
     fire: function (name, options, context) {
+        console.log('fire work '+name);
+        
         var item;
 
         context = context || this;
 
-        //
+        // добавляем свойства
         if(options){               
             if( !('eventName' in options)  )  options.eventName=name;
             if( !('eventTarget' in options) ) options.eventTarget=this; 
         }
-        
+
+        //сработают все обработчики
         if (name in this.event){
             for (item in this.event[name]) {
-                this.event[name][item].call(options, context);
+                this.event[name][item].call(context,options);                
             }        
         }
         
         //bubble event
         for (item in this.event['bubble']) {
-           this.event['bubble'][item].call(options, context);
+           this.event['bubble'][item].call(context,options);           
         }     
-        
-        
+                
     },
 
     /**
@@ -81,8 +83,10 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
 
     //метод обеспечивающий всплытие
     liftEvent:function(src,opt){
+        //console.log('buble');
+        
         var me=this;
-        if(!src.on) return;        
+        if(!src.on) return;                        
         
         switch(typeof opt){
             //undefined
@@ -93,7 +97,7 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
             break; 
 
            //функция
-            case "function":                
+            case "function":                                      
                src.on('bubble',opt)
             break;        
         

@@ -17,9 +17,6 @@ Define("app.panels.Transport", {
         ".player-play % click":function(){
            var me=this;
            me.movie.play();                 
-           setTimeout(function () {
-                me.movie.gotoAndStop(1);
-            }, 60000);
         },  
 
         //пауза      

@@ -503,3 +503,13 @@ html, body {
     background-color: #f08080;
     width: 2px;
 }
+
+/**
+* Голова бегунка / область захвата мышью при перетаскивании
+*/
+#timeline-runner-head {
+    width: 6px;
+    height: 22px;
+    margin-left: -2px;
+    background-color: #e9967a;
+}

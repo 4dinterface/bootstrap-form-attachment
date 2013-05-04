@@ -11,7 +11,7 @@
 
         <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
         <script src="frameworks/easelJs/filters/BoxBlurFilter.js"></script>
-        <script src="frameworks/zepto/zepto-1.0.min.js"></script>
+        <script src="frameworks/zepto/zepto.js"></script>
 
         <script src="frameworks/zepto/zepto.data.js"></script>
         <script src="frameworks/zepto/zepto.draggable.js"></script>
@@ -201,7 +201,9 @@
                 </script>
 
             <script type="text/x-jqote-template" id="template-timeline-runner">
-                <div id="timeline-runner" style="left: <%=this%>px;"></div>
+                <div id="timeline-runner" style="left: <%=this%>px;">
+                    <div id="timeline-runner-head"></div>
+                </div>
             </script>
         <!-- END TEMPLATES -->
 

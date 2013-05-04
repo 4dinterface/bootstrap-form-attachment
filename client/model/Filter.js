@@ -4,6 +4,28 @@
  * @extends {app.Model}
  * 
  * Класс описывает фильтр
+ * 
+ * * ====================================================================== *
+ * 
+ *                         Composition
+ *                              |
+ *                      ShapeCollection
+ *                              |
+ *                            Shape
+ *                         /         \
+ *      PropertyCollection             FilterCollection)
+ *             |                             |
+ *         Property                       (Filter)
+ *             |                             |
+ *     KeyframeCollection             PropertyCollection
+ *             |                             |
+ *          Keyframe                      Property
+ *                                           |
+ *                                     KeyframeCollection
+ *                                           |
+ *                                        Keyframe                        
+ *                                                          
+ * ====================================================================== *
  */
 
 Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {

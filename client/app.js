@@ -7,16 +7,15 @@
 $( function () {    
         'use strict'	
          var a=new app.ClassLoader();                
-         a.require([                                               
+         a.require([
+             //классы ядра
              "client/core/Component.js",
-             "client/core/ObjectCollection.js",
-             "client/core/ArrayCollection.js",
-             "client/core/Model.js",
+             "client/core/data/ObjectCollection.js",
+             "client/core/data/ArrayCollection.js",
+             "client/core/data/Model.js",
              "client/core/Controller.js",
-
-             "client/proxy/demoData.js",
-             "client/proxy/Reader.js",
-            
+             
+             // ---------- Model -------------
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
              "client/model/Property.js",       
@@ -24,29 +23,36 @@ $( function () {
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",
              "client/model/Composition.js",
+             
+             "client/proxy/demoData.js",
+             "client/proxy/Reader.js",
+
+             // ---------- Scene -------------                        
+             "client/scene/shape/HtmlElement.js",
+             "client/scene/shape/Text.js",
+             "client/scene/shape/Circle.js",
+             "client/scene/shape/Rectangle.js",
+             "client/scene/Stage.js",
+
+             // ---------- Movie -------------                        
+             'client/movie/Fetcher.js',
+             'client/movie/Movie.js',
 
              // ---------- Timeline -------------
              "client/timeline/utilites.js",
              "client/timeline/View.js",
              "client/timeline/Controller.js",
 
-             "client/panels/Toolbar.js",
-             "client/panels/Transport.js",
-             "client/properties/View.js", 
+             // ---------- Холст -------------
              "client/editor/Controller.js",
 
             
-                        
-             "client/scene/shape/HtmlElement.js",
-             "client/scene/shape/Text.js",
-             "client/scene/shape/Circle.js",
-             "client/scene/shape/Rectangle.js",
-             "client/scene/Stage.js",
-            
-             'client/movie/Fetcher.js',
-             'client/movie/Movie.js',
+            // ---------- Panels -------------                                     
+             "client/panels/Menu.js",
+             "client/panels/Toolbar.js",
+             "client/panels/Transport.js",
+             "client/properties/View.js"
              
-             "client/panels/Menu.js"
              ], function(){
                               
         $(function(){

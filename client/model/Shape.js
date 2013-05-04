@@ -4,7 +4,7 @@
  * @extends {app.Model}
  * 
  *
- *                          Timeline
+ *                         Composition
  *                              |
  *                       ShapeCollection
  *                              |

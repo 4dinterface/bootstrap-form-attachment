@@ -29,7 +29,8 @@
 //компонент в разработке
 Define( 'app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
 
-	extend: app.Model,
+    //Композиция это типичная модель
+    extend: app.Model,
 
     /**
      * Пикселей в секунде. Одна из составляющих визуализации таймлайна

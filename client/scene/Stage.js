@@ -1,4 +1,12 @@
-Define('app.scene.Stage', {
+/**
+ * Класс сцены
+ * Визуальное отображение фигур и их свойств
+ * @class
+ * @name app.scene.Stage
+ * @extends {createjs.Stage}
+ */
+Define('app.scene.Stage', /** @lends {app.scene.Stage.prototype} */({
+
 	extend: createjs.Stage,
 
 	// инициализация
@@ -34,4 +42,4 @@ Define('app.scene.Stage', {
 		this.update();
                 */
 	}
-});
+}));

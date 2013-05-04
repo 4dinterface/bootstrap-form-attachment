@@ -36,8 +36,6 @@
  *     
  */
 
-createjs.Ticker.setFPS(60);
-
 Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     extend: app.Component,
@@ -64,16 +62,42 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     elapsedTime: null,
 
     /**
+     * Текущее значение количества кадров в секунду
+     * @private
+     * @type {number}
+     */
+    framesPerSecond: 60,
+
+    /**
+     * Установит или получит текущее значение
+     * кадров в секунду
+     * @param {number} framesPerSecond
+     */
+    fps: function (framesPerSecond) {
+
+        // тут проверка корректности аргумента
+        var isCorrect = true;
+
+        if (isCorrect) {
+            createjs.Ticker.setFPS(framesPerSecond);
+            this.framesPerSecond = framesPerSecond;
+        }
+
+    },
+
+    /**
      * Конструктор объекта, позволяющего управлять воспроизведением
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
      */
-    init: function(cfg){
+    init: function (cfg) {
         this._super();
         this.apply(cfg);
+
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
 
+        this.fps(this.framesPerSecond);
         this.elapsedTime = 0;
     },
 

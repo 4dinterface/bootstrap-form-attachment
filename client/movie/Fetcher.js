@@ -87,7 +87,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         fractionalTime = ( elapsedTime - offset ) / deltaTime;
         currentValue = this.blend(propertyName, firstKeyframe.get('value'), secondKeyframe.get('value'), fractionalTime);
 
-        return Math.floor(currentValue);
+        return currentValue;
     },
 
     /**

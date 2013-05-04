@@ -1,7 +1,7 @@
 Define("app.panels.Transport", {
     extend: app.Controller,
     
-    el:".player",
+    domTarget:".player",
     
     player:null,
     f:null,
@@ -14,7 +14,7 @@ Define("app.panels.Transport", {
     //события dom        
     domListeners:{
         //плеер
-        ".player-play click":function(){
+        ".player-play % click":function(){
            var me=this;
            me.movie.play();                 
            setTimeout(function () {
@@ -23,31 +23,31 @@ Define("app.panels.Transport", {
         },  
 
         //пауза      
-        ".player-pause click":function(e){
+        ".player-pause % click":function(e){
             this.movie.stop();          
             console.log(e);
         },
 
         //перемотка в начало
-        ".player-back click":function(){
+        ".player-back % click":function(){
             this.movie.gotoAndStop(1);
         },
                 
         //перемотка назад
-        ".player-frame-back mousedown":function(){ 
+        ".player-frame-back % mousedown":function(){ 
             this.rewind('prevFrame')
         },
              
-        ".player-frame-back mouseup":function(){                 
+        ".player-frame-back % mouseup":function(){                 
              this.rewindStop();  
         },
 
          //перемотка вперёд        
-        ".player-frame-forward mousedown":function(){            
+        ".player-frame-forward % mousedown":function(){            
             this.rewind('nextFrame')
          },
              
-         ".player-frame-forward mouseup":function(){                 
+         ".player-frame-forward % mouseup":function(){                 
             this.rewindStop();
          }
     },

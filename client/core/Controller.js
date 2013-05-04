@@ -18,16 +18,24 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
         //this.apply();
         this._super();
 
+        this.bind( Object.keys( this.domListeners ) );
+    },
 
-        var listener;
-        var params;
 
+    /**
+     * Привязывает обработчики событий к элементам
+     * @param {Array|String} listeners
+     */
+    bind: function( listeners ) {
+        listeners = $.isArray( listeners ) ? listeners : [ listeners ];
 
-        for( listener in this.domListeners ) {
-            
+        listeners.forEach(function( listener ){
+            var params = listener.split( '%' );
+
             // Один обработчик на все события
             if ( $.isFunction( this.domListeners[ listener ] ) ) {
 
+                listener = $.trim( listener );
                 params = listener.split( '%' );
 
                 if ( !params[ 0 ].length ) {
@@ -53,7 +61,7 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
 
                 }
 
-            // Несколько обработчиков
+                // Несколько обработчиков
             } else {
 
                 listener = $.trim( listener );
@@ -62,8 +70,8 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
 
             }
 
-        }
-1
+        }, this );
+
     },
 
 

@@ -7,13 +7,13 @@ data=[
         "alpha":{
             "type":"float",
             "keyframes":{                
-                "0": {
+                "1": {
                     "value":0,
                     "easing":"line"
                 },
                 
                 "1000": {
-                    "value":0,
+                    "value":1,
                     "easing":"line"
                 },            
                 

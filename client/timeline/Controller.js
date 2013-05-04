@@ -47,7 +47,9 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Обработчики dom событий
-     */
+     **/
+     
+     
     domListeners: {
 
         /**

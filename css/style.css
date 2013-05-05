@@ -370,6 +370,66 @@ html, body {
     background-position: -115px 1px;
 }
 
+/* editor-> */
+
+.editor-selector {
+    border: 1px dashed #252525;
+    z-index: 999;
+    position: absolute;
+}
+.editor-selector-brick {
+	background-color: #252525;
+	width: 8px;
+	height: 8px;
+	position: absolute;
+}
+
+.editor-selector-brick-left-center,
+.editor-selector-brick-right-center,
+.editor-selector-brick-top-center,
+.editor-selector-brick-bottom-center {
+	margin: auto;
+}
+.editor-selector-brick-left-top {
+	top: -5px;
+	left: -5px;
+}
+.editor-selector-brick-left-center {
+	top: 0;
+	left: -5px;
+	bottom: 0;
+}
+.editor-selector-brick-left-bottom {
+	left: -5px;
+	bottom: -5px;
+}
+.editor-selector-brick-right-top {
+	top: -5px;
+	right: -5px;
+}
+.editor-selector-brick-right-center {
+	top: 0;
+	right: -5px;
+	bottom: 0;
+}
+.editor-selector-brick-right-bottom {
+	right: -5px;
+	bottom: -5px;
+}
+
+.editor-selector-brick-top-center {
+	top: -5px;
+	left: 0;
+	right: 0;
+}
+
+.editor-selector-brick-bottom-center {
+	right: 0;
+	left: 0;
+	bottom: -5px;
+}
+
+
 /******************** TIMELINE STYLES **********************/
 
 #timeline-editor {
@@ -400,9 +460,9 @@ html, body {
     height: 300px;
     overflow: scroll;
     background-color: #dadada;
-    position: relative;
+    position: absolute;
+    width: 100%;
 }
-
 
 #timeline-ruler {
     height: 22px;
@@ -513,3 +573,4 @@ html, body {
     margin-left: -2px;
     background-color: #e9967a;
 }
+

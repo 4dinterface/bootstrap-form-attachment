@@ -574,3 +574,9 @@ html, body {
     background-color: #e9967a;
 }
 
+/* canvas editor (Для HTML объектов на сцене) ->*/
+#canvas-editor {
+    margin: 20px;
+    background-color: #FFFFFF;
+	display: inline-block;
+}

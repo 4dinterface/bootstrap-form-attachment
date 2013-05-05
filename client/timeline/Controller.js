@@ -193,4 +193,7 @@ Define( 'app.timeline.Controller', {
         this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
     }
 
+    // TODO: при клике на полосу прокрутки таймлайна перемещается бегунок
+    // TODO: при клике на бегунок в области таймлайна, блок под ним не выделятеся
+
 });

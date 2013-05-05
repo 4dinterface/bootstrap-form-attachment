@@ -560,8 +560,10 @@ html, body {
     /* судя по всему придется получать высоту полосы прокрутки */
     bottom: 18px;
 
-    background-color: #f08080;
+    background-color: #DED300;
     width: 2px;
+
+    height: 305px;
 }
 
 /**
@@ -569,8 +571,15 @@ html, body {
 */
 #timeline-runner-head {
     width: 6px;
-    height: 22px;
-    margin-left: -2px;
-    background-color: #e9967a;
+    height: 20px;
+    margin-left: -3px;
+    background-color: #DED300;
+    border: 1px solid #000;
 }
 
+/* canvas editor (Для HTML объектов на сцене) ->*/
+#canvas-editor {
+    margin: 20px;
+    background-color: #FFFFFF;
+	display: inline-block;
+}

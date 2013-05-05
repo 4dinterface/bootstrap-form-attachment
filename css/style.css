@@ -563,7 +563,7 @@ html, body {
     background-color: #DED300;
     width: 2px;
 
-    height: 200px;
+    height: 305px;
 }
 
 /**
@@ -571,8 +571,8 @@ html, body {
 */
 #timeline-runner-head {
     width: 6px;
-    height: 22px;
-    margin-left: -2px;
+    height: 20px;
+    margin-left: -3px;
     background-color: #DED300;
     border: 1px solid #000;
 }

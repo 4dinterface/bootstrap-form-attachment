@@ -21,11 +21,12 @@
  *                                     KeyframeCollection   
  *                                           |
  *                                        Keyframe
- *                                        
+ *                                         
  * ====================================================================== *
  *                                                                                
  */
 Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
+    //property collection наследуется от модели, несмотря на то что это коллекция    
     extend : app.Model,    
     /***
      * Конструктор экземпляров
@@ -53,14 +54,14 @@ Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
         //обеспечим всплытие событий
         //console.log(value);
         
-        if(value.on) value.on('bubble',function(e){
-            //добавим инфу о shape
-            //e.shape=me;
-            e.propertCollection=me;
+        this.liftEvent(value,function(e){                
+            //добавим инфу о propertyCollection
+            e.propertyCollection=me;
             //укажем имя свойства
             e.propertyName=name;
             me.fire(e.eventName,e);
         })
+        
     },
 
     //forEach - forEach

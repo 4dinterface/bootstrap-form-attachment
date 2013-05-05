@@ -24,7 +24,7 @@
  * ====================================================================== *
  */
 
-Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
+Define('app.model.FilterCollection', /** @lends {app.Model} */ {
     extend : app.Model,    
     /***
      * Конструктор экземпляров

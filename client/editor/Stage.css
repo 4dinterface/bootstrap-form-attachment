@@ -1,5 +1,6 @@
 #canvas-editor {
-	border: 2px solid #444;
+    margin: 20px;
+    background-color: #FFFFFF;
 	display: inline-block;
 }
 .bordContainer {
@@ -9,10 +10,14 @@
     z-index: 999;
 }
 
-.bordLeftTop, .bordLeftCenter,
-.bordLeftBottom, .bordRightTop, 
-.bordRightCenter, .bordRightBottom,
-.bordTopCenter, .bordBottomCenter {
+.bordLeftTop,
+.bordLeftCenter,
+.bordLeftBottom,
+.bordRightTop,
+.bordRightCenter,
+.bordRightBottom,
+.bordTopCenter,
+.bordBottomCenter {
 	background-color: #f00;
 	width: 10px;
 	height: 10px;
@@ -21,13 +26,17 @@
 	box-shadow: 0 0 2px #000;
 }
 
-.bordLeftTop, .bordLeftBottom,
-.bordRightTop, .bordRightBottom {
+.bordLeftTop,
+.bordLeftBottom,
+.bordRightTop,
+.bordRightBottom {
 	border-radius: 5px;
 }
 
-.bordLeftCenter, .bordRightCenter,
-.bordTopCenter, .bordBottomCenter {
+.bordLeftCenter,
+.bordRightCenter,
+.bordTopCenter,
+.bordBottomCenter {
 	margin: auto;
 }
 

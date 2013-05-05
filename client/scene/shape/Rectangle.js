@@ -110,6 +110,9 @@ Define('app.scene.shape.Rectangle', {
         
         renderToCache:function(){                        
             
+            //this.alpha=0.1;
+            console.log('alpha=',this.alpha);
+            
             if (this.blurX>0){
                 var blurFilter = new createjs.BoxBlurFilter( this.blurX,  1, 1);
                 this.filters = [blurFilter];                                              

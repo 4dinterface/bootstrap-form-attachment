@@ -37,28 +37,33 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
      * Отправит событие на обработку с указанным объектом события
      * @param {string} name имя события на отправку
      * @param {Object} options представляющий событие объект
+     * @param {Object} context контекст исполнения
      */
-    fire: function (name, options) {                
-        var item;
+    fire: function (name, options, context) {
+        console.log('fire work '+name);
         
-        //
+        var item;
+
+        context = context || this;
+
+        // добавляем свойства
         if(options){               
             if( !('eventName' in options)  )  options.eventName=name;
             if( !('eventTarget' in options) ) options.eventTarget=this; 
         }
-        
+
+        //сработают все обработчики
         if (name in this.event){
             for (item in this.event[name]) {
-                this.event[name][item](options);
+                this.event[name][item].call(context,options);                
             }        
         }
         
         //bubble event
         for (item in this.event['bubble']) {
-           this.event['bubble'][item](options);
+           this.event['bubble'][item].call(context,options);           
         }     
-        
-        
+                
     },
 
     /**
@@ -73,9 +78,36 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
         
 	this.event[name].push(fun);	
     },
-
     
     off: function (name) {},
+
+    //метод обеспечивающий всплытие
+    liftEvent:function(src,opt){
+        //console.log('buble');
+        
+        var me=this;
+        if(!src.on) return;                        
+        
+        switch(typeof opt){
+            //undefined
+            case "undefined":                
+               src.on('bubble',function(e){
+                   me.fire(e.eventName,e);
+               })
+            break; 
+
+           //функция
+            case "function":                                      
+               src.on('bubble',opt)
+            break;        
+        
+            case "object":                
+               /*src.on('bubble',function(e){
+                   me.fire(e.eventName,e);
+               })*/
+            break;        
+        }
+    },
     
     //вставляет свойста в обьект
     apply:function(prop){        

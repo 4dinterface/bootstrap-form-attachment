@@ -36,9 +36,7 @@
  *     
  */
 
-createjs.Ticker.setFPS(60);
-
-Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
+Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
     extend: app.Component,
 
@@ -64,17 +62,53 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     elapsedTime: null,
 
     /**
-     * Конструктор объекта, позволяющего управлять воспроизведением
-     * @constructor
-     * @param {Object} cfg объект с дополнительными свойствами
+     * Текущее значение количества кадров в секунду
+     * @private
+     * @type {number}
      */
-    init: function(cfg){
+    framesPerSecond: 60,
+
+    /**
+     * Установит или получит текущее значение
+     * кадров в секунду
+     * @param {number} framesPerSecond
+     */
+    fps: function (framesPerSecond) {
+
+        // тут проверка корректности аргумента
+        var isCorrect = true;
+
+        if (isCorrect) {
+            createjs.Ticker.setFPS(framesPerSecond);
+            this.framesPerSecond = framesPerSecond;
+        }
+
+    },
+
+    /**
+    * Конструктор объекта, позволяющего управлять воспроизведением
+    * @constructor
+    * @param {{ stage: app.scene.Stage, timeline: app.model.Timeline }} cfg объект с дополнительными свойствами
+    */
+    init: function (cfg) {
         this._super();
+
         this.apply(cfg);
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
 
+        this.setStage(cfg.stage);
+        this.setTimeline(cfg.timeline);
+
+        this.fps(this.framesPerSecond);
         this.elapsedTime = 0;
+
+        var self = this;
+
+        this.fetch.on('missingboth', function () {
+            console.log("MOVIE: stop!");
+            self.pause();
+        });
     },
 
     /**
@@ -86,10 +120,18 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     },
 
     /**
+     * Производит приостановку воспроизведения
+     */
+    pause: function () {
+        createjs.Ticker.removeEventListener('tick', this.tick);
+    },
+
+    /**
      * Производит остановку фильма на текущей временной метку.
      */
     stop: function () {
-        createjs.Ticker.removeEventListener('tick', this.tick);
+        this.pause();
+        this.renderFrame();
     },
 
     /**
@@ -101,13 +143,20 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
     },
 
     /**
-     * Установка таймлайна для проигрывателя. Фактически, это прокси.
-     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
-     */
-    //TODO утвердить принадлежность данных таймлайна, после утверждения её модели
+    * Установка таймлайна для проигрывателя.
+    * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
+    */
     setTimeline: function (timeline) {
-        return this.fetch.setTimeline(timeline);
+            this.fetch.timeline = timeline;
     },
+
+     /**
+     * Установка сцены для проигрывателя.
+     * @param {app.scene.Stage} stage объект сцены
+     */
+     setStage: function (stage) {
+        this.stage = stage;
+     },
 
     /**
      * Осуществляет немедленный безусловный переход на указанное время с момента старта, а затем воспроизводит текущий клип или фильм.
@@ -153,52 +202,13 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
         var elapsedTime = this.elapsedTime;
 
-        // обход фигур
-        // get('shapeCollection') есть
-        this.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Timeline} */ item) {
-
-            var data = item.data,
-                keyframes,
-                firstKeyframe,
-                secondKeyframe;
-
-            // обход свойств
-            item.get('propertyCollection').iterateProperties(function (prop,property ) {
-
-                var keyframesCollection=property.get('keyframeCollection');
-                keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
-
-                firstKeyframe = keyframes.first;
-                secondKeyframe = keyframes.second;
-
-                if (!secondKeyframe || !firstKeyframe) {
-                    // отсутствует один из ключевых кадров
-                    // для текущего времени
-                    return;
-                }
-
-                // интерполяция
-                var deltaTime,
-                    offset,
-                    fractionalTime,
-                    currentValue;
-
-                deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
-                offset = firstKeyframe.get('key');
-                fractionalTime = ( elapsedTime - offset ) / deltaTime;
-                currentValue = ( secondKeyframe.get('value') - firstKeyframe.get('value') ) * fractionalTime + firstKeyframe.get('value');
-
-                item.target[ prop ] = Math.floor(currentValue);
-                item.target.renderToCache();
-            });
-
-        });
-
-        // на этом моменте все свойства просчитаны        
+        this.fetch.fetch(elapsedTime);
         this.stage.update();
+
         this.fire("onframe", {
-            elapsedTime: this.elapsedTime
+            elapsedTime: elapsedTime
         });
+
     },
 
     /**
@@ -216,15 +226,12 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie} */ ({
 
     /**
      * Враппер отрисовщика. Вызывается из Ticker.
-     * @param {Object} e объект события из createjs.Ticker
+     * @param {{type: string, paused: boolean, delta: number, time: number, runTime: number}} e объект события из createjs.Ticker
      * @private
      */
     tick: function (e) {
         var elapsedTime = this.elapsedTime += e.delta;
         this.renderFrame();
-/*        this.fire("onframe", {
-            elapsedTime: elapsedTime
-        });*/
     }
 
 }));

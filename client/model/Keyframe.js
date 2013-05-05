@@ -1,4 +1,10 @@
 /**
+ * @namespace
+ */
+app;
+
+/**
+ * Базовый класс для ключевых кадров
  * @name app.model.Keyframe
  * @class
  * @extends {app.Model}
@@ -36,25 +42,28 @@ Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 	/***
 	 * Конструктор экземпляров
 	 * @constructor
-	 * @param {Object} prop объект с описанием экземпляра
 	 */
 	init : function () {
             this._super();                    
-	},        
+	},
+
 	/**
+     * Установка значения свойства
 	 * @method set
-	 * @param {property} name
-         * @param {value} value
-	 * @return null
+	 * @param {string} property
+     * @param {*} value
 	 **/
 	set : function (property, value) {
             this._super();
+            
+            //console.log('set work');
             this.fire("keyframechange", {
-                key:name,
-                value:value
+                key: property,
+                value: value
             });
-	},
-
+            
+	}
+        
 
 	//get : function (name) {
         //    this.super();

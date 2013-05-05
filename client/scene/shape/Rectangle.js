@@ -92,8 +92,15 @@ Define('app.scene.shape.Rectangle', {
             //this.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, me.width, me.height);
             this.x = cnf.x;
             this.y = cnf.y;	            
-            me.renderToCache();                                     
+                                                
             //console.log('this',this.width);
+            
+            
+                //var blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
+                //this.filters = [blurFilter];                                              
+                
+            me.renderToCache();     
+         
 	},
         hihi:0,
         
@@ -111,7 +118,7 @@ Define('app.scene.shape.Rectangle', {
         renderToCache:function(){                        
             
             //this.alpha=0.1;
-            console.log('alpha=',this.alpha);
+            //console.log('alpha=',this.alpha);
             
             if (this.blurX>0){
                 var blurFilter = new createjs.BoxBlurFilter( this.blurX,  1, 1);
@@ -120,7 +127,10 @@ Define('app.scene.shape.Rectangle', {
             } 
             else bounds={x:0,y:0,width:0,height:0} ;
             
-            console.log(this.blurX);
+            //this.filters[0].blurY=this.x-50;
+            //console.log('=====',this.filters);
+            
+            //console.log(this.blurX);
             
             // shadow сначало X, затем Y, затем Размытие
             this.shadow = new createjs.Shadow("#000000", 15, 15, 10);
@@ -136,6 +146,7 @@ Define('app.scene.shape.Rectangle', {
                     .drawRect(0, 0, me.width, me.height)
                     .endStroke();                      
             //console.log('gr',this.graphics);                        
+            
             this.updateCache();
             this.graphics.clear();
         }

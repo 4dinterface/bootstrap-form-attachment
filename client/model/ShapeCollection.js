@@ -53,7 +53,7 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
         });
         
         //поднимем события из value на этот уровень
-        //this.liftEvent(value);
+        this.liftEvent(value);
     },
             
     push : function (value) {                

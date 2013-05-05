@@ -20,6 +20,8 @@ $( function () {
              "client/model/KeyframeCollection.js",
              "client/model/Property.js",       
              "client/model/PropertyCollection.js",       
+             "client/model/Filter.js",   
+             "client/model/FilterCollection.js",             
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",
              "client/model/Composition.js",

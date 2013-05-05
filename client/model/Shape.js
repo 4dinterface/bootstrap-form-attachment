@@ -42,8 +42,8 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
             this.get("propertyCollection").parent=this;
            
            // непонятно как назвать толи filter толи FX
-           //this.set("filterCollection", new app.model.FilterCollection() ); 
-           //this.get("filterCollection").parent=this;
+           this.set("filterCollection", new app.model.FilterCollection() ); 
+           this.get("filterCollection").parent=this;
 
 	},        
 	/**

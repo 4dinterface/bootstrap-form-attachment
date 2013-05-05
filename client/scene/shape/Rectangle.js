@@ -96,8 +96,8 @@ Define('app.scene.shape.Rectangle', {
             //console.log('this',this.width);
             
             
-                //var blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
-                //this.filters = [blurFilter];                                              
+            var blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
+            this.filters = [blurFilter];                                              
                 
             me.renderToCache();     
          
@@ -120,12 +120,14 @@ Define('app.scene.shape.Rectangle', {
             //this.alpha=0.1;
             //console.log('alpha=',this.alpha);
             
-            if (this.blurX>0){
+            /*if (this.blurX>0){
                 var blurFilter = new createjs.BoxBlurFilter( this.blurX,  1, 1);
                 this.filters = [blurFilter];                                              
                 var bounds = blurFilter.getBounds();
             } 
-            else bounds={x:0,y:0,width:0,height:0} ;
+            else bounds={x:0,y:0,width:0,height:0} ;*/
+            
+            bounds=this.filters[0].getBounds();
             
             //this.filters[0].blurY=this.x-50;
             //console.log('=====',this.filters);

@@ -40,13 +40,13 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     // создадим группу
     makeGroup:function(gr,panel){
         //Создадим группу
-        var cont="<div><div style='background-color:#ccc;'><b>" + gr.name + "</b></div></div>";
+        var cont="<div style='background-color:#ccc;' widget='slidePanel'> <b>" + gr.name + "</b></div>";
         var el=panel.append(cont);
-
+        
         //Создадим вложенные подгруппы
         for (var i in gr.items) if(i!=="name") {
              this.makeSubGroup(gr.items[i],el);
-        }
+        }        
     },
 
     // создадим подгруппу

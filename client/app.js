@@ -14,6 +14,7 @@ $( function () {
              "client/core/data/ArrayCollection.js",
              "client/core/data/Model.js",
              "client/core/Controller.js",
+             "client/core/widget/widgetManager.js",
              
              // ---------- Model -------------
              "client/model/Keyframe.js",
@@ -59,6 +60,8 @@ $( function () {
                               
         $(function(){
             var 
+                widgetManager= new app.widget.WidgetManager(),
+            
                 // создадим таймлайн
                 timeline = new app.model.Composition(),
 
@@ -132,7 +135,12 @@ $( function () {
                     
                 }
              })*/
-             
+            
+            setTimeout(function(){
+                widgetManager.update();    
+            },100) 
+            
+            //alert(widgetManager);
             
              //команда на загрузку                
              reader.load(data);

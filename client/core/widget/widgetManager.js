@@ -10,13 +10,13 @@
  * Вообще как работает виджет, как происходит обмен данными, вопрос остаётся открытым
  * 
  */
-Define("app.WidgetManager", /** @lends {app.Component.prototype} */({
+Define("app.widget.WidgetManager", /** @lends {app.Component.prototype} */({
     extend:"app.Component",
     /**
      * @constructor
      */
     init: function () {	      
-        this.super();
+        this._super();
     },
             
     widget:{},        
@@ -24,12 +24,19 @@ Define("app.WidgetManager", /** @lends {app.Component.prototype} */({
     //Обновляет все виджеты на экране
     update:function(target){        
         if(!target) target=$("document");
+        $('[widget]').each(function(num,el){            
+            var widgetName= $(this).attr("widget");
+            $(this).click(function(){
+                $(this).hide();
+            });
+        })
         //переберём все виджеты на экране, исключим уже работающие виджеты
-        $(target).find("[widget]").not('.activeWidget').each(function(el){                     
+        /* $(target).find("[widget]").not('.activeWidget').each(function(el){   
+            alert(1);
             new this.widget[name]({
                 target:el
             });            
-        })        
+        }) */        
     },
             
     //зарегистрировать виджет в системе        

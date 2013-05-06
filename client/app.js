@@ -6,6 +6,7 @@
 */
 $( function () {    
         'use strict'	
+        
          var a=new app.ClassLoader();                
          a.require([
              //классы ядра
@@ -14,7 +15,11 @@ $( function () {
              "client/core/data/ArrayCollection.js",
              "client/core/data/Model.js",
              "client/core/Controller.js",
+             "client/core/View.js",
+
              "client/core/widget/widgetManager.js",
+             "client/core/widget/widget.js",
+
              
              // ---------- Model -------------
              "client/model/Keyframe.js",
@@ -58,10 +63,8 @@ $( function () {
              
              ], function(){
                               
-        $(function(){
-            var 
-                widgetManager= new app.widget.WidgetManager(),
-            
+        $(function(){                                    
+            var                
                 // создадим таймлайн
                 timeline = new app.model.Composition(),
 
@@ -137,7 +140,10 @@ $( function () {
              })*/
             
             setTimeout(function(){
-                widgetManager.update();    
+                //app.widget.WidgetManager.update();    
+                new app.widget.widgetManager.widget['Collapsibles']({
+                    
+                })
             },100) 
             
             //alert(widgetManager);

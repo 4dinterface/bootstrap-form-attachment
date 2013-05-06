@@ -7,7 +7,8 @@
 'use strict';
 
 Define( "app.properties.View", /** @lends {app.component} */ {
-    extend: app.Component,
+    extend: app.View,
+    widgetObserver:true,
     
     /**
      * Данные модели таймлайна
@@ -17,6 +18,7 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     model: null,
 
     init: function( prop ) {
+        this.domTarget=$('#property-panel')[0];
         this._super();
         this.apply( prop );
 
@@ -33,6 +35,8 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             for(var i in shape){                
                 this.makeGroup(shape[i], $('#property-panel') );
             }            
+            
+            //this.updateWidget();
             
         }.bind( this ) );
     },

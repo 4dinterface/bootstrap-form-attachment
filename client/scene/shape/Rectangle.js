@@ -154,6 +154,5 @@ Define('app.scene.shape.Rectangle', {
         }
                 
         // метод update неиспользуется системой
-        //update:function(){}
-        
+        //update:function(){}        
 });

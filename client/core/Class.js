@@ -40,9 +40,17 @@ Define = function (name, prop) {
     }
 
     //console.log(child.prototype);
-
+    
+    
+    //вызовем препроцессор
+    if ("preprocessor" in prop) child.prototype.preprocessor(child);
+    
+    // специальный режим при котором несоздаётся класса, вместо этого сразу создаётся экземпляр
+    if (prop.mode=='one') child=new child();    
+    
     //вернём результат
     return NS(name, child);
+    
 
 
     //враппер для функций

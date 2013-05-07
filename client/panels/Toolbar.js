@@ -1,6 +1,6 @@
 Define("app.panels.Toolbar", {
 
-    extend: app.Component,
+    extend: core.Component,
 
     init: function () {
 

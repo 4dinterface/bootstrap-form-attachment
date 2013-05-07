@@ -7,7 +7,7 @@
 
 Define( 'app.timeline.Controller', {
 
-    extend: app.Controller,
+    extend: core.Controller,
 
     /**
      * Данные модели таймлайна

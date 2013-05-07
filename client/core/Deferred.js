@@ -1,5 +1,5 @@
 // компонент в разработке
-Define("app.Deferred",{
+Define("core.Deferred",{
 
     //массив кэлбеков
     callback:null,

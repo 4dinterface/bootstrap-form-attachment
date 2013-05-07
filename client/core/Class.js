@@ -2,7 +2,7 @@
  * Главный неймспейс для проекта
  * @namespace
  */
-window.app;
+window.core=window.core||{};
 
 /**
  * Конструктор классов
@@ -11,19 +11,23 @@ window.app;
  * @returns {*}
  * @constructor
  */
-Define = function (name, prop) {
+core.Define = Define = function (name, prop) {
     
     //если extend( родительский класс ) передали строкой
     prop.extend =typeof prop.extend == "string" ? NS(prop.extend): prop.extend;
-    
+
+    //проверим передали ли ли нам extend вообще
     var src = prop.extend || {},
+        //конструктор    
         child = function () {
             if (this.init) return this.init.apply(this, arguments)||this;
         },
+                
+        //тест на наличие функции супер в коде        
         fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
     //child prototype - скопируем туда родителя
-    child.prototype = Object.create(src.prototype||src);
+    child.prototype = Object.create( src.prototype || src );
 
     //ссылки на класс
     child.prototype["proto"] = child.prototype;
@@ -74,5 +78,6 @@ Define = function (name, prop) {
         });
 
         return result;
-    }
+    }   
+    
 }

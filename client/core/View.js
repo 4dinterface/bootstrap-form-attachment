@@ -5,9 +5,9 @@
  */
 'use strict';
 
-Define( "app.View", /** @lends {app.Component.prototype} */({
+Define( "core.View", /** @lends {app.Component.prototype} */({
 
-    extend: "app.Component",
+    extend: "core.Component",
 
     //флаг обсервера виджетов, который мониторит изменения в dom в поисках виджета
     widgetObserver:false,

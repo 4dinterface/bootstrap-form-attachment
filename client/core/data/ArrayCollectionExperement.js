@@ -1,6 +1,6 @@
 //array collection пока ещё в работе
 
-Define('app.ArrayCollection',{                    
+Define('core.data.ArrayCollection',{                    
     extend:app.Component,                                
     
         ToUint32:function(value) {

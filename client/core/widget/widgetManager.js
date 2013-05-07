@@ -10,8 +10,8 @@
  * Вообще как работает виджет, как происходит обмен данными, вопрос остаётся открытым
  * 
  */
-Define("app.widget.widgetManager", /** @lends {app.Component.prototype} */({
-    extend:"app.Component",
+Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
+    extend:"core.Component",
     mode:"one",
     /**
      * @constructor

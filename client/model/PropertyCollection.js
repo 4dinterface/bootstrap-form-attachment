@@ -27,7 +27,7 @@
  */
 Define('app.model.PropertyCollection', /** @lends {app.Model} */ {
     //property collection наследуется от модели, несмотря на то что это коллекция    
-    extend : app.Model,    
+    extend : core.data.Model,    
     /***
      * Конструктор экземпляров
     * @constructor

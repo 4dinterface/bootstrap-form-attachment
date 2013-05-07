@@ -36,7 +36,7 @@
 
 //компонент в разработке
 Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : app.Model,
+	extend : core.data.Model,
 	/***
 	 * Конструктор экземпляров
 	 * @constructor

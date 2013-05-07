@@ -29,7 +29,7 @@
  */
 
 Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : app.Model,//
+	extend : core.data.Model,//
 	/***
 	 * Конструктор экземпляров
 	 * @constructor

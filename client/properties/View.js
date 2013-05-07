@@ -7,7 +7,7 @@
 'use strict';
 
 Define( "app.properties.View", /** @lends {app.component} */ {
-    extend: app.View,
+    extend: core.View,
     widgetObserver:true,
     
     /**

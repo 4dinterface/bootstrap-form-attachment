@@ -1,5 +1,5 @@
 Define("app.panels.Menu", {
-    extend: app.Component,
+    extend: core.Component,
        
     init: function (prop) {
         var me=this;

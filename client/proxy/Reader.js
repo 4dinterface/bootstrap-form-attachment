@@ -5,7 +5,7 @@
  */
 Define( "app.proxy.Reader", /** @lends {app.component} */{
 
-    extend: app.Component,
+    extend: core.Component,
     
     /**
      * Конструктор загрузчика, 

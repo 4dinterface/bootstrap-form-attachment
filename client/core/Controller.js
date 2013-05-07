@@ -6,9 +6,9 @@
 'use strict';
 
 
-Define( "app.Controller", /** @lends {app.Component.prototype} */({
+Define( "core.Controller", /** @lends {app.Component.prototype} */({
 
-    extend: "app.Component",
+    extend: "core.Component",
 
 
     /**

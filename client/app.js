@@ -7,7 +7,7 @@
 $( function () {    
         'use strict'	
         
-         var a=new app.ClassLoader();                
+         var a=new core.ClassLoader();                
          a.require([
              //классы ядра
              "client/core/Component.js",
@@ -19,6 +19,7 @@ $( function () {
 
              "client/core/widget/widgetManager.js",
              "client/core/widget/widget.js",
+             "client/core/ui/panel/Collapsible.js",
 
              
              // ---------- Model -------------
@@ -141,7 +142,8 @@ $( function () {
             
             setTimeout(function(){
                 //app.widget.WidgetManager.update();    
-                new app.widget.widgetManager.widget['Collapsibles']({
+                console.log(core.widget.widgetManager);
+                new core.widget.widgetManager.widget['Collapsible']({                    
                     
                 })
             },100) 

@@ -9,9 +9,9 @@
  * @name app.Model
  * @class
  */
-Define('app.Model', /** @lends {app.Model} */ {
+Define('core.data.Model', /** @lends {app.Model} */ {
 
-	extend : app.Component,
+	extend : core.Component,
 
 	data : null,
 

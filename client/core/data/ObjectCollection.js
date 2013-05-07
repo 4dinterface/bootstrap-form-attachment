@@ -3,9 +3,9 @@
  * @name app.ObjectCollection
  * @class
  */
-Define('app.ObjectCollection', /** @lends app.ObjectCollection */({
+Define('core.data.ObjectCollection', /** @lends app.ObjectCollection */({
                 
-        extend:app.Component,
+        extend:core.Component,
         
         cache:[],
         

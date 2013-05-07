@@ -7,14 +7,23 @@
  * @class
  * @name app.Component
  */
-Define("app.Widget", /** @lends {app.Component.prototype} */({
-    extend:"app.Component",
+Define("core.widget.widget", /** @lends {app.Component.prototype} */({
+    extend:"core.Component",
     /**
      * @constructor
      */
     targetDom:"",
+    widget:"",
+
+    //препроцессор
+    preprocessor:function(cls){
+        alert(this.widget);
+        if(this.widget) core.widget.widgetManager.registerWidget(this.widget,cls);
+    },
+            
+    
     init: function () {	      
-        
+       
     },
             
     useEvent:function(){

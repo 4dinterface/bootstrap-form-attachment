@@ -1,9 +1,4 @@
 /**
- * @namespace
- */
-app;
-
-/**
  * Базовый класс для ключевых кадров
  * @name app.model.Keyframe
  * @class
@@ -37,7 +32,7 @@ app;
 
 Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 
-	extend : app.Model,
+	extend : core.data.Model,
 
 	/***
 	 * Конструктор экземпляров

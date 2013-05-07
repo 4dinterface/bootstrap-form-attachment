@@ -3,7 +3,7 @@
  * @class
  * @name app.Component
  */
-Define("app.Component", /** @lends {app.Component.prototype} */({
+Define("core.Component", /** @lends {app.Component.prototype} */({
     /**
      * Регистр событий и их обработчиков
      * @type {Object}

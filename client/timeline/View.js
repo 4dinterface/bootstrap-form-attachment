@@ -41,18 +41,24 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         //=====================================================================//
         //внимание
         //Пример реакции на изменения модели, 
-        //нерв перепиши так тебе было удобно        
+        //нерв перепиши так тебе было удобно, 
+        //мне кажется перерисовка таймлайна целиком это немножко топорно. хотя ХЗ.    
+        //=====================================================================//
+        
+        //изменение коллекции ключей (ключ добавили / удалили)
         this.model.on( 'keyframecollectionchange', function( e ) {
             this.refrashTimeline();
         }.bind( this ));
         
-        //this.model.on( 'keyframecollectionchange', function( e ) {
-            //this.refrashTimeline();
-        //}.bind( this ));
+        //изменение состава свойств (стало видно новое свойств/или наоборот его убрали)
+        this.model.on( 'propertycollectionchange', function( e ) {
+            this.refrashTimeline();
+        }.bind( this ));
         
+        //топорный метод обновления, перерисовыет таймлай без бегунка
+        // если с бегунком то получится 2 бегунка, поэтому Runner убран
         this.refrashTimeline=function (){
             $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
-            //$( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
             this.createRuler();
         }
         

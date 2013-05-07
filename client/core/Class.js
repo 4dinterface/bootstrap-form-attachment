@@ -1,5 +1,5 @@
 /**
- * Главный неймспейс для проекта
+ * Главный неймспейс для фреймворка
  * @namespace
  */
 window.core=window.core||{};
@@ -46,8 +46,8 @@ core.Define = Define = function (name, prop) {
     //console.log(child.prototype);
     
     
-    //вызовем препроцессор
-    if ("preprocessor" in prop) child.prototype.preprocessor(child);
+    //вызовем препроцессор, если есть
+    if ('preprocessor' in child.prototype) child.prototype.preprocessor(child);
     
     // специальный режим при котором несоздаётся класса, вместо этого сразу создаётся экземпляр
     if (prop.mode=='one') child=new child();    

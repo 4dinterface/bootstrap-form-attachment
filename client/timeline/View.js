@@ -38,6 +38,27 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         console.log( this.model.zoom );
 
 
+        //=====================================================================//
+        //внимание
+        //Пример реакции на изменения модели, 
+        //нерв перепиши так тебе было удобно        
+        this.model.on( 'keyframecollectionchange', function( e ) {
+            this.refrashTimeline();
+        }.bind( this ));
+        
+        //this.model.on( 'keyframecollectionchange', function( e ) {
+            //this.refrashTimeline();
+        //}.bind( this ));
+        
+        this.refrashTimeline=function (){
+            $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            //$( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
+            this.createRuler();
+        }
+        
+        //=====================================================================//
+
+
         // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {
             $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );

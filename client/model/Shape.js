@@ -65,5 +65,23 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
                 e.shape=me;
                 me.fire(e.eventName,e);
             })
-	}
+	},
+                
+                
+        /**
+         * Умное добавление ключа.
+         * Если св-во отсутствует, то оно создаётся
+         * Ключ добавляется
+         *  
+         */                        
+        addKeyToProperty:function(propertyName,time,value){
+            var prop=this.get('propertyCollection').get(propertyName) ;
+            prop.get('keyframeCollection').set(time,new app.model.Keyframe({
+                "value":value,
+                "easing":"line"
+            }));
+            
+            console.log('keyframeCollection',prop.get('keyframeCollection'));
+        }       
+        
 });

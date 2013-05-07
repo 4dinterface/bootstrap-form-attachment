@@ -60,7 +60,8 @@ $( function () {
              "client/panels/Menu.js",
              "client/panels/Toolbar.js",
              "client/panels/Transport.js",
-             "client/properties/View.js"
+             "client/properties/View.js",
+             "client/properties/Controller.js"
              
              ], function(){
                               
@@ -118,7 +119,14 @@ $( function () {
 
                 //панель свойств
                 propertiesView=new app.properties.View({
-                    model:timeline
+                    model:timeline,
+                    movie:movie
+                }),              
+                
+                propertiesController=new app.properties.Сontroller({
+                    model:timeline,
+                    view:propertiesView,
+                    movie:movie
                 }),              
                 
                 //верхнее меню
@@ -138,15 +146,7 @@ $( function () {
                     
                     
                 }
-             })*/
-            
-            setTimeout(function(){
-                //app.widget.WidgetManager.update();    
-                console.log(core.widget.widgetManager);
-                new core.widget.widgetManager.widget['Collapsible']({                    
-                    
-                })
-            },100) 
+             })*/            
             
             //alert(widgetManager);
             

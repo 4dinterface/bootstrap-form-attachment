@@ -1,28 +1,35 @@
 /**
- * Виджет, 
- * бля я хз что писать, 
- * должен быть базовый класс удобный для построения элементов управления :)
- * повсей видимости должен работать впаре с widget менеджером
- *  
+ * Collapsible
+ *   
  * @class
  * @name app.Component
  */
 Define("core.ui.panel.Collapsible", /** @lends {app.Component.prototype} */({
-    extend:"core.Widget",
+    extend:"core.widget.Widget",
     /**
      * @constructor
      */
-    targetDom:"",
-    widget:"Collapsible",
-            
+    widget:"Collapsible",            
     
-    init: function () {	           
-       $('[widget]').each(function(num,el){            
-            $(this).click(function(){
-                $(this).remove();
-            });
-        })
-    
+    init: function (cfg) {
+        this.apply(cfg);
+        this._super();
+
+        var me=this;
+        
+        $( this.domTarget ).find('h2').click(function(){                                        
+            $('div',me.domTarget).toggle();
+        });
     }
             
 }));
+
+
+/*a=function(){};
+a.prototype.x=10;
+
+var b=function(){}
+b.prototype=Object.create(a.prototype);
+b.prototype.z=10;
+
+console.log("aaa","x" in b.prototype);*/

@@ -74,4 +74,5 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
                 me.fire(e.eventName,e);
             })            
 	}
+        
 });

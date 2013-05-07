@@ -7,23 +7,24 @@
  * @class
  * @name app.Component
  */
-Define("core.widget.widget", /** @lends {app.Component.prototype} */({
+Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     extend:"core.Component",
     /**
      * @constructor
      */
-    targetDom:"",
+    domTarget:"",
     widget:"",
 
     //препроцессор
+    //в момент обьявления класса, зарегестрирует виджет в менеджере виджетов
     preprocessor:function(cls){
-        alert(this.widget);
-        if(this.widget) core.widget.widgetManager.registerWidget(this.widget,cls);
+        if(this.widget!="") core.widget.widgetManager.registerWidget(this.widget,cls);
     },
             
     
-    init: function () {	      
-       
+    init: function () {	           
+        this._super();     
+        $(this.domTarget).addClass('live_widget')
     },
             
     useEvent:function(){

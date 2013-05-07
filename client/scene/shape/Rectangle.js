@@ -34,7 +34,7 @@ Define('app.scene.shape.Rectangle', {
                     
                     opacity:{
                         items:{
-                            opacity:{type:"procent",name:"Opacity"}//TODO  от 0-1 подумать над именами                            
+                            alpha:{type:"procent",name:"alpha"}//TODO  от 0-1 подумать над именами                            
                         }
                     }                
                     
@@ -48,22 +48,22 @@ Define('app.scene.shape.Rectangle', {
                     origin:{                        
                         name:"origin",
                         items:{
-                            x:{type:"int",name:"x"},
-                            y:{type:"int",name:"y"}                                                
+                            regX:{type:"int",name:"x"},
+                            regY:{type:"int",name:"y"}                                                
                         }
                     },
 
                     rotate:{
                         items:{
-                            rotate:{type:"int",name:"rotate"}                           
+                            rotation:{type:"int",name:"rotate"}                           
                         }
                     },
 
                     skew:{
                         name:"Skew",
                         items:{
-                            x:{type:"int",name:"x"},
-                            y:{type:"int",name:"y"}                            
+                            skewX:{type:"int",name:"x"},
+                            skewY:{type:"int",name:"y"}                            
                         }
                     },                
                     scale:{

@@ -19,11 +19,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
      */
     init: function() {        
         this._super();        
-        //обсервер включится только в том случае если включен флаг
-        //setTimeout(function(){
-            if (this.widgetObserver) this.createWidgetObserver();                        
-        //},1)
-        
+        if (this.widgetObserver) this.createWidgetObserver();                                
     },
             
     //========================================================================//
@@ -32,6 +28,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
             
     createWidgetObserver:function(){
         var me=this;
+        
         //попробуем использовать MutationObserver
         if ('MutationObserver' in window){                
             this.viewObserver = new MutationObserver(function(){ 
@@ -42,7 +39,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
             this.viewObserver.observe(this.domTarget, {childList: true});                
         } 
         
-        //в противном случае пытаемся реализовать через mutationEvents
+        //если MutationObserver неподдерживается тогда реализуем через mutationEvents
         else {                
             this.domTarget.addEventListener('DOMSubtreeModified',function(){
                 //ниже приведённый код, гарантирует что _autoUpdateWidget сработает только однажды
@@ -65,7 +62,8 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
     //автоматическое обновление виджетов, как реакция на обсервер
     _autoUpdateWidget:function(){  
         //полезная логика        
-        alert('hello world');
+        //alert('hello world');
+        core.widget.widgetManager.update(this.domTarget);
     },      
 
     //события

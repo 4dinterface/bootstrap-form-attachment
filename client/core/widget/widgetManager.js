@@ -20,28 +20,31 @@ Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
         this._super();
     },
             
-    widget:{},        
+    regWidget:{},        
             
     //Обновляет все виджеты на экране
     update:function(target){        
-        if(!target) target=$("document");
-        $('[widget]').each(function(num,el){            
-            var widgetName= $(this).attr("widget");
-            $(this).click(function(){
-                $(this).remove();
-            });
-        })
-        //переберём все виджеты на экране, исключим уже работающие виджеты
-        /* $(target).find("[widget]").not('.activeWidget').each(function(el){   
-            alert(1);
-            new this.widget[name]({
-                target:el
-            });            
-        }) */        
-    },
+        var me=this;
+        //если target непередали используем весь документ
+        if(!target) target=$(document);
+
+        //перебираем все виджеты в пределах target
+        $('[widget]',target).not('.live_widget').each(function(num,el){            
+            var widgetName= $(this).attr("widget");            
             
-    //зарегистрировать виджет в системе        
+            new me.regWidget[widgetName]({ 
+                domTarget:$(this) 
+            });            
+            
+        })        
+    },
+    // концепция
+    // найти виджеты
+    // неактивные активировать
+    // если дум удалили то удалить и виджет
+            
+    //зарегистрировать виджет в менеджере
     registerWidget:function(name,component){
-        this.widget[name]=component;
+        this.regWidget[name]=component;
     }           
 }));

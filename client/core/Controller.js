@@ -18,7 +18,7 @@ Define( "core.Controller", /** @lends {app.Component.prototype} */({
         //this.apply();
         this._super();
 
-        this.bind( Object.keys( this.domListeners ) );
+        if('domListeners' in this) this.bind( Object.keys( this.domListeners ) );
     },
 
 

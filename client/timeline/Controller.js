@@ -70,7 +70,7 @@ Define( 'app.timeline.Controller', {
         /**
          * Ловит событие и вызывает функции поведения
          */
-        '#timeline-editor-body % mousedown': function( e ) {
+        '#timeline-editor-body-box % mousedown': function( e ) {
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
@@ -193,7 +193,6 @@ Define( 'app.timeline.Controller', {
         this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
     }
 
-    // TODO: при клике на полосу прокрутки таймлайна перемещается бегунок
     // TODO: при клике на бегунок в области таймлайна, блок под ним не выделятеся
 
 });

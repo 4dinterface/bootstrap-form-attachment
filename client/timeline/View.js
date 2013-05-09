@@ -200,8 +200,8 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
             return {
                 id: prop.id,
-                left: keyframes.shift,
-                width: keyframes.items[ keyframes.items.length - 1 ].left,
+                left: keyframes.items[ 0 ].left,
+                width: keyframes.items[ keyframes.items.length - 1 ].left - keyframes.items[ 0 ].left,
                 keyframes: keyframes.items,
                 clazz: clazz || ''
             }
@@ -215,13 +215,13 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      * @param {Array} keyframesCollection Массив данных для построения ключей на таймлайне
      *  @param {String} clazz Класс, присваемый элементам
      * @this {Timeline}
-     * @return {Object} keyframes Массив ключей для создания разметки + сдвиг
+     * @return {Object} keyframes Массив ключей для создания разметки
      */
     createKeyframes: function( keyframesCollection, clazz ) {
 
         var zoom = this.utilites.toPixels( this.model, this.model.zoom ); // TODO: Не забыть про zoom
         var keyframes = [];
-        var shift = 0;
+        //var shift = 0;
 
         // get time and id
         Object.keys( keyframesCollection ).filter(function( key ) {
@@ -238,7 +238,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // apply zoom
         keyframes = keyframes.map(function( item ) {
-            item.left = item.left * zoom
+            item.left = item.left * zoom;
             return item;
         });
 
@@ -247,17 +247,17 @@ Define( "app.timeline.View", /** @lends {app.component} */{
             return a.left - b.left;
         });
 
-        shift = keyframes[ 0 ].left;
+        //shift = keyframes[ 0 ].left;
 
         // fix position
-        keyframes = keyframes.map(function( item ) {
-            item.left = item.left - keyframes[ 0 ].left;
-            return item;
-        });
+//        keyframes = keyframes.map(function( item ) {
+//            item.left = item.left - keyframes[ 0 ].left;
+//            return item;
+//        });
 
         return {
-            items: keyframes,
-            shift: shift
+            items: keyframes
+//            shift: shift
         };
 
     }

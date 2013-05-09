@@ -166,6 +166,19 @@
                     <div id="timeline-editor-body">
                         <div id="timeline-editor-body-box">
                             <!--properties & keyframes -->
+
+                            <!-- Test only
+                            <div class="timeline-line">
+                                <div class="timeline-property" style="width: 5000px;"></div>
+                            </div>
+
+                            <div class="timeline-line">
+                                <div class="timeline-property" style="width: 200px;"></div>
+                                <div class="timeline-property" style="width: 100px; margin-left: 200px">
+                                    <div class="timeline-keyframe"></div>
+                                </div>
+                            </div>  -->
+
                         </div>
                     </div>
                 </div>
@@ -184,7 +197,7 @@
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-property">
-                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="left:<%=this.left%>px; width:<%=this.width%>px;">
+                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;">
                         <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
                     </div>
                 </script>

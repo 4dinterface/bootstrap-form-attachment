@@ -452,16 +452,11 @@ html, body {
     position: relative;
 }
 
+
+/* TIMELINE EDITOR HEAD */
+
 #timeline-editor-head {
     /* some css */
-}
-
-#timeline-editor-body{
-    height: 300px;
-    overflow: scroll;
-    background-color: #dadada;
-    position: absolute;
-    width: 100%;
 }
 
 #timeline-ruler {
@@ -478,6 +473,49 @@ html, body {
     height: 22px;
     margin-top: -22px;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMTEB0DHTu5JgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY2CAgv///5vjYDAwMAAAvw0JnXzCDWwAAAAASUVORK5CYII=");
+}
+
+/**
+* Блок на линейке таймлайна
+*/
+.timeline-ruler-pick {
+    color: #fffae5;
+    width: 100px;
+    height: 20px;
+    float: left;
+    border-right: 1px solid gray;
+    text-align: left;
+    font-size: 0.6em;
+    font-family: Tahoma;
+}
+
+/**
+* Голова бегунка / область захвата мышью при перетаскивании
+*/
+#timeline-runner-head {
+    width: 6px;
+    height: 20px;
+    margin-left: -3px;
+    background-color: #DED300;
+    border: 1px solid #000;
+}
+
+/* END TIMELINE EDITOR HEAD */
+
+
+/* TIMELINE EDITOR BODY */
+
+#timeline-editor-body {
+    height: 300px;
+    overflow: scroll;
+    background-color: #dadada;
+    position: absolute;
+    width: 100%;
+}
+
+#timeline-editor-body-box {
+    display: table;
+    width: 100%;
 }
 
 /**
@@ -503,7 +541,7 @@ html, body {
     height: 18px;
     margin: 0;
     background-color: #a3b852;
-    position: relative;
+    display: inline-block;
 }
 
 /**
@@ -513,12 +551,6 @@ html, body {
     background-color: #7a9900;
 }
 
-/**
-* Класс, присваиваемый при перетаскивании
-*/
-.cursor-drag {
-    cursor: pointer;
-}
 
 /**
  * Ключевой кадр блока на линии в редакторе таймлайна
@@ -537,20 +569,6 @@ html, body {
 }
 
 /**
-* Блок на линейке таймлайна
-*/
-.timeline-ruler-pick {
-    color: #fffae5;
-    width: 100px;
-    height: 20px;
-    float: left;
-    border-right: 1px solid gray;
-    text-align: left;
-    font-size: 0.6em;
-    font-family: Tahoma;
-}
-
-/**
 * Бегунок
 */
 #timeline-runner {
@@ -566,16 +584,8 @@ html, body {
     height: 305px;
 }
 
-/**
-* Голова бегунка / область захвата мышью при перетаскивании
-*/
-#timeline-runner-head {
-    width: 6px;
-    height: 20px;
-    margin-left: -3px;
-    background-color: #DED300;
-    border: 1px solid #000;
-}
+/* END TIMELINE EDITOR BODY */
+
 
 /* canvas editor (Для HTML объектов на сцене) ->*/
 #canvas-editor {

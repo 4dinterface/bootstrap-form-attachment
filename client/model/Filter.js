@@ -29,7 +29,7 @@
  */
 
 Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : app.Model,//
+	extend : core.data.Model,//
 	/***
 	 * Конструктор экземпляров
 	 * @constructor
@@ -37,5 +37,28 @@ Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
 	 */
 	init : function () {                        
             this._super(); 
-        }
+            this.set("propertyCollection", new app.model.PropertyCollection() ); 
+            this.get("propertyCollection").parent=this;
+        },
+                
+        /**
+	 * @method set
+	 * @param {property} name
+         * @param {value} value
+	 * @return null
+	 **/
+	set : function (property, value) {
+            var me=this;
+            value.parent=me;
+            this._super();
+            this.fire("filterchange", {
+                key:name,
+                value:value
+            });
+            
+            this.liftEvent(value,function(e){                
+                e.shape=me;
+                me.fire(e.eventName,e);
+            })
+	}
 });        

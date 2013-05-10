@@ -36,7 +36,7 @@
 
 //компонент в разработке
 Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : app.Model,
+	extend : core.data.Model,
 	/***
 	 * Конструктор экземпляров
 	 * @constructor
@@ -61,6 +61,7 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
 	set : function (property, value) {
             var me=this;            
             value.parent=me;
+            
             this._super();
             this.fire("propertychange", {
                 key:name,
@@ -73,4 +74,5 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
                 me.fire(e.eventName,e);
             })            
 	}
+        
 });

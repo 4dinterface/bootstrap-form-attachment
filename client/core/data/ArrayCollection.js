@@ -4,8 +4,8 @@
  * @name app.model.ShapeCollection
  * @extends {app.Component}
  */
-Define('app.ArrayCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
-    extend : app.Component,
+Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
+    extend : core.Component,
     data:null,
 
     /**

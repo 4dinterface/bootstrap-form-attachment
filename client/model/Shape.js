@@ -30,7 +30,7 @@
 
 //компонент в разработке
 Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : app.Model,
+	extend : core.data.Model,
 	/***
 	 * Конструктор экземпляров
 	 * @constructor
@@ -42,8 +42,8 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
             this.get("propertyCollection").parent=this;
            
            // непонятно как назвать толи filter толи FX
-           //this.set("filterCollection", new app.model.FilterCollection() ); 
-           //this.get("filterCollection").parent=this;
+           this.set("filterCollection", new app.model.FilterCollection() ); 
+           this.get("filterCollection").parent=this;
 
 	},        
 	/**
@@ -65,5 +65,23 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
                 e.shape=me;
                 me.fire(e.eventName,e);
             })
-	}
+	},
+                
+                
+        /**
+         * Умное добавление ключа.
+         * Если св-во отсутствует, то оно создаётся
+         * Ключ добавляется
+         *  
+         */                        
+        addKeyToProperty:function(propertyName,time,value){
+            var prop=this.get('propertyCollection').get(propertyName) ;
+            prop.get('keyframeCollection').set(time,new app.model.Keyframe({
+                "value":value,
+                "easing":"line"
+            }));
+            
+            console.log('keyframeCollection',prop.get('keyframeCollection'));
+        }       
+        
 });

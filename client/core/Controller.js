@@ -6,9 +6,9 @@
 'use strict';
 
 
-Define( "app.Controller", /** @lends {app.Component.prototype} */({
+Define( "core.Controller", /** @lends {app.Component.prototype} */({
 
-    extend: "app.Component",
+    extend: "core.Component",
 
 
     /**
@@ -18,7 +18,7 @@ Define( "app.Controller", /** @lends {app.Component.prototype} */({
         //this.apply();
         this._super();
 
-        this.bind( Object.keys( this.domListeners ) );
+        if('domListeners' in this) this.bind( Object.keys( this.domListeners ) );
     },
 
 

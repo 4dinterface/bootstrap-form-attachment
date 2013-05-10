@@ -6,7 +6,8 @@
 */
 $( function () {    
         'use strict'	
-         var a=new app.ClassLoader();                
+        
+         var a=new core.ClassLoader();                
          a.require([
              //классы ядра
              "client/core/Component.js",
@@ -14,12 +15,20 @@ $( function () {
              "client/core/data/ArrayCollection.js",
              "client/core/data/Model.js",
              "client/core/Controller.js",
+             "client/core/View.js",
+
+             "client/core/widget/widgetManager.js",
+             "client/core/widget/widget.js",
+             "client/core/ui/panel/Collapsible.js",
+
              
              // ---------- Model -------------
              "client/model/Keyframe.js",
              "client/model/KeyframeCollection.js",
              "client/model/Property.js",       
              "client/model/PropertyCollection.js",       
+             "client/model/Filter.js",   
+             "client/model/FilterCollection.js",             
              "client/model/Shape.js",   
              "client/model/ShapeCollection.js",
              "client/model/Composition.js",
@@ -51,12 +60,13 @@ $( function () {
              "client/panels/Menu.js",
              "client/panels/Toolbar.js",
              "client/panels/Transport.js",
-             "client/properties/View.js"
+             "client/properties/View.js",
+             "client/properties/Controller.js"
              
              ], function(){
                               
-        $(function(){
-            var 
+        $(function(){                                    
+            var                
                 // создадим таймлайн
                 timeline = new app.model.Composition(),
 
@@ -109,7 +119,14 @@ $( function () {
 
                 //панель свойств
                 propertiesView=new app.properties.View({
-                    model:timeline
+                    model:timeline,
+                    movie:movie
+                }),              
+                
+                propertiesController=new app.properties.Сontroller({
+                    model:timeline,
+                    view:propertiesView,
+                    movie:movie
                 }),              
                 
                 //верхнее меню
@@ -129,8 +146,9 @@ $( function () {
                     
                     
                 }
-             })*/
-             
+             })*/            
+            
+            //alert(widgetManager);
             
              //команда на загрузку                
              reader.load(data);

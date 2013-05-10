@@ -1,6 +1,6 @@
 Define("app.editor.Сontroller", {
 
-    extend: app.Component,
+    extend: core.Component,
 
     init: function (prop) {
         this._super();

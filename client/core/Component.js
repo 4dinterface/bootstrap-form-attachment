@@ -3,7 +3,7 @@
  * @class
  * @name app.Component
  */
-Define("app.Component", /** @lends {app.Component.prototype} */({
+Define("core.Component", /** @lends {app.Component.prototype} */({
     /**
      * Регистр событий и их обработчиков
      * @type {Object}
@@ -40,8 +40,7 @@ Define("app.Component", /** @lends {app.Component.prototype} */({
      * @param {Object} context контекст исполнения
      */
     fire: function (name, options, context) {
-        console.log('fire work '+name);
-        
+       
         var item;
 
         context = context || this;

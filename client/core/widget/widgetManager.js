@@ -10,30 +10,41 @@
  * Вообще как работает виджет, как происходит обмен данными, вопрос остаётся открытым
  * 
  */
-Define("app.WidgetManager", /** @lends {app.Component.prototype} */({
-    extend:"app.Component",
+Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
+    extend:"core.Component",
+    mode:"one",
     /**
      * @constructor
      */
     init: function () {	      
-        this.super();
+        this._super();
     },
             
-    widget:{},        
+    regWidget:{},        
             
     //Обновляет все виджеты на экране
     update:function(target){        
-        if(!target) target=$("document");
-        //переберём все виджеты на экране, исключим уже работающие виджеты
-        $(target).find("[widget]").not('.activeWidget').each(function(el){                     
-            new this.widget[name]({
-                target:el
+        var me=this;
+        //если target непередали используем весь документ
+        if(!target) target=$(document);
+
+        //перебираем все виджеты в пределах target
+        $('[widget]',target).not('.live_widget').each(function(num,el){            
+            var widgetName= $(this).attr("widget");            
+            
+            new me.regWidget[widgetName]({ 
+                domTarget:$(this) 
             });            
+            
         })        
     },
+    // концепция
+    // найти виджеты
+    // неактивные активировать
+    // если дум удалили то удалить и виджет
             
-    //зарегистрировать виджет в системе        
-    regWidget:function(name,component){
-        this.widget[name]=component;
+    //зарегистрировать виджет в менеджере
+    registerWidget:function(name,component){
+        this.regWidget[name]=component;
     }           
 }));

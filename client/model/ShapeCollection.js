@@ -25,7 +25,7 @@
  */
 Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     //по сути это arrayCollection
-    extend : app.ArrayCollection,
+    extend : core.data.ArrayCollection,
     data:null,
 
     /**
@@ -53,7 +53,7 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
         });
         
         //поднимем события из value на этот уровень
-        //this.liftEvent(value);
+        this.liftEvent(value);
     },
             
     push : function (value) {                

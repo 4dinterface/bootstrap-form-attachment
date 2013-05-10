@@ -5,7 +5,7 @@
  */
 Define( "app.proxy.Reader", /** @lends {app.component} */{
 
-    extend: app.Component,
+    extend: core.Component,
     
     /**
      * Конструктор загрузчика, 
@@ -16,8 +16,6 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
     init: function( cfg) {
         this._super();        
         this.apply( cfg );                                                 
-        //загрузка эксперементальных данных(потом это нужно удалить)
-        //this.load(data);                       
     },
 
             
@@ -35,8 +33,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         this.stage.removeAllChildren ();
         
         for (var i=0;i<data.length;i++){            
-            tlShape=this.makeTimelineShape(data[i]);
-            stShape=this.makeStageShape(data[i]); 
+            tlShape=this.makeTimelineShape ( data[i] );
+            stShape=this.makeStageShape    ( data[i] ); 
             
             tlShape.target=stShape;
             stShape.timeline=tlShape;
@@ -57,6 +55,9 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         this.stage.update();
     },            
 
+
+    
+
     /**
      * Вспомогательный метод, создаёт модель shape, присваивает каждому анимируемому свойству,
      * коллекцию ключей
@@ -64,14 +65,36 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      */
     makeTimelineShape: function(shape){
         var ts=new app.model.Shape({}); 
-        //console.log('ts',ts.get('propertyCollection'));
+        console.log("SHAPE=====",shape);
         
-        for (i in shape){
-            //if (i!="target") ts.get('propertyCollection').set(i, this.makeKeyCollection(shape[i]) );                                        
-            if (i!="target") ts.get('propertyCollection').set(i, this.makeProperty(shape[i],i) );                                        
+        var props=shape.property;
+        var filters=shape.filters;
+
+        //Подключаем свойства
+        for (i in props) {
+            ts.get('propertyCollection').set(i, this.makeProperty(props[i],i) );                                        
         }
+
+        //Подключаем фильтры
+        for (i in filters) {
+            //alert(i);
+            ts.get('filterCollection').set(i, this.makeTimelineFilter(filters[i],i) );                                        
+        }               
+        
         return ts;
     },
+            
+    makeTimelineFilter: function(filter){
+        var ts=new app.model.Filter({});         
+                
+        for (i in filter.property) {
+            ts.get( 'propertyCollection' ).set(i, this.makeProperty( filter.property [ i ], i ) );                                        
+        }
+        return ts;        
+    },        
+            
+
+            
 
     /**
      * создаёт shape для сцены
@@ -116,7 +139,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         return ret;
     },
             
-            
+
+    
     makeKeyframe:function(i, col){
         col.key=parseInt(i, 10);            
         return new app.model.Keyframe( col );

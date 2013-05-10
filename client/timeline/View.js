@@ -8,7 +8,7 @@
 
 Define( "app.timeline.View", /** @lends {app.component} */{
 
-    extend: app.Component,
+    extend: core.Component,
 
     /**
      * Данные модели таймлайна
@@ -46,6 +46,32 @@ Define( "app.timeline.View", /** @lends {app.component} */{
             this.createRuler();
         }.bind( this ));
 
+
+        //=====================================================================//
+        //внимание
+        //Пример реакции на изменения модели,
+        //нерв перепиши так тебе было удобно,
+        //мне кажется перерисовка таймлайна целиком это немножко топорно. хотя ХЗ.
+        //=====================================================================//
+
+        //изменение коллекции ключей (ключ добавили / удалили)
+        this.model.on( 'keyframecollectionchange', function( e ) {
+            this.refrashTimeline();
+        }.bind( this ));
+
+        //изменение состава свойств (стало видно новое свойств/или наоборот его убрали)
+        this.model.on( 'propertycollectionchange', function( e ) {
+            this.refrashTimeline();
+        }.bind( this ));
+
+        //топорный метод обновления, перерисовыет таймлай без бегунка
+        // если с бегунком то получится 2 бегунка, поэтому Runner убран
+        this.refrashTimeline=function (){
+            $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            this.createRuler();
+        };
+
+        //=====================================================================//
 
 
         this.model.on( 'onclassadd', function( e ) {

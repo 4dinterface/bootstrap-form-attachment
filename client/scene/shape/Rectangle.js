@@ -34,7 +34,7 @@ Define('app.scene.shape.Rectangle', {
                     
                     opacity:{
                         items:{
-                            opacity:{type:"procent",name:"Opacity"}//TODO  от 0-1 подумать над именами                            
+                            alpha:{type:"procent",name:"alpha"}//TODO  от 0-1 подумать над именами                            
                         }
                     }                
                     
@@ -48,22 +48,22 @@ Define('app.scene.shape.Rectangle', {
                     origin:{                        
                         name:"origin",
                         items:{
-                            x:{type:"int",name:"x"},
-                            y:{type:"int",name:"y"}                                                
+                            regX:{type:"int",name:"x"},
+                            regY:{type:"int",name:"y"}                                                
                         }
                     },
 
                     rotate:{
                         items:{
-                            rotate:{type:"int",name:"rotate"}                           
+                            rotation:{type:"int",name:"rotate"}                           
                         }
                     },
 
                     skew:{
                         name:"Skew",
                         items:{
-                            x:{type:"int",name:"x"},
-                            y:{type:"int",name:"y"}                            
+                            skewX:{type:"int",name:"x"},
+                            skewY:{type:"int",name:"y"}                            
                         }
                     },                
                     scale:{
@@ -92,8 +92,15 @@ Define('app.scene.shape.Rectangle', {
             //this.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, me.width, me.height);
             this.x = cnf.x;
             this.y = cnf.y;	            
-            me.renderToCache();                                     
+                                                
             //console.log('this',this.width);
+            
+            
+            var blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
+            this.filters = [blurFilter];                                              
+                
+            me.renderToCache();     
+         
 	},
         hihi:0,
         
@@ -111,16 +118,21 @@ Define('app.scene.shape.Rectangle', {
         renderToCache:function(){                        
             
             //this.alpha=0.1;
-            console.log('alpha=',this.alpha);
+            //console.log('alpha=',this.alpha);
             
-            if (this.blurX>0){
+            /*if (this.blurX>0){
                 var blurFilter = new createjs.BoxBlurFilter( this.blurX,  1, 1);
                 this.filters = [blurFilter];                                              
                 var bounds = blurFilter.getBounds();
             } 
-            else bounds={x:0,y:0,width:0,height:0} ;
+            else bounds={x:0,y:0,width:0,height:0} ;*/
             
-            console.log(this.blurX);
+            bounds=this.filters[0].getBounds();
+            
+            //this.filters[0].blurY=this.x-50;
+            //console.log('=====',this.filters);
+            
+            //console.log(this.blurX);
             
             // shadow сначало X, затем Y, затем Размытие
             this.shadow = new createjs.Shadow("#000000", 15, 15, 10);
@@ -136,11 +148,11 @@ Define('app.scene.shape.Rectangle', {
                     .drawRect(0, 0, me.width, me.height)
                     .endStroke();                      
             //console.log('gr',this.graphics);                        
+            
             this.updateCache();
             this.graphics.clear();
         }
                 
         // метод update неиспользуется системой
-        //update:function(){}
-        
+        //update:function(){}        
 });

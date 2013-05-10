@@ -38,7 +38,7 @@
 
 Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
-    extend: app.Component,
+    extend: core.Component,
 
     /**
      * Сцена, на которой проигрыватель будет отрисовывать текущие значения

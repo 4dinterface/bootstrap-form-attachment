@@ -47,13 +47,13 @@ Define('app.scene.shape.Rectangle', {
                             {type:"int",name:"x",target:"skewX"},
                             {type:"int",name:"y",target:"skewY"}                            
                         ]
-                    }, 
+                    },  
                     
                     {
                         name:"Scale",
                         items:[
-                            {type:"int",name:"v",target:"W"},                          
-                            {type:"int",name:"h",target:"H"}                            
+                            {type:"int",name:"W",target:"w"},                          
+                            {type:"int",name:"H",target:"h"}                            
                         ]
                     },
                     

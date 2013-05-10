@@ -4,38 +4,51 @@
  * @class
  */
 Define('core.data.ObjectCollection', /** @lends app.ObjectCollection */({
-                
+
+        //наследование        
         extend:core.Component,
         
-        cache:[],
+        cache:null,
+        data:null,
+
+        //протестируем браузер и узнаем будет ли он упорядочевать ключи из обьекта
+        tstSort:(function(){
+            var tst={ 10:10, 5:5, 1:1 };     
+            return Object.keys(tst)[0]==1 && Object.keys(tst)[1]==5 && Object.keys(tst)[2]==10;
+        })(),
         
-        //наследование
-    /**
-     * @constructor
-     * @param {Object} prop
-     */
+        /**
+         * @constructor
+         * @param {Object} prop
+         */
 	init:function (prop){
             this._super();
             
-            this.cache=[];            
+            this.cache=[];
+            this.data={};
             
-            for(var i in prop) this[i]=prop[i];                        
-            this.cache=Object.keys(this);
+            for(var i in prop) {
+                this[i]=prop[i];//удалить
+                this.data[i]=prop[i];
+            }                                    
+            this.cache=Object.keys(this.data);
             this.length=this.cache.length;
         },
                 
 
         //геттер свойств
+
         get:function(name){
-            return this[name];
+            return this.data[name];
 	},
         
 	//setter
 	set:function(name,val){
             var me=this;
-	    this[name]=val;
-            this.cache=Object.keys(this);
-            this.cache=Object.keys(this);
+	    this.data[name]=val;
+            this[name]=val;//удалить
+            
+            this.cache=Object.keys(this.data);            
             
             this.length=this.cache.length;
             
@@ -68,10 +81,10 @@ Define('core.data.ObjectCollection', /** @lends app.ObjectCollection */({
 	 **/
         forEach:function( callback, context ) {
             var prop;
-            for(prop in this) {
+            for(prop in this.data) {
                 if ( this[prop] === this.proto[prop] ) continue;                
                 //if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
-                if(prop*1) callback.call( context || window, this[prop], prop , this );
+                if(prop*1) callback.call( context || window, this.data[prop], prop , this );
             }
             return this;
         }     			

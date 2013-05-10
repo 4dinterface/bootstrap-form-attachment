@@ -147,7 +147,14 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
     */
     setTimeline: function (timeline) {
-            this.fetch.timeline = timeline;
+        var me=this;
+        this.fetch.timeline = timeline;
+
+        // максим я добавил реакцию на событие в модели
+        // используй этот пример в качестве TODO
+        timeline.on('keyframecollectionchange',function(){
+            me.renderFrame();
+        })
     },
 
      /**
@@ -155,7 +162,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
      * @param {app.scene.Stage} stage объект сцены
      */
      setStage: function (stage) {
-        this.stage = stage;
+        this.stage = stage;        
      },
 
     /**

@@ -244,10 +244,31 @@ data=[
                     }         
                 }
             },
-
-
             
-            
+            "shadowX": {            
+               "type":"int",
+               "keyframes":{                            
+                    "0":{
+                        "value":0,
+                        "easing":"line"                
+                    },
+
+                    "5000": {
+                        "value":50,
+                        "easing":"line"
+                    },
+
+                    "10000": {
+                        "value":0,
+                        "easing":"line"
+                    } ,
+
+                    "20000": {
+                        "value":50,
+                        "easing":"line"
+                    }         
+                }
+            }                                          
         },
 
 

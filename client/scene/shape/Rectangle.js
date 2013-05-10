@@ -159,7 +159,7 @@ Define('app.scene.shape.Rectangle', {
             //console.log(this.blurX);
             
             // shadow сначало X, затем Y, затем Размытие
-            this.shadow = new createjs.Shadow("#000000", 15, 15, 10);
+            this.shadow = new createjs.Shadow("#000000", this.shadowX, 15, 10);
             var me=this;
             //console.log(bounds);
             //this.cache(-this.blurX,0,this.width+this.blurX*2,this.height);

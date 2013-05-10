@@ -70,11 +70,24 @@ Define( "app.properties.View", /** @lends {app.component} */ {
         var fields="";
 
         for(var i in item.items) if(i!=="name"){            
-            fields+="<div style='margin-left:7px;'>"+item.items[i].name+": <input data-dsource='"+i+"' value='' type='text' style='color:#000;font-size:12px;border:solid 0px;background-color:#d8d8d8;width:30px;' ></div>";
+            switch(item.items[i].xtype){
+                case "range" :
+                    fields+="<div class='prop_field_cont'>"+item.items[i].name+": <input type='range' data-dsource='"+i+"' value='-' type='text'  ></div>";
+                break;
+                
+                case "color" :                    
+                    fields+="<div style='margin-left:7px;'><div style='float:left;'>"+item.items[i].name+":</div> <div style='width:15px;height:20px;background-color:#11F;float:left;'></div></div> ";
+                break;
+                
+                default:
+                    fields+="<div class='prop_field_cont'>"+item.items[i].name+": <input data-dsource='"+i+"' value='' type='text' class='prop_field' ></div>";
+                break;                
+            }
+            
         }
         
         if(!item.name) item.name="";
-        return "<fieldset style='border:1px solid #ccc; width:81px;display:inline;padding:2px;margin:2px;'> <legend>"+item.name+"</legend>"+fields+"</fieldset>"         
+        return "<fieldset style='border:0px solid #ccc; width:81px;display:inline;padding:2px;margin:2px;'> <legend>"+item.name+"</legend>"+fields+"</fieldset>"         
     },
 
             

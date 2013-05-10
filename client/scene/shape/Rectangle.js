@@ -34,7 +34,7 @@ Define('app.scene.shape.Rectangle', {
                     
                     opacity:{
                         items:{
-                            alpha:{type:"procent",name:"alpha"}//TODO  от 0-1 подумать над именами                            
+                            alpha:{type:"procent",name:"alpha",xtype:"range"}//TODO  от 0-1 подумать над именами                            
                         }
                     }                
                     
@@ -75,8 +75,21 @@ Define('app.scene.shape.Rectangle', {
                     }
                 }
             },            
-            //Трансформации
-            stroke:{ name:"Линии" },
+            
+            //Цвета
+            color:{                
+                name:"цвета",
+                items:{
+                    border:{                        
+                        name:"border",
+                        items:{
+                            "border-color":{type:"color",name:"color",xtype:"color"},
+                            "border-size":{type:"int",name:"bs"}                                                
+                        }
+                    }                
+                }
+            },            
+            
             fill:{ name:"заливка" }
         },
         //======================================================================//

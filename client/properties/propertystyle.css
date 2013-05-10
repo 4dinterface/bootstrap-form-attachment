@@ -1,0 +1,19 @@
+/* 
+    Document   : propertystyle
+    Created on : 10.05.2013, 22:08:50
+    Author     : Евгений
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.prop_fild_cont{
+    margin-left:7px;
+}
+
+.prop_field{
+    color:#000;
+    font-size:12px;
+    border:solid 0px;
+    background-color:#d8d8d8;
+    width:30px;
+}    

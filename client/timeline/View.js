@@ -68,8 +68,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         // если с бегунком то получится 2 бегунка, поэтому Runner убран
         this.refrashTimeline=function (){
             $( '#timeline-editor-body-box' ).jqotesub( '#template-timeline-line', this.createTimeline() );
-            $( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
-
+            //$( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
             this.createRuler();
         };
 

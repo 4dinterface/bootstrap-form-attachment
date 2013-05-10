@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title></title>
         <link rel="stylesheet" href="./css/style.css"/>
 
         <link rel="stylesheet" href="client/editor/Stage.css">
-        <link rel="stylesheet" href="client/properties/propertystyle.css">
+        <link rel="stylesheet" href="client/properties/propertystyle.css">         
         
-        <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>        
+        <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
         <script src="frameworks/easelJs/filters/BoxBlurFilter.js"></script>
         <script src="frameworks/zepto/zepto.js"></script>
 
@@ -165,7 +165,22 @@
                         <div id="timeline-ruler-background"></div>
                     </div>
                     <div id="timeline-editor-body">
-                        <!--properties, keyframes and runner -->
+                        <div id="timeline-editor-body-box">
+                            <!--properties & keyframes -->
+
+                            <!-- Test only
+                            <div class="timeline-line">
+                                <div class="timeline-property" style="width: 5000px;"></div>
+                            </div>
+
+                            <div class="timeline-line">
+                                <div class="timeline-property" style="width: 200px;"></div>
+                                <div class="timeline-property" style="width: 100px; margin-left: 200px">
+                                    <div class="timeline-keyframe"></div>
+                                </div>
+                            </div>  -->
+
+                        </div>
                     </div>
                 </div>
 
@@ -183,7 +198,7 @@
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-property">
-                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="left:<%=this.left%>px; width:<%=this.width%>px;">
+                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;">
                         <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
                     </div>
                 </script>

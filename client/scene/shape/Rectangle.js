@@ -12,86 +12,97 @@ Define('app.scene.shape.Rectangle', {
         //====================================================================//
         //                           Настройки SHAPE                          //
         //====================================================================//
-        properties:{
-            base:{
-                name:"Позиция и размер",
-                items:{
-                    location:{
-                        //name:"Базовые",
-                        items:{
-                            x:{type:"int",name:"x"},
-                            y:{type:"int",name:"y"}                              
-                        }
-                    },
+        //
+        //http://www.photoshop-plus.co.uk/content/tutorials/new_imac_mini_icon/04.gif
+        properties:[                    
+            {
+                name:"Base",
+                items:[
+                    { type:"int",name:"name",target:"nameId"},//TODO  от 0-1 подумать над именами                            
+                    { type:"procent",name:"alpha",xtype:"range",target:"alpha"}//TODO  от 0-1 подумать над именами                            
+                ]
+            },
+            {
+                name:"Position and size",
+                items:[
+                    [                     
+                        {type:"int",name:"x",target:"x"},
+                        {type:"int",name:"y",target:"y"}                                                   
+                    ],
 
-                    size:{
-                        //name:"Базовые",
-                        items:{
-                            width:{type:"int",name:"width"},
-                            height:{type:"int",name:"height"}                        
-                        }
-                    },                
-                    
-                    opacity:{
-                        items:{
-                            alpha:{type:"procent",name:"alpha",xtype:"range"}//TODO  от 0-1 подумать над именами                            
-                        }
-                    }                
-                    
-                }
+                    [
+                        {type:"int",name:"W",target:"width"},
+                        {type:"int",name:"H",target:"height"}                        
+                    ]
+                ]
             },  
             
             //Трансформации
-            transform:{                
-                name:"трансформации",
-                items:{
-                    origin:{                        
-                        name:"origin",
-                        items:{
-                            regX:{type:"int",name:"x"},
-                            regY:{type:"int",name:"y"}                                                
-                        }
-                    },
-
-                    rotate:{
-                        items:{
-                            rotation:{type:"int",name:"rotate"}                           
-                        }
-                    },
-
-                    skew:{
+            {                
+                name:"Transform",
+                items:[
+                    {
                         name:"Skew",
-                        items:{
-                            skewX:{type:"int",name:"x"},
-                            skewY:{type:"int",name:"y"}                            
-                        }
-                    },                
-                    scale:{
+                        items:[
+                            {type:"int",name:"x",target:"skewX"},
+                            {type:"int",name:"y",target:"skewY"}                            
+                        ]
+                    }, 
+                    
+                    {
                         name:"Scale",
-                        items:{
-                            h:{type:"int",name:"h"},
-                            w:{type:"int",name:"v"}                                                                    
-                        }
-                    }
-                }
+                        items:[
+                            {type:"int",name:"v",target:"W"},                          
+                            {type:"int",name:"h",target:"H"}                            
+                        ]
+                    },
+                    
+                    {                        
+                        name:"origin",
+                        items:[
+                            {type:"int",name:"x",target:"regX"},
+                            {type:"int",name:"y",target:"regY"}                                                
+                        ]
+                    },
+
+                    {
+                        name:"rotation",
+                        items:[
+                            {type:"int",name:"",target:"rotation"}
+                        ]
+                    }                                        
+                ]
             },            
             
             //Цвета
-            color:{                
-                name:"цвета",
-                items:{
-                    border:{                        
+            {                
+                name:"Color",
+                items:[
+                    {                        
                         name:"border",
-                        items:{
-                            "border-color":{type:"color",name:"color",xtype:"color"},
-                            "border-size":{type:"int",name:"bs"}                                                
-                        }
+                        items:[
+                            {type:"color",name:"color",xtype:"color",target:"border-color"},
+                            {type:"int",name:"bs",target:"border-size"} 
+                        ]
                     }                
-                }
-            },            
+                ]
+            },
             
-            fill:{ name:"заливка" }
-        },
+            
+            {                
+                name:"Shadow",
+                items:[
+                    {                        
+                        name:"border",
+                        items:[
+                            {type:"color",name:"color",xtype:"color",target:"border-color"},
+                            {type:"int",name:"bs",target:"border-size"}
+                        ]
+                    }                
+                ]
+            }
+                                    
+        ],
         //======================================================================//
         
         

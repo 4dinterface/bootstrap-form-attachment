@@ -65,7 +65,7 @@ $( function () {
              
              ], function(){
                               
-        $(function(){                                    
+        $(function(){                                   
             var                
                 // создадим таймлайн
                 timeline = new app.model.Composition(),

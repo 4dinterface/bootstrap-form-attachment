@@ -67,7 +67,9 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         //топорный метод обновления, перерисовыет таймлай без бегунка
         // если с бегунком то получится 2 бегунка, поэтому Runner убран
         this.refrashTimeline=function (){
-            $( '#timeline-editor-body' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            $( '#timeline-editor-body-box' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            $( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
+
             this.createRuler();
         };
 

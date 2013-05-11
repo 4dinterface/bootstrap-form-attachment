@@ -69,6 +69,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
             
     set:function(deg){
         this.value=deg;
+        $(this.domTarget).attr('value',deg);
         this.refreshData();
         
         $(this.domTarget).trigger('change',{
@@ -81,13 +82,11 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
     },*/
             
     refresh:function(){
-        this.value=$(this.domTarget).attr('value');                
+        this.value=$(this.domTarget).val();                        
         this.refreshData();             
     },            
             
     refreshData:function(){        
-
-        this.input.val(this.value);
         //Достаточно заметное замедление даёт поворот через анимацию
         
         this.rotator.animate({

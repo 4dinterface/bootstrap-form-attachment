@@ -8,15 +8,20 @@ Define("app.properties.Сontroller", {
         this.domTarget=this.domTarget=$('#property-panel');
         var me=this;
 
-        this.domTarget.on('change',function(e){            
+        this.domTarget.on('change',function(e){                        
+            var el=$(e.srcElement);                
             
             //TODO сейчас применяется к первому shape а не к выбранном (собственно пока выбрать то нечего и нельзя)            
             me.model.get('shapeCollection').get(0).addKeyToProperty(
-                $(e.srcElement).attr('data-dsource'),
+                el.attr('data-dsource'),
                 me.movie.elapsedTime, 
-                $(e.srcElement).val()*1 
+                el.attr('value')*1
             );
                 
+            
+            
+            console.log(e);
+            
         });
 
     }

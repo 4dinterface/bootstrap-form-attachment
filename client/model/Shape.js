@@ -78,10 +78,11 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
             var prop=this.get('propertyCollection').get(propertyName) ;
             prop.get('keyframeCollection').set(time,new app.model.Keyframe({
                 "value":value,
-                "easing":"line"
+                "easing":"line",
+                "key":time
             }));
             
-            console.log('keyframeCollection',prop.get('keyframeCollection'));
+            //console.log('keyframeCollection',prop.get('keyframeCollection'));
         }       
         
 });

@@ -55,8 +55,8 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     makeGroup:function(gr,panel){
         //Создадим группу
         var cont="<div widget='Collapsible'>"
-                 +"<h2 style='background-color:#ccc;'><b>"+  gr.name + "</b></h2>"
-                 +"<div>";        
+                 +"<h2 style='background-color:#ccc; padding-left:5px;height:20px;'><b>"+  gr.name + "</b></h2>"
+                 +"<div style='padding-left:5px;'>";        
          
         //Создадим вложенные подгруппы
         for (var i in gr.items) if(i!=="name") {
@@ -85,7 +85,6 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             
     makeProperty:function(item){        
         var field="<div style='display:inline;'>";        
-
         
         if(item.name) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.name+"</div>";
         //field+="<div class='romb_button'></div>";
@@ -104,7 +103,7 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             break;
 
             default:
-                field+="<input widget='null' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />";
+                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />";
             break;                
         }                
         field+="</div> <div style='display:block;'></div>";

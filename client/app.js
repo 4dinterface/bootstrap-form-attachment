@@ -21,6 +21,7 @@ $( function () {
              "client/core/widget/widget.js",
              "client/core/ui/panel/Collapsible.js",
              "client/core/ui/form/Rotator.js",
+             "client/core/ui/form/NumberField.js",             
 
              
              // ---------- Model -------------

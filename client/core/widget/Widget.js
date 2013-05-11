@@ -36,7 +36,10 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
 	};
                 
         this._super();        
-    },        
+    },
+            
+    //обьявим метод ответственный за обновлеие виджета
+    refresh:function(){},
 	
     //события
     listeners: null

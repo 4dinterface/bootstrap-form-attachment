@@ -211,7 +211,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         this.fetch.fetch(elapsedTime);
         this.stage.update();
-
+        
         this.fire("onframe", {
             elapsedTime: elapsedTime
         });

@@ -68,7 +68,7 @@ Define('app.scene.shape.Rectangle', {
                     {
                         name:"rotation",
                         items:[
-                            {type:"int",name:"",target:"rotation"}
+                            {type:"int",name:"",target:"rotation",xtype:"rotator"}
                         ]
                     }                                        
                 ]

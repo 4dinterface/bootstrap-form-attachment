@@ -5,24 +5,3 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
-.prop_field_cont:{
-    margin-left:7px;
-    font-size:12px;    
-}
-
-.prop_field{
-    color:#000;
-    font-size:12px;
-    border:solid 0px;
-    background-color:#d8d8d8;
-    width:30px;
-}    
-
-.fieldset{
-    border:0px solid #ccc; 
-    width:81px;
-    display:inline;
-    padding:2px;
-    margin:2px;           
-}

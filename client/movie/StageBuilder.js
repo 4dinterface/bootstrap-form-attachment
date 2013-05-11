@@ -1,6 +1,5 @@
 /* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Задача класса создать обьекты на сцене исходя из данных в модели таймлайна
  */
 
 

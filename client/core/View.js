@@ -19,7 +19,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
      */
     init: function() {        
         this._super();        
-        if (this.widgetObserver) this.createWidgetObserver();                                
+        if (this.widgetObserver) this.createWidgetObserver();                         
     },
             
     //========================================================================//
@@ -33,7 +33,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
         if ('MutationObserver' in window){                
             this.viewObserver = new MutationObserver(function(){ 
                 clearTimeout(me.updateWidgetTimer);
-                me.updateWidgetTimer=setTimeout(me._autoUpdateWidget, 1);
+                me.updateWidgetTimer=setTimeout(me._autoUpdateWidget.bind(me), 1);
             });                     
                 
             this.viewObserver.observe(this.domTarget, {childList: true});                
@@ -44,7 +44,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
             this.domTarget.addEventListener('DOMSubtreeModified',function(){
                 //ниже приведённый код, гарантирует что _autoUpdateWidget сработает только однажды
                 clearTimeout(me.updateWidgetTimer);
-                me.updateWidgetTimer=setTimeout(me._autoUpdateWidget, 1);                    
+                me.updateWidgetTimer=setTimeout(me._autoUpdateWidget.bind(me), 1);                    
             });
         }
         
@@ -55,16 +55,21 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
     updateWidget:function(){        
         //if(this.widgetObserver){}
         clearTimeout(this.updateWidgetTimer);
-        this.updateWidgetTimer=setTimeout(this._autoUpdateWidget, 1);
+        this.updateWidgetTimer=setTimeout(this._autoUpdateWidget.bind(this), 1);
     },        
 
 
-    //автоматическое обновление виджетов, как реакция на обсервер
+    //бновление виджетов, как реакция на обсервер
     _autoUpdateWidget:function(){  
-        //полезная логика        
-        //alert('hello world');
+        //полезная логика                       
         core.widget.widgetManager.update(this.domTarget);
-    },      
+    }, 
+
+            
+    refreshWidget:function(){        
+        core.widget.widgetManager.refresh( $(this.domTarget) );
+    },        
+
 
     //события
     listeners: null

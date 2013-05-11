@@ -20,6 +20,7 @@ $( function () {
              "client/core/widget/widgetManager.js",
              "client/core/widget/widget.js",
              "client/core/ui/panel/Collapsible.js",
+             "client/core/ui/form/Rotator.js",
 
              
              // ---------- Model -------------

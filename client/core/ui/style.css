@@ -1,0 +1,57 @@
+/* 
+    Document   : style.css
+    Created on : 11.05.2013, 17:50:28
+    Author     : Евгений
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.rotator{
+    border-radius:10px; 
+    width:20px;
+    height:20px;
+    background-color:#111;   
+    float:left;
+}
+
+.widget_rotator{      
+}    
+
+.widget_rotator input{    
+    background-color:#d8d8d8;
+    border:white solid 0px;
+    font-size: 12px;
+}    
+
+
+/*  NumberFields  */
+.widget_numberfield{
+    color:#000;
+    font-size:12px;
+    border:solid 0px;
+    background-color:#d8d8d8;
+    width:30px;
+}    
+
+/* Fieldset  */
+.fieldset{
+    border:0px solid #ccc; 
+    width:45%;
+    display:inline;
+    padding:2px;
+    margin:2px;           
+}
+
+/* romb_button  */
+.romb_button{
+    float:left; 
+    margin-right:5px;
+    margin-left:2px; 
+    margin-top:6px; 
+    width:6px;
+    height:6px;
+    background-color:#000;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}

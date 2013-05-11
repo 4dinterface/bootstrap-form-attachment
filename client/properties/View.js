@@ -8,6 +8,8 @@
 
 Define( "app.properties.View", /** @lends {app.component} */ {
     extend: core.View,
+    
+    //автоматически следим за созданием и удалением виджетов
     widgetObserver:true,
     
     /**
@@ -15,7 +17,7 @@ Define( "app.properties.View", /** @lends {app.component} */ {
      * @type {app.model.Timeline}
      * @private
      */
-    model: null,
+    model: null,    
     bindMap:null,
 
     init: function( cnf ) {
@@ -42,7 +44,7 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             this.createBindMap();
             
             //на каждом кадре обновляем числа
-            this.movie.on('onframe',function(){                
+            this.movie.on('onframe',function(){                                
                 me.dataUpdate();     
             })
             
@@ -81,21 +83,31 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     },
 
             
-    makeProperty:function(item){
-        var field="";
+    makeProperty:function(item){        
+        var field="<div style='display:inline;'>";        
+
+        
+        if(item.name) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.name+"</div>";
+        //field+="<div class='romb_button'></div>";
+        
         switch(item.xtype){
             case "range" :
-                field="<div class='prop_field_cont'>"+item.name+": <input type='range' data-dsource='"+item.target+"' value='-' type='text'  ></div>";
+                field+="<input widget='null' type='range' data-dsource='"+item.target+"' value='0' style='width:50%;'/>";
             break;
 
             case "color" :                    
-                field="<div class='prop_field_cont'><div style='float:left;'>"+item.name+":</div> <div style='width:15px;height:20px;background-color:#11F;float:left;'></div></div> ";
+                field+="<div widget='null' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
+            break;
+            
+            case "rotator" :                    
+                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div> ";                
             break;
 
             default:
-                field="<div class='prop_field_cont'>"+item.name+": <input data-dsource='"+item.target+"' value='' type='text' class='prop_field' ></div>";
+                field+="<input widget='null' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />";
             break;                
-        }
+        }                
+        field+="</div> <div style='display:block;'></div>";
         return field;
     },
 
@@ -108,7 +120,7 @@ Define( "app.properties.View", /** @lends {app.component} */ {
         var me=this;
         this.bindMap={};
         
-        $('input',this.domTarget).each(function(){                 
+        $('[widget]',this.domTarget).each(function(){                            
             me.bindMap[ $(this).attr('data-dsource') ]=$(this);
         });
     },        
@@ -119,13 +131,14 @@ Define( "app.properties.View", /** @lends {app.component} */ {
      * Задача найти свойства
      */            
     dataUpdate:function(){
-        var me=this;
+        var me=this,
+           widget;
         for (i in this.bindMap) {
-            this.bindMap[i].val(me.target[i]);
-        }
+            this.bindMap[i].val( me.target[i] );                        
+        }                
+        me.refreshWidget();
     }
-    
-    
-    
+            
 });
 
+    

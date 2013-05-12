@@ -80,7 +80,7 @@ Define( 'app.timeline.Controller', {
             }
 
             this.propertySelect( e, prop );
-            this.runnerMove( e );
+            this.runnerMove( e, e.pageX - this.domEditor.offset().left );
 
             // this.domTarget.on( '.drag' );
         },
@@ -90,6 +90,10 @@ Define( 'app.timeline.Controller', {
          * Ловит событие и вызывает функции поведения
          */
         '#timeline-editor % mousedown % #timeline-runner-head': function( e ) {
+            if ( e.which !== 1 ) {
+                return;
+            }
+
             this.dragElems = $( e.target );
             //this.dragPositions = this.dragElems.offset();
             this.dragShiftX = this.domEditor.offset().left
@@ -108,9 +112,9 @@ Define( 'app.timeline.Controller', {
         '% mousemove.drag': function( e ) {
             var x = e.pageX - this.dragShiftX;
 
-            // console.log( x );
+            //console.log( x );
 
-            this[ this.dragHandler ]( false, x );
+            this[ this.dragHandler ]( e, x );
         },
 
 
@@ -186,15 +190,12 @@ Define( 'app.timeline.Controller', {
     /**
      * Перемещение бегунка
      * @param {Object} e event object
+     * @param {Number} position
      */
-    runnerMove: function( e ) {
-        var position;
-
+    runnerMove: function( e, position ) {
         if ( e.ctrlKey || e.which !== 1 ) {
             return;
         }
-
-        position = e.pageX - this.domEditor.offset().left;
 
         this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
     }

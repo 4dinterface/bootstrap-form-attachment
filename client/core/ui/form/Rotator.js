@@ -40,7 +40,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
         this.input=this.domTarget.find('input');                
         
         
-        me.rotator.on('mousedown',function(e){
+        me.domTarget.on('mousedown',function(e){
             me.startX=e.x;
             me.startY=e.y;
             
@@ -53,7 +53,10 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
                 $( 'body' ).off('mousemove',rotate);            
             })
         });
-                
+        
+        me.input.on('change',function(){
+            me.set( me.input.val() );
+        })        
         //$.fn.data(this.domTarget,'widget',this);                      
         //console.log( 'original', $.fn.data(this.domTarget,'widget') ) ;
          
@@ -85,10 +88,12 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
         this.value=$(this.domTarget).val();                        
         this.refreshData();             
     },            
+
             
-    refreshData:function(){        
-        //Достаточно заметное замедление даёт поворот через анимацию
+    refreshData:function(){                
+        this.input.val(this.value);
         
+        //Достаточно заметное замедление даёт поворот через анимацию
         this.rotator.animate({
             rotateZ: this.value+'deg'
         },0);

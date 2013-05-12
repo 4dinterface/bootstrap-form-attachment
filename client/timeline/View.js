@@ -41,7 +41,6 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {
             $( '#timeline-editor-body-box' ).jqotesub( '#template-timeline-line', this.createTimeline() );
-            $( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
 
             this.createRuler();
         }.bind( this ));
@@ -68,9 +67,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         // если с бегунком то получится 2 бегунка, поэтому Runner убран
         this.refrashTimeline=function (){
             $( '#timeline-editor-body-box' ).jqotesub( '#template-timeline-line', this.createTimeline() );
-            $( '#timeline-editor' ).jqoteapp( '#template-timeline-runner', this.createRunner() );
-
-            this.createRuler();
+            //this.createRuler();
         };
 
         //=====================================================================//
@@ -86,16 +83,17 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         });
 
 
-        // ---------------------- CURSOR ------------------------
+        // ---------------------- RUNNER ------------------------
 
 
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            $( '#timeline-runner' ).css( 'left', this.utilites.toPixels( this.model, e.elapsedTime ) );
+            $( '#timeline-runner-body, #timeline-runner-head' )
+                .css( 'left', this.utilites.toPixels( this.model, e.elapsedTime ) );
         }.bind( this ));
 
 
-        // ------------------- END CURSOR ------------------------
+        // ------------------- END RUNNER ------------------------
         
     },
 
@@ -158,6 +156,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
     },
 
 
+    // TODO: нужен ли, если бегунок изменния таймлайна (полная перерисовка) не затрагивают
     createRunner: function() {
         // test only
         return 150;

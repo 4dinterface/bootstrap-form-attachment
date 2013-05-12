@@ -493,8 +493,11 @@ html, body {
 * Голова бегунка / область захвата мышью при перетаскивании
 */
 #timeline-runner-head {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
     width: 6px;
-    height: 20px;
     margin-left: -3px;
     background-color: #DED300;
     border: 1px solid #000;
@@ -572,17 +575,13 @@ html, body {
 /**
 * Бегунок
 */
-#timeline-runner {
+#timeline-runner-body {
     position: absolute;
     top: 0px;
-
-    /* судя по всему придется получать высоту полосы прокрутки */
-    bottom: 18px;
+    bottom: 0px;
 
     background-color: #DED300;
     width: 2px;
-
-    height: 305px;
 }
 
 /* END TIMELINE EDITOR BODY */

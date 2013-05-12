@@ -79,8 +79,8 @@ Define( 'app.timeline.Controller', {
                 prop = keyframe.parent( '.timeline-property' );
             }
 
-            this.propertySelect( e.ctrlKey, prop );
-            this.runnerMove( e.ctrlKey, e.pageX - this.domEditor.offset().left );
+            this.propertySelect( e, prop );
+            this.runnerMove( e );
 
             // this.domTarget.on( '.drag' );
         },
@@ -126,17 +126,20 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Выделение свойств
-     * @param {Boolean} ctrlKey
+     * @param {Object} e event object
      * @param {Object|Null} prop
      */
-    propertySelect: function( ctrlKey, prop ) {
+    propertySelect: function( e, prop ) {
+        if ( e.which !== 1 ) {
+            return;
+        }
 
-        if ( !prop && !ctrlKey ) {
+        if ( !prop && !e.ctrlKey ) {
             unselect( this.model, $( '.timeline-property-select' ) );
             return;
         }
 
-        if ( ctrlKey ) {
+        if ( e.ctrlKey ) {
             if ( prop.hasClass( 'timeline-property-select' ) ) {
                 unselect( this.model, prop );
             } else {
@@ -182,13 +185,16 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Перемещение бегунка
-     * @param {Boolean} ctrlKey
-     * @param {Number} position
+     * @param {Object} e event object
      */
-    runnerMove: function( ctrlKey, position ) {
-        if ( ctrlKey ) {
-            return
+    runnerMove: function( e ) {
+        var position;
+
+        if ( e.ctrlKey || e.which !== 1 ) {
+            return;
         }
+
+        position = e.pageX - this.domEditor.offset().left;
 
         this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
     }

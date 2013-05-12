@@ -1,5 +1,5 @@
 Define("app.properties.Сontroller", {
-
+    
     extend: "core.Controller",
 
     init: function (prop) {

@@ -33,14 +33,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         this.stage.removeAllChildren ();
         
         for (var i=0;i<data.length;i++){            
-            tlShape=this.makeTimelineShape ( data[i] );
-            stShape=this.makeStageShape    ( data[i] ); 
-            
-            tlShape.target=stShape;
-            stShape.timeline=tlShape;
-            
+            tlShape=this.makeTimelineShape ( data[i] );            
             this.timeline.get('shapeCollection').push(tlShape);                        
-            this.stage.addChild( stShape );
         }
         
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
@@ -66,7 +60,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      */
     makeTimelineShape: function(shape){
         var ts=new app.model.Shape({}); 
-        console.log("SHAPE=====",shape);
+        //console.log("SHAPE=====",shape);
         
         var props=shape.property;
         var filters=shape.filters;
@@ -80,10 +74,15 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         for (i in filters) {
             //alert(i);
             ts.get('filterCollection').set(i, this.makeTimelineFilter(filters[i],i) );                                        
-        }               
+        }       
         
+        ts.set('stageShape',shape.target);
+        
+        console.log('shape.target',shape.target);
+                
         return ts;
     },
+
             
     makeTimelineFilter: function(filter){
         var ts=new app.model.Filter({});         
@@ -93,21 +92,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         }
         return ts;        
     },        
-            
-
-            
-
-    /**
-     * создаёт shape для сцены
-     * свойство xtype в target, указывает какой именно обьект конструировать
-     * @param {Object} shape обьект описывающий shape
-     */
-    makeStageShape: function(shape){        
-        //console.log('shape=',shape);
-        var cls=shape.target.xtype;                        
-        return new app.scene.shape[cls](shape.target);
-    },
-            
+                                   
     /**
      * создаёт модель свойства
      * для каждого ключа создаётся экземпляр класса model

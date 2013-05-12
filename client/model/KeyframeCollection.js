@@ -76,11 +76,15 @@ Define('app.model.KeyframeCollection', /** @lends {app.model.KeyframeCollection}
         * Перемещает ключ с одной позиции на другую
         * @param {int}  oldTime - время на которой распложен ключ
         * @param {Object} newTime - время куда мы ключ переместили 
-        */          
+        */      
+        
+        //bug - непроверен
         moveKeyframe:function(oldTime,newTime){
-            var keyframe=this[oldTime];
-            delete this[oldTime];
-            this[newTime]=keyframe;
+            var keyframe=this.data[oldTime];
+            delete this[oldTime];//удалить
+            delete this.data[oldTime];
+            keyframe.set('key',newTime)
+            this.data[newTime]=keyframe;
                                     
             //вызовем соответствующее событие
             this.fire("keyframecollectionchange", {

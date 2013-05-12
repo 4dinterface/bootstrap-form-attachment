@@ -134,10 +134,6 @@ Define( 'app.timeline.Controller', {
      * @param {Object|Null} prop
      */
     propertySelect: function( e, prop ) {
-        if ( e.which !== 1 ) {
-            return;
-        }
-
         if ( !prop && !e.ctrlKey ) {
             unselect( this.model, $( '.timeline-property-select' ) );
             return;

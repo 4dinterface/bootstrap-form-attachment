@@ -456,7 +456,8 @@ html, body {
 /* TIMELINE EDITOR HEAD */
 
 #timeline-editor-head {
-    /* some css */
+    position: relative;
+    overflow: hidden;
 }
 
 #timeline-ruler {

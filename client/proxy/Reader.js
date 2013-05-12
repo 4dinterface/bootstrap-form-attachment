@@ -42,10 +42,11 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             this.timeline.get('shapeCollection').push(tlShape);                        
             this.stage.addChild( stShape );
         }
+        
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
         console.log('timeline',this.timeline);
-        //alert( this.timeline.getLength() );
         //обновление
+        alert(this.timeline.getLength());
         
         //Имитация асинхронности
         setTimeout(function(){

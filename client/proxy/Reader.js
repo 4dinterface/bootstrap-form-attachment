@@ -46,7 +46,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
         console.log('timeline',this.timeline);
         //обновление
-        alert(this.timeline.getLength());
+        //alert(this.timeline.getLength());
         
         //Имитация асинхронности
         setTimeout(function(){

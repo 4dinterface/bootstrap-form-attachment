@@ -73,6 +73,19 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
                 e.property=me;
                 me.fire(e.eventName,e);
             })            
-	}
+	},
+                
+        /**
+         * Возращает длинну анимации свойства
+         */        
+        getLength:function(){
+            var result=0,
+                keyCollection = this.get( 'keyframeCollection' );
+        
+            keyCollection.forEach( function( keyframe ) {
+                if(keyframe.get('key')>result) result= keyframe.get('key');
+            })            
+            return result;
+        }
         
 });

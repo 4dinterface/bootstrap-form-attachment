@@ -83,6 +83,22 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
             }));
             
             //console.log('keyframeCollection',prop.get('keyframeCollection'));
-        }       
+        },
+
+        /**
+         * Возвращает длинну анимации shape
+         */
+        getLength:function(){
+            var result=0,
+                len=0,
+                propertyCollection = this.get( 'propertyCollection' );
+                      
+        
+            propertyCollection.forEach( function( prop ) {
+                len=prop.getLength();
+                if(len>result) result= len;                   
+            })                        
+            return result;
+        }
         
 });

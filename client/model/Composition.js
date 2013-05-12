@@ -83,23 +83,19 @@ Define( 'app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
         this.liftEvent(value);        
     },
             
+            
+    /**
+     * Возвращает длинну композиции
+     */        
     getLength: function( id ) {
-        var result = 0;
-
-        var shapeCollection = this.get( 'shapeCollection' );
-        var propertyCollection = null;
-        var keyCollection = null;
-        
+        var result = 0,
+            len=0,
+            shapeCollection = this.get( 'shapeCollection' );
+            
         //перебор shape
         shapeCollection.forEach( function( shape ) {
-            //перебор фигур
-            propertyCollection = shape.get( 'propertyCollection' );                
-            propertyCollection.forEach( function( prop ) {
-                keyCollection = prop.get( 'keyframeCollection' );
-                keyCollection.forEach( function( keyframe ) {
-                    if(keyframe.get('key')>result) result= keyframe.get('key');                   
-                })                                            
-            })                        
+            len=shape.getLength();
+            if(len>result) result= len;                   
         });
         
         return result;

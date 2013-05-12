@@ -21,16 +21,19 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     bindMap:null,
 
     init: function( cnf ) {
-        this.domTarget=$('#property-panel')[0];
-        this._super();
+        this.domTarget=$('#property-panel')[0];        
         this.apply( cnf );
                 
-        // Готовность модели.
-        // Предполагается, что это события срабатывает после готовности документа
         var me=this;        
-        this.model.on( 'load', function( e ) {  
+        this._super();
+    },
+    
+    listeners:{
+         //слушаем событие загрузки модели
+        "model load":function(e){
+            var me=this;
             //берём в качестве теста первый shape в коллекции
-            me.target=this.model.get("shapeCollection").get(0).target;
+            this.target=this.model.get("shapeCollection").get(0).target;
             
             //получаем ссылку на shape
             var shape=this.target.properties;
@@ -39,16 +42,14 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             for(var i in shape){                
                 this.makeGroup(shape[i], $('#property-panel') );
             }            
-            
-            //
-            this.createBindMap();
-            
-            //на каждом кадре обновляем числа
-            this.movie.on('onframe',function(){                                
-                me.dataUpdate();     
-            })
-            
-        }.bind( this ) );
+                        
+            this.createBindMap();                       
+        },
+                
+         //на каждом кадре обновляем числа                    
+        "movie onframe":function(){                                
+            this.dataUpdate();     
+        }        
     },
 
     // создадим группу
@@ -109,7 +110,6 @@ Define( "app.properties.View", /** @lends {app.component} */ {
         field+="</div> <div style='display:block;'></div>";
         return field;
     },
-
             
     /**
      * Строит карту по принципу имяСвойства:domElement

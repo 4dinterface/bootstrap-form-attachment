@@ -6,25 +6,24 @@
  */
 Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     extend:"core.widget.Widget",
-    /**
-     * @constructor
-     */
+    
     widget:"NumberField",                
     startX:0,
     startY:0,
-    startValue:0,
+    startValue:0,    
     
-    //
-    //input:null,
-    
+    /**
+     * @constructor
+     */
     init: function (cfg) {        
-        this.apply(cfg);        
-        
+        this.apply(cfg);                
         this.domTarget=$(this.domTarget);                         
         this._super();
     },
             
-    
+    /**
+     * слушаем события
+     */
     listeners:{
         "domTarget mousedown":function(e){
             var onChange=this.onChange.bind(this); 
@@ -51,7 +50,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
         var deg=this.startValue+(e.x-this.startX)+(this.startY-e.y );
         this.set(deg);
     },
-            
+                
     set:function(deg){
         this.value=deg;
         $(this.domTarget).val(deg);
@@ -63,5 +62,5 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
             
     refresh:function(){
         this.value=$(this.domTarget).val();        
-    }                    
+    }
 }));

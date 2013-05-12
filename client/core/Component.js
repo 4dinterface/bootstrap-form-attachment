@@ -16,16 +16,27 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
      * @constructor
      */
     init: function () {	
+        var res;
         
         //увеличим счётчик компонентов и используем его как уникальный идентификатор
         componentCount++;
         this.id=componentCount;
         
+        
         //подключаем обработчики событий
         this.event={};
-        //alert(x);
+                
 	for (event in this.listeners) {
-            
+            res=event.split(' ');
+            // подпишемся на событие компонента
+            if(res.length==1){                
+                this.on( res[0], this.listeners[ event ].bind(this) );
+            } 
+            // подпишемся на события одного из свойств компонента
+            else {
+                console.log('res[0]',"="+res[0]+"=", this );
+                this[ res[0] ].on( res[1], this.listeners[ event ].bind(this) );
+            }
 	}
         //console.log('ths',this);
     },
@@ -88,14 +99,14 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
         if(!src.on) return;                        
         
         switch(typeof opt){
-            //undefined
+            //если второй параметр undefined
             case "undefined":                
                src.on('bubble',function(e){
                    me.fire(e.eventName,e);
                })
             break; 
 
-           //функция
+           //если второй параметр функция
             case "function":                                      
                src.on('bubble',opt)
             break;        

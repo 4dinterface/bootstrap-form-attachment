@@ -4,45 +4,50 @@
  * @class
  * @name app.Component
  */
-Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
-    extend:"core.widget.Widget",
-    /**
-     * @constructor
-     */
-    widget:"Rotator",                
-    startX:0,
-    startY:0,
+Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
+    extend:"core.widget.Widget",    
+    widget:"Rotator",           
     
-    //
+    startX:0,
+    startY:0,        
     input:null,
     rotator:null,
     
+    tmpl:"<div class='rotator'>"+
+            "<div style='width:1px; height:10px; margin-left:10px;background-color:#EEE;'></div>"+
+        "</div>"+
+        '<input style="display:inline;width:40px;margin-left:5px;">',
+
+    /**
+     * @constructor
+     */
     init: function (cfg) {
         
-        this.apply(cfg);
-        this._super();
-
-        var me=this,
-            rotate=me.rotate.bind(me);             
+        this.apply(cfg);        
+        
         this.domTarget=$(this.domTarget);
         this.domTarget.addClass('widget_rotator');
         
 
-        //вращающийся указатеь
+        //применим шаблон        
+        this.domTarget.append(this.tmpl);
+            
+        this.rotator=this.domTarget.find('.rotator');                                
+        this.input=this.domTarget.find('input');                        
         
-        this.domTarget.append("<div class='rotator'></div>");        
-        me.rotator=this.domTarget.find('.rotator');                
-        me.rotator.append('<div style="width:1px; height:10px; margin-left:10px;background-color:#EEE;"></div>');        
-        
+        //$.fn.data(this.domTarget,'widget',this);                      
+        //console.log( 'original', $.fn.data(this.domTarget,'widget') ) ;
+         this._super();
+    },
 
-        //поле ввода
-        this.domTarget.append('<input style="display:inline;width:40px;margin-left:5px;">');
-        this.input=this.domTarget.find('input');                
-        
-        
-        me.domTarget.on('mousedown',function(e){
-            me.startX=e.x;
-            me.startY=e.y;
+    //обработчики событий
+    // вешаются по принципу "this.источник событие"
+    // либо "cобытие" будет повешено прямо на this
+    listeners:{
+        "domTarget mousedown":function(e){
+            var rotate=this.rotate.bind(this);            
+            this.startX=e.x;
+            this.startY=e.y;
             
             //подпишемся на перемещаения мыши
             $( 'body' ).on('mousemove',rotate);
@@ -52,15 +57,12 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',rotate);            
             })
-        });
-        
-        me.input.on('change',function(){
-            me.set( me.input.val() );
-        })        
-        //$.fn.data(this.domTarget,'widget',this);                      
-        //console.log( 'original', $.fn.data(this.domTarget,'widget') ) ;
-         
-    },
+        },
+                
+        "input change":function(){
+            this.set( this.input.val() );
+        }
+    },        
     
     /**
      * Обработчик события перемещения
@@ -72,20 +74,16 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
             
     set:function(deg){
         this.value=deg;
-        $(this.domTarget).attr('value',deg);
+        this.domTarget.attr('value',deg);
         this.refreshData();
         
-        $(this.domTarget).trigger('change',{
+        this.domTarget.trigger('change',{
             srcElement: this.domTarget            
         })        
     },
             
-    /*update:function(){
-        alert("update");
-    },*/
-            
     refresh:function(){
-        this.value=$(this.domTarget).val();                        
+        this.value=this.domTarget.val();                        
         this.refreshData();             
     },            
 
@@ -96,8 +94,8 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */({
         //Достаточно заметное замедление даёт поворот через анимацию
         this.rotator.animate({
             rotateZ: this.value+'deg'
-        },0);
-        
+        },0);        
         //this.domTarget.find('.widget_rotator').css({'transform': 'rotateZ('+this.value+'deg);'} );
-    }    
-}));
+    }
+        
+});

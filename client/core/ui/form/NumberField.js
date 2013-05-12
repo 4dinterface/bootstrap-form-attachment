@@ -1,5 +1,5 @@
 /**
- * Collapsible
+ * NumberField
  *   
  * @class
  * @name app.Component
@@ -17,21 +17,21 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     //
     //input:null,
     
-    init: function (cfg) {
+    init: function (cfg) {        
+        this.apply(cfg);        
         
-        this.apply(cfg);
+        this.domTarget=$(this.domTarget);                         
         this._super();
-
-        var me=this,
-            onChange=this.onChange.bind(me); 
-        this.domTarget=$(this.domTarget);
-        //this.domTarget.addClass('widget_rotator');                                                
-        
-        
-        this.domTarget.on('mousedown',function(e){
-            me.startX=e.x;
-            me.startY=e.y;
-            me.startValue=me.value*1;
+    },
+            
+    
+    listeners:{
+        "domTarget mousedown":function(e){
+            var onChange=this.onChange.bind(this); 
+            
+            this.startX=e.x;
+            this.startY=e.y;
+            this.startValue=this.value*1;
             
             //подпишемся на перемещаения мыши
             $( 'body' ).on('mousemove',onChange);
@@ -41,11 +41,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',onChange);            
             })
-        });
-                
-        //$.fn.data(this.domTarget,'widget',this);                      
-        //console.log( 'original', $.fn.data(this.domTarget,'widget') ) ;
-         
+        }
     },
     
     /**
@@ -59,20 +55,13 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     set:function(deg){
         this.value=deg;
         $(this.domTarget).val(deg);
-        //this.refreshData();
         
         $(this.domTarget).trigger('change',{
             srcElement: this.domTarget            
         })        
     },
             
-    /*update:function(){
-        alert("update");
-    },*/
-            
     refresh:function(){
         this.value=$(this.domTarget).val();        
-    }
-            
-        
+    }                    
 }));

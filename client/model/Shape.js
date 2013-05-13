@@ -75,7 +75,15 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
          *  
          */                        
         addKeyToProperty:function(propertyName,time,value){
+            //попробуем получить св-во
             var prop=this.get('propertyCollection').get(propertyName) ;
+            
+            //если св-во несуществует попробуем его создать
+            if(!prop) {
+                prop=new app.model.Property({name:propertyName,});
+                this.get('propertyCollection').set(propertyName,prop);
+            }
+            
             prop.get('keyframeCollection').set(time,new app.model.Keyframe({
                 "value":value,
                 "easing":"line",

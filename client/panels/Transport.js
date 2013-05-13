@@ -48,7 +48,10 @@ Define("app.panels.Transport", {
             this.rewindStop();
          }
     },
-    
+            
+    /**
+     * запускает перемотку
+     */
     rewind:function(fun){
         var me=this;
         me.movie[fun]();

@@ -8,6 +8,7 @@ Define('app.scene.shape.Rectangle', {
         width:100,
         height:40,
         blurX:0,
+        borderSize:0,
 
         //====================================================================//
         //                           Настройки SHAPE                          //
@@ -82,7 +83,7 @@ Define('app.scene.shape.Rectangle', {
                         name:"border",
                         items:[
                             {type:"color",name:"color",xtype:"color",target:"border-color"},
-                            {type:"int",name:"bs",target:"border-size"} 
+                            {type:"int",name:"bw",target:"borderSize"} 
                         ]
                     }                
                 ]
@@ -167,7 +168,7 @@ Define('app.scene.shape.Rectangle', {
             
             this.graphics
                     .beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130)
-                    .setStrokeStyle(7)
+                    .setStrokeStyle(this["borderSize"])
                     .beginStroke("rgba(190,50,50,1)")                    
                     .drawRect(0, 0, me.width, me.height)
                     .endStroke();                      

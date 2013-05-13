@@ -45,17 +45,17 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     // либо "cобытие" будет повешено прямо на this
     listeners:{
         "domTarget mousedown":function(e){
-            var rotate=this.rotate.bind(this);            
+            var onChange=this.onChange.bind(this);            
             this.startX=e.x;
             this.startY=e.y;
             
             //подпишемся на перемещаения мыши
-            $( 'body' ).on('mousemove',rotate);
+            $( 'body' ).on('mousemove',onChange);
             
             // подпишемся на отпускание мыши, событие сработает только один раз
             // при отпускании отписываемся от слежением за movie
             $( 'body' ).one('mouseup',function(e){            
-                $( 'body' ).off('mousemove',rotate);            
+                $( 'body' ).off('mousemove',onChange);            
             })
         },
                 
@@ -67,7 +67,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     /**
      * Обработчик события перемещения
      */        
-    rotate:function(e){       
+    onChange:function(e){       
         var deg=(e.x-this.startX)+(this.startY-e.y );
         this.set(deg);
     },

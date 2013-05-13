@@ -4,8 +4,8 @@
  * @returns {Object} Proxy объект представления таймлайна
  */
 Define( "app.proxy.Reader", /** @lends {app.component} */{
-
-    extend: core.Component,
+    
+    extend: core.Component,    
     
     /**
      * Конструктор загрузчика, 
@@ -78,7 +78,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         
         ts.set('stageShape',shape.target);
         
-        console.log('shape.target',shape.target);
+        //console.log('shape.target',shape.target);
                 
         return ts;
     },
@@ -123,13 +123,10 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
             ret.set(i, this.makeKeyframe ( i, col[i] )  );
         
         return ret;
-    },
-            
-
+    },            
     
     makeKeyframe:function(i, col){
         col.key=parseInt(i, 10);            
         return new app.model.Keyframe( col );
     }
-
 });

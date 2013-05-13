@@ -9,6 +9,7 @@
 Define( "core.Controller", /** @lends {app.Component.prototype} */({
 
     extend: "core.Component",
+    mixins:[{xxx:200}],
 
 
     /**

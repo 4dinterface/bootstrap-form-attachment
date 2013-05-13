@@ -25,7 +25,7 @@ core.Define = Define = function (name, prop) {
                 
         //тест на наличие функции супер в коде        
         fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
-
+            
     //child prototype - скопируем туда родителя
     child.prototype = Object.create( src.prototype || src );
 
@@ -34,7 +34,22 @@ core.Define = Define = function (name, prop) {
 
     //prop
     //NS child.prototype[x]
-
+    
+    //примеси
+    // TODO - протестировать    
+    if ('mixins' in prop){        
+        var l=prop.mixins.length,i=0;        
+        for (;i<l;i++){            
+            //копируем свойства
+            for (var x in prop.mixins[i]) { 
+                child.prototype[x] = prop.mixins[i][x];
+            }
+            
+            console.log('mixins prototype=', child.prototype);
+        }
+    }
+    
+    
     //скопируем свойства текущего класса
     for (var x in prop) {                    
         if (typeof prop[x] == "function")
@@ -43,7 +58,7 @@ core.Define = Define = function (name, prop) {
         child.prototype[x] = prop[x];                
     }
 
-    //console.log(child.prototype);
+    
     
     
     //вызовем препроцессор, если есть

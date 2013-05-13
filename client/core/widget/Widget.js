@@ -27,6 +27,7 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
         $(this.domTarget).addClass('live_widget')
     },
             
+   //TODO вероятно методнеиспользуется
     useEvent:function(){
         var me=this;
         this.apply();        

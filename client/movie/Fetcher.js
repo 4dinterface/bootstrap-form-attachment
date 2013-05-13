@@ -73,6 +73,8 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
             item.target.renderToCache();
         });
 
+        //TODO - максим первый shape у которого закончаться ключи остановит весь ролик
+        //перенеси эту проверку в fetch, нас интерисует случай когда ни у одного shape небыло не одного св-ва анимировано
         if (!someoneRendered) {
             self.fire('missingboth');
         }

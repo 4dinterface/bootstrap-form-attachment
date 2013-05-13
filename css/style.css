@@ -453,15 +453,8 @@ html, body {
 }
 
 #timeline-editor-head {
-    /* some css */
-}
-
-#timeline-editor-body{
-    height: 300px;
-    overflow: scroll;
-    background-color: #dadada;
-    position: absolute;
-    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 #timeline-ruler {
@@ -478,6 +471,53 @@ html, body {
     height: 22px;
     margin-top: -22px;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMTEB0DHTu5JgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY2CAgv///5vjYDAwMAAAvw0JnXzCDWwAAAAASUVORK5CYII=");
+}
+
+/**
+* Блок на линейке таймлайна
+*/
+.timeline-ruler-pick {
+    color: #fffae5;
+    width: 100px;
+    height: 20px;
+    float: left;
+    border-right: 1px solid gray;
+    text-align: left;
+    font-size: 0.6em;
+    font-family: Tahoma;
+}
+
+/**
+* Голова бегунка / область захвата мышью при перетаскивании
+*/
+#timeline-runner-head {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 6px;
+    margin-left: -3px;
+    background-color: #DED300;
+    border: 1px solid #000;
+}
+
+/* END TIMELINE EDITOR HEAD */
+
+
+/* TIMELINE EDITOR BODY */
+
+#timeline-editor-body {
+    height: 300px;
+    overflow: scroll;
+    background-color: #dadada;
+    position: absolute;
+    width: 100%;
+}
+
+#timeline-editor-body-box {
+    display: table;
+    width: 100%;
+    height: 100%;
 }
 
 /**
@@ -553,17 +593,13 @@ html, body {
 /**
 * Бегунок
 */
-#timeline-runner {
+#timeline-runner-body {
     position: absolute;
     top: 0px;
-
-    /* судя по всему придется получать высоту полосы прокрутки */
-    bottom: 18px;
+    bottom: 0px;
 
     background-color: #DED300;
     width: 2px;
-
-    height: 305px;
 }
 
 /**

@@ -79,8 +79,8 @@ Define( 'app.timeline.Controller', {
                 prop = keyframe.parent( '.timeline-property' );
             }
 
-            this.propertySelect( e.ctrlKey, prop );
-            this.runnerMove( e.ctrlKey, e.pageX - this.domEditor.offset().left );
+            this.propertySelect( e, prop );
+            this.runnerMove( e, e.pageX - this.domEditor.offset().left );
 
             // this.domTarget.on( '.drag' );
         },
@@ -90,6 +90,10 @@ Define( 'app.timeline.Controller', {
          * Ловит событие и вызывает функции поведения
          */
         '#timeline-editor % mousedown % #timeline-runner-head': function( e ) {
+            if ( e.which !== 1 ) {
+                return;
+            }
+
             this.dragElems = $( e.target );
             //this.dragPositions = this.dragElems.offset();
             this.dragShiftX = this.domEditor.offset().left
@@ -108,9 +112,9 @@ Define( 'app.timeline.Controller', {
         '% mousemove.drag': function( e ) {
             var x = e.pageX - this.dragShiftX;
 
-            // console.log( x );
+            //console.log( x );
 
-            this[ this.dragHandler ]( false, x );
+            this[ this.dragHandler ]( e, x );
         },
 
 
@@ -126,17 +130,16 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Выделение свойств
-     * @param {Boolean} ctrlKey
+     * @param {Object} e event object
      * @param {Object|Null} prop
      */
-    propertySelect: function( ctrlKey, prop ) {
-
-        if ( !prop && !ctrlKey ) {
+    propertySelect: function( e, prop ) {
+        if ( !prop && !e.ctrlKey ) {
             unselect( this.model, $( '.timeline-property-select' ) );
             return;
         }
 
-        if ( ctrlKey ) {
+        if ( e.ctrlKey ) {
             if ( prop.hasClass( 'timeline-property-select' ) ) {
                 unselect( this.model, prop );
             } else {
@@ -182,12 +185,12 @@ Define( 'app.timeline.Controller', {
 
     /**
      * Перемещение бегунка
-     * @param {Boolean} ctrlKey
+     * @param {Object} e event object
      * @param {Number} position
      */
-    runnerMove: function( ctrlKey, position ) {
-        if ( ctrlKey ) {
-            return
+    runnerMove: function( e, position ) {
+        if ( e.ctrlKey || e.which !== 1 ) {
+            return;
         }
 
         this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );

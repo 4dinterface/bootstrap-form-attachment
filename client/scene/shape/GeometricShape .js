@@ -3,3 +3,10 @@
  */
 
 
+Define('app.scene.shape.GeometricShape', {
+	extend: createjs.Shape,
+        init:function(){
+            
+        }
+        
+});        

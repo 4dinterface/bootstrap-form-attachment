@@ -19,21 +19,21 @@ Define('app.scene.shape.Rectangle', {
             {
                 name:"Base",
                 items:[
-                    { type:"int",name:"name",target:"nameId"},//TODO  от 0-1 подумать над именами                            
-                    { type:"procent",name:"alpha",xtype:"range",target:"alpha"}//TODO  от 0-1 подумать над именами                            
+                    { type:"int",label:"name",target:"nameId"},//TODO  от 0-1 подумать над именами                            
+                    { type:"procent",label:"alpha",xtype:"range",target:"alpha"}//TODO  от 0-1 подумать над именами                            
                 ]
             },
             {
                 name:"Position and size",
                 items:[
                     [                     
-                        {type:"int",name:"x",target:"x"},
-                        {type:"int",name:"y",target:"y"}                                                   
+                        {type:"int",label:"x",target:"x"},
+                        {type:"int",label:"y",target:"y"}                                                   
                     ],
 
                     [
-                        {type:"int",name:"W",target:"width"},
-                        {type:"int",name:"H",target:"height"}                        
+                        {type:"int",label:"W",target:"width"},
+                        {type:"int",label:"H",target:"height"}                        
                     ]
                 ]
             },  
@@ -45,31 +45,31 @@ Define('app.scene.shape.Rectangle', {
                     {
                         name:"Skew",
                         items:[
-                            {type:"int",name:"x",target:"skewX"},
-                            {type:"int",name:"y",target:"skewY"}                            
+                            {type:"int",label:"x",target:"skewX"},
+                            {type:"int",label:"y",target:"skewY"}                            
                         ]
                     },  
                     
                     {
                         name:"Scale",
                         items:[
-                            {type:"int",name:"W",target:"w"},                          
-                            {type:"int",name:"H",target:"h"}                            
+                            {type:"int",label:"W",target:"w"},                          
+                            {type:"int",label:"H",target:"h"}                            
                         ]
                     },
                     
                     {                        
                         name:"origin",
                         items:[
-                            {type:"int",name:"x",target:"regX"},
-                            {type:"int",name:"y",target:"regY"}                                                
+                            {type:"int",label:"x",target:"regX"},
+                            {type:"int",label:"y",target:"regY"}                                                
                         ]
                     },
 
                     {
                         name:"rotation",
                         items:[
-                            {type:"int",name:"",target:"rotation",xtype:"rotator"}
+                            {type:"int",label:"",target:"rotation",xtype:"rotator"}
                         ]
                     }                                        
                 ]
@@ -82,8 +82,8 @@ Define('app.scene.shape.Rectangle', {
                     {                        
                         name:"border",
                         items:[
-                            {type:"color",name:"color",xtype:"color",target:"border-color"},
-                            {type:"int",name:"bw",target:"borderSize"} 
+                            {type:"color",label:"color",xtype:"color",target:"border-color"},
+                            {type:"int",label:"bw",target:"borderSize"} 
                         ]
                     }                
                 ]
@@ -96,8 +96,8 @@ Define('app.scene.shape.Rectangle', {
                     {                        
                         name:"border",
                         items:[
-                            {type:"color",name:"color",xtype:"color",target:"border-color"},
-                            {type:"int",name:"bs",target:"border-size"}
+                            {type:"color",label:"color",xtype:"color",target:"border-color"},
+                            {type:"int",label:"bs",target:"border-size"}
                         ]
                     }                
                 ]

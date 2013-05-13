@@ -86,17 +86,16 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             
     makeProperty:function(item){        
         var field="<div style='display:inline;'>";        
-        
-        if(item.name) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.name+"</div>";
-        //field+="<div class='romb_button'></div>";
-        
+        //console.log('prop',item['label']);
+        if(item.label) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.label+"</div>";
+        //field+="<div class='romb_button'></div>";         
         switch(item.xtype){
             case "range" :
                 field+="<input widget='null' type='range' data-dsource='"+item.target+"' value='0' style='width:50%;'/>";
             break;
 
             case "color" :                    
-                field+="<div widget='null' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
+                field+="<div widget='InputColor' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
             break;
             
             case "rotator" :                    

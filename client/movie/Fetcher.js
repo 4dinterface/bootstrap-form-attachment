@@ -34,22 +34,27 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
      * @param {number} elapsedTime время с момента старта
      * */
     fetch: function (elapsedTime) {
-        var self = this;
+        var self = this, someoneRendered = false;
 
         self.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Shape} */ item) {
-            self.fetchShape(item, elapsedTime);
+            someoneRendered = someoneRendered || self.fetchShape(item, elapsedTime);
         });
+
+        if (!someoneRendered) {
+            self.fire('missingboth');
+        }
     },
 
     /**
      * Высчитает текущие значения свойств для одной фигуры
      * @param {app.model.Shape} item слой (фигура и её данные)
      * @param {number} elapsedTime прошедшее с момента старта время
+     * @return {boolean} имелись ли в наличии два ключевых кадра для фигуры хотя бы для одного свойства
      */
     fetchShape: function (item, elapsedTime) {
 
         var self = this;
-        var someoneRendered = false;
+        var somePropRendered = false;
 
         item.get('propertyCollection').forEach(function (prop, propertyName) {
 
@@ -66,16 +71,14 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
                     item.target[ propertyName ] = keyframes.second.get('value');
                 }
             } else {
-                someoneRendered = true;
+                somePropRendered = true;
                 item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
             }
 
             item.target.renderToCache();
         });
 
-        if (!someoneRendered) {
-            self.fire('missingboth');
-        }
+        return somePropRendered;
 
     },
 

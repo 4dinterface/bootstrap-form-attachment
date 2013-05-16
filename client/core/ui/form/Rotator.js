@@ -69,25 +69,41 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
      */        
     onChange:function(e){       
         var deg=(e.x-this.startX)+(this.startY-e.y );
-        this.set(deg);
-    },
-            
-    set:function(deg){
-        this.value=deg;
-        this.domTarget.attr('value',deg);
-        this.refreshView();
+        this.set( 'value', deg );
         
         this.domTarget.trigger('change',{
             srcElement: this.domTarget            
-        })        
+        });        
     },
             
+    /**
+     * Устанавливает свойства события
+     */
+    set:function(name,deg){
+        switch(name){
+            case 'value':
+                this.value=deg;
+                this.domTarget.attr('value',deg);
+                this.refreshView();               
+            break;
+            
+            default:
+                
+            break;
+        }        
+    },
+            
+    /**
+     * устанавливает значения из итрибутов в свойства виджетов
+     */        
     refresh:function(){
         this.value=this.domTarget.val();                        
         this.refreshView();             
     },            
 
-    
+    /**
+     * Перерисовывает виджет согласно данным
+     */
     refreshView:function(){                
         this.input.val(this.value);
         

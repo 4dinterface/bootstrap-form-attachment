@@ -25,7 +25,7 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     init: function () {	           
         this._super();     
         
-        this.domTarget=$(this.domTarget);        
+        this.domTarget=$(this.domTarget);                
         $(this.domTarget).addClass('live_widget');
         
         //если нет id то он будет сгенерирован автматически

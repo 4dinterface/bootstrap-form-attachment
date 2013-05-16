@@ -65,8 +65,14 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
 
     //бновление виджетов, как реакция на обсервер
     _autoUpdateWidget:function(){  
-        //полезная логика                       
+        //сгенерируем виджеты и сохраним доступ к ним
         this.widgets=core.widget.widgetManager.update( this.domTarget );        
+
+        //сгенерируем событие о том что виджеты обновлены
+        this.fire('widgetsupdate',{
+            widgets:this.widgets
+        })
+        
     }, 
 
             

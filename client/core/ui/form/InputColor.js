@@ -130,18 +130,25 @@ Define("core.ui.form.InputColor", /** @lends {app.Component.prototype} */{
     },               	                              
     
     /**
-     * Обработчик события перемещения
+     * Обработчик события изменения
      */        
     onChange:function(e){       
-        this.set(deg);
-    },
-            
-    set:function(deg){
+        this.set('value',0);
         this.domTarget.trigger('change',{
             srcElement: this.domTarget            
         })        
     },
-            
+
+    /**
+     * Устанавливает свойства виджетов
+     */
+    set:function(name,val){
+        
+    },
+    
+    /**
+     * считывает значения из атрибутова
+     */     
     refresh:function(){
         this.value=this.domTarget.val();                        
         this.refreshData();             

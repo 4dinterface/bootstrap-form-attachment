@@ -46,23 +46,40 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     },
     
     /**
-     * Обработчик события перемещения
+     * Обработчик события перемещения 
+     * устанавливает новые значения в свойствах и генерирует событие
      */        
     onChange:function(e){       
-        var deg=this.startValue+(e.x-this.startX)+(this.startY-e.y );
-        this.set(deg);
-    },
-                
-    set:function(deg){
-        this.value=deg;
-        $(this.domTarget).val(deg);
+        var val=this.startValue+(e.x-this.startX)+(this.startY-e.y );
+        this.set('value',val);
         
         $(this.domTarget).trigger('change',{
             srcElement: this.domTarget            
         })        
+        
     },
+    
+    
+    /**
+     * сеттер для свойств виджета
+     */
+    set:function(name,val){
+        switch (name){            
+            case 'value':
+                this.value=val;
+                $(this.domTarget).val(val);        
+            break;
             
+            default:
+                
+            break;            
+        }        
+    },
+
+    /**
+     * метод считывает свойства виджетов с атрибутов
+     */
     refresh:function(){
         this.value=$(this.domTarget).val();        
-    }
+    }    
 }));

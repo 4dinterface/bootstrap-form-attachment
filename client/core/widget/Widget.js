@@ -20,11 +20,16 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     preprocessor:function(cls){
         if(this.widget!="") core.widget.widgetManager.registerWidget(this.widget,cls);
     },
-            
-    
+
+    //Конструктор
     init: function () {	           
         this._super();     
-        $(this.domTarget).addClass('live_widget')
+        
+        this.domTarget=$(this.domTarget);        
+        $(this.domTarget).addClass('live_widget');
+        
+        //если нет id то он будет сгенерирован автматически
+        if ($(this.domTarget).attr("id")=="" ) $(this.domTarget).attr("id", core.utilites.genId() );
     },
             
    //TODO вероятно методнеиспользуется

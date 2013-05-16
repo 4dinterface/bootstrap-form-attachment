@@ -14,6 +14,10 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
     domTarget:"body",
 
     updateWidgetTimer:null,
+    
+    // ссылка на виджеты работающие в этом view, заполняется методом  _autoUpdateWidget
+    "widgets":{},
+    
     /**
      * @constructor
      */
@@ -62,7 +66,7 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
     //бновление виджетов, как реакция на обсервер
     _autoUpdateWidget:function(){  
         //полезная логика                       
-        core.widget.widgetManager.update(this.domTarget);
+        this.widgets=core.widget.widgetManager.update( this.domTarget );        
     }, 
 
             

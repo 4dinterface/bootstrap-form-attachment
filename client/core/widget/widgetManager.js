@@ -38,36 +38,43 @@ Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
         id= me.getTargetId(target);            
 
         //если для этого dom элемента виджеты нет ещё не одного виджета тогда создадим массив
-        me.liveWidget[id]=me.liveWidget[id]||[];
+        me.liveWidget[id]=me.liveWidget[id]||{};
+        //me.liveWidget[id]=me.liveWidget[id]||[];
+        
 
 
         //перебираем все виджеты в пределах target
         //TODO а надо ли исключать live_widget ?
          $('[widget]',target).not('.live_widget').each(function(num,el){            
 
-                var widgetName= $(this).attr("widget");            
+                var widgetName= $(this).attr("widget");                    
 
                 //если муляж виджета тогда пропускаем его
                 if (widgetName=="null") return;                                                
 
-                //создадим виджет
-                me.liveWidget[id].push(                     
-                    new me.regWidget[widgetName]({ 
+                //создадим виджет                
+                var widget=new me.regWidget[widgetName]({ 
                         domTarget:$(this) 
-                    })                                
-                );            
+                    });
+                                    
+                me.liveWidget[id][ $(this).attr('id') ]=widget;                                                                    
         })        
-        //console.log( me.liveWidget );
+        
+        //вернём ссылка на обьект с виджетами
+        return me.liveWidget[id];
     },
             
     //обновляет свойства        
     refresh:function(target){
+        //console.log('widgets=',this.getTargetId(target));
+        
         var id=this.getTargetId(target),
             widgets=this.liveWidget[id],
-            count=widgets.length;
+            item;
+            
         //вызываем для каждого виджета свойство refresh
-        while(count--){
-            widgets[count].refresh ();
+        for (item in widgets){
+            widgets[item].refresh ();
         }        
     },            
             

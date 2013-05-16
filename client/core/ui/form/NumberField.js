@@ -17,7 +17,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
      */
     init: function (cfg) {        
         this.apply(cfg);                
-        this.domTarget=$(this.domTarget);                         
+        this.domTarget=$(this.domTarget);
         this._super();
     },
             
@@ -40,6 +40,8 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',onChange);            
             })
+            
+            e.stopPropagation();
         }
     },
     

@@ -2,7 +2,7 @@
  * Главный неймспейс для фреймворка
  * @namespace
  */
-window.core=window.core||{};
+window.core=window.core
 
 /**
  * Конструктор классов

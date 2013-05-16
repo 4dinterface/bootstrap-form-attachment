@@ -16,7 +16,7 @@ $( function () {
         
          var a=new core.ClassLoader();                
          a.require([
-             //классы ядра
+             //классы ядра             
              "client/core/Component.js",
              "client/core/data/ObjectCollection.js",
              "client/core/data/ArrayCollection.js",
@@ -25,11 +25,12 @@ $( function () {
              "client/core/View.js",
 
              "client/core/widget/widgetManager.js",
-             "client/core/widget/widget.js",
+             "client/core/widget/Widget.js",
              "client/core/ui/panel/Collapsible.js",
              "client/core/ui/form/Rotator.js",
              "client/core/ui/form/NumberField.js",
              "client/core/ui/form/InputColor.js",
+             "client/core/ui/form/Fieldset.js",
 
              
              // ---------- Model -------------
@@ -46,7 +47,8 @@ $( function () {
              "client/proxy/demoData.js",
              "client/proxy/Reader.js",
 
-             // ---------- Scene -------------                        
+             // ---------- Scene -------------    
+             "client/scene/shape/GeometricShape.js",
              "client/scene/shape/HtmlElement.js",
              "client/scene/shape/Text.js",
              "client/scene/shape/Circle.js",
@@ -148,6 +150,7 @@ $( function () {
                     reader:reader
                 }),
                 
+                //панель управления воспроизведением
                 transport=new app.panels.Transport({
                     movie:movie                    
                 }),

@@ -99,14 +99,13 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * @param {Object} shape обьект описывающий shape
      */                                
     makeProperty: function(col,name){                        
-        console.log('log',col);
+        //console.log('log',col);
         var me=this;
         return new app.model.Property({
             'name':name,
             'keyframeCollection': me.makeKeyCollection(col.keyframes),
             'type':col.type
-        });
-        
+        });        
     },
             
     /**
@@ -118,7 +117,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         var ret=new app.model.KeyframeCollection(),
             i=null,
             keyframe;
-                        
+    
+        
         for (i in col) 
             ret.set(i, this.makeKeyframe ( i, col[i] )  );
         
@@ -129,4 +129,5 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         col.key=parseInt(i, 10);            
         return new app.model.Keyframe( col );
     }
+    
 });

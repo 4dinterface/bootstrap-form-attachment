@@ -31,7 +31,8 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     listeners:{
          //слушаем событие загрузки модели
         "model load":function(e){
-            var me=this;
+            var me=this,
+                srcData=null;
             //берём в качестве теста первый shape в коллекции
             this.target=this.model.get("shapeCollection").get(0).target;
             
@@ -40,7 +41,8 @@ Define( "app.properties.View", /** @lends {app.component} */ {
 
             //перебераем все группы в shape
             for(var i in shape){                
-                this.makeGroup(shape[i], $('#property-panel') );
+                srcData=typeof shape[i]=="string"?this.target.libProperties[shape[i]]:shape[i];
+                this.makeGroup(srcData, $('#property-panel') );
             }            
                         
             this.createBindMap();                       
@@ -79,8 +81,9 @@ Define( "app.properties.View", /** @lends {app.component} */ {
         for(var i in items) if(i!=="name"){            
             fields+=this.makeProperty( items[i] )
         }
-                
-        return "<fieldset class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>"         
+        
+        if (item.sync==true) return "<fieldset widget='Fieldset' class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
+        else return "<fieldset class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
     },
 
             
@@ -99,11 +102,11 @@ Define( "app.properties.View", /** @lends {app.component} */ {
             break;
             
             case "rotator" :                    
-                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div> ";                
+                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div>";                
             break;
 
             default:
-                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />";
+                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />px";
             break;                
         }                
         field+="</div> <div style='display:block;'></div>";
@@ -117,10 +120,14 @@ Define( "app.properties.View", /** @lends {app.component} */ {
     createBindMap:function(){
         var me=this;
         this.bindMap={};
-        
-        $('[widget]',this.domTarget).each(function(){                            
-            me.bindMap[ $(this).attr('data-dsource') ]=$(this);
+
+        //отреагируем на создание виджетов
+        this.on("widgetsupdate",function(w){        
+            for(var v in me.widgets){                
+                me.bindMap[ me.widgets[v].domTarget.attr('data-dsource') ]= me.widgets[v];
+            }
         });
+        
     },        
 
 
@@ -129,12 +136,10 @@ Define( "app.properties.View", /** @lends {app.component} */ {
      * Задача найти свойства
      */            
     dataUpdate:function(){
-        var me=this,
-           widget;
-        for (i in this.bindMap) {
-            this.bindMap[i].val( me.target[i] );                        
-        }                
-        me.refreshWidget();
+        var me=this;
+        for (var i in this.bindMap) {
+            this.bindMap[i].set('value', me.target[i] );                        
+        }                        
     }
             
 });

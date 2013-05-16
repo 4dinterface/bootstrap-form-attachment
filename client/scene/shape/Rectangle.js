@@ -2,7 +2,7 @@
  * Квадрат
  */
 Define('app.scene.shape.Rectangle', {
-	extend: createjs.Shape,
+	extend: app.scene.shape.GeometricShape,
     
         //свойства влияющие на кэш
         width:100,
@@ -13,96 +13,32 @@ Define('app.scene.shape.Rectangle', {
         //====================================================================//
         //                           Настройки SHAPE                          //
         //====================================================================//
-        //
+        // важно если вместо {} указана текстовая строка значит свойства берётся из libProperties в родительском классе
         //http://www.photoshop-plus.co.uk/content/tutorials/new_imac_mini_icon/04.gif
+        
         properties:[                    
-            {
+            
+        {
                 name:"Base",
                 items:[
                     { type:"int",label:"name",target:"nameId"},//TODO  от 0-1 подумать над именами                            
                     { type:"procent",label:"alpha",xtype:"range",target:"alpha"}//TODO  от 0-1 подумать над именами                            
                 ]
             },
-            {
-                name:"Position and size",
-                items:[
-                    [                     
-                        {type:"int",label:"x",target:"x"},
-                        {type:"int",label:"y",target:"y"}                                                   
-                    ],
-
-                    [
-                        {type:"int",label:"W",target:"width"},
-                        {type:"int",label:"H",target:"height"}                        
-                    ]
-                ]
-            },  
             
+            //Позиция и размеры
+            "positionAndResize",
+             
             //Трансформации
-            {                
-                name:"Transform",
-                items:[
-                    {
-                        name:"Skew",
-                        items:[
-                            {type:"int",label:"x",target:"skewX"},
-                            {type:"int",label:"y",target:"skewY"}                            
-                        ]
-                    },  
-                    
-                    {
-                        name:"Scale",
-                        items:[
-                            {type:"int",label:"W",target:"w"},                          
-                            {type:"int",label:"H",target:"h"}                            
-                        ]
-                    },
-                    
-                    {                        
-                        name:"origin",
-                        items:[
-                            {type:"int",label:"x",target:"regX"},
-                            {type:"int",label:"y",target:"regY"}                                                
-                        ]
-                    },
+            "transform",
+            
+            //силизация
+            "stylize",
+            
+            //corners - управление угламиы
 
-                    {
-                        name:"rotation",
-                        items:[
-                            {type:"int",label:"",target:"rotation",xtype:"rotator"}
-                        ]
-                    }                                        
-                ]
-            },            
-            
-            //Цвета
-            {                
-                name:"Color",
-                items:[
-                    {                        
-                        name:"border",
-                        items:[
-                            {type:"color",label:"color",xtype:"color",target:"border-color"},
-                            {type:"int",label:"bw",target:"borderSize"} 
-                        ]
-                    }                
-                ]
-            },
-            
-            
-            {                
-                name:"Shadow",
-                items:[
-                    {                        
-                        name:"border",
-                        items:[
-                            {type:"color",label:"color",xtype:"color",target:"border-color"},
-                            {type:"int",label:"bs",target:"border-size"}
-                        ]
-                    }                
-                ]
-            }
-                                    
+            //shadow
+            "shadow"                        
         ],
         //======================================================================//
         
@@ -119,8 +55,7 @@ Define('app.scene.shape.Rectangle', {
             this.y = cnf.y;	            
                                                 
             //console.log('this',this.width);
-            
-            
+                        
             var blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
             this.filters = [blurFilter];                                              
                 
@@ -172,7 +107,6 @@ Define('app.scene.shape.Rectangle', {
                     .beginStroke("rgba(190,50,50,1)")                    
                     .drawRect(0, 0, me.width, me.height)
                     .endStroke();                      
-            //console.log('gr',this.graphics);                        
             
             this.updateCache();
             this.graphics.clear();

@@ -41,6 +41,21 @@ Define( 'app.timeline.Controller', {
     domEditor: $( '#timeline-editor' ),
 
 
+    /**
+     * Контейнер внутри тела редактора таймлайна
+     * @type {Object}
+     * @private
+     */
+    domEditorBodyBox: $( '#timeline-editor-body-box' ),
+
+
+    /**
+     * Бегунок на таймлайнее
+     * @type {Object}
+     * @private
+     */
+    domRunner: $( '#timeline-runner-body, #timeline-runner-head' ),
+
     dragShiftX: null,
 
     dragElems: null,
@@ -68,9 +83,14 @@ Define( 'app.timeline.Controller', {
     domListeners: {
 
         /**
-         * Ловит событие и вызывает функции поведения
+         * Ловит событие на теле таймлайна и вызывает функции поведения
+         *
+         * @param {Object} e объект события
+         * @param {Object} eventRunner объект события пришедший с бегунка
          */
-        '#timeline-editor-body % mousedown': function( e ) {
+        '#timeline-editor-body-box % mousedown': function( e, eventRunner ) {
+            e = eventRunner || e;
+
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
@@ -83,6 +103,22 @@ Define( 'app.timeline.Controller', {
             this.runnerMove( e, e.pageX - this.domEditor.offset().left );
 
             // this.domTarget.on( '.drag' );
+        },
+
+
+        /**
+         * Передает событие с бегунка на таймлан
+         * Устанавливает истинную цель события
+         *
+         * @param {Object} e объект события
+         */
+        '#timeline-runner-body % mousedown': function( e ) {
+            e = $.extend({}, e );
+
+            this.domRunner.hide();
+            e.target = document.elementFromPoint( e.clientX, e.clientY );
+            this.domEditorBodyBox.trigger( 'mousedown', e );
+            this.domRunner.show();
         },
 
 

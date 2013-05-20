@@ -34,6 +34,14 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
 
     /**
+     * Тело редактора таймлайна
+     * @type {Object}
+     * @private
+     */
+    domEditorBody: $( '#timeline-editor-body' ),
+
+
+    /**
      * Конструктор объекта представления
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
@@ -94,12 +102,21 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            this.domRunner.css( 'left', this.utilites.toPixels( this.model, e.elapsedTime ) );
+            var x = this.utilites.toPixels( this.model, e.elapsedTime );
+
+            this.domRunner.css( 'left', x );
+            //this.autoScroll( x );
         }.bind( this ));
 
 
         // ------------------- END RUNNER ------------------------
         
+    },
+
+
+    autoScroll: function( x ) {
+        console.log( this.domEditorBody )
+        this.domEditorBody.scrollLeft( x );
     },
 
 

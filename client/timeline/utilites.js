@@ -5,6 +5,29 @@ app.timeline = app.timeline || {};
 
 app.timeline.utilites = {
 
+
+    /**
+     * Возвращает функцию, вызывающую исходную с задержкой delay в контексте
+     * context, если таковой был указан. В случае, когда во время задержки функция
+     * была вызвана еще раз, то предыдующий вызов отменяется, а таймер обновляется.
+     * Таким образом из нескольких вызовов, совершающихся чаще, чем delay,
+     * реально будет вызван только последний.
+     *
+     * @param {Function} fn
+     * @param {Number} [delay=40]
+     * @param {Object} [context=this]
+     * @return {Function}
+     */
+    applyCallFilter: function( fn, delay, context ) {
+        var timer;
+        return function() {
+            var callback = fn.bind( context || this, arguments );
+            clearTimeout( timer );
+            timer = setTimeout( callback, delay || 40 );
+        };
+    },
+
+
     /**
      *  Переводит миллисекунды в пиксели в зависимости
      *  от настроек представления таймлана.

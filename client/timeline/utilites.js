@@ -21,9 +21,12 @@ app.timeline.utilites = {
     applyCallFilter: function( fn, delay, context ) {
         var timer;
         return function() {
-            var callback = fn.bind( context || this, arguments );
+            var that = this, args = arguments;
+
             clearTimeout( timer );
-            timer = setTimeout( callback, delay || 40 );
+            timer = setTimeout( function() {
+                fn.apply( context || that, args );
+            }, delay || 10 );
         };
     },
 

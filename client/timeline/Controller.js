@@ -83,36 +83,29 @@ Define( 'app.timeline.Controller', {
     domListeners: {
 
 
-        '#timeline-editor-body % click': function( e ) {
-            var elem = e.target;
-            //var elem = this.domEditor[0];
-
-            console.log( elem.clientWidth, elem.scrollWidth, elem.scrollLeft );
-        },
-
-
         /**
          * Ловит событие на теле таймлайна и вызывает функции поведения
          *
          * @param {Object} e объект события
          * @param {Object} [eventRunner] объект события пришедший с бегунка
          */
-//        '#timeline-editor-body-box % mousedown': function( e, eventRunner ) {
-//            e = eventRunner || e;
-//
-//            var target = $( e.target );
-//            var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
-//            var prop = target.is( '.timeline-property' ) ? target : null;
-//
-//            if ( keyframe ) {
-//                prop = keyframe.parent( '.timeline-property' );
-//            }
-//
-//            this.propertySelect( e, prop );
-//            this.runnerMove( e, e.pageX - this.domEditor.offset().left );
-//
-//            // this.domTarget.on( '.timeline-drag' );
-//        },
+        '#timeline-editor-body-box % mousedown': function( e, eventRunner ) {
+            e = eventRunner || e;
+
+            var target = $( e.target );
+            var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
+            var prop = target.is( '.timeline-property' ) ? target : null;
+            var position = e.pageX - this.domEditor.offset().left + this.domEditorBody.scrollLeft();
+
+            if ( keyframe ) {
+                prop = keyframe.parent( '.timeline-property' );
+            }
+
+            this.propertySelect( e, prop );
+            this.runnerMove( e, position );
+
+            // this.domTarget.on( '.timeline-drag' );
+        },
 
 
         /**

@@ -17,6 +17,14 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      */
     model: null,
 
+
+    /**
+     * Флаг включения/отключения автоскролла
+     * @type {Boolean}
+     * @private
+     */
+    enableAutoScroll: false,
+
     /**
      * Утилиты таймлайна
      * @type {Object}
@@ -51,7 +59,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         this.apply( cfg );
 
 
-        console.log( this.model.zoom );
+        // console.log( this.model.zoom );
 
 
         // Предполагается, что событие срабатывает после готовности документа
@@ -102,21 +110,48 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            var x = this.utilites.toPixels( this.model, e.elapsedTime );
+            var positionInPixels = this.utilites.toPixels( this.model, e.elapsedTime );
 
-            this.domRunner.css( 'left', x );
-            //this.autoScroll( x );
+            this.domRunner.css( 'left', positionInPixels );
+            this.autoScroll( positionInPixels );
         }.bind( this ));
 
+
+
+        this.movie.on( 'onplay', function() {
+            //TODO: тут прокрутка к начальной точке воспроизведения
+            this.enableAutoScroll = true;
+        }.bind( this ));
+
+
+        this.movie.on( 'onpause', function() {
+            this.enableAutoScroll = false;
+        }.bind( this ));
+
+
+        this.movie.on( 'onstop', function() {
+            this.enableAutoScroll = false;
+        }.bind( this ));
 
         // ------------------- END RUNNER ------------------------
         
     },
 
 
-    autoScroll: function( x ) {
-        console.log( this.domEditorBody )
-        this.domEditorBody.scrollLeft( x );
+    autoScroll: function( positionInPixels ) {
+        if ( !this.enableAutoScroll ) {
+            return;
+        }
+
+        var visibleWidth = this.domEditorBody.get( 0 ).clientWidth;
+        var scrollLeft = this.domEditorBody.scrollLeft();
+        var positionInPercents = ( positionInPixels - scrollLeft ) * 100 / visibleWidth;
+        var newScrollLeft = scrollLeft;
+
+        if ( positionInPercents > 90 ) {
+            newScrollLeft += visibleWidth * 0.9;
+            this.domEditorBody.scrollLeft( newScrollLeft );
+        }
     },
 
 

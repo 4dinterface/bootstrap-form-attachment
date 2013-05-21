@@ -18,6 +18,7 @@ app.timeline.utilites = {
      * @param {Object} [context=this]
      * @return {Function}
      */
+    // TODO: Подумать над реализацией метода
     applyCallFilter: function( fn, delay, context ) {
         var timer;
         return function() {

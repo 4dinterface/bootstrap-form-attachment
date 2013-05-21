@@ -5,25 +5,29 @@
  * @name app.scene.Stage
  * @extends {createjs.Stage}
  */
-Define('app.scene.Stage', /** @lends {app.scene.Stage.prototype} */({
+Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */({
 
 	extend: createjs.Stage,
         mixins:[ core.Component ],
 
 	// инициализация
-	init  : function () {
+	init  : function () {            
 		var me = this;
+                this.event={};
 
 		$(function () {
 			canvas = $("#canvas")[0];
 			me.initialize(canvas);
 		});
 	},
-        update:function(){
+
+                    
+        /**
+         * метод update        
+         */
+        update:function(){            
             this._super();
-            //this.fire('onrender',function(){
-            //    console.log('onfire');
-            //})
+            this.fire('onrender',{})
         },        
 
 	// отрисовывает сцену

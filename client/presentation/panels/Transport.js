@@ -1,4 +1,4 @@
-Define("app.panels.Transport", {
+Define("app.presentation.panels.Transport", {
     extend: core.Controller,
     
     domTarget:".player",

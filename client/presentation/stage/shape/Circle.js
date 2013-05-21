@@ -1,8 +1,8 @@
 /* 
  * Круг
  */
-Define('app.scene.shape.Circle', {
-	extend: createjs.Shape,
+Define('app.presentation.stage.shape.Circle', {
+	extend: app.presentation.stage.shape.GeometricShape,
         width:100,
         height:100,
 	// инициализация

@@ -1,4 +1,4 @@
-Define("app.editor.Сontroller", {
+Define("app.bussiness.stageEditor.Сontroller", {
 
     extend: core.Component,
 

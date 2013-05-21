@@ -48,12 +48,12 @@ $( function () {
              "client/proxy/Reader.js",
 
              // ---------- Scene -------------    
-             "client/presentation/scene/shape/GeometricShape.js",
-             "client/presentation/scene/shape/HtmlElement.js",
-             "client/presentation/scene/shape/Text.js",
-             "client/presentation/scene/shape/Circle.js",
-             "client/presentation/scene/shape/Rectangle.js",
-             "client/presentation/scene/Stage.js",
+             "client/presentation/stage/shape/GeometricShape.js",
+             "client/presentation/stage/shape/HtmlElement.js",
+             "client/presentation/stage/shape/Text.js",
+             "client/presentation/stage/shape/Circle.js",
+             "client/presentation/stage/shape/Rectangle.js",
+             "client/presentation/stage/Stage.js",
 
              // ---------- Movie -------------                        
              'client/business/movie/Fetcher.js',
@@ -67,8 +67,7 @@ $( function () {
 
              // ---------- Холст -------------
              "client/presentation/stageEditor/Controller.js",
-
-            
+             
             // ---------- Panels -------------                                     
              "client/presentation/panels/Menu.js",
              "client/presentation/panels/Toolbar.js",
@@ -84,7 +83,7 @@ $( function () {
                 timeline = new app.model.Composition(),
 
                 //сцена         
-                stage=new app.scene.Stage(),
+                stage=new app.presentation.stage.Stage(),
             
                 //создадим конструктор сцены
                 stageBuilder=new app.movie.StageBuilder({
@@ -104,10 +103,10 @@ $( function () {
 
                 // контроллер панели инструментов
                 // TODO, рассмотреть возможность реализации тулбара через виджет
-                toolbar = new app.panels.Toolbar(),
+                toolbar = new app.presentation.panels.Toolbar(),
 
                 // контролёр сцены
-                sceneController = new app.editor.Сontroller({
+                stageController = new app.bussiness.stageEditor.Сontroller({
                     stage:stage,     
                     toolbar: toolbar
                 }),
@@ -133,25 +132,26 @@ $( function () {
                 
                 
                 //панель свойств
-                propertiesView=new app.properties.View({
-                    model:timeline,
-                    movie:movie
+                propertiesView=new app.presentation.properties.View({
+                    model:timeline,                    
+                    stage:stage
                 }),              
                 
-                propertiesController=new app.properties.Сontroller({
+                propertiesController=new app.presentation.properties.Сontroller({
                     model:timeline,
                     view:propertiesView,
-                    movie:movie
+                    movie:movie,//удалить
+                    stage:stage                    
                 }),              
 
             
                 //верхнее меню
-                menu=new app.panels.Menu({
+                menu=new app.presentation.panels.Menu({
                     reader:reader
                 }),
                 
                 //панель управления воспроизведением
-                transport=new app.panels.Transport({
+                transport=new app.presentation.panels.Transport({
                     movie:movie                    
                 }),
 
@@ -166,3 +166,4 @@ $( function () {
         })
     })          
 });
+9

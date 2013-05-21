@@ -6,7 +6,7 @@
 
 'use strict';
 
-Define( "app.properties.View", /** @lends {app.component} */ {
+Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     extend: core.View,
     
     //автоматически следим за созданием и удалением виджетов
@@ -49,7 +49,7 @@ Define( "app.properties.View", /** @lends {app.component} */ {
         },
                 
          //на каждом кадре обновляем числа                    
-        "movie onframe":function(){                                
+        "stage onrender":function(){                                
             this.dataUpdate();     
         }        
     },

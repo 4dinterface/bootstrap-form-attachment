@@ -67,6 +67,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      */
      selectComposition: function (propertyName,value) {                
        
-     }             
+     }  
+          
      
 }));

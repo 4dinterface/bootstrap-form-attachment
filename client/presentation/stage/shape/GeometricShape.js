@@ -3,7 +3,7 @@
  */
 
 
-Define('app.scene.shape.GeometricShape', {
+Define('app.presentation.stage.shape.GeometricShape', {
     extend: createjs.Shape,
     init:function(){
             

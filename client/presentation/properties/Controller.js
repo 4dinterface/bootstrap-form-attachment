@@ -1,4 +1,4 @@
-Define("app.properties.Сontroller", {
+Define("app.presentation.properties.Сontroller", {
     
     extend: "core.Controller",
 

@@ -54,7 +54,7 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
      */
     buildShape:function(shape){
         var cls=shape.get('stageShape').xtype,
-            stageShape=new app.scene.shape[cls](shape.get('stageShape'));
+            stageShape=new app.presentation.stage.shape[cls](shape.get('stageShape'));
                                         
         shape.target=stageShape;
         stageShape.timeline=shape;

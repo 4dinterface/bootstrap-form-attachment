@@ -1,7 +1,7 @@
 /* 
  * Html Element
  */
-Define('app.scene.shape.HtmlElement', {
+Define('app.presentation.stage.shape.HtmlElement', {
 	extend: createjs.DOMElement,
         //extend:createjs.Container,
         

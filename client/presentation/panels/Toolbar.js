@@ -1,4 +1,4 @@
-Define("app.panels.Toolbar", {
+Define("app.presentation.panels.Toolbar", {
 
     extend: core.Component,
 

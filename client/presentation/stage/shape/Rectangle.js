@@ -1,8 +1,8 @@
 /* 
  * Квадрат
  */
-Define('app.scene.shape.Rectangle', {
-	extend: app.scene.shape.GeometricShape,
+Define('app.presentation.stage.shape.Rectangle', {
+	extend: app.presentation.stage.shape.GeometricShape,
     
         //свойства влияющие на кэш
         width:100,

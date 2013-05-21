@@ -117,6 +117,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     play: function() {
         createjs.Ticker.addEventListener('tick', this.tick);
         this.renderFrame();
+
+        // TODO: Макс, по возможности в событие надо передать elapsedTime
+        this.fire( 'onplay' );  // by nerv added
     },
 
     /**
@@ -124,6 +127,8 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
      */
     pause: function () {
         createjs.Ticker.removeEventListener('tick', this.tick);
+
+        this.fire( 'onpause' ); // by nerv added
     },
 
     /**
@@ -132,6 +137,8 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     stop: function () {
         this.pause();
         this.renderFrame();
+
+        this.fire( 'onstop' );  // by nerv added
     },
 
     /**

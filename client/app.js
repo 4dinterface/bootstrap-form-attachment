@@ -17,64 +17,64 @@ $( function () {
          var a=new core.ClassLoader();                
          a.require([
              //классы ядра             
-             "client/core/Component.js",
-             "client/core/data/ObjectCollection.js",
-             "client/core/data/ArrayCollection.js",
-             "client/core/data/Model.js",
-             "client/core/Controller.js",
-             "client/core/View.js",
+             "core/Component.js",
+             "core/data/ObjectCollection.js",
+             "core/data/ArrayCollection.js",
+             "core/data/Model.js",
+             "core/Controller.js",
+             "core/View.js",
 
-             "client/core/widget/widgetManager.js",
-             "client/core/widget/Widget.js",
-             "client/core/ui/panel/Collapsible.js",
-             "client/core/ui/form/Rotator.js",
-             "client/core/ui/form/NumberField.js",
-             "client/core/ui/form/InputColor.js",
-             "client/core/ui/form/Fieldset.js",
+             "core/widget/widgetManager.js",
+             "core/widget/Widget.js",
+             "core/ui/panel/Collapsible.js",
+             "core/ui/form/Rotator.js",
+             "core/ui/form/NumberField.js",
+             "core/ui/form/InputColor.js",
+             "core/ui/form/Fieldset.js",
 
              
              // ---------- Model -------------
-             "client/model/Keyframe.js",
-             "client/model/KeyframeCollection.js",
-             "client/model/Property.js",       
-             "client/model/PropertyCollection.js",       
-             "client/model/Filter.js",   
-             "client/model/FilterCollection.js",             
-             "client/model/Shape.js",   
-             "client/model/ShapeCollection.js",
-             "client/model/Composition.js",
+             "client/business/model/Keyframe.js",
+             "client/business/model/KeyframeCollection.js",
+             "client/business/model/Property.js",       
+             "client/business/model/PropertyCollection.js",       
+             "client/business/model/Filter.js",   
+             "client/business/model/FilterCollection.js",             
+             "client/business/model/Shape.js",   
+             "client/business/model/ShapeCollection.js",
+             "client/business/model/Composition.js",
              
              "client/proxy/demoData.js",
              "client/proxy/Reader.js",
 
              // ---------- Scene -------------    
-             "client/scene/shape/GeometricShape.js",
-             "client/scene/shape/HtmlElement.js",
-             "client/scene/shape/Text.js",
-             "client/scene/shape/Circle.js",
-             "client/scene/shape/Rectangle.js",
-             "client/scene/Stage.js",
+             "client/presentation/scene/shape/GeometricShape.js",
+             "client/presentation/scene/shape/HtmlElement.js",
+             "client/presentation/scene/shape/Text.js",
+             "client/presentation/scene/shape/Circle.js",
+             "client/presentation/scene/shape/Rectangle.js",
+             "client/presentation/scene/Stage.js",
 
              // ---------- Movie -------------                        
-             'client/movie/Fetcher.js',
-             'client/movie/Movie.js',
-             'client/movie/StageBuilder.js',
+             'client/business/movie/Fetcher.js',
+             'client/business/movie/Movie.js',
+             'client/business/movie/StageBuilder.js',
 
              // ---------- Timeline -------------
-             "client/timeline/utilites.js",
-             "client/timeline/View.js",
-             "client/timeline/Controller.js",
+             "client/presentation/timelineEditor/utilites.js",
+             "client/presentation/timelineEditor/View.js",
+             "client/presentation/timelineEditor/Controller.js",
 
              // ---------- Холст -------------
-             "client/editor/Controller.js",
+             "client/presentation/stageEditor/Controller.js",
 
             
             // ---------- Panels -------------                                     
-             "client/panels/Menu.js",
-             "client/panels/Toolbar.js",
-             "client/panels/Transport.js",
-             "client/properties/View.js",
-             "client/properties/Controller.js"
+             "client/presentation/panels/Menu.js",
+             "client/presentation/panels/Toolbar.js",
+             "client/presentation/panels/Transport.js",
+             "client/presentation/properties/View.js",
+             "client/presentation/properties/Controller.js"
              
              ], function(){
                               

@@ -37,12 +37,13 @@ core.Define = Define = function (name, prop) {
     
     //примеси
     // TODO - протестировать    
+    // TODO - добавить исключение при отсутствии property
     if ('mixins' in prop){        
         var l=prop.mixins.length,i=0;        
         for (;i<l;i++){            
             //копируем свойства
-            for (var x in prop.mixins[i]) { 
-                child.prototype[x] = prop.mixins[i][x];
+            for (var x in prop.mixins[i].prototype) { 
+                child.prototype[x] = prop.mixins[i].prototype[x];
             }
             
             console.log('mixins prototype=', child.prototype);

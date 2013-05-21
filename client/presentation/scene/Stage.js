@@ -8,6 +8,7 @@
 Define('app.scene.Stage', /** @lends {app.scene.Stage.prototype} */({
 
 	extend: createjs.Stage,
+        mixins:[ core.Component ],
 
 	// инициализация
 	init  : function () {
@@ -18,6 +19,12 @@ Define('app.scene.Stage', /** @lends {app.scene.Stage.prototype} */({
 			me.initialize(canvas);
 		});
 	},
+        update:function(){
+            this._super();
+            //this.fire('onrender',function(){
+            //    console.log('onfire');
+            //})
+        },        
 
 	// отрисовывает сцену
 	_makeTest: function () {

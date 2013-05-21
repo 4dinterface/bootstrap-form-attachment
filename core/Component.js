@@ -21,8 +21,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
         //увеличим счётчик компонентов и используем его как уникальный идентификатор
         componentCount++;
         this.id=componentCount;
-        
-        
+                
         //подключаем обработчики событий
         this.event={};
                 
@@ -63,6 +62,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
         }
 
         //сработают все обработчики
+        //TODO если нет не одного обработчика будет ошибка, исправить !
         if (name in this.event){
             for (item in this.event[name]) {
                 this.event[name][item].call(context,options);                

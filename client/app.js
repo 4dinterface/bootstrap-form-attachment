@@ -43,11 +43,15 @@ $( function () {
              "client/business/model/Shape.js",   
              "client/business/model/ShapeCollection.js",
              "client/business/model/Composition.js",
+             "client/business/model/CompositionCollection.js",
+             "client/business/model/Symbol.js",
+             "client/business/model/SymbolCollection.js",
+             "client/business/model/Project.js",
              
              "client/proxy/demoData.js",
              "client/proxy/Reader.js",
 
-             // ---------- Scene -------------    
+             // ---------- Stage -------------    
              "client/presentation/stage/shape/GeometricShape.js",
              "client/presentation/stage/shape/HtmlElement.js",
              "client/presentation/stage/shape/Text.js",
@@ -59,111 +63,105 @@ $( function () {
              'client/business/movie/Fetcher.js',
              'client/business/movie/Movie.js',
              'client/business/movie/StageBuilder.js',
-
+             
+             // ---------- Facade -------------                        
+             'client/business/Facade.js',
+             
              // ---------- Timeline -------------
              "client/presentation/timelineEditor/utilites.js",
              "client/presentation/timelineEditor/View.js",
              "client/presentation/timelineEditor/Controller.js",
+             "client/presentation/timelineEditor/Component.js",
 
              // ---------- Холст -------------
              "client/presentation/stageEditor/Controller.js",
+             "client/presentation/stageEditor/Component.js",
+             "client/presentation/stageEditor/Toolbar.js",  
+             
+             // ------- Редактор свойств ----------
+             "client/presentation/propertiesEditor/View.js",
+             "client/presentation/propertiesEditor/Controller.js",
+             "client/presentation/propertiesEditor/Component.js",
              
             // ---------- Panels -------------                                     
-             "client/presentation/panels/Menu.js",
-             "client/presentation/panels/Toolbar.js",
-             "client/presentation/panels/Transport.js",
-             "client/presentation/properties/View.js",
-             "client/presentation/properties/Controller.js"
+             "client/presentation/panels/Menu.js",             
+             "client/presentation/panels/Transport.js"
+             
              
              ], function(){
                               
         $(function(){                                   
             var                
                 // создадим таймлайн
-                timeline = new app.model.Composition(),
-
+                project = new app.business.model.CompositionCollection(),
                 //сцена         
-                stage=new app.presentation.stage.Stage(),
-            
-                //создадим конструктор сцены
-                stageBuilder=new app.movie.StageBuilder({
-                    composition:timeline,
-                    stage:stage
-                }),
-
-                // создадим ролик
-                // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
-                // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
-                movie=new app.movie.Movie({
-                    timeline:timeline,
-                    stage:stage
-                    //CHAOS:true
-                }),                
-
-
-                // контроллер панели инструментов
-                // TODO, рассмотреть возможность реализации тулбара через виджет
-                toolbar = new app.presentation.panels.Toolbar(),
-
-                // контролёр сцены
-                stageController = new app.bussiness.stageEditor.Сontroller({
-                    stage:stage,     
-                    toolbar: toolbar
-                }),
-                                
-                                
-                //view таймлайна
-                tlView = new app.timeline.View({
-                    // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
-                    model : timeline,                
-                    // доступ к муви, в муви хранится позиция бегунка
-                    movie: movie                
-                }),               
-
-                //контроллер таймлайна            
-                tlController=new app.timeline.Controller({
-                    //viev - прямой доступ контролёра к view, пока под вопросом
-                    view:tlView,                
-                    //модель таймлайна, которую контролёр сможет изменять
-                    model:timeline,
-                    //movie 
-                    movie:movie
-                }),
-                
-                
-                //панель свойств
-                propertiesView=new app.presentation.properties.View({
-                    model:timeline,                    
-                    stage:stage
-                }),              
-                
-                propertiesController=new app.presentation.properties.Сontroller({
-                    model:timeline,
-                    view:propertiesView,
-                    movie:movie,//удалить
-                    stage:stage                    
-                }),              
-
-            
-                //верхнее меню
-                menu=new app.presentation.panels.Menu({
-                    reader:reader
-                }),
-                
-                //панель управления воспроизведением
-                transport=new app.presentation.panels.Transport({
-                    movie:movie                    
-                }),
-
+                stage=new app.presentation.stage.Stage(),                                
+                                                        
                 //загрузчик данных, который загрузит данные на сцену, и в таймлайн
                 reader=new app.proxy.Reader({
                     stage:stage,
-                    timeline:timeline
+                    timeline:project
+                }),
+                
+                //верхнее меню
+                menu=new app.presentation.panels.Menu({
+                    reader:reader
                 });
 
                 //команда на загрузку                
-                reader.load(data);                                 
+                reader.load(data,function(){                                                            
+                    
+                    var 
+                    // создадим ролик
+                    // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
+                    // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
+                    movie=new app.movie.Movie({
+                        timeline:project.get('root').get('compositionCollection').get('root'),
+                        stage:stage
+                        //CHAOS:true
+                    }),
+                    
+                    //создадим конструктор сцены
+                    stageBuilder=new app.movie.StageBuilder({
+                        composition:project.get('root').get('compositionCollection').get('root'),
+                        stage:stage
+                    }),
+                    
+                    //Фасад бизнес слоя
+                    facade=new app.business.Facade({
+                        movie:movie,
+                        project:project
+                    }),                    
+                                        
+                    //Редактор таймлайна
+                    timelineEditor=new app.presentation.timelineEditor.Component({
+                        movie:movie,
+                        //TODO композиция должна устанавливаться после инициализации
+                        composition:project.get('root').get('compositionCollection').get('root')
+                    }),
+                    
+                    //Редактор свойств
+                    propertyEditor=new app.presentation.properties.Component({                                                
+                        stage:stage,
+                        facade:facade
+                    }),                                                                                                              
+                    
+                    //Редактор холста
+                    stageEditor=new app.presentation.stageEditor.Component({
+                        stage:stage,
+                        facade:facade
+                    }),
+                                    
+                    //панель управления воспроизведением
+                    transport=new app.presentation.panels.Transport({
+                        movie:movie                    
+                    })
+                    
+                    //TODO убрать КОСТЫЛЬ  !!!!!!                                               
+                    project.get('root').get('compositionCollection').get('root').fire('load',{});
+                    
+                    $()
+                })                                
         })
     })          
 });
-9

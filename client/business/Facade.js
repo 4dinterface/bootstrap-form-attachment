@@ -18,7 +18,6 @@
  * Класс фасад должен предоставить общие методы управлением слоем бизнес логики
  * 
  */
-
 Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
     
     extend: core.Component,
@@ -37,7 +36,8 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
     */
     init: function (cfg) {
         this.apply(cfg);
-        this._super();    
+        this._super();  
+        this.selectSymbol('root');
     },
 
     /**
@@ -45,8 +45,12 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      * @param {number} elapsedTime временная метка
      * @public
      */
-    addKeyToProperty: function (propertyName,value) {                
-        //time получим из movie        
+    addKeyToProperty: function (propertyName,value) {                        
+        this.composition.get('shapeCollection').get(0).addKeyToProperty(
+            propertyName,
+            this.movie.elapsedTime, 
+            value
+        );                                        
     },
             
     /**
@@ -54,8 +58,10 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      * @param {number} elapsedTime временная метка
      * @public
      */
-     selectSymbol: function (propertyName,value) {                
+     selectSymbol: function (symbolId) {                
         //time получим из movie        
+        this.symbol=this.project.get( symbolId );
+        this.selectComposition('root');
      },                
             
     /**
@@ -65,9 +71,8 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      * 
      * Метод должен сменить композицию
      */
-     selectComposition: function (propertyName,value) {                
-       
-     }  
-          
+     selectComposition: function (compositionId) {                
+         this.composition=this.symbol.get('compositionCollection').get(compositionId);       
+     }
      
 }));

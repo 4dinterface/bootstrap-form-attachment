@@ -22,37 +22,40 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
 
     init: function( cnf ) {
         this.domTarget=$('#property-panel')[0];        
-        this.apply( cnf );
-                
+        this.apply( cnf );                                
         var me=this;        
         this._super();
+        
+        this.render(); //прорисуем view
     },
-    
-    listeners:{
-         //слушаем событие загрузки модели
-        "model load":function(e){
-            var me=this,
-                srcData=null;
-            //берём в качестве теста первый shape в коллекции
-            this.target=this.model.get("shapeCollection").get(0).target;
-            
-            //получаем ссылку на shape
-            var shape=this.target.properties;
-
-            //перебераем все группы в shape
-            for(var i in shape){                
-                srcData=typeof shape[i]=="string"?this.target.libProperties[shape[i]]:shape[i];
-                this.makeGroup(srcData, $('#property-panel') );
-            }            
-                        
-            this.createBindMap();                       
-        },
                 
+    
+    //События
+    listeners:{                        
          //на каждом кадре обновляем числа                    
         "stage onrender":function(){                                
             this.dataUpdate();     
         }        
     },
+
+            
+     //Рисует VIEW
+    render:function(e){
+        var me=this,
+            srcData=null,             
+            
+            //в качестве shape выерем первый элемент (TODO это временный вариант)
+            shape=this.target=this.stage.children[0],
+            prop=shape.properties;
+
+        //перебераем все группы в shape
+        for(var i in prop){                
+            srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
+            this.makeGroup(srcData, $('#property-panel') );
+        }            
+                        
+        this.createBindMap();                       
+    },        
 
     // создадим группу
     makeGroup:function(gr,panel){

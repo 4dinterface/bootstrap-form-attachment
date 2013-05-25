@@ -1,5 +1,5 @@
 /**
- * Класспреобразовывает json даные  во внутренние обьекты системы
+ * Класс преобразовывает json даные  во сущности системы
  *
  * @returns {Object} Proxy объект представления таймлайна
  */
@@ -14,43 +14,66 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * в качестве аргументов передаётся сцена и модель таймлайна
      */
     init: function( cfg) {
-        this._super();        
-        this.apply( cfg );                                                 
+        this._super();    
+        this.apply( cfg ); 
     },
-
             
     /**
      * Загружает данные в модель таймлайна и сцену
      * @param {Object} data данные
      */     
-     load:function(data){
+     load:function(data,callback){
         var tlShape,
             stShape,
             me=this;
     
         //this.movie.gotoAndStop(1);
-        this.timeline.clear();
+        //this.timeline.clear(); //временно заремарил
         this.stage.removeAllChildren ();
         
-        for (var i=0;i<data.length;i++){            
-            tlShape=this.makeTimelineShape ( data[i] );            
-            this.timeline.get('shapeCollection').push(tlShape);                        
+        //символы
+        
+        for (var i in data){            
+            this.timeline.set( i, this.makeSymbol( data[i] ) );
         }
         
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
-        console.log('timeline',this.timeline);
-        //обновление
-        //alert(this.timeline.getLength());
+        console.log('timeline',this.timeline);                
         
         //Имитация асинхронности
         setTimeout(function(){
            me.timeline.fire("load",{}); 
+           callback();
         },1);
         
         this.stage.update();
+        
     },            
+    
+    makeProject:function(){
 
+    },
 
+    
+    makeSymbol:function(data){
+        var symbol=new app.business.model.Symbol();
+        for(var i in data) {            
+            symbol.get('compositionCollection').set(i,this.makeComposition( data[i] ) );
+        }        
+        return symbol;
+    },
+
+    /**
+     * Композиция
+     */
+    makeComposition:function(data){
+        var composition =new app.business.model.Composition();
+        for (var i=0;i<data.length;i++){            
+            tlShape=this.makeTimelineShape ( data[i] );            
+            composition.get('shapeCollection').push(tlShape);                        
+        }
+        return composition;
+    },
     
 
     /**

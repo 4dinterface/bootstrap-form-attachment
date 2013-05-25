@@ -33,10 +33,10 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
         var me=this;
         this._super();
         this.apply(cfg);            
-        this.composition.on('load',function(){
+        //this.composition.on('load',function(){
             me.buildComposition();
             me.stage.update();
-        });
+        //});
     },
             
     /**

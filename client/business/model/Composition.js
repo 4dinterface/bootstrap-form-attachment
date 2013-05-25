@@ -4,7 +4,16 @@
  * @extends {app.Model}
  * 
  *          
- *                        (Composition)
+ * 
+ *                          Project
+ *                              |
+ *                      SymbolCollection
+ *                              |                              
+ *                            Symbol
+ *                              |                              
+ *                     CompositionCollection
+ *                              |                              
+ *                         (Composition)
  *                              |
  *                       ShapeCollection
  *                              |
@@ -21,13 +30,14 @@
  *                                     KeyframeCollection   
  *                                           |
  *                                        Keyframe
- */                  
+ 
+ *                                         */                  
 
 'use strict';
 
 
 //компонент в разработке
-Define( 'app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
+Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
 
     //Композиция это типичная модель
     extend: core.data.Model,
@@ -87,7 +97,7 @@ Define( 'app.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
     /**
      * Возвращает длинну композиции
      */        
-    getLength: function( id ) {
+    getLength: function( ) {
         var result = 0,
             len=0,
             shapeCollection = this.get( 'shapeCollection' );

@@ -13,11 +13,9 @@ Define("app.presentation.properties.Сontroller", {
             var el=$(e.srcElement);                
             
             //TODO сейчас применяется к первому shape а не к выбранном (собственно пока выбрать то нечего и нельзя)            
-            this.model.get('shapeCollection').get(0).addKeyToProperty(
-                el.attr('data-dsource'),
-                this.movie.elapsedTime, 
-                el.attr('value')*1
-            );                                        
+            
+                
+            this.facade.addKeyToProperty( el.attr('data-dsource'), el.attr('value')*1);
             //console.log(e);            
         }
     }

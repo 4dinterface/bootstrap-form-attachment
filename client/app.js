@@ -88,9 +88,11 @@ $( function () {
              "client/presentation/panels/Transport.js"
              
              
-             ], function(){
-                              
-        $(function(){                                   
+             ], function(){                 
+                 
+             // TODO нужна Реакция на загрузку проекта                                  
+             // TODO нужна Реакция на новый проект             
+        $(function(){                                      
             var                
                 // создадим таймлайн
                 project = new app.business.model.CompositionCollection(),

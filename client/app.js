@@ -169,11 +169,12 @@ $( function () {
                         timeline:project.get('root').get('compositionCollection').get('root'),
                         stage:stage
                         //CHAOS:true
-                    }),
+                    });
                     
                     //=======================================================//
                     //======== эксперемент с переключением композиций =======//
                     //=======================================================//
+                    
                     $('.tab-head-title__timeline').on('click',function(){
                         setComposition();
                     })

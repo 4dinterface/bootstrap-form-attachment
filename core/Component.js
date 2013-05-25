@@ -46,8 +46,8 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
     /**
      * Отправит событие на обработку с указанным объектом события
      * @param {string} name имя события на отправку
-     * @param {Object} options представляющий событие объект
-     * @param {Object} context контекст исполнения
+     * @param {Object} [options] представляющий событие объект
+     * @param {Object} [context] контекст исполнения
      */
     fire: function (name, options, context) {
        

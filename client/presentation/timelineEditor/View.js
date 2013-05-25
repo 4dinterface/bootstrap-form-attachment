@@ -3,8 +3,8 @@
  *
  * @return {Object} Timeline объект представления таймлайна
  */
-
 'use strict';
+
 
 Define( "app.timeline.View", /** @lends {app.component} */{
 
@@ -16,6 +16,14 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      * @private
      */
     model: null,
+
+
+    /**
+     * Флаг включения/отключения автоскролла
+     * @type {Boolean}
+     * @private
+     */
+    enableAutoScroll: false,
 
     /**
      * Утилиты таймлайна
@@ -34,6 +42,14 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
 
     /**
+     * Тело редактора таймлайна
+     * @type {Object}
+     * @private
+     */
+    domEditorBody: $( '#timeline-editor-body' ),
+
+
+    /**
      * Конструктор объекта представления
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
@@ -43,7 +59,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         this.apply( cfg );
 
 
-        console.log( this.model.zoom );
+        // console.log( this.model.zoom );
 
 
         // Предполагается, что событие срабатывает после готовности документа
@@ -94,12 +110,51 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            this.domRunner.css( 'left', this.utilites.toPixels( this.model, e.elapsedTime ) );
+            var positionInPixels = this.utilites.toPixels( this.model, e.elapsedTime );
+
+            this.domRunner.css( 'left', positionInPixels );
+
+            if ( this.enableAutoScroll ) {
+                this.autoScroll( positionInPixels );
+            }
         }.bind( this ));
 
 
+
+        this.movie.on( 'onplay', function() {
+            //TODO: тут прокрутка к начальной точке воспроизведения
+            // TODO: нужна ли?
+            this.enableAutoScroll = true;
+        }.bind( this ));
+
+
+        this.movie.on( 'onpause', function() {
+            this.enableAutoScroll = false;
+        }.bind( this ));
+
+
+        this.movie.on( 'onstop', function() {
+            this.enableAutoScroll = false;
+        }.bind( this ));
+
         // ------------------- END RUNNER ------------------------
-        
+
+    },
+
+
+    autoScroll: function( positionInPixels ) {
+        var domEditorBody = this.domEditorBody.get( 0 );
+        var visibleWidth = domEditorBody.clientWidth;
+        var scrollWidth = domEditorBody.scrollWidth;
+        var scrollLeft = domEditorBody.scrollLeft;
+        var positionInPercents = ( positionInPixels - scrollLeft ) * 100 / visibleWidth;
+
+        if ( positionInPercents < 90 || scrollLeft + visibleWidth === scrollWidth ) {
+            return;
+        }
+
+        this.domEditorBody.scrollLeft( positionInPixels );
+        // this.movie.pause();  // debug only
     },
 
 
@@ -179,10 +234,10 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         this.model.get( 'shapeCollection' ).forEach(function( shape ) {
             shape.get( 'propertyCollection' ).forEach(function( prop ) {
-                 data.push({
-                     shape: shape,
-                     props: [ prop ]
-                 });
+                data.push({
+                    shape: shape,
+                    props: [ prop ]
+                });
             }, this );
         }, this );
 
@@ -202,8 +257,8 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         var index = -1;
 
         return function( arr, clazz ) {
-          // item.shape: a shape
-          // item.props: array of properties
+            // item.shape: a shape
+            // item.props: array of properties
             return arr.map(function( item ) {
                 index += 1;
                 return {

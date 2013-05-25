@@ -42,6 +42,14 @@ Define( 'app.timeline.Controller', {
 
 
     /**
+     * Тело редактора таймлайна
+     * @type {Object}
+     * @private
+     */
+    domEditorBody: $( '#timeline-editor-body' ),
+
+
+    /**
      * Контейнер внутри тела редактора таймлайна
      * @type {Object}
      * @private
@@ -73,7 +81,7 @@ Define( 'app.timeline.Controller', {
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-        this.domTarget.off( '.drag' );
+        this.domTarget.off( '.timeline-drag' );
     },
 
 
@@ -82,11 +90,12 @@ Define( 'app.timeline.Controller', {
      */
     domListeners: {
 
+
         /**
          * Ловит событие на теле таймлайна и вызывает функции поведения
          *
          * @param {Object} e объект события
-         * @param {Object} eventRunner объект события пришедший с бегунка
+         * @param {Object} [eventRunner] объект события пришедший с бегунка
          */
         '#timeline-editor-body-box % mousedown': function( e, eventRunner ) {
             e = eventRunner || e;
@@ -94,15 +103,16 @@ Define( 'app.timeline.Controller', {
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
+            var position = e.pageX - this.domEditor.offset().left + this.domEditorBody.scrollLeft();
 
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline-property' );
             }
 
             this.propertySelect( e, prop );
-            this.runnerMove( e, e.pageX - this.domEditor.offset().left );
+            this.runnerMove( e, position );
 
-            // this.domTarget.on( '.drag' );
+            // this.domTarget.on( '.timeline-drag' );
         },
 
 
@@ -138,14 +148,14 @@ Define( 'app.timeline.Controller', {
 
             this.dragHandler = 'runnerMove';
 
-            this.bind([ '% mousemove.drag', '% mouseup.drag' ]);
+            this.bind([ '% mousemove.timeline-drag', '% mouseup.timeline-drag' ]);
         },
 
 
         /**
          * Ловит событие и вызывает функции поведения
          */
-        '% mousemove.drag': function( e ) {
+        '% mousemove.timeline-drag': function( e ) {
             var x = e.pageX - this.dragShiftX;
 
             //console.log( x );
@@ -157,8 +167,8 @@ Define( 'app.timeline.Controller', {
         /**
          * Ловит событие и отключает обработчики перетаскивания
          */
-        '% mouseup.drag': function() {
-            this.domTarget.off( '.drag' );
+        '% mouseup.timeline-drag': function() {
+            this.domTarget.off( '.timeline-drag' );
         }
 
     },
@@ -231,8 +241,5 @@ Define( 'app.timeline.Controller', {
 
         this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
     }
-
-    // TODO: при клике на полосу прокрутки таймлайна перемещается бегунок
-    // TODO: при клике на бегунок в области таймлайна, блок под ним не выделятеся
 
 });

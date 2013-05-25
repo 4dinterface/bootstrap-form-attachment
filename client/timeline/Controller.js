@@ -42,6 +42,14 @@ Define( 'app.timeline.Controller', {
 
 
     /**
+     * Тело редактора таймлайна
+     * @type {Object}
+     * @private
+     */
+    domEditorBody: $( '#timeline-editor-body' ),
+
+
+    /**
      * Контейнер внутри тела редактора таймлайна
      * @type {Object}
      * @private

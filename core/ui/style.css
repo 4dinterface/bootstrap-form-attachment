@@ -1,0 +1,185 @@
+/* 
+    Document   : style.css
+    Created on : 11.05.2013, 17:50:28
+    Author     : Евгений
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@charset "utf-8";
+
+
+.rotator{
+    border-radius:10px; 
+    width:20px;
+    height:20px;
+    background-color:#111;   
+    float:left;
+}
+
+.widget_rotator{      
+}    
+
+.widget_rotator input{    
+    background-color:#d8d8d8;
+    border:white solid 0px;
+    font-size: 12px;
+}    
+
+
+/*  NumberFields  */
+.widget_numberfield{
+    color:#000;
+    font-size:12px;
+    border:solid 0px;
+    background-color:#d8d8d8;
+    width:30px;
+}    
+
+/* Fieldset  */
+.fieldset{
+    border:0px solid #ccc; 
+    width:45%;
+    display:inline;
+    padding:2px;
+    margin:2px;           
+}
+
+/* romb_button  */
+.romb_button{
+    float:left; 
+    margin-right:5px;
+    margin-left:2px; 
+    margin-top:6px; 
+    width:6px;
+    height:6px;
+    background-color:#000;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+
+/* ************************************************************* */
+.inpcoldialog{
+    position:absolute;
+    display:none;
+    width:300px;
+    height:200px;
+    background-color:#777;    
+    z-index: 1000;
+    border: 1px solid black;
+    padding:10px;
+    
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	  -webkit-user-select: none;   
+    
+}
+
+.out_color{
+	width:70px;
+	height:70px;
+	background-color:#FFF;
+	border:1px dashed black;
+	position:absolute;
+	top:10px;
+	right:10px;
+	-moz-user-select: none;
+        -webkit-user-select: none; 	
+}
+
+#block_picker{
+	background-color:red;
+	height:180px;
+	width:180px;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	-webkit-user-select: none;   
+}
+#block_picker img {
+	width:180px;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	-webkit-user-select: none;   
+}
+#line {
+	position: absolute;
+	left:200px;
+	cursor: pointer;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	 -webkit-user-select: none;   	
+}
+
+
+
+.right_arrow {
+	
+	width:0;
+	height:0;
+	left:23px;
+	position:absolute;
+	border-bottom:6px solid transparent;
+	border-left:10px solid transparent;
+	border-top:6px solid transparent;
+	border-right:10px solid black;
+}
+.left_arrow {
+	
+	width:0;
+	height:0;
+	position:absolute;
+	border-bottom:6px solid transparent;
+	border-left:10px solid black;
+	border-top:6px solid transparent;
+	border-right:8px solid transparent;
+	
+}
+#arrows {
+	position:absolute;
+	top:0;
+	margin-top:-4px;
+	left:-11px;
+	width:40px;
+	cursor: pointer;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	  -webkit-user-select: none;        
+	
+}
+#circle {
+	width:8px;
+	height:8px;
+	border:1px solid black;
+	border-radius:50%;
+	position:absolute;
+	left:0;
+	top:0;
+	cursor: default;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none; 
+	-webkit-user-select: none;   
+}
+.square {
+	position:absolute;
+	top:30%;
+	left:70%;
+	height:30px;
+	
+	}
+.square input {
+	width:80px;
+	height:25px;
+
+	}
+.cO {
+	width:20px;
+	height:19px;
+	background-color:white;
+	float:right;
+	border-radius:0 10px 10px 0;
+}

@@ -1,11 +1,11 @@
 /**
- * Класспреобразовывает json даные  во внутренние обьекты системы
+ * Класс преобразовывает json даные  во сущности системы
  *
  * @returns {Object} Proxy объект представления таймлайна
  */
 Define( "app.proxy.Reader", /** @lends {app.component} */{
-
-    extend: core.Component,
+    
+    extend: core.Component,    
     
     /**
      * Конструктор загрузчика, 
@@ -14,48 +14,66 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * в качестве аргументов передаётся сцена и модель таймлайна
      */
     init: function( cfg) {
-        this._super();        
-        this.apply( cfg );                                                 
+        this._super();    
+        this.apply( cfg ); 
     },
-
             
     /**
      * Загружает данные в модель таймлайна и сцену
      * @param {Object} data данные
      */     
-     load:function(data){
+     load:function(data,callback){
         var tlShape,
             stShape,
             me=this;
     
         //this.movie.gotoAndStop(1);
-        this.timeline.clear();
+        //this.timeline.clear(); //временно заремарил
         this.stage.removeAllChildren ();
         
-        for (var i=0;i<data.length;i++){            
-            tlShape=this.makeTimelineShape ( data[i] );
-            stShape=this.makeStageShape    ( data[i] ); 
-            
-            tlShape.target=stShape;
-            stShape.timeline=tlShape;
-            
-            this.timeline.get('shapeCollection').push(tlShape);                        
-            this.stage.addChild( stShape );
-        }
-        //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
-        console.log('timeline',this.timeline);
+        //символы
         
-        //обновление
+        for (var i in data){            
+            this.timeline.set( i, this.makeSymbol( data[i] ) );
+        }
+        
+        //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
+        console.log('timeline',this.timeline);                
         
         //Имитация асинхронности
         setTimeout(function(){
            me.timeline.fire("load",{}); 
+           callback();
         },1);
         
         this.stage.update();
+        
     },            
+    
+    makeProject:function(){
 
+    },
 
+    
+    makeSymbol:function(data){
+        var symbol=new app.business.model.Symbol();
+        for(var i in data) {            
+            symbol.get('compositionCollection').set(i,this.makeComposition( data[i] ) );
+        }        
+        return symbol;
+    },
+
+    /**
+     * Композиция
+     */
+    makeComposition:function(data){
+        var composition =new app.business.model.Composition();
+        for (var i=0;i<data.length;i++){            
+            tlShape=this.makeTimelineShape ( data[i] );            
+            composition.get('shapeCollection').push(tlShape);                        
+        }
+        return composition;
+    },
     
 
     /**
@@ -65,7 +83,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      */
     makeTimelineShape: function(shape){
         var ts=new app.model.Shape({}); 
-        console.log("SHAPE=====",shape);
+        //console.log("SHAPE=====",shape);
         
         var props=shape.property;
         var filters=shape.filters;
@@ -79,10 +97,15 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         for (i in filters) {
             //alert(i);
             ts.get('filterCollection').set(i, this.makeTimelineFilter(filters[i],i) );                                        
-        }               
+        }       
         
+        ts.set('stageShape',shape.target);
+        
+        //console.log('shape.target',shape.target);
+                
         return ts;
     },
+
             
     makeTimelineFilter: function(filter){
         var ts=new app.model.Filter({});         
@@ -92,35 +115,20 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         }
         return ts;        
     },        
-            
-
-            
-
-    /**
-     * создаёт shape для сцены
-     * свойство xtype в target, указывает какой именно обьект конструировать
-     * @param {Object} shape обьект описывающий shape
-     */
-    makeStageShape: function(shape){        
-        //console.log('shape=',shape);
-        var cls=shape.target.xtype;                        
-        return new app.scene.shape[cls](shape.target);
-    },
-            
+                                   
     /**
      * создаёт модель свойства
      * для каждого ключа создаётся экземпляр класса model
      * @param {Object} shape обьект описывающий shape
      */                                
     makeProperty: function(col,name){                        
-        console.log('log',col);
+        //console.log('log',col);
         var me=this;
         return new app.model.Property({
             'name':name,
             'keyframeCollection': me.makeKeyCollection(col.keyframes),
             'type':col.type
-        });
-        
+        });        
     },
             
     /**
@@ -132,18 +140,17 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         var ret=new app.model.KeyframeCollection(),
             i=null,
             keyframe;
-                        
+    
+        
         for (i in col) 
             ret.set(i, this.makeKeyframe ( i, col[i] )  );
         
         return ret;
-    },
-            
-
+    },            
     
     makeKeyframe:function(i, col){
         col.key=parseInt(i, 10);            
         return new app.model.Keyframe( col );
     }
-
+    
 });

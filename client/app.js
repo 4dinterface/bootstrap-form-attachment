@@ -1,157 +1,167 @@
 /**
  * APP 
- *      
- *     
- *     (Stage) -- (sceneController)
+ *  здесь создаются обьекты системы
+ *  А также создаются связи между обьектами, 
+ *  обьект сотрудничает с другими только через эти связи, 
+ *  можно скзать что это рельсы по котрым ездят сообщения и вызовы операций
+ *  
+ *  Любопытная идея, 
+ *  к примеру компоненты timelineView и timelineController можно сгруппировать в более крупные компонент timeline
+ *  и работать с ними как с целым компонентом, в то время как внутри компонента таймлайн будет описана вся 
+ *  внутрянняя организация  компонента таймлайн
 */
+
 $( function () {    
         'use strict'	
         
          var a=new core.ClassLoader();                
          a.require([
-             //классы ядра
-             "client/core/Component.js",
-             "client/core/data/ObjectCollection.js",
-             "client/core/data/ArrayCollection.js",
-             "client/core/data/Model.js",
-             "client/core/Controller.js",
-             "client/core/View.js",
+             //классы ядра             
+             "core/Component.js",
+             "core/data/ObjectCollection.js",
+             "core/data/ArrayCollection.js",
+             "core/data/Model.js",
+             "core/Controller.js",
+             "core/View.js",
 
-             "client/core/widget/widgetManager.js",
-             "client/core/widget/widget.js",
-             "client/core/ui/panel/Collapsible.js",
+             "core/widget/widgetManager.js",
+             "core/widget/Widget.js",
+             "core/ui/panel/Collapsible.js",
+             "core/ui/form/Rotator.js",
+             "core/ui/form/NumberField.js",
+             "core/ui/form/InputColor.js",
+             "core/ui/form/Fieldset.js",
 
              
              // ---------- Model -------------
-             "client/model/Keyframe.js",
-             "client/model/KeyframeCollection.js",
-             "client/model/Property.js",       
-             "client/model/PropertyCollection.js",       
-             "client/model/Filter.js",   
-             "client/model/FilterCollection.js",             
-             "client/model/Shape.js",   
-             "client/model/ShapeCollection.js",
-             "client/model/Composition.js",
+             "client/business/model/Keyframe.js",
+             "client/business/model/KeyframeCollection.js",
+             "client/business/model/Property.js",       
+             "client/business/model/PropertyCollection.js",       
+             "client/business/model/Filter.js",   
+             "client/business/model/FilterCollection.js",             
+             "client/business/model/Shape.js",   
+             "client/business/model/ShapeCollection.js",
+             "client/business/model/Composition.js",
+             "client/business/model/CompositionCollection.js",
+             "client/business/model/Symbol.js",
+             "client/business/model/SymbolCollection.js",
+             "client/business/model/Project.js",
              
              "client/proxy/demoData.js",
              "client/proxy/Reader.js",
 
-             // ---------- Scene -------------                        
-             "client/scene/shape/HtmlElement.js",
-             "client/scene/shape/Text.js",
-             "client/scene/shape/Circle.js",
-             "client/scene/shape/Rectangle.js",
-             "client/scene/Stage.js",
+             // ---------- Stage -------------    
+             "client/presentation/stage/shape/GeometricShape.js",
+             "client/presentation/stage/shape/HtmlElement.js",
+             "client/presentation/stage/shape/Text.js",
+             "client/presentation/stage/shape/Circle.js",
+             "client/presentation/stage/shape/Rectangle.js",
+             "client/presentation/stage/Stage.js",
 
              // ---------- Movie -------------                        
-             'client/movie/Fetcher.js',
-             'client/movie/Movie.js',
-
+             'client/business/movie/Fetcher.js',
+             'client/business/movie/Movie.js',
+             'client/business/movie/StageBuilder.js',
+             
+             // ---------- Facade -------------                        
+             'client/business/Facade.js',
+             
              // ---------- Timeline -------------
-             "client/timeline/utilites.js",
-             "client/timeline/View.js",
-             "client/timeline/Controller.js",
+             "client/presentation/timelineEditor/utilites.js",
+             "client/presentation/timelineEditor/View.js",
+             "client/presentation/timelineEditor/Controller.js",
+             "client/presentation/timelineEditor/Component.js",
 
              // ---------- Холст -------------
-             "client/editor/Controller.js",
-
-            
+             "client/presentation/stageEditor/Controller.js",
+             "client/presentation/stageEditor/Component.js",
+             "client/presentation/stageEditor/Toolbar.js",  
+             
+             // ------- Редактор свойств ----------
+             "client/presentation/propertiesEditor/View.js",
+             "client/presentation/propertiesEditor/Controller.js",
+             "client/presentation/propertiesEditor/Component.js",
+             
             // ---------- Panels -------------                                     
-             "client/panels/Menu.js",
-             "client/panels/Toolbar.js",
-             "client/panels/Transport.js",
-             "client/properties/View.js",
-             "client/properties/Controller.js"
+             "client/presentation/panels/Menu.js",             
+             "client/presentation/panels/Transport.js"
+             
              
              ], function(){
                               
-        $(function(){                                    
+        $(function(){                                   
             var                
                 // создадим таймлайн
-                timeline = new app.model.Composition(),
-
+                project = new app.business.model.CompositionCollection(),
                 //сцена         
-                stage=new app.scene.Stage(),
-
+                stage=new app.presentation.stage.Stage(),                                
+                                                        
                 //загрузчик данных, который загрузит данные на сцену, и в таймлайн
                 reader=new app.proxy.Reader({
                     stage:stage,
-                    timeline:timeline
+                    timeline:project
                 }),
-
-                // создадим ролик
-                // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
-                // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
-                movie=new app.movie.Movie({
-                    timeline:timeline,
-                    stage:stage
-                    //CHAOS:true
-                }),
-
-                // контроллер панели инструментов
-                toolbar = new app.panels.Toolbar(),
-
-                // контролёр сцены
-                sceneController = new app.editor.Сontroller({
-                    stage:stage,
-                    toolbar: toolbar
-                }),
-
-
-                
-                //view таймлайна
-                tlView = new app.timeline.View({
-                    // доступ к модели таймлайна нам понадобится чтобы его отрисовывать
-                    model : timeline,                
-                    // доступ к муви, в муви хранится позиция бегунка
-                    movie: movie                
-                }),               
-
-                //контроллер таймлайна            
-                tlController=new app.timeline.Controller({
-                    //viev - прямой доступ контролёра к view, пока под вопросом
-                    view:tlView,                
-                    //модель таймлайна, которую контролёр сможет изменять
-                    model:timeline,
-                    //movie 
-                    movie:movie
-                }),
-
-                //панель свойств
-                propertiesView=new app.properties.View({
-                    model:timeline,
-                    movie:movie
-                }),              
-                
-                propertiesController=new app.properties.Сontroller({
-                    model:timeline,
-                    view:propertiesView,
-                    movie:movie
-                }),              
                 
                 //верхнее меню
-                menu=new app.panels.Menu({
+                menu=new app.presentation.panels.Menu({
                     reader:reader
-                }),
-                
-                transport=new app.panels.Transport({
-                    movie:movie                    
                 });
 
-             // СОЗДАТЬ ХАОС - демка для Movie
-             /*timeline.on('load',function(){                
-                
-                var CHAOS = true;
-                if (CHAOS) {
+                //команда на загрузку                
+                reader.load(data,function(){                                                            
                     
+                    var 
+                    // создадим ролик
+                    // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
+                    // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
+                    movie=new app.movie.Movie({
+                        timeline:project.get('root').get('compositionCollection').get('root'),
+                        stage:stage
+                        //CHAOS:true
+                    }),
                     
-                }
-             })*/            
-            
-            //alert(widgetManager);
-            
-             //команда на загрузку                
-             reader.load(data);
+                    //создадим конструктор сцены
+                    stageBuilder=new app.movie.StageBuilder({
+                        composition:project.get('root').get('compositionCollection').get('root'),
+                        stage:stage
+                    }),
+                    
+                    //Фасад бизнес слоя
+                    facade=new app.business.Facade({
+                        movie:movie,
+                        project:project
+                    }),                    
+                                        
+                    //Редактор таймлайна
+                    timelineEditor=new app.presentation.timelineEditor.Component({
+                        movie:movie,
+                        //TODO композиция должна устанавливаться после инициализации
+                        composition:project.get('root').get('compositionCollection').get('root')
+                    }),
+                    
+                    //Редактор свойств
+                    propertyEditor=new app.presentation.properties.Component({                                                
+                        stage:stage,
+                        facade:facade
+                    }),                                                                                                              
+                    
+                    //Редактор холста
+                    stageEditor=new app.presentation.stageEditor.Component({
+                        stage:stage,
+                        facade:facade
+                    }),
+                                    
+                    //панель управления воспроизведением
+                    transport=new app.presentation.panels.Transport({
+                        movie:movie                    
+                    })
+                    
+                    //TODO убрать КОСТЫЛЬ  !!!!!!                                               
+                    project.get('root').get('compositionCollection').get('root').fire('load',{});
+                    
+                    $()
+                })                                
         })
     })          
 });

@@ -116,14 +116,13 @@ $( function () {
                     // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
                     // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
                     movie=new app.movie.Movie({
-                        timeline:project.get('root').get('compositionCollection').get('root'),
-                        stage:stage
-                        //CHAOS:true
+                        timeline:project.get('root').get('compositionCollection').get('0'),
+                        stage:stage                        
                     }),
                     
                     //создадим конструктор сцены
                     stageBuilder=new app.movie.StageBuilder({
-                        composition:project.get('root').get('compositionCollection').get('root'),
+                        composition:project.get('root').get('compositionCollection').get('0'),
                         stage:stage
                     }),
                     
@@ -138,7 +137,7 @@ $( function () {
                     timelineEditor=new app.presentation.timelineEditor.Component({
                         movie:movie,
                         //TODO композиция должна устанавливаться после инициализации
-                        composition:project.get('root').get('compositionCollection').get('root')
+                        composition:project.get('root').get('compositionCollection').get('0')
                     }),
                     
                     //Редактор свойств
@@ -159,29 +158,17 @@ $( function () {
                     })
                     
                     //TODO убрать КОСТЫЛЬ  !!!!!!                                               
-                    project.get('root').get('compositionCollection').get('root').fire('load',{});
-                    
-                    var 
-                    // создадим ролик
-                    // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
-                    // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты
-                    movie=new app.movie.Movie({
-                        timeline:project.get('root').get('compositionCollection').get('root'),
-                        stage:stage
-                        //CHAOS:true
-                    });
+                    project.get('root').get('compositionCollection').get('0').fire('load',{});                                        
                     
                     //=======================================================//
                     //======== эксперемент с переключением композиций =======//
-                    //=======================================================//
-                    
-                    $('.tab-head-title__timeline').on('click',function(){
-                        setComposition();
+                    //=======================================================//                    
+                    $('.tab-head-title__timeline').on('click',function(){                        
+                        setComposition( $(this).attr('target')  );
                     })
                     
-                    function setComposition(){
-                        stage.clear();                                                
-                        facade.selectComposition('test2');
+                    function setComposition(compositionName){                                                            
+                        facade.selectComposition( compositionName );
                     }
                     
                 })                                

@@ -130,7 +130,8 @@ $( function () {
                     //Фасад бизнес слоя
                     facade=new app.business.Facade({
                         movie:movie,
-                        project:project
+                        project:project,
+                        stageBuilder:stageBuilder
                     }),                    
                                         
                     //Редактор таймлайна
@@ -160,7 +161,19 @@ $( function () {
                     //TODO убрать КОСТЫЛЬ  !!!!!!                                               
                     project.get('root').get('compositionCollection').get('root').fire('load',{});
                     
-                    $()
+                    
+                    //=======================================================//
+                    //======== эксперемент с переключением композиций =======//
+                    //=======================================================//
+                    $('.tab-head-title__timeline').on('click',function(){
+                        setComposition();
+                    })
+                    
+                    function setComposition(){
+                        stage.clear();                                                
+                        facade.selectComposition('test2');
+                    }
+                    
                 })                                
         })
     })          

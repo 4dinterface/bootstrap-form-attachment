@@ -72,7 +72,14 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      * Метод должен сменить композицию
      */
      selectComposition: function (compositionId) {                
-         this.composition=this.symbol.get('compositionCollection').get(compositionId);       
+         this.composition= this.symbol.get ('compositionCollection').get(compositionId);                         
+         
+         //Построим композицию при помощи stageBuilder
+         this.stageBuilder.setComposition(this.composition);
+         this.stageBuilder.buildComposition();
+         
+         //установим композицию для movie
+         this.movie.setTimeline(this.composition);
      }
      
 }));

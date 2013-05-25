@@ -92,8 +92,7 @@ Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototy
         
         this.liftEvent(value);        
     },
-            
-            
+                        
     /**
      * Возвращает длинну композиции
      */        

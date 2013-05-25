@@ -34,19 +34,24 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
         this._super();
         this.apply(cfg);            
         //this.composition.on('load',function(){
-            me.buildComposition();
-            me.stage.update();
+            me.buildComposition();            
         //});
     },
             
     /**
      * метод строит на сцене всю композицию целиком
      */
-    buildComposition:function(){        
+    buildComposition:function(){                       
         var me=this;
+        
+        //очистим сцену        
+        me.stage.removeAllChildren();
+        
         this.composition.get('shapeCollection').forEach(function(shape){                                    
             me.buildShape(shape);
         })
+        
+        me.stage.update();
     },
 
     /**
@@ -66,7 +71,7 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
     * Установка таймлайна 
     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
     */
-    setComposition: function (timeline) {        
+    setComposition: function (composition) {        
         //отпишемся от событий старой композиции
         if (this.composition) this.offListeners();
         //сменим композицию

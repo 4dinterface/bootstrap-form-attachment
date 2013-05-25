@@ -331,6 +331,40 @@ data=
         } */ 
 
 
+    ],
+
+    //Вторая комозиция           
+    "test2":[
+        { 
+            "target":{
+                "xtype":"Circle"
+            },
+
+            "property":{
+                "alpha":{
+                    "type":"float",
+                    "keyframes":{                
+                        "1": {
+                            "value":0,
+                            "easing":"line"
+                        },
+
+                        "1000": {
+                            "value":1,
+                            "easing":"line"
+                        },            
+
+                        "2000": {
+                            "value":1,
+                            "easing":"line"
+                        }
+                    }            
+                }
+            }
+        }
     ]
+    
   }
+          
+                
 }

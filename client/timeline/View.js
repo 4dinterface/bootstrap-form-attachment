@@ -113,13 +113,17 @@ Define( "app.timeline.View", /** @lends {app.component} */{
             var positionInPixels = this.utilites.toPixels( this.model, e.elapsedTime );
 
             this.domRunner.css( 'left', positionInPixels );
-            this.autoScroll( positionInPixels );
+
+            if ( this.enableAutoScroll ) {
+                this.autoScroll( positionInPixels );
+            }
         }.bind( this ));
 
 
 
         this.movie.on( 'onplay', function() {
             //TODO: тут прокрутка к начальной точке воспроизведения
+            // TODO: нужна ли?
             this.enableAutoScroll = true;
         }.bind( this ));
 
@@ -139,10 +143,6 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
 
     autoScroll: function( positionInPixels ) {
-        if ( !this.enableAutoScroll ) {
-            return;
-        }
-
         var visibleWidth = this.domEditorBody.get( 0 ).clientWidth;
         var scrollLeft = this.domEditorBody.scrollLeft();
         var positionInPercents = ( positionInPixels - scrollLeft ) * 100 / visibleWidth;

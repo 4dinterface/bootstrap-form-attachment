@@ -15,6 +15,7 @@
 
         <script src="frameworks/zepto/zepto.data.js"></script>
         <script src="frameworks/zepto/zepto.scrollLeft.js"></script>
+        <script src="frameworks/zepto/zepto.clientWidth.js"></script>
         <script src="frameworks/zepto/zepto.draggable.js"></script>
         <script src="frameworks/jqote2/jquery.jqote2.js"></script>
 
@@ -171,7 +172,9 @@
 
                 <div id="timeline-editor">
                     <div id="timeline-editor-head">
-                        <div id="timeline-ruler"></div>
+                        <div id="timeline-ruler-box">
+                            <!--here ruler-->
+                        </div>
                         <div id="timeline-ruler-background"></div>
                         <div id="timeline-runner-head"></div>
                     </div>
@@ -204,10 +207,16 @@
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-ruler">
-                    <div class="timeline-ruler-pick" style="width:<%=this.width%>px;">
-                        <%=this.value%>
-                    </div>
-                </script>
+                        <div id="timeline-ruler" style="left:<%=this.left%>px;">
+                            <%= $.jqote( '#template-timeline-ruler-tick', this.ticks ) %>
+                        </div>
+                   </script>
+
+                <script type="text/x-jqote-template" id="template-timeline-ruler-tick">
+                        <div class="timeline-ruler-tick" style="width:<%=this.width%>px;">
+                            <%=this.value%>
+                        </div>
+                   </script>
         <!-- END TEMPLATES -->
 
             </div>

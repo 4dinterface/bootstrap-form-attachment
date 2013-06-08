@@ -28,7 +28,7 @@
     overflow: hidden;
 }
 
-#timeline-ruler {
+#timeline-ruler-box {
     height: 22px;
     background-color: #dadada;
     background: -webkit-linear-gradient(bottom, #5e5e5e 10%, #8a8a8a 90%);
@@ -36,6 +36,11 @@
     background: -ms-linear-gradient(bottom, #5e5e5e 0%,#8a8a8a 100%);
     background: -o-linear-gradient(bottom, #5e5e5e 0%,#8a8a8a 100%);
     background: linear-gradient(to top, #5e5e5e 0%,#8a8a8a 100%);
+    overflow: hidden;
+}
+
+#timeline-ruler {
+    position: relative;
 }
 
 #timeline-ruler-background {
@@ -47,7 +52,7 @@
 /**
 * Блок на линейке таймлайна
 */
-.timeline-ruler-pick {
+.timeline-ruler-tick {
     color: #fffae5;
     width: 100px;
     height: 20px;

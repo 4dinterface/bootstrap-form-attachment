@@ -66,7 +66,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {
             $( '#timeline-editor-body-box' ).jqotesub( '#template-timeline-line', this.createTimeline() );
-            this.createRuler();
+            this.renderRuler();
         }.bind( this ));
 
 
@@ -140,6 +140,11 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // ------------------- END RUNNER ------------------------
 
+
+        // TODO: хардкор, убрать
+        this.domEditorBody.scroll(function() {
+            this.renderRuler();
+        }.bind( this ));
     },
 
 
@@ -162,6 +167,9 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         }
 
         this.scrollTo( x );
+
+        // TODO: убрать этот метод отсюда
+        this.renderRuler();
     },
 
 
@@ -179,56 +187,66 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
     // создать линейку
     createRuler: function() {
-
-        // 0 ... 1 ... 2 ... 3 ... 4 ... 5
-        // 0 ... 2,5 ... 5 ... 7,5 ... 10 ... 12,5
-        // 0 ... 5 ... 10 ... 15 ... 20 ... 25
-        // 0 ... 10 ... 20 ... 30 ... 40 ... 50
-        // 0 ... 25 ... 50 ... 75 ... 100 ... 125
-        // 0 ... 50 ... 100 ... 150 ... 200 ... 250
-        // 0 ... 100 ... 200 ... 300 ... 400 ... 500
-        // 0 ... 250 ... 500 ... 750 ... 1000 ... 1250
-        // 0 ... 500 ... 1000 ... 1500 ... 2000 ... 2500
-        // 0 ... 1000 ... 2000 ... 3000 ... 4000 ... 5000
-        // 0 ... 2500 ... 5000 ... 7500 ... 10000 ... 12500
-        // 0 ... 5000 ... 10000 ... 15000 ... 20000 ... 25000
-
-
-        //TODO Продумать алгоритм построения линейки и переписать черновик
-
-        var width = 800;
-        var points = [];
-
-        var ms = this.utilites.toMilliseconds( this.model, 100 ) / this.model.zoom;
-        var m;
-
-        var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
-
-        //console.log( z );
-        x.some(function( num ) {
-            if ( ms / num | 0 > 0 ) {
-                m = num;
-                return true;
-            }
-        });
-
-        width = this.utilites.toPixels( this.model, m ) * this.model.zoom;
-
-        points = new Array( 800 / width | 0 );
-
-
-        var index = 0;
+//        var width = 800;
+//        var points = [];
 //
-        for( ; index < points.length; index++ ) {
-            points[ index ] = {
-                width: width,
-                value: m * index
-            };
-        }
-
-        $( '#timeline-ruler' ).jqotesub( '#template-timeline-ruler', points );
+//        var ms = this.utilites.toMilliseconds( this.model, 100 ) / this.model.zoom;
+//        var m;
+//
+//        var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
+//
+//        //console.log( z );
+//        x.some(function( num ) {
+//            if ( ms / num | 0 > 0 ) {
+//                m = num;
+//                return true;
+//            }
+//        });
+//
+//        width = this.utilites.toPixels( this.model, m ) * this.model.zoom;
+//
+//        points = new Array( 800 / width | 0 );
+//
+//
+//        var index = 0;
+////
+//        for( ; index < points.length; index++ ) {
+//            points[ index ] = {
+//                width: width,
+//                value: m * index
+//            };
+//        }
+//
+//        $( '#timeline-ruler-box' ).jqotesub( '#template-timeline-ruler', data );
     },
 
+
+    renderRuler: function() {
+        var visibleWidth = this.domEditorBody.clientWidth();
+        var scrollLeft = this.domEditorBody.scrollLeft();
+        var step = this.model.pixelsPerSecond / this.model.zoom;
+        var min = this.utilites.roundUpTo( scrollLeft, step, -1 );
+        var max = this.utilites.roundUpTo( scrollLeft + visibleWidth, step, 1 );
+        var data = {
+            left: -(scrollLeft % step), // TODO: переписать?
+            ticks: []
+        };
+
+        // Далее рассчет ведется в миллисекундах
+        min = this.utilites.toMilliseconds( this.model, min );
+        max = this.utilites.toMilliseconds( this.model, max );
+        step = this.utilites.toMilliseconds( this.model, step );
+
+        while( min < max ) {
+            data.ticks.push({
+                width: 100,
+                value: min
+            });
+            min += step;
+        }
+
+        $( '#timeline-ruler-box' ).jqotesub( '#template-timeline-ruler', data );
+    },
 
     // reserved
     render: function( items ) {

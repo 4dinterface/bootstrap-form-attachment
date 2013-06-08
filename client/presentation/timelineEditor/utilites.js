@@ -33,6 +33,22 @@ app.timeline.utilites = {
 
 
     /**
+     * Округляет число до определенного числа.
+     * Режим округлени (вниз/вверх) задается параметром mode.
+     *
+     * @param {Number} value Число, которое предстоит округлить
+     * @param {Number} precision Число, задающее точность округления
+     * @param {Number} mode Режим округления
+     * @return {Number} Округленное число
+     */
+    roundUpTo: function( value, precision, mode ) {
+        var rest = value % precision;
+        value += mode < 0 ? -rest : precision - rest;
+        return value;
+    },
+
+
+    /**
      *  Переводит миллисекунды в пиксели в зависимости
      *  от настроек представления таймлана.
      *

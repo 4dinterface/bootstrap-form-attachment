@@ -90,7 +90,7 @@ Define( 'app.timeline.Controller', {
      */
     domListeners: {
 
-
+/*
         '.player-back % mousedown': function( e ) {
             if ( e.which !== 1 ) {
                 return;
@@ -107,7 +107,7 @@ Define( 'app.timeline.Controller', {
 
             this.view.scrollTo( this.domEditorBody[ 0 ].scrollWidth );
         },
-
+*/
 
         /**
          * Ловит событие на теле таймлайна и вызывает функции поведения

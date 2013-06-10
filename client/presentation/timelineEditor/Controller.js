@@ -91,6 +91,24 @@ Define( 'app.timeline.Controller', {
     domListeners: {
 
 
+        '.player-back % mousedown': function( e ) {
+            if ( e.which !== 1 ) {
+                return;
+            }
+
+            this.view.scrollTo( 0 );
+        },
+
+
+        '.player-forward % mousedown': function( e ) {
+            if ( e.which !== 1 ) {
+                return;
+            }
+
+            this.view.scrollTo( this.domEditorBody[ 0 ].scrollWidth );
+        },
+
+
         /**
          * Ловит событие на теле таймлайна и вызывает функции поведения
          *
@@ -110,7 +128,7 @@ Define( 'app.timeline.Controller', {
             }
 
             this.propertySelect( e, prop );
-            this.runnerMove( e, position );
+            this.runnerMoveTo( e, position );
 
             // this.domTarget.on( '.timeline-drag' );
         },
@@ -146,7 +164,7 @@ Define( 'app.timeline.Controller', {
 
             //console.log( this.dragShiftX )
 
-            this.dragHandler = 'runnerMove';
+            this.dragHandler = 'runnerMoveTo';
 
             this.bind([ '% mousemove.timeline-drag', '% mouseup.timeline-drag' ]);
         },
@@ -214,7 +232,7 @@ Define( 'app.timeline.Controller', {
     },
 
 
-    propertyMove: function() {
+    propertyMoveTo: function() {
 
     },
 
@@ -224,22 +242,22 @@ Define( 'app.timeline.Controller', {
     },
 
 
-    keyframeMove: function() {
+    keyframeMoveTo: function() {
 
     },
 
 
     /**
-     * Перемещение бегунка
+     * Перемещает бегунок к указанной позиции
      * @param {Object} e event object
-     * @param {Number} position
+     * @param {Number} x
      */
-    runnerMove: function( e, position ) {
+    runnerMoveTo: function( e, x ) {
         if ( e.ctrlKey || e.which !== 1 ) {
             return;
         }
 
-        this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, position ) );
+        this.movie.gotoAndStop( this.utilites.toMilliseconds( this.model, x ) );
     }
 
 });

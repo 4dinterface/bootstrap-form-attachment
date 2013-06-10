@@ -12,14 +12,14 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
     /**
      * Данные модели таймлайна
-     * @type {app.model.Timeline}
+     * @type {Object} Модель таймлайна
      * @private
      */
     model: null,
 
 
     /**
-     * Флаг включения/отключения автоскролла
+     * Флаг включения/отключения авто-скролла
      * @type {Boolean}
      * @private
      */
@@ -53,6 +53,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      * Конструктор объекта представления
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
+     * @this {Object} timeline
      */
     init: function( cfg ) {
         this._super();
@@ -110,12 +111,12 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // Передвижение бегунка при воспроизведении анимации
         this.movie.on( 'onframe', function( e ) {
-            var positionInPixels = this.utilites.toPixels( this.model, e.elapsedTime );
+            var x = this.utilites.toPixels( this.model, e.elapsedTime );
 
-            this.domRunner.css( 'left', positionInPixels );
+            this.domRunner.css( 'left', x );
 
             if ( this.enableAutoScroll ) {
-                this.autoScroll( positionInPixels );
+                this.autoScroll( x );
             }
         }.bind( this ));
 
@@ -142,18 +143,36 @@ Define( "app.timeline.View", /** @lends {app.component} */{
     },
 
 
-    autoScroll: function( positionInPixels ) {
+    /**
+     * Автоматически прокручивает таймлайн при воспроизведении
+     *
+     * @param {Number} x Позиция в пикселях к которой прокручивать по горизонтали
+     * @this {Object} timeline
+     * @private
+     */
+    autoScroll: function( x ) {
         var domEditorBody = this.domEditorBody.get( 0 );
         var visibleWidth = domEditorBody.clientWidth;
         var scrollWidth = domEditorBody.scrollWidth;
         var scrollLeft = domEditorBody.scrollLeft;
-        var positionInPercents = ( positionInPixels - scrollLeft ) * 100 / visibleWidth;
+        var positionInPercents = ( x - scrollLeft ) * 100 / visibleWidth;
 
         if ( positionInPercents < 90 || scrollLeft + visibleWidth === scrollWidth ) {
             return;
         }
 
-        this.domEditorBody.scrollLeft( positionInPixels );
+        this.scrollTo( x );
+    },
+
+
+    /**
+     * Прокручивает таймлайн к определенной позиции
+     *
+     * @param {Number} x Позиция в пикселях к которой прокручивать по горизонтали
+     * @this {Object} timeline
+     */
+    scrollTo: function( x ) {
+        this.domEditorBody.scrollLeft( x );
         // this.movie.pause();  // debug only
     },
 

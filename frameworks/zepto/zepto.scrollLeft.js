@@ -13,11 +13,14 @@
             return;
         }
 
-        if ( !value ) {
+        if ( !arguments.length ) {
             return this[ 0 ].scrollLeft;
         }
 
-        this[ 0 ].scrollLeft = value;
+        this.each(function() {
+            this.scrollLeft = value;
+        });
+
         return this;
 
     };

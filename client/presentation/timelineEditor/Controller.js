@@ -16,6 +16,19 @@ Define( 'app.timeline.Controller', {
      */
     model: null,
 
+    /**
+     * Компонет воспроизведения
+     * @type {Object}
+     * @private
+     */
+    movie: null,
+
+    /**
+     * Ссылка на представление
+     * @type {app.model.view}
+     * @private
+     */
+    view: null,
 
     /**
      * Утилиты таймлайна
@@ -24,14 +37,12 @@ Define( 'app.timeline.Controller', {
      */
     utilites: app.timeline.utilites,
 
-
     /**
      * Корневой элемент относительно которого навешиваются обработчики событий
      * @type {Object}
      * @private
      */
     domTarget: $( document ),
-
 
     /**
      * Редактор таймлайна
@@ -40,7 +51,6 @@ Define( 'app.timeline.Controller', {
      */
     domEditor: $( '#timeline-editor' ),
 
-
     /**
      * Тело редактора таймлайна
      * @type {Object}
@@ -48,14 +58,12 @@ Define( 'app.timeline.Controller', {
      */
     domEditorBody: $( '#timeline-editor-body' ),
 
-
     /**
      * Контейнер внутри тела редактора таймлайна
      * @type {Object}
      * @private
      */
     domEditorBodyBox: $( '#timeline-editor-body-box' ),
-
 
     /**
      * Бегунок на таймлайнее
@@ -72,6 +80,8 @@ Define( 'app.timeline.Controller', {
 
     dragHandler: null,
 
+    scrollLeft: 0,
+
 
     /**
      * Конструктор объекта контроллера
@@ -82,6 +92,10 @@ Define( 'app.timeline.Controller', {
         this._super();
         this.apply( cfg );
         this.domTarget.off( '.timeline-drag' );
+
+        // запоминаем начальное значение прокрутки,
+        // чтобы иметь возможность отследить ее изменение
+        this.scrollLeft = this.domEditorBody.scrollLeft();
     },
 
 
@@ -89,6 +103,23 @@ Define( 'app.timeline.Controller', {
      * Обработчики dom событий
      */
     domListeners: {
+
+
+        /**
+         * Ловит событие прокрутки таймлайна, фильтрует и
+         * запускает actions только при scroll-x (горизонтальной прокрутке)
+         */
+        '#timeline-editor-body % scroll': function() {
+            var scrollLeft = this.domEditorBody.scrollLeft();
+
+            if ( this.scrollLeft !== scrollLeft ) {
+                this.scrollLeft = scrollLeft;
+
+                this.view.runnerMoveTo( this.utilites.toPixels( this.model, this.movie.elapsedTime  ) );
+                this.view.renderRuler();
+            }
+        },
+
 
         /**
          * Ловит событие на теле таймлайна и вызывает функции поведения

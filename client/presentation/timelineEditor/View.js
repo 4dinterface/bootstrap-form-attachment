@@ -17,6 +17,12 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      */
     model: null,
 
+    /**
+     * Компонет воспроизведения
+     * @type {Object}
+     * @private
+     */
+    movie: null,
 
     /**
      * Флаг включения/отключения авто-скролла
@@ -32,21 +38,33 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      */
     utilites: app.timeline.utilites,
 
-
-    /**
-     * Бегунок на таймлайнее
-     * @type {Object}
-     * @private
-     */
-    domRunner: $( '#timeline-runner-body, #timeline-runner-head' ),
-
-
     /**
      * Тело редактора таймлайна
      * @type {Object}
      * @private
      */
     domEditorBody: $( '#timeline-editor-body' ),
+
+    /**
+     * Контейнер линейки
+     * @type {Object}
+     * @private
+     */
+    domRulerBox: $( '#timeline-ruler-box' ),
+
+    /**
+     * Голова бегунка
+     * @type {Object}
+     * @private
+     */
+    domRunnerHead: $( '#timeline-runner-head' ),
+
+    /**
+     * Тело бегунока
+     * @type {Object}
+     * @private
+     */
+    domRunnerBody: $( '#timeline-runner-body' ),
 
 
     /**
@@ -58,10 +76,6 @@ Define( "app.timeline.View", /** @lends {app.component} */{
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-
-
-        // console.log( this.model.zoom );
-
 
         // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {
@@ -113,7 +127,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         this.movie.on( 'onframe', function( e ) {
             var x = this.utilites.toPixels( this.model, e.elapsedTime );
 
-            this.domRunner.css( 'left', x );
+            this.runnerMoveTo( x );
 
             if ( this.enableAutoScroll ) {
                 this.autoScroll( x );
@@ -140,11 +154,6 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // ------------------- END RUNNER ------------------------
 
-
-        // TODO: хардкор, убрать
-        this.domEditorBody.scroll(function() {
-            this.renderRuler();
-        }.bind( this ));
     },
 
 
@@ -167,9 +176,6 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         }
 
         this.scrollTo( x );
-
-        // TODO: убрать этот метод отсюда
-        this.renderRuler();
     },
 
 
@@ -177,7 +183,6 @@ Define( "app.timeline.View", /** @lends {app.component} */{
      * Прокручивает таймлайн к определенной позиции
      *
      * @param {Number} x Позиция в пикселях к которой прокручивать по горизонтали
-     * @this {Object} timeline
      */
     scrollTo: function( x ) {
         this.domEditorBody.scrollLeft( x );
@@ -185,42 +190,23 @@ Define( "app.timeline.View", /** @lends {app.component} */{
     },
 
 
-    // создать линейку
-    createRuler: function() {
-//        var width = 800;
-//        var points = [];
-//
-//        var ms = this.utilites.toMilliseconds( this.model, 100 ) / this.model.zoom;
-//        var m;
-//
-//        var x = [ 1000, 500, 250, 125, 100, 50, 25, 10, 5, 1 ];
-//
-//        //console.log( z );
-//        x.some(function( num ) {
-//            if ( ms / num | 0 > 0 ) {
-//                m = num;
-//                return true;
-//            }
-//        });
-//
-//        width = this.utilites.toPixels( this.model, m ) * this.model.zoom;
-//
-//        points = new Array( 800 / width | 0 );
-//
-//
-//        var index = 0;
-////
-//        for( ; index < points.length; index++ ) {
-//            points[ index ] = {
-//                width: width,
-//                value: m * index
-//            };
-//        }
-//
-//        $( '#timeline-ruler-box' ).jqotesub( '#template-timeline-ruler', data );
+    /**
+     * Перемещает бегунок к указанной позиции
+     * Также синхронизирует тело и голову бегунка
+     *
+     * @param x позиция, в кот. должен быть отрисован бегунок
+     */
+    runnerMoveTo: function( x ) {
+        var scrollLeft = this.domEditorBody.scrollLeft();
+
+        this.domRunnerHead.css( 'left', x - scrollLeft );
+        this.domRunnerBody.css( 'left', x );
     },
 
 
+    /**
+     * Рисует/перерисовывает линейку
+     */
     renderRuler: function() {
         var visibleWidth = this.domEditorBody.clientWidth();
         var scrollLeft = this.domEditorBody.scrollLeft();
@@ -228,7 +214,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         var min = this.utilites.roundUpTo( scrollLeft, step, -1 );
         var max = this.utilites.roundUpTo( scrollLeft + visibleWidth, step, 1 );
         var data = {
-            left: -(scrollLeft % step), // TODO: переписать?
+            left: -( scrollLeft % step ), // TODO: переписать?
             ticks: []
         };
 
@@ -239,17 +225,13 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         while( min < max ) {
             data.ticks.push({
-                width: 100,
+                width: this.model.pixelsPerSecond,
                 value: min
             });
             min += step;
         }
 
-        $( '#timeline-ruler-box' ).jqotesub( '#template-timeline-ruler', data );
-    },
-
-    // reserved
-    render: function( items ) {
+        this.domRulerBox.jqotesub( '#template-timeline-ruler', data );
     },
 
 

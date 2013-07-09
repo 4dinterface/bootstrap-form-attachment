@@ -71,9 +71,7 @@ Define( 'app.timeline.Controller', {
     dragPositions: null,
 
     dragHandler: null,
-
-
-    /**
+   /**
      * Конструктор объекта контроллера
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами

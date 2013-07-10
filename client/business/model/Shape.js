@@ -84,6 +84,7 @@ Define('app.model.Shape', /** @lends {app.model.Keyframe.prototype} */ {
                 this.get('propertyCollection').set(propertyName,prop);
             }
             
+            //добавим ключ
             prop.get('keyframeCollection').set(time,new app.model.Keyframe({
                 "value":value,
                 "easing":"line",

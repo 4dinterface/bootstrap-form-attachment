@@ -54,13 +54,28 @@ Define('core.data.Model', /** @lends {app.Model} */ {
             this.data[name] = value;
             //cash = this.key();
             //this.length = cash.length;
+
+            //если устанавливаемое значение это коллекция
+            if (value.isCollection) {
+                //сделаем родителем коллекции эту модель
+                value.parent = me;
+                
+                //разрешим всплытие событий
+                this.liftEvent(value);
+            }
+            
+            //событие генерируется при любом изменении                
             this.fire("change", {
                 key:name,
                 value:value
             });        
             
+            //генерируются события указанные в autoFireEvent
             if ('set' in this.autoFireEvent){
-                alert('set autogen');
+                this.fire(this.autoFireEvent.set, {
+                    key:name,
+                    value:value
+                });                   
             }
 	},
 

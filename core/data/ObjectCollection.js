@@ -10,6 +10,7 @@ Define('core.data.ObjectCollection', /** @lends app.ObjectCollection */({
         
         cache:null,
         data:null,
+        isCollection:true,
 
         //протестируем браузер и узнаем будет ли он упорядочевать ключи из обьекта
         tstSort:(function(){

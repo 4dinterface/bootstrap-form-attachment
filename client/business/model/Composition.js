@@ -41,6 +41,9 @@ Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototy
 
     //Композиция это типичная модель
     extend: core.data.Model,
+    
+    //TODO - предпочтительно чтобы мсвойства хранились в атрибутах модели, а не просто как свойства
+    // 
 
     /**
      * Пикселей в секунде. Одна из составляющих визуализации таймлайна
@@ -62,6 +65,11 @@ Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototy
      * @private
      */
     visibleWidth: 800,
+    
+    //автогенерация событий при вызове методов
+    autoFireEvent:{            
+        "set":"compositionchange"
+    },
 
 
     /**
@@ -71,26 +79,6 @@ Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototy
     init: function() {
         this._super();
         this.set( 'shapeCollection', new app.model.ShapeCollection() );
-    },
-
-	/**
-	 * @method set
-	 * @param {*} property
-     * @param {Object} value
-	 * @return undefined
-	 **/
-    set: function( property, value ) {
-        var me = this;
-
-        value.parent = me;
-
-        this._super();
-        this.fire( 'timelinepropertychange', {
-            key: name,
-            value: value
-        });
-        
-        this.liftEvent(value);        
     },
                         
     /**

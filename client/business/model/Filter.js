@@ -56,8 +56,9 @@ Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
                 value:value
             });
             
+            //TODO - вероятно ошибка в e.shape=me, фильтр не должен подписываться как shape 
             this.liftEvent(value,function(e){                
-                e.shape=me;
+                e.filter=me;
                 me.fire(e.eventName,e);
             })
 	}

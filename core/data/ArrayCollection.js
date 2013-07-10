@@ -7,6 +7,7 @@
 Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     extend : core.Component,
     data:null,
+    isCollection:true,
 
     /**
      * @constructor

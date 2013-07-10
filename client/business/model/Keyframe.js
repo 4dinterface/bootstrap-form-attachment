@@ -41,31 +41,11 @@ Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 	init : function () {
             this._super();                    
 	},
-                
-        /*autoFireEvent:{
+
+        //автоматическая генерация события  при вызове метода
+        autoFireEvent:{
             "set":"keyframechange"
-        },*/
-
-	/**
-     * Установка значения свойства
-	 * @method set
-	 * @param {string} property
-     * @param {*} value
-	 **/
-	set : function (property, value) {
-            this._super();
-            
-            //console.log('set work');
-            this.fire("keyframechange", {
-                key: property,
-                value: value
-            });
-            
-	}
-        
-
-	//get : function (name) {
-        //    this.super();
-	//}
+        }
+	
 });
 

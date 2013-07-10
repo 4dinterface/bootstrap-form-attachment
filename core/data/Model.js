@@ -36,6 +36,11 @@ Define('core.data.Model', /** @lends {app.Model} */ {
             //this.length = this.cash.length;
             
 	},
+                
+        //описывает названия событий которые должны генерировать атоматически
+        autoFireEvent:{            
+            //set:" имя события"
+        },
         
 	/**
 	 * @method set
@@ -52,7 +57,11 @@ Define('core.data.Model', /** @lends {app.Model} */ {
             this.fire("change", {
                 key:name,
                 value:value
-            });                           
+            });        
+            
+            if ('set' in this.autoFireEvent){
+                alert('set autogen');
+            }
 	},
 
 

@@ -31,10 +31,11 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
     
         //this.movie.gotoAndStop(1);
         //this.timeline.clear(); //временно заремарил
+        
+        //TODO нежелательно обращаться напрямую к stage из reader
         this.stage.removeAllChildren ();
         
-        //символы
-        
+        //Функция создаёт проект        
         this.makeProject(data);
                         
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
@@ -46,8 +47,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
            callback();
         },1);
         
-        // TODO - нестоит обновлять stage из reader
-        //this.stage.update();     
+        //TODO нежелательно обращаться напрямую к stage из reader
+        this.stage.update();     
     },            
     
     //Создаёт проект

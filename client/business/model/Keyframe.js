@@ -41,6 +41,10 @@ Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 	init : function () {
             this._super();                    
 	},
+                
+        /*autoFireEvent:{
+            "set":"keyframechange"
+        },*/
 
 	/**
      * Установка значения свойства

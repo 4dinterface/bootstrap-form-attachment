@@ -22,6 +22,8 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * Загружает данные в модель таймлайна и сцену
      * @param {Object} data данные
      */     
+     
+     //todo- обеспечить загрузку проекта
      load:function(data,callback){
         var tlShape,
             stShape,
@@ -33,28 +35,29 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         
         //символы
         
-        for (var i in data){            
-            this.timeline.set( i, this.makeSymbol( data[i] ) );
-        }
-        
+        this.makeProject(data);
+                        
         //console.log('timeline',this.timeline.get(0).get('x').get(1).set("select",true));
-        console.log('timeline',this.timeline);                
+        console.log('timeline',this.project);                
         
         //Имитация асинхронности
         setTimeout(function(){
-           me.timeline.fire("load",{}); 
+           me.project.fire("load",{}); 
            callback();
         },1);
         
-        this.stage.update();
-        
+        // TODO - нестоит обновлять stage из reader
+        //this.stage.update();     
     },            
     
-    makeProject:function(){
-
+    //Создаёт проект
+    makeProject:function(data){
+        for (var i in data){            
+            this.project.get('symbolCollection').set( i, this.makeSymbol( data[i] ) );
+        }
     },
 
-    
+    //Создадим символ
     makeSymbol:function(data){
         var symbol=new app.business.model.Symbol();
         for(var i in data) {            

@@ -95,14 +95,14 @@ $( function () {
         $(function(){                                      
             var                
                 // создадим таймлайн
-                project = new app.business.model.CompositionCollection(),
+                project = new app.business.model.Project(),
                 //сцена         
                 stage=new app.presentation.stage.Stage(),                                
                                                         
                 //загрузчик данных, который загрузит данные на сцену, и в таймлайн
                 reader=new app.proxy.Reader({
                     stage:stage,
-                    timeline:project
+                    project:project
                 }),
                 
                 //верхнее меню
@@ -116,15 +116,16 @@ $( function () {
                     var 
                     // создадим ролик
                     // ролику понадобится доступ к таймлайну,  посколько анимация происходит по ключам из таймлайна
-                    // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты                    
+                    // а также ему понадобится доступ к сцене на которой он будет переставлять обьекты     
+                    // TODO - 
                     movie=new app.movie.Movie({
-                        timeline:project.get('root').get('compositionCollection').get('0'),
+                        timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
                         stage:stage                        
                     }),
                     
                     //создадим конструктор сцены
                     stageBuilder=new app.movie.StageBuilder({
-                        composition:project.get('root').get('compositionCollection').get('0'),
+                        composition:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
                         stage:stage
                     }),
                     
@@ -139,8 +140,10 @@ $( function () {
                     timelineEditor=new app.presentation.timelineEditor.Component({
                         movie:movie,
                         //TODO композиция должна устанавливаться после инициализации
-                        composition:project.get('root').get('compositionCollection').get('0')
+                        composition:project.get('symbolCollection').get('root').get('compositionCollection').get('0')
                     }),
+                    
+                    
                     
                     //Редактор свойств
                     propertyEditor=new app.presentation.properties.Component({                                                
@@ -160,7 +163,7 @@ $( function () {
                     })
                     
                     //TODO убрать КОСТЫЛЬ  !!!!!!                                               
-                    project.get('root').get('compositionCollection').get('0').fire('load',{});                                        
+                    project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});                                        
                     
                     //=======================================================//
                     //======== эксперемент с переключением композиций =======//
@@ -171,8 +174,7 @@ $( function () {
                     
                     function setComposition(compositionName){                                                            
                         facade.selectComposition( compositionName );
-                    }
-                    
+                    }                    
                 })                                
         })
     })          

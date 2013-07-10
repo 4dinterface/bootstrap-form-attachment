@@ -9,7 +9,7 @@
  *                              |                              
  *                            Symbol
  *                              |                              
- *                     CompositionCollction
+ *                     CompositionCollection
  *                              |                              
  *                         Composition
  *                              |

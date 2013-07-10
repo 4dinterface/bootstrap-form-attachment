@@ -60,7 +60,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      */
      selectSymbol: function (symbolId) {                
         //time получим из movie        
-        this.symbol=this.project.get( symbolId );
+        this.symbol=this.project.get('symbolCollection').get( symbolId );
         this.selectComposition('0');
      },                
             
@@ -80,6 +80,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
          
          //установим композицию для movie
          this.movie.setTimeline(this.composition);
+                  
          
      }
      

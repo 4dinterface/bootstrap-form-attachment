@@ -4,9 +4,17 @@
  * @name app.model.ShapeCollection
  * @extends {app.Component}
  * 
- *                          Timeline
+ *                          Project
  *                              |
- *                      (ShapeCollection)
+ *                      SymbolCollection
+ *                              |                              
+ *                            Symbol
+ *                              |                              
+ *                     CompositionCollection
+ *                              |                              
+ *                         (Composition)
+ *                              |
+ *                       ShapeCollection
  *                              |
  *                            Shape
  *                         /         \
@@ -21,8 +29,9 @@
  *                                     KeyframeCollection   
  *                                           |
  *                                        Keyframe
- *                                        
- */
+ 
+ **/
+ 
 Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     //по сути это arrayCollection
     extend : core.data.ArrayCollection,
@@ -33,7 +42,7 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
      */
     init : function () {        
         this._super();                   
-    },  
+    },                  
                 
     /**
      * @method set
@@ -47,7 +56,7 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
                         
         this._super();
         
-        this.fire("timelinechange", {
+        this.fire("compositionchange", {
             name:name,
             value:value
         });
@@ -55,13 +64,18 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
         //поднимем события из value на этот уровень
         this.liftEvent(value);
     },
-            
+
+    /**
+     * @method push     
+     * @param {value} value
+     * @return null
+     **/            
     push : function (value) {                
         var me=this;
         
         this._super();
         
-        this.fire("timelinechange", {
+        this.fire("compositionchange", {
             name:this.length,
             value:value
         });
@@ -69,7 +83,5 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
         //поднимем события из value на этот уровень
         this.liftEvent(value);
     }         
-
-    
-    
+        
 });

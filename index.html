@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title></title>
@@ -153,12 +153,13 @@
                     <div class="tab tab-timeline">
                         <div class="tab-head">
                             <div class="tab-head-circle"></div>
-                            <div class="tab-head-title tab-head-title__timeline">
+
+                            <div class="tab-head-title tab-head-title__timeline" target="0">
                                 <div class="tab-head-title-glass"></div>
                                 <div class="tab-head-title-text">Timeline</div>                                                                
                             </div>
                             
-                            <div class="tab-head-title tab-head-title__timeline">
+                            <div class="tab-head-title tab-head-title__timeline" target="1">
                                 <div class="tab-head-title-glass"></div>
                                 <div class="tab-head-title-text">Timeline 2</div>  
                             </div>
@@ -166,23 +167,25 @@
                         </div>
                         <div class="tab-body tab-body-timeline">
 
-                        </div>
-                    </div>
-                </div>
+                            <div class="tab-body-timeline-params"></div>
 
-                <div id="timeline-editor">
-                    <div id="timeline-editor-head">
-                        <div id="timeline-ruler-box">
-                            <!--here ruler-->
+                            <div id="timeline-editor">
+                                <div id="timeline-editor-head">
+                                    <div id="timeline-ruler-box">
+                                        <!--here ruler-->
+                                    </div>
+                                    <div id="timeline-ruler-background"></div>
+                                    <div id="timeline-runner-head"></div>
+                                </div>
+                                <div id="timeline-editor-body">
+                                    <div id="timeline-editor-body-box">
+                                        <!--properties & keyframes -->
+                                    </div>
+                                    <div id="timeline-runner-body"></div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div id="timeline-ruler-background"></div>
-                        <div id="timeline-runner-head"></div>
-                    </div>
-                    <div id="timeline-editor-body">
-                        <div id="timeline-editor-body-box">
-                            <!--properties & keyframes -->
-                        </div>
-                        <div id="timeline-runner-body"></div>
                     </div>
                 </div>
 

@@ -133,7 +133,7 @@ Define( 'app.timeline.Controller', {
             var target = $( e.target );
             var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
             var prop = target.is( '.timeline-property' ) ? target : null;
-            var position = e.pageX - this.domEditor.offset().left + this.domEditorBody.scrollLeft();
+            var position = e.pageX - this.domEditor.offset().left - this.domEditorBody.scrollLeft();
 
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline-property' );
@@ -172,7 +172,7 @@ Define( 'app.timeline.Controller', {
 
             this.dragElems = $( e.target );
             //this.dragPositions = this.dragElems.offset();
-            this.dragShiftX = this.domEditor.offset().left
+            this.dragShiftX = this.domEditor.offset().left - this.domEditorBody.scrollLeft();
 
             //console.log( this.dragShiftX )
 

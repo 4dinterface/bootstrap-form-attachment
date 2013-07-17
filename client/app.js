@@ -12,7 +12,9 @@
 */
 
 $( function () {    
-        'use strict'	
+        'use strict'
+
+
         
          var a=new core.ClassLoader();                
          a.require([

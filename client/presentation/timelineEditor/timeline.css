@@ -1,6 +1,6 @@
 /******************** TIMELINE STYLES **********************/
 
-#timeline-editor {
+.timeline__editor {
     -webkit-box-ordinal-group: 1;
     -moz-box-ordinal-group: 1;
     -webkit-order: 0;
@@ -23,12 +23,12 @@
 
 /* TIMELINE EDITOR HEAD */
 
-#timeline-editor-head {
+.timeline__editor_head {
     position: relative;
     overflow: hidden;
 }
 
-#timeline-ruler-box {
+.timeline__ruler_box {
     height: 22px;
     background-color: #dadada;
     background: -webkit-linear-gradient(bottom, #5e5e5e 10%, #8a8a8a 90%);
@@ -39,11 +39,11 @@
     overflow: hidden;
 }
 
-#timeline-ruler {
+.timeline__ruler {
     position: relative;
 }
 
-#timeline-ruler-background {
+.timeline__ruler_background {
     height: 22px;
     margin-top: -22px;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMTEB0DHTu5JgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY2CAgv///5vjYDAwMAAAvw0JnXzCDWwAAAAASUVORK5CYII=");
@@ -52,7 +52,7 @@
 /**
 * Блок на линейке таймлайна
 */
-.timeline-ruler-tick {
+.timeline__ruler_tick {
     color: #fffae5;
     width: 100px;
     height: 20px;
@@ -66,7 +66,7 @@
 /**
 * Голова бегунка / область захвата мышью при перетаскивании
 */
-#timeline-runner-head {
+.timeline__runner_head {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -82,7 +82,7 @@
 
 /* TIMELINE EDITOR BODY */
 
-#timeline-editor-body {
+.timeline__editor_body {
     height: 300px;
     overflow: scroll;
     background-color: #dadada;
@@ -90,7 +90,7 @@
     width: 100%;
 }
 
-#timeline-editor-body-box {
+.timeline__editor_body_box {
     display: table;
     width: 100%;
     height: 100%;
@@ -99,7 +99,7 @@
 /**
  * Линия редактора таймлайна
  */
-.timeline-line {
+.timeline__line {
     height: 18px;
 
     /* TODO Пока так. Как должно быть https://webdav.yandex.ru/inkscape-amix20.png */
@@ -113,7 +113,7 @@
 /**
  * Свойство/блок на линии в редакторе таймлайна
  */
-.timeline-property {
+.timeline__property {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
@@ -125,7 +125,7 @@
 /**
  * Выделенное свойство/блок
  */
-.timeline-property-select {
+.timeline__property_select {
     background-color: #7a9900;
 }
 
@@ -133,7 +133,7 @@
 /**
  * Ключевой кадр блока на линии в редакторе таймлайна
  */
-.timeline-keyframe {
+.timeline__keyframe {
     width: 6px;
     height: 6px;
     background-color: #545454;
@@ -149,7 +149,7 @@
 /**
 * Бегунок
 */
-#timeline-runner-body {
+.timeline__runner_body {
     position: absolute;
     top: 0px;
     bottom: 0px;

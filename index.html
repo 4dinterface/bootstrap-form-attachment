@@ -169,19 +169,19 @@
 
                             <div class="tab-body-timeline-params"></div>
 
-                            <div id="timeline-editor">
-                                <div id="timeline-editor-head">
-                                    <div id="timeline-ruler-box">
+                            <div id="timeline-editor" class="timeline__editor">
+                                <div id="timeline-editor-head" class="timeline__editor_head">
+                                    <div id="timeline-ruler-box" class="timeline__ruler_box">
                                         <!--here ruler-->
                                     </div>
-                                    <div id="timeline-ruler-background"></div>
-                                    <div id="timeline-runner-head"></div>
+                                    <div class="timeline__ruler_background"></div>
+                                    <div id="timeline-runner-head" class="timeline__runner_head"></div>
                                 </div>
-                                <div id="timeline-editor-body">
-                                    <div id="timeline-editor-body-box">
+                                <div id="timeline-editor-body" class="timeline__editor_body">
+                                    <div id="timeline-editor-body-box" class="timeline__editor_body_box">
                                         <!--properties & keyframes -->
                                     </div>
-                                    <div id="timeline-runner-body"></div>
+                                    <div id="timeline-runner-body" class="timeline__runner_body"></div>
                                 </div>
                             </div>
 
@@ -194,29 +194,29 @@
         
         <!-- TEMPLATES -->
                 <script type="text/x-jqote-template" id="template-timeline-line">
-                    <div class="timeline-line <%=this.clazz%>" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">
+                    <div class="timeline__line <%=this.clazz%>" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">
                         <%= $.jqote( '#template-timeline-property', this.properties ) %>
                     </div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-property">
-                    <div class="timeline-property <%=this.clazz%>" data-property-id="<%=this.id%>" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;">
+                    <div class="timeline__property <%=this.clazz%>" data-property-id="<%=this.id%>" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;">
                         <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
                     </div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-keyframe">
-                    <div class="timeline-keyframe" data-keyframe-id="<%=this.id%>" style="left:<%=this.left%>px;"></div>
+                    <div class="timeline__keyframe" data-keyframe-id="<%=this.id%>" style="left:<%=this.left%>px;"></div>
                 </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-ruler">
-                        <div id="timeline-ruler" style="left:<%=this.left%>px;">
+                        <div id="timeline__ruler" style="left:<%=this.left%>px;">
                             <%= $.jqote( '#template-timeline-ruler-tick', this.ticks ) %>
                         </div>
                    </script>
 
                 <script type="text/x-jqote-template" id="template-timeline-ruler-tick">
-                        <div class="timeline-ruler-tick" style="width:<%=this.width%>px;">
+                        <div class="timeline__ruler_tick" style="width:<%=this.width%>px;">
                             <%=this.value%>
                         </div>
                    </script>

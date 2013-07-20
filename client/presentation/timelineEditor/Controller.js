@@ -91,7 +91,7 @@ Define( 'app.timeline.Controller', {
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-        this.domTarget.off( '.timeline-drag' );
+        this.domTarget.off( '.timeline__drag' );
 
         // запоминаем начальное значение прокрутки,
         // чтобы иметь возможность отследить ее изменение
@@ -131,12 +131,12 @@ Define( 'app.timeline.Controller', {
             e = eventRunner || e;
 
             var target = $( e.target );
-            var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
-            var prop = target.is( '.timeline-property' ) ? target : null;
+            var keyframe = target.is( '.timeline__keyframe' ) ? target : null;
+            var prop = target.is( '.timeline__property' ) ? target : null;
             var position = e.pageX - this.domEditor.offset().left - this.domEditorBody.scrollLeft();
 
             if ( keyframe ) {
-                prop = keyframe.parent( '.timeline-property' );
+                prop = keyframe.parent( '.timeline__property' );
             }
 
             this.propertySelect( e, prop );
@@ -178,14 +178,14 @@ Define( 'app.timeline.Controller', {
 
             this.dragHandler = 'runnerMoveTo';
 
-            this.bind([ '% mousemove.timeline-drag', '% mouseup.timeline-drag' ]);
+            this.bind([ '% mousemove.timeline__drag', '% mouseup.timeline__drag' ]);
         },
 
 
         /**
          * Ловит событие и вызывает функции поведения
          */
-        '% mousemove.timeline-drag': function( e ) {
+        '% mousemove.timeline__drag': function( e ) {
             var x = e.pageX - this.dragShiftX;
 
             //console.log( x );
@@ -197,8 +197,8 @@ Define( 'app.timeline.Controller', {
         /**
          * Ловит событие и отключает обработчики перетаскивания
          */
-        '% mouseup.timeline-drag': function() {
-            this.domTarget.off( '.timeline-drag' );
+        '% mouseup.timeline__drag': function() {
+            this.domTarget.off( '.timeline__drag' );
         }
 
     },
@@ -211,18 +211,18 @@ Define( 'app.timeline.Controller', {
      */
     propertySelect: function( e, prop ) {
         if ( !prop && !e.ctrlKey ) {
-            unselect( this.model, $( '.timeline-property-select' ) );
+            unselect( this.model, $( '.timeline__property_select' ) );
             return;
         }
 
         if ( e.ctrlKey ) {
-            if ( prop.hasClass( 'timeline-property-select' ) ) {
+            if ( prop.hasClass( 'timeline__property_select' ) ) {
                 unselect( this.model, prop );
             } else {
                 select( this.model, prop );
             }
         } else {
-            unselect( this.model, $( '.timeline-property-select' ) );
+            unselect( this.model, $( '.timeline__property_select' ) );
             select( this.model, prop );
         }
 
@@ -231,14 +231,14 @@ Define( 'app.timeline.Controller', {
         function select( model, elems ) {
             model.fire( 'onclassadd', {
                 elems: elems,
-                clazz: 'timeline-property-select'
+                clazz: 'timeline__property_select'
             });
         }
 
         function unselect( model, elems ) {
             model.fire( 'onclassremove', {
                 elems: elems,
-                clazz: 'timeline-property-select'
+                clazz: 'timeline__property_select'
             });
         }
     },

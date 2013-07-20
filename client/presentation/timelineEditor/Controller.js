@@ -133,7 +133,7 @@ Define( 'app.timeline.Controller', {
             var target = $( e.target );
             var keyframe = target.is( '.timeline__keyframe' ) ? target : null;
             var prop = target.is( '.timeline__property' ) ? target : null;
-            var position = e.pageX - this.domEditor.offset().left - this.domEditorBody.scrollLeft();
+            var position = e.pageX - ( this.domEditor.offset().left - this.domEditorBody.scrollLeft() );
 
             if ( keyframe ) {
                 prop = keyframe.parent( '.timeline__property' );

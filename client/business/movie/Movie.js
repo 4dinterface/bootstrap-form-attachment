@@ -159,8 +159,8 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         // максим я добавил реакцию на событие в модели
         // используй этот пример в качестве TODO
-        timeline.on('keyframecollectionchange',function(){
-            me.renderFrame();
+        timeline.on('keyframecollectionchange',function(){            
+            me.renderFrame();            
         })
     },
 

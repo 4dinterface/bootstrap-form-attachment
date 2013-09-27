@@ -6,7 +6,6 @@
  * @name app.movie.StageBuilder
  * 
  */
-
 Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
     extend: core.Component,
     
@@ -33,9 +32,16 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
         var me=this;
         this._super();
         this.apply(cfg);            
-        //this.composition.on('load',function(){
-            me.buildComposition();            
-        //});
+        
+        me.buildComposition();                    
+
+        //реакция на изменения в модели
+
+        this.composition.on('shapecollectionchange',function(val){            
+            //console.log(val.value);
+            me.buildShape(val.value);
+            me.stage.update();
+        })
     },
             
     /**
@@ -50,7 +56,7 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
         this.composition.get('shapeCollection').forEach(function(shape){                                    
             me.buildShape(shape);
         })
-        
+
         me.stage.update();
     },
 
@@ -97,4 +103,3 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
      }
      
 }));
-

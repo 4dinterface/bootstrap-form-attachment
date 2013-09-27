@@ -11,6 +11,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
      */
     event: null,
     componentCount:0,
+    behaviours:null,
 
     /**
      * @constructor
@@ -25,7 +26,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
         //подключаем обработчики событий
         this.event={};
                 
-	for (event in this.listeners) {
+	    for (event in this.listeners) {
             res=event.split(' ');
             // подпишемся на событие компонента
             if(res.length==1){                
@@ -36,8 +37,20 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
                 console.log('res[0]',"="+res[0]+"=", this );
                 this[ res[0] ].on( res[1], this.listeners[ event ].bind(this) );
             }
-	}
-        //console.log('ths',this);
+	    }
+
+        //инициализация поведений
+        if (this.behaviours) {
+           for(i in this.behaviours) {                           
+               //alert(i);
+               this.behaviours[i]=new ( core.NS( this.behaviours[i] ) )({
+                    parent:this
+               })
+
+           }            
+        }     
+        
+
     },
 	
     //события
@@ -122,9 +135,44 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
     //вставляет свойста в обьект
     apply:function(prop){        
        	for(var x in prop){	        		
-		this[x] = prop[x];
-	}	
+		   this[x] = prop[x];
+	    }	
+    },
+
+    /**
+     *  включим поведение
+     */
+    useBehaviour:function(name){
+        this.behaviours[name].status=true;
+    },
+
+    /**
+     *  включим одно поведение, и выключим остальные
+     */
+    useOneBehaviour:function(name){
+        this.unUseBehavioursAll();
+        this.behaviours[name].status=true;        
+        console.log( name,this.behaviours[name] );
+    },
+
+
+    /**
+     *  выключим поведение
+     */
+    unUseBehaviour:function(name){
+        this.behaviours[i].status=false;
+    },
+
+    /**
+     *  выключим все поведения
+     */
+    unUseBehavioursAll:function(){
+        for (var i in this.behaviours){
+            this.behaviours[i].status=false;
+        }
     }
+
+
 
 }));
 

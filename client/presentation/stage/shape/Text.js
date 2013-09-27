@@ -20,7 +20,7 @@ Define('app.presentation.stage.shape.Text', {
             //console.log("TEXT====",this);
             this.x = cnf.x;
             this.y = cnf.y;
-            this.text=cnf.text;
+            this.text=cnf.text||"Hello world";
             this.lineWidth=this.width;            
             //this.maxWidth=600;
             //TextAlign - :)

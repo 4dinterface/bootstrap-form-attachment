@@ -7,9 +7,8 @@
  * Компонент может иметь несколько схем поведений
  * Включённое поведение получает право обрабатывать события компонента
  * Выключенное поведения,  неполучают события.
- * Компонент может свободно включать и выключать события
+ * Компонент может свободно включать и выключать поведения
  **/
-
 Define("core.Behaviour", /** @lends {app.Component.prototype} */({
     /**
      * Регистр событий и их обработчиков
@@ -22,12 +21,12 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
     listeners:null,
     
     //флаг активности true включен, false - выключен
-    status:true,
+    status:false,
 
     /**
      * @constructor
      */
-    init: function (param) {	        
+    init: function (param) {	           
         
         var res;        
         
@@ -36,7 +35,7 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
         
         //подключаем обработчики событий
         this.event={};                
-	for (event in this.listeners) {
+        for (event in this.listeners) {
             res=event.split(' ');
             // подпишемся на событие компонента
             if(res.length==1){                
@@ -50,9 +49,7 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
             }
 	}           
     },
-	
-    //события
-    listeners: null,
+	    
 
     /**
      * Отправит событие на обработку с указанным объектом события
@@ -79,7 +76,7 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
         var me=this;        
         this.parent.on(name, function(){
             //обработчик сработает только если поведение активно
-            if (me.status) me[name].apply(me,arguments,ctx);
+            if (me.status) fun.apply(me,arguments,ctx);
         } );
     },
     
@@ -87,13 +84,11 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
     off: function (name) {
         this.parent.off(name)
     },
-
     
     //вставляет свойста в обьект
     apply:function(prop){        
-       	for(var x in prop){	        		
-		this[x] = prop[x];
-	}	
-    }    
-    
+      for(var x in prop){	        		
+	      this[x] = prop[x];
+	  }	
+    }       
 }));

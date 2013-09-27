@@ -13,17 +13,16 @@
 
 $( function () {    
         'use strict'
-
-
         
          var a=new core.ClassLoader();                
          a.require([
              //классы ядра             
-             "core/Component.js",
+             "core/Component.js",             
              "core/data/ObjectCollection.js",
              "core/data/ArrayCollection.js",
              "core/data/Model.js",
              "core/Controller.js",
+             "core/Behaviour.js",
              "core/View.js",
 
              "core/widget/widgetManager.js",
@@ -78,7 +77,11 @@ $( function () {
              // ---------- Холст -------------
              "client/presentation/stageEditor/Controller.js",
              "client/presentation/stageEditor/Component.js",
-             "client/presentation/stageEditor/Toolbar.js",  
+             "client/presentation/stageEditor/Toolbar.js",
+
+             "client/presentation/stageEditor/behaviours/Selector.js",
+             "client/presentation/stageEditor/behaviours/ShapeDrawer.js",             
+             "client/presentation/stageEditor/behaviours/Drager.js",             
              
              // ------- Редактор свойств ----------
              "client/presentation/propertiesEditor/View.js",
@@ -88,8 +91,7 @@ $( function () {
             // ---------- Panels -------------                                     
              "client/presentation/panels/Menu.js",             
              "client/presentation/panels/Transport.js"
-             
-             
+                          
              ], function(){                 
                  
              // TODO нужна Реакция на загрузку проекта                                  

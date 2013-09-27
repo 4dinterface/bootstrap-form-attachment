@@ -51,6 +51,34 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
             this.movie.elapsedTime, 
             value
         );                                        
+
+        console.log( 'add',this.composition.get('shapeCollection').get(0) );
+    },
+
+
+    /**
+     * Добавляет shape к коллекции Shape в композиции
+     * @param {string} type  Тип Shape
+     * @param {int} x  координата по x
+     * @param {int} y  координата по y
+     * @param {int} width  ширина
+     * @param {int} height  высота
+     * @public
+     */    
+    addShapeToComposition: function (type,x,y,width,height) {                        
+
+        var shapes = new app.model.Shape({});                    
+
+        shapes.set('stageShape',{
+            xtype:type,
+            x:x,
+            y:y,
+            width:width,
+            height:height,
+        });
+
+        this.composition.get('shapeCollection').push( shapes );
+        //console.log('composition', this.composition.get('shapeCollection'));            
     },
             
     /**
@@ -66,7 +94,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
             
     /**
      * Переключает Композицию
-     * @param {number} elapsedTime временная метка
+     * @param {number} сompositionId айдишник композиции которую нужно сделать активной
      * @public
      * 
      * Метод должен сменить композицию
@@ -79,9 +107,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
          this.stageBuilder.buildComposition();
          
          //установим композицию для movie
-         this.movie.setTimeline(this.composition);
-                  
-         
+         this.movie.setTimeline(this.composition);                        
      }
      
 }));

@@ -12,9 +12,9 @@
  *                              |                              
  *                     CompositionCollection
  *                              |                              
- *                         (Composition)
+ *                         Composition
  *                              |
- *                       ShapeCollection
+ *                       (ShapeCollection)
  *                              |
  *                            Shape
  *                         /         \
@@ -50,12 +50,15 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
      * @param {value} value
      * @return null
      **/
+
+     //TODO что если имена эвентов будут генерироваться автоматически( исходя из имени класса) для set
     set : function (num, value) {        
         
         value.parent=me;
                         
         this._super();
-        
+
+        //TODO почему событие называется compositionchange ???
         this.fire("compositionchange", {
             name:name,
             value:value
@@ -75,7 +78,7 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
         
         this._super();
         
-        this.fire("compositionchange", {
+        this.fire("shapecollectionchange", {
             name:this.length,
             value:value
         });

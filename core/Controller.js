@@ -21,6 +21,8 @@ Define( "core.Controller", /** @lends {app.Component.prototype} */({
         if('domListeners' in this) this.bind( Object.keys( this.domListeners ) );
     },
 
+    
+
 
     /**
      * Привязывает обработчики событий к элементам

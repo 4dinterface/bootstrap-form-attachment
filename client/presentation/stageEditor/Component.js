@@ -23,7 +23,8 @@ Define( 'app.presentation.stageEditor.Component', {
         // контролёр сцены
         this.controller = new app.bussiness.stageEditor.Сontroller({
             stage:cnf.stage,     
-            toolbar: this.toolbar
+            toolbar: this.toolbar,
+            facade:cnf.facade
         });                                                                                                                        
     }        
 });        

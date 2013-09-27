@@ -16,9 +16,8 @@ Define('app.presentation.stage.shape.Rectangle', {
         // важно если вместо {} указана текстовая строка значит свойства берётся из libProperties в родительском классе
         //http://www.photoshop-plus.co.uk/content/tutorials/new_imac_mini_icon/04.gif
         
-        properties:[                    
-            
-        {
+        properties:[                                
+            {
                 name:"Base",
                 items:[
                     { type:"int",label:"name",target:"nameId"},//TODO  от 0-1 подумать над именами                            
@@ -52,7 +51,9 @@ Define('app.presentation.stage.shape.Rectangle', {
             var me = this;
             //this.graphics.beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130).drawRect(0, 0, me.width, me.height);
             this.x = cnf.x;
-            this.y = cnf.y;	            
+            this.y = cnf.y;	         
+            this.width=cnf.width||this.width;
+            this.height=cnf.height||this.height;
                                                 
             //console.log('this',this.width);
                         

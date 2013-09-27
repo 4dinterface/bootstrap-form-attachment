@@ -2,7 +2,7 @@
  * Главный неймспейс для фреймворка
  * @namespace
  */
-window.core=window.core
+window.core=window.core||{};
 
 /**
  * Конструктор классов
@@ -14,7 +14,7 @@ window.core=window.core
 core.Define = Define = function (name, prop) {
     
     //если extend( родительский класс ) передали строкой
-    prop.extend =typeof prop.extend == "string" ? NS(prop.extend): prop.extend;
+    prop.extend =typeof prop.extend == "string" ? core.NS(prop.extend): prop.extend;
 
     //проверим передали ли ли нам extend вообще
     var src = prop.extend || {},
@@ -31,6 +31,9 @@ core.Define = Define = function (name, prop) {
 
     //ссылки на класс
     child.prototype["proto"] = child.prototype;
+
+    //неймспес класса
+    child.prototype.classNS=name;
 
     //prop
     //NS child.prototype[x]
@@ -69,9 +72,8 @@ core.Define = Define = function (name, prop) {
     if (prop.mode=='one') child=new child();    
     
     //вернём результат
-    return NS(name, child);
+    return core.NS(name, child);
     
-
 
     //враппер для функций
     function wrapper(name, fun, src) {
@@ -82,18 +84,20 @@ core.Define = Define = function (name, prop) {
             };
             return fun.apply(this,arguments);	
 	}
-    }
-
-    //устанавливает значение по неймспейсу
-    function NS(name, obj) {
-        var result = window;
-        name.split(".").forEach(function (val, num, arr) {
-            if (num == arr.length - 1) result[val] = obj||result[val];
-            else result[val] = result[val] || {};
-            result = result[val];
-        });
-
-        return result;
-    }   
+    }    
     
 }
+
+//устанавливает значение по неймспейсу
+core.NS=function(name, obj) {
+    var result = window;
+    name.split(".").forEach(function (val, num, arr) {        
+
+        if (num == arr.length - 1) result[val] = obj||result[val];
+        else result[val] = result[val] || {};
+
+        result = result[val];
+    });
+
+    return result;
+}   

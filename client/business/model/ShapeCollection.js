@@ -32,7 +32,7 @@
  
  **/
  
-Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
+Define('app.business.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     //по сути это arrayCollection
     extend : core.data.ArrayCollection,
     data:null,
@@ -42,49 +42,7 @@ Define('app.model.ShapeCollection', /** @lends {app.model.ShapeCollection.protot
      */
     init : function () {        
         this._super();                   
-    },                  
-                
-    /**
-     * @method set
-     * @param {name} name
-     * @param {value} value
-     * @return null
-     **/
+    }                 
 
-     //TODO что если имена эвентов будут генерироваться автоматически( исходя из имени класса) для set
-    set : function (num, value) {        
-        
-        value.parent=me;
-                        
-        this._super();
-
-        //TODO почему событие называется compositionchange ???
-        this.fire("compositionchange", {
-            name:name,
-            value:value
-        });
-        
-        //поднимем события из value на этот уровень
-        this.liftEvent(value);
-    },
-
-    /**
-     * @method push     
-     * @param {value} value
-     * @return null
-     **/            
-    push : function (value) {                
-        var me=this;
-        
-        this._super();
-        
-        this.fire("shapecollectionchange", {
-            name:this.length,
-            value:value
-        });
-
-        //поднимем события из value на этот уровень
-        this.liftEvent(value);
-    }         
         
 });

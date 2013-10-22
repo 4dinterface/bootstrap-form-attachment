@@ -12,6 +12,9 @@ window.core=window.core||{};
  * @constructor
  */
 core.Define = Define = function (name, prop) {
+    var classNsArr=name.split('.'),
+        className=classNsArr[classNsArr.length-1]; //отделяет имя класса от неймспейса 
+    
     
     //если extend( родительский класс ) передали строкой
     prop.extend =typeof prop.extend == "string" ? core.NS(prop.extend): prop.extend;
@@ -33,7 +36,8 @@ core.Define = Define = function (name, prop) {
     child.prototype["proto"] = child.prototype;
 
     //неймспес класса
-    child.prototype.classNS=name;
+    child.prototype._classNS=name;
+    child.prototype._className=className;
 
     //prop
     //NS child.prototype[x]
@@ -62,7 +66,19 @@ core.Define = Define = function (name, prop) {
         child.prototype[x] = prop[x];                
     }
 
-    
+    // ============ поддержка интерфейсов (DRIFT)=============//
+    var error="";
+
+    if(prop.interface){
+        for (var x in prop.interface) {           
+            if ( typeof prop[x] != typeof prop.interface[x] ) error+="  "+x+ ": " + typeof prop.interface[x] +"\n"; 
+        }
+
+        if (error !=""){
+            error="CORE framework: unreleased interface property in class "+name+"\n"+error;        
+            throw "\n"+error;
+        }
+    }
     
     
     //вызовем препроцессор, если есть

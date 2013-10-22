@@ -1,3 +1,11 @@
+// TODO можно попробывать заменить reader десериализацией
+//      Мне кажется подход при котором каждый обьект формиуется отдельно начинает устаривать.
+//      Возможно достаточно двух функций, 1я для моделей, 2я для коллекций
+
+//      может быть чтобы неправить demoData есть смысл написать сначало сериализатор Writer 
+//      результат сохранить в demoData и только потом переписывать reader
+
+
 /**
  * Класс преобразовывает json даные  во сущности системы
  *
@@ -86,7 +94,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * @param {Object} shape обьект описывающий shape
      */
     makeTimelineShape: function(shape){
-        var ts=new app.model.Shape({}); 
+        var ts=new app.business.model.Shape({}); 
         //console.log("SHAPE=====",shape);
         
         var props=shape.property;
@@ -112,7 +120,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
 
             
     makeTimelineFilter: function(filter){
-        var ts=new app.model.Filter({});         
+        var ts=new app.business.model.Filter({});         
                 
         for (i in filter.property) {
             ts.get( 'propertyCollection' ).set(i, this.makeProperty( filter.property [ i ], i ) );                                        
@@ -128,7 +136,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
     makeProperty: function(col,name){                        
         //console.log('log',col);
         var me=this;
-        return new app.model.Property({
+        return new app.business.model.Property({
             'name':name,
             'keyframeCollection': me.makeKeyCollection(col.keyframes),
             'type':col.type
@@ -141,7 +149,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
      * @param {Object} shape обьект описывающий shape
      */                
     makeKeyCollection: function(col){        
-        var ret=new app.model.KeyframeCollection(),
+        var ret=new app.business.model.KeyframeCollection(),
             i=null,
             keyframe;
     
@@ -154,7 +162,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
     
     makeKeyframe:function(i, col){
         col.key=parseInt(i, 10);            
-        return new app.model.Keyframe( col );
+        return new app.business.model.Keyframe( col );
     }
     
 });

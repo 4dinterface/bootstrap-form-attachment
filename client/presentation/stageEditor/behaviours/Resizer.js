@@ -1,9 +1,7 @@
-//Селектор	
-//Внимание код на уровне эксперементов законченный вариант может выглядеть иначе
-//Селектор  
-//Внимание код на уровне эксперементов законченный вариант может выглядеть иначе
-
-Define("app.presentation.stageEditor.behaviours.Drager",{    
+/**
+ * Компонент отвечает за ресайз фигур в в stageEditor
+ */
+Define("app.presentation.stageEditor.behaviours.Resizer",{    
     extend: core.Behaviour,
     init: function(cnf){
 

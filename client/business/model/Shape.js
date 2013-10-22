@@ -1,27 +1,34 @@
 /**
- * @name app.model.Keyframe
+ * @name app.business.model.Keyframe
  * @class
  * @extends {app.Model}
  * 
  *
+                            Project
+ *                              |
+ *                      SymbolCollection
+ *                              |                              
+ *                            Symbol
+ *                              |                              
+ *                     CompositionCollction
+ *                              |                              
  *                         Composition
  *                              |
  *                       ShapeCollection
  *                              |
- *                            (Shape)
+ *                            Shape
  *                         /         \
  *      PropertyCollection             FilterCollection
  *             |                             |
  *         Property                        Filter
  *             |                             |
- *      KeyframeCollection            PropertyCollection
+ *      KeyframeCollection            (PropertyCollection)
  *             |                             |
  *          Keyframe                      Property
  *                                           |
  *                                     KeyframeCollection   
  *                                           |
- *                                        Keyframe
- *                                        
+ *                                        Keyframe                                          
  *                                        
  * shape описывает shape
  * Может содержать множество полезных данных для view, таки как имя shape, цвет, свёрнут/развёрнут и тд
@@ -29,7 +36,7 @@
  */
 
 //компонент в разработке
-Define('app.model.Shape', /** @lends {app.model.Shape.prototype} */ {
+Define('app.business.model.Shape', /** @lends {app.model.Shape.prototype} */ {
 	extend : core.data.Model,
 	/***
 	 * Конструктор экземпляров
@@ -38,76 +45,57 @@ Define('app.model.Shape', /** @lends {app.model.Shape.prototype} */ {
 	 */
 	init : function () {
             this._super(); 
-            this.set("propertyCollection", new app.model.PropertyCollection() ); 
+            this.set("propertyCollection", new app.business.model.PropertyCollection() ); 
             this.get("propertyCollection").parent=this;
            
            // непонятно как назвать толи filter толи FX
-           this.set("filterCollection", new app.model.FilterCollection() ); 
+           this.set("filterCollection", new app.business.model.FilterCollection() ); 
            this.get("filterCollection").parent=this;
 
-	},        
-	/**
-	 * @method set
-	 * @param {property} name
-         * @param {value} value
-	 * @return null
-	 **/
-	set : function (property, value) {
-            var me=this;
-            value.parent=me;
-            this._super();
-            this.fire("timelinepropertychange", {
-                key:name,
-                value:value
-            });
-            
-            this.liftEvent(value,function(e){                
-                e.shape=me;
-                me.fire(e.eventName,e);
-            })
 	},
+
                 
                 
-        /**
-         * Умное добавление ключа.
-         * Если св-во отсутствует, то оно создаётся
-         * Ключ добавляется
-         *  
-         */                        
-        addKeyToProperty:function(propertyName,time,value){
-            //попробуем получить св-во
-            var prop=this.get('propertyCollection').get(propertyName) ;
+    /**
+     * Умное добавление ключа.
+     * Если св-во отсутствует, то оно создаётся
+     * Ключ добавляется
+     *  
+     */                        
+    addKeyToProperty:function(propertyName,time,value){
+        //попробуем получить св-во
+        var prop=this.get('propertyCollection').get(propertyName) ;
             
-            //если св-во несуществует попробуем его создать
-            if(!prop) {
-                prop=new app.model.Property({name:propertyName,});
-                this.get('propertyCollection').set(propertyName,prop);
-            }
+        //если св-во несуществует попробуем его создать
+        if(!prop) {
+            prop=new app.business.model.Property({name:propertyName,});
+            this.get('propertyCollection').set(propertyName,prop);
+        }
             
-            //добавим ключ
-            prop.get('keyframeCollection').set(time,new app.model.Keyframe({
-                "value":value,
-                "easing":"line",
-                "key":time
-            }));
+        //добавим ключ
+        prop.get('keyframeCollection').set(time,new app.business.model.Keyframe({
+            "value":value,
+            "easing":"line",
+            "key":time
+        }));
             
             //console.log('keyframeCollection',prop.get('keyframeCollection'));
-        },
+     },
 
-        /**
-         * Возвращает длинну анимации shape
-         */
-        getLength:function(){
-            var result=0,
-                len=0,
-                propertyCollection = this.get( 'propertyCollection' );
+    /**
+     * Возвращает длинну анимации shape
+     */
+    getLength:function(){
+        var result=0,
+            len=0,
+            propertyCollection = this.get( 'propertyCollection' );
                       
         
-            propertyCollection.forEach( function( prop ) {
-                len=prop.getLength();
-                if(len>result) result= len;                   
-            })                        
-            return result;
-        }
+        propertyCollection.forEach( function( prop ) {
+            len=prop.getLength();
+            if(len>result) result= len;                   
+        })                        
+        return result;
+    }
         
 });

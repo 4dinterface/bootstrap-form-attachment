@@ -1,30 +1,37 @@
 //Внимание данный компонент пока не используется
 
 /**
- * @name app.model.Keyframe
+ * @name app.business.model.Keyframe
  * @class
  * @extends {app.Model}
  * 
  * ====================================================================== *
  *  
+ *                          Project
+ *                              |
+ *                      SymbolCollection
+ *                              |                              
+ *                            Symbol
+ *                              |                              
+ *                     CompositionCollction
+ *                              |                              
  *                         Composition
  *                              |
- *                      ShapeCollection
+ *                       ShapeCollection
  *                              |
  *                            Shape
  *                         /         \
- *      (PropertyCollection)             FilterCollection
+ *      PropertyCollection             FilterCollection
  *             |                             |
  *         Property                        Filter
  *             |                             |
- *      KeyframeCollection            (PropertyCollection)
+ *      KeyframeCollection            PropertyCollection
  *             |                             |
- *          Keyframe                      Property
+ *          Keyframe                      (Property)
  *                                           |
  *                                     KeyframeCollection   
  *                                           |
  *                                        Keyframe
- *                                        
  * ====================================================================== *
  * 
  * property описывает свойство на таймлайне
@@ -35,7 +42,7 @@
  */
 
 //компонент в разработке
-Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
+Define('app.business.model.Property', /** @lends {app.business.model.Keyframe.prototype} */ {
 	extend : core.data.Model,
 	/***
 	 * Конструктор экземпляров
@@ -46,8 +53,8 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
             this._super(); 
             
             //если ключ отсутствует keyframeCollection, тогда создадим keyframeCollection
-            if (!this.get("keyframeCollection")){
-                this.set("keyframeCollection", new app.model.KeyframeCollection() ); 
+            if ( ! this.get("keyframeCollection") ) {
+                this.set("keyframeCollection", new app.business.model.KeyframeCollection() ); 
                 this.get("keyframeCollection").parent=this;
             }
             
@@ -75,10 +82,10 @@ Define('app.model.Property', /** @lends {app.model.Keyframe.prototype} */ {
             })            
 	},
                 
-        /**
-         * Возращает длинну анимации свойства
-         */        
-        getLength:function(){
+    /**
+     * Возращает длинну анимации свойства
+     */        
+    getLength:function(){
             var result=0,
                 keyCollection = this.get( 'keyframeCollection' );
         

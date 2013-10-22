@@ -38,7 +38,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
 
         self.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Shape} */ item) {
             self.fetchShape(item, elapsedTime);
-        });
+        });        
     },
 
     /**
@@ -51,10 +51,10 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         var self = this;
         var someoneRendered = false;
 
-        item.get('propertyCollection').forEach(function (prop, propertyName) {
+        item.get('propertyCollection').forEach(function (prop, propertyName) {            
 
             var keyframesCollection = prop.get('keyframeCollection');
-            var keyframes = keyframesCollection.lookupKeyframes(elapsedTime);
+            var keyframes = keyframesCollection.lookupKeyframes(elapsedTime);            
 
             var missingLeft = !keyframes.first;
             var missingRight = !keyframes.second;

@@ -6,9 +6,17 @@
  * 
  * ====================================================================== *
  * 
+ *                          (Project)
+ *                              |
+ *                      SymbolCollection
+ *                              |                              
+ *                            Symbol
+ *                              |                              
+ *                     CompositionCollction
+ *                              |                              
  *                         Composition
  *                              |
- *                      ShapeCollection
+ *                       ShapeCollection
  *                              |
  *                            Shape
  *                         /         \
@@ -16,13 +24,13 @@
  *             |                             |
  *         Property                        Filter
  *             |                             |
- *     KeyframeCollection             PropertyCollection
+ *      KeyframeCollection            PropertyCollection
  *             |                             |
- *        ( Keyframe )                    Property
+ *          Keyframe                      Property
  *                                           |
- *                                     KeyframeCollection
+ *                                     KeyframeCollection   
  *                                           |
- *                                       ( Keyframe )                       
+ *                                        (Keyframe)
  *                                                          
  * ====================================================================== *
  * 
@@ -30,7 +38,7 @@
  * основным методом здесь является set который генерирует событие keyframechange
  */
 
-Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
+Define('app.business.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 
 	extend : core.data.Model,
 
@@ -42,10 +50,10 @@ Define('app.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
             this._super();                    
 	},
 
-        //автоматическая генерация события  при вызове метода
-        autoFireEvent:{
-            "set":"keyframechange"
-        }
+    //автоматическая генерация события  при вызове метода
+    /*autoFireEvent:{
+        "set":"keyframechange"
+    }*/
 	
 });
 

@@ -14,6 +14,8 @@ Define('core.data.Model', /** @lends {app.Model} */ {
 	extend : core.Component,
 
 	data : null,
+    isModel:true,
+    isCollection:false,
 
 	/***
 	 * Конструктор экземпляров
@@ -37,10 +39,37 @@ Define('core.data.Model', /** @lends {app.Model} */ {
             
 	},
                 
-        //описывает названия событий которые должны генерировать атоматически
-        autoFireEvent:{            
-            //set:" имя события"
-        },
+    //описывает названия событий которые должны генерировать атоматически
+    autoFireEvent:{            
+        //set:" имя события"
+    },
+
+    /**
+     * @method fire
+     * @param {name} name
+     * @param {value} options
+     * @param {value} context
+     * @return {undefuned} 
+     * 
+     * Перегрузим стандартный fire класса Components, 
+     * тоесть он будет срабатывать не только для класса но и в том классе куда он агрегирован при помощи set
+     * 
+     **/
+    fire:function(name, options, context){
+        this._super();
+
+        //передадим обработчик выше
+        if (this.parent) this.parent.fire.apply( this.parent, arguments );
+        return this;
+    },
+
+
+    //вспомогательный метод для генерации события change
+    fireChange:function (par){
+        this.fire(this._className.toLowerCase()+"change", par );        
+    },
+
+
         
 	/**
 	 * @method set
@@ -49,6 +78,8 @@ Define('core.data.Model', /** @lends {app.Model} */ {
          * 
 	 * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
 	 **/
+
+     //TODO автоматически определять какие экземпляры класса генерировать при присваивании обьекта определенному свойству
 	set : function (name, value) {
             var me=this;
             this.data[name] = value;
@@ -56,20 +87,18 @@ Define('core.data.Model', /** @lends {app.Model} */ {
             //this.length = cash.length;
 
             //если устанавливаемое значение это коллекция
-            if (value.isCollection) {
+            if (value.isCollection || value.isModel) {
                 //сделаем родителем коллекции эту модель
                 value.parent = me;
-                
-                //разрешим всплытие событий
-                this.liftEvent(value);
             }
             
-            //событие генерируется при любом изменении                
-            this.fire("change", {
-                key:name,
+            //событие генерируется при любом изменении, имя события состоит из именикласса (маленькими буквами)+change                
+            this.fireChange({
+                operation:"set",
+                field:name,
                 value:value
-            });        
-            
+            });
+
             //генерируются события указанные в autoFireEvent
             if ('set' in this.autoFireEvent){
                 this.fire(this.autoFireEvent.set, {
@@ -87,8 +116,8 @@ Define('core.data.Model', /** @lends {app.Model} */ {
 		return data;
 	},
 
-        //очистка  модели от данных
-        clear : function (name) {		
+    //очистка  модели от данных
+    clear : function (name) {		
             this.data={};		
             this.event={};
 	}

@@ -28,7 +28,7 @@
  * ====================================================================== *
  */
 
-Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
+Define('app.business.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
 	extend : core.data.Model,//
 	/***
 	 * Конструктор экземпляров
@@ -37,29 +37,8 @@ Define('app.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
 	 */
 	init : function () {                        
             this._super(); 
-            this.set("propertyCollection", new app.model.PropertyCollection() ); 
+            this.set("propertyCollection", new app.business.model.PropertyCollection() ); 
             this.get("propertyCollection").parent=this;
-        },
-                
-        /**
-	 * @method set
-	 * @param {property} name
-         * @param {value} value
-	 * @return null
-	 **/
-	set : function (property, value) {
-            var me=this;
-            value.parent=me;
-            this._super();
-            this.fire("filterchange", {
-                key:name,
-                value:value
-            });
-            
-            //TODO - вероятно ошибка в e.shape=me, фильтр не должен подписываться как shape 
-            this.liftEvent(value,function(e){                
-                e.filter=me;
-                me.fire(e.eventName,e);
-            })
-	}
+        }
+                    
 });        

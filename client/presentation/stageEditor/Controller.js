@@ -1,4 +1,4 @@
-Define("app.bussiness.stageEditor.Сontroller", {
+    Define("app.bussiness.stageEditor.Сontroller", {
 
     extend: core.Component,
 
@@ -8,7 +8,7 @@ Define("app.bussiness.stageEditor.Сontroller", {
         shapeDrawer:"app.presentation.stageEditor.behaviours.ShapeDrawer"
     },
 
-    selectorHTML:'<div class="editor-selector" style="width:200px; height:200px; pointer-events: none;">\
+    selectorHTML:'<div class="editor-selector" style="width:200px; height:200px; ">\
                                 <div class="editor-selector-brick editor-selector-brick-left-top"></div>\
                                 <div class="editor-selector-brick editor-selector-brick-top-center"></div>\
                                 <div class="editor-selector-brick editor-selector-brick-right-top"></div>\
@@ -17,17 +17,52 @@ Define("app.bussiness.stageEditor.Сontroller", {
                                 <div class="editor-selector-brick editor-selector-brick-bottom-center"></div>\
                                 <div class="editor-selector-brick editor-selector-brick-left-bottom"></div>\
                                 <div class="editor-selector-brick editor-selector-brick-left-center"></div>\
-                    </div>',
+                 </div>',
 
     groupSelector:'<div class="editor-selector" style="width:0px; height:0px; pointer-events: none;"></div>',                    
 
     init: function (prop) {          
-
+        var canvas=$('#canvas');
+        var pos=canvas.offset();
+        var editPos=$('.tab-body-scene').offset();
+        var startX, startY;        
         var me=this;
+
+        //editPos.left=editPos.left-(pos.left - editPos.left);
+
+        alert(editPos.left)
+
         this.apply( prop );
         this._super();
 
-        //console.log('212',this.behaviours);
+
+        //============================ Отслеживаеи onRender =====================//
+        var el=$(this.selectorHTML);        
+        el.css({opacity:0});
+        $('#canvas-editor').append(el);        
+        this.stage.on('onrender',function(){
+            var children=me.stage.children;
+
+            for (var i=0;i<children.length;i++){
+                if (children[i].timeline.get('selected')){                                        
+                    el.css({
+                        width:children[i].width,
+                        height:children[i].height,
+                        opacity:1
+                    });
+                    
+
+                    el.offset({
+                        left:children[i].x+pos.left-50 ,//TODO убрать костыль (50)
+                        top:children[i].y+pos.top-51    //TODO убрать костыль (51)
+                    })
+                    
+                }                
+            }            
+        })        
+
+
+        //============================ Отслеживаеи тулбар====================//;
 
         this.toolbar.on("toolbarchange", function (e) {
             var name = e.name;
@@ -59,22 +94,13 @@ Define("app.bussiness.stageEditor.Сontroller", {
                     me.figure="Text";
                     me.unUseBehavioursAll();
                     me.useBehaviour('shapeDrawer');   
-                break;             
-
-                
-
+                break;                             
             }
             //$('.tab-body-scene').prepend(me.selectorHTML);
         });
 
-
-        var canvas=$('#canvas');
-        var pos=canvas.position();
-        var startX, startY;
-
         
-        function onMove (e){            
-            console.log('move');
+        function onMove (e){                        
             me.fire('drag',{
                 x:e.x-pos.left,
                 y:e.y-pos.top,
@@ -87,13 +113,9 @@ Define("app.bussiness.stageEditor.Сontroller", {
 
 
         //this.stage.addEventListener('mousedown',function(e){
-
-        //
-        canvas.on('mousedown',function(e){
+        
+        $('.editor-selector,#canvas').on('mousedown',function(e){
             var pos=canvas.position();
-
-           // startX=e.stageX;
-           // startY=e.stageY;
 
            startX=e.x-pos.left;
            startY=e.y-pos.top;
@@ -122,6 +144,13 @@ Define("app.bussiness.stageEditor.Сontroller", {
                 startY:startY,
             });            
         });
+
+
+        //можно отловить событие клика по краю
+        $('.editor-selector-brick-right-center').on('mousedown',function(){
+            alert(1);
+        })
+
         
         //this.stage.addEventListener('click',function(e){            
 

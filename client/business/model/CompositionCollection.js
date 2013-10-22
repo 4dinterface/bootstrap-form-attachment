@@ -44,35 +44,7 @@ Define('app.business.model.CompositionCollection', /** @lends {app.Model} */ {
     init : function () {
         this._super();                    
     },                  
-    /**
-     * @method set
-     * @param {property} name
-     * @param {value} value
-     * @return null
-     **/
-    set : function (name, value) {
-        var me=this;
-        value.parent=me;
-        
-        this._super();
-        this.fire("compositioncollectionchange", {
-            name:name,
-            value:value
-        });
-        //обеспечим всплытие событий
-        //console.log(value);
-        
-        /* TODO - разремарить всплытие
-        this.liftEvent(value,function(e){                
-            //добавим инфу о propertyCollection
-            e.propertyCollection=me;
-            //укажем имя свойства
-            e.propertyName=name;
-            me.fire(e.eventName,e);
-        })*/
-        
-    },
-
+    
     //forEach - forEach (ВОЗМОЖНО НЕНУЖЕН)
     forEach:function(callback, context ) {
        for (n in this.data) callback.call( context|| window, this.data[ n ], n, this.data );

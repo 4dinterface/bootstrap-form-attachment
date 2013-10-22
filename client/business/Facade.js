@@ -22,6 +22,14 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
     
     extend: core.Component,
 
+// Эксперементы с интерфейсом
+/*    interface:{
+        i:100,
+        x:200,
+        z:function(){}
+    },
+*/    
+
     /**
      * Сцена, на которой проигрыватель будет отрисовывать текущие значения
      * @type {app.scene.Stage}
@@ -48,11 +56,30 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
     addKeyToProperty: function (propertyName,value) {                        
         this.composition.get('shapeCollection').get(0).addKeyToProperty(
             propertyName,
-            this.movie.elapsedTime, 
+            parseInt( this.movie.elapsedTime , 10),
             value
-        );                                        
+        );                                                
+    },
 
-        console.log( 'add',this.composition.get('shapeCollection').get(0) );
+    /**
+     * Добавляет несколько ключей в выбранный shape в указанное свойство
+     * @param {number} elapsedTime временная метка
+     * @public
+     */
+
+    addKeysToProperty: function (prop,target) {                        
+        var i;
+
+        for (i in prop){
+
+            target.addKeyToProperty(
+                i,
+                parseInt( this.movie.elapsedTime , 10),
+                prop[i]
+            );                                                    
+        }
+
+    
     },
 
 
@@ -67,7 +94,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      */    
     addShapeToComposition: function (type,x,y,width,height) {                        
 
-        var shapes = new app.model.Shape({});                    
+        var shapes = new app.business.model.Shape({});                    
 
         shapes.set('stageShape',{
             xtype:type,

@@ -48,25 +48,8 @@ Define( 'app.business.model.Symbol', /** @lends {app.model.Keyframe.prototype} *
     init: function() {
         this._super();
         this.set( 'compositionCollection', new app.business.model.CompositionCollection() );
-    },
+    }
 
-    /**
-     * @method set
-     * @param {*} property
-     * @param {Object} value
-     * @return undefined
-     **/
-    set: function( property, value ) {
-        var me = this;
-        value.parent = me;
-
-        this._super();
-        this.fire( 'symbolchange', {
-            key: name,
-            value: value
-        });
-        
-        this.liftEvent(value);        
-    }   
+    
     
 });

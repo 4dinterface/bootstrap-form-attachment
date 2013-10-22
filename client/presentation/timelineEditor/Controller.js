@@ -16,6 +16,19 @@ Define( 'app.timeline.Controller', {
      */
     model: null,
 
+    /**
+     * Компонет воспроизведения
+     * @type {Object}
+     * @private
+     */
+    movie: null,
+
+    /**
+     * Ссылка на представление
+     * @type {app.model.view}
+     * @private
+     */
+    view: null,
 
     /**
      * Утилиты таймлайна
@@ -24,14 +37,12 @@ Define( 'app.timeline.Controller', {
      */
     utilites: app.timeline.utilites,
 
-
     /**
      * Корневой элемент относительно которого навешиваются обработчики событий
      * @type {Object}
      * @private
      */
     domTarget: $( document ),
-
 
     /**
      * Редактор таймлайна
@@ -40,7 +51,6 @@ Define( 'app.timeline.Controller', {
      */
     domEditor: $( '#timeline-editor' ),
 
-
     /**
      * Тело редактора таймлайна
      * @type {Object}
@@ -48,14 +58,12 @@ Define( 'app.timeline.Controller', {
      */
     domEditorBody: $( '#timeline-editor-body' ),
 
-
     /**
      * Контейнер внутри тела редактора таймлайна
      * @type {Object}
      * @private
      */
     domEditorBodyBox: $( '#timeline-editor-body-box' ),
-
 
     /**
      * Бегунок на таймлайнее
@@ -71,7 +79,11 @@ Define( 'app.timeline.Controller', {
     dragPositions: null,
 
     dragHandler: null,
-   /**
+
+    scrollLeft: 0,
+
+
+    /**
      * Конструктор объекта контроллера
      * @constructor
      * @param {Object} cfg объект с дополнительными свойствами
@@ -79,7 +91,11 @@ Define( 'app.timeline.Controller', {
     init: function( cfg ) {
         this._super();
         this.apply( cfg );
-        this.domTarget.off( '.timeline-drag' );
+        this.domTarget.off( '.timeline__drag' );
+
+        // запоминаем начальное значение прокрутки,
+        // чтобы иметь возможность отследить ее изменение
+        this.scrollLeft = this.domEditorBody.scrollLeft();
     },
 
 
@@ -87,6 +103,23 @@ Define( 'app.timeline.Controller', {
      * Обработчики dom событий
      */
     domListeners: {
+
+
+        /**
+         * Ловит событие прокрутки таймлайна, фильтрует и
+         * запускает actions только при scroll-x (горизонтальной прокрутке)
+         */
+        '#timeline-editor-body % scroll': function() {
+            var scrollLeft = this.domEditorBody.scrollLeft();
+
+            if ( this.scrollLeft !== scrollLeft ) {
+                this.scrollLeft = scrollLeft;
+
+                this.view.runnerMoveTo( this.utilites.toPixels( this.model, this.movie.elapsedTime  ) );
+                this.view.renderRuler();
+            }
+        },
+
 
         /**
          * Ловит событие на теле таймлайна и вызывает функции поведения
@@ -98,12 +131,12 @@ Define( 'app.timeline.Controller', {
             e = eventRunner || e;
 
             var target = $( e.target );
-            var keyframe = target.is( '.timeline-keyframe' ) ? target : null;
-            var prop = target.is( '.timeline-property' ) ? target : null;
-            var position = e.pageX - this.domEditor.offset().left + this.domEditorBody.scrollLeft();
+            var keyframe = target.is( '.timeline__keyframe' ) ? target : null;
+            var prop = target.is( '.timeline__property' ) ? target : null;
+            var position = e.pageX - ( this.domEditor.offset().left - this.domEditorBody.scrollLeft() );
 
             if ( keyframe ) {
-                prop = keyframe.parent( '.timeline-property' );
+                prop = keyframe.parent( '.timeline__property' );
             }
 
             this.propertySelect( e, prop );
@@ -139,20 +172,20 @@ Define( 'app.timeline.Controller', {
 
             this.dragElems = $( e.target );
             //this.dragPositions = this.dragElems.offset();
-            this.dragShiftX = this.domEditor.offset().left
+            this.dragShiftX = this.domEditor.offset().left - this.domEditorBody.scrollLeft();
 
             //console.log( this.dragShiftX )
 
             this.dragHandler = 'runnerMoveTo';
 
-            this.bind([ '% mousemove.timeline-drag', '% mouseup.timeline-drag' ]);
+            this.bind([ '% mousemove.timeline__drag', '% mouseup.timeline__drag' ]);
         },
 
 
         /**
          * Ловит событие и вызывает функции поведения
          */
-        '% mousemove.timeline-drag': function( e ) {
+        '% mousemove.timeline__drag': function( e ) {
             var x = e.pageX - this.dragShiftX;
 
             //console.log( x );
@@ -164,8 +197,8 @@ Define( 'app.timeline.Controller', {
         /**
          * Ловит событие и отключает обработчики перетаскивания
          */
-        '% mouseup.timeline-drag': function() {
-            this.domTarget.off( '.timeline-drag' );
+        '% mouseup.timeline__drag': function() {
+            this.domTarget.off( '.timeline__drag' );
         }
 
     },
@@ -178,18 +211,18 @@ Define( 'app.timeline.Controller', {
      */
     propertySelect: function( e, prop ) {
         if ( !prop && !e.ctrlKey ) {
-            unselect( this.model, $( '.timeline-property-select' ) );
+            unselect( this.model, $( '.timeline__property_select' ) );
             return;
         }
 
         if ( e.ctrlKey ) {
-            if ( prop.hasClass( 'timeline-property-select' ) ) {
+            if ( prop.hasClass( 'timeline__property_select' ) ) {
                 unselect( this.model, prop );
             } else {
                 select( this.model, prop );
             }
         } else {
-            unselect( this.model, $( '.timeline-property-select' ) );
+            unselect( this.model, $( '.timeline__property_select' ) );
             select( this.model, prop );
         }
 
@@ -198,14 +231,14 @@ Define( 'app.timeline.Controller', {
         function select( model, elems ) {
             model.fire( 'onclassadd', {
                 elems: elems,
-                clazz: 'timeline-property-select'
+                clazz: 'timeline__property_select'
             });
         }
 
         function unselect( model, elems ) {
             model.fire( 'onclassremove', {
                 elems: elems,
-                clazz: 'timeline-property-select'
+                clazz: 'timeline__property_select'
             });
         }
     },

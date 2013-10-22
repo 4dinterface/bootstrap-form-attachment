@@ -127,6 +127,8 @@ html, body {
     height: 22px;
     display: table;
     background-color: #dadada;
+    float:left;
+    margin-right: 2px;
 }
 .tab-head-title-glass {
     height: 22px;
@@ -278,16 +280,63 @@ html, body {
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-    width: 244px;
+    width: 100%;
+    margin-top: -2px;
 }
 .tab-timeline {
     min-width: 244px;
 }
 .tab-body-timeline {
     min-height: 300px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: start;
+    -moz-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.tab-body-timeline-params {
+    width: 200px;
+    height: 330px;
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+
 }
 .tab-head-title__timeline {
-    margin-top: -2px;
+    /*margin-top: -2px;*/
 }
 /* menu -> */
 .menu {
@@ -318,7 +367,7 @@ html, body {
 
 .player {
     position: absolute;
-    margin: -21px 0 0 114px;
+    margin: 1px 0 0 114px;
     height: 16px;
     /*float:left; */
 }

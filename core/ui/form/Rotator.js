@@ -21,8 +21,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     /**
      * @constructor
      */
-    init: function (cfg) {
-        
+    init: function (cfg) {                        
         this.apply(cfg);        
         
         this.domTarget=$(this.domTarget);
@@ -30,7 +29,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         
 
         //применим шаблон        
-        this.domTarget.append(this.tmpl);
+        this.domTarget.append(this.tmpl);        
             
         this.rotator=this.domTarget.find('.rotator');                                
         this.input=this.domTarget.find('input');                        
@@ -38,13 +37,19 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         //$.fn.data(this.domTarget,'widget',this);                      
         //console.log( 'original', $.fn.data(this.domTarget,'widget') ) ;
          this._super();
+         //alert( this.domTarget.parent('.);      
+         setTimeout(function(){
+            console.log( 12323  );    
+         })
+         
     },
 
     //обработчики событий
     // вешаются по принципу "this.источник событие"
     // либо "cобытие" будет повешено прямо на this
     listeners:{
-        "domTarget mousedown":function(e){
+        "domTarget mousedown":function(e){                     
+            
             var onChange=this.onChange.bind(this);            
             this.startX=e.x;
             this.startY=e.y;

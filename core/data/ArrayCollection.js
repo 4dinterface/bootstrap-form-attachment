@@ -41,7 +41,7 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
     },
 
     //Вспомогательный метод
-    fireChange:function (par){
+    fireChange:function (par){        
         this.fire(this._className.toLowerCase()+"change", par );        
     },
                 
@@ -79,7 +79,7 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
         }
 
         this.fireChange({
-            key:name,
+            key:name, // ТОДО ВАТАФАК он же нулл будет
             value:value,
             operation:"push"
         });        

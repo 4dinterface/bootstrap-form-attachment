@@ -9,9 +9,7 @@
  */
 Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     extend:"core.Component",
-    /**
-     * @constructor
-     */
+    
     domTarget:"",
     widget:"",
 
@@ -21,11 +19,14 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
         if(this.widget!="") core.widget.widgetManager.registerWidget(this.widget,cls);
     },
 
-    //Конструктор
+    /**
+     * @constructor
+     */
     init: function () {	           
         this._super();     
-        
+               
         this.domTarget=$(this.domTarget);                
+        // пометим виджет классом, чтобы отличать активированные виджеты от неактивированных
         $(this.domTarget).addClass('live_widget');
         
         //если нет id то он будет сгенерирован автматически

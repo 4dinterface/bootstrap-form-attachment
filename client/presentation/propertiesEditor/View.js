@@ -10,8 +10,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     extend: core.View,
     
     //автоматически следим за созданием и удалением виджетов
-    widgetObserver:true,
-    
+    widgetObserver:true,    
     /**
      * Данные модели таймлайна
      * @type {app.model.Timeline}
@@ -19,9 +18,19 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      */
     model: null,    
     bindMap:null,
+    
+    //experemental
+    scope:null,//связываемся вот с этим обьектом
 
+    /**
+     * @constructor
+     */
     init: function( cnf ) {
         this.domTarget=$('#property-panel')[0];        
+        $(this.domTarget).addClass('scope');
+
+        this.domTarget.scope
+        
         this.apply( cnf );                                
         var me=this;        
         this._super();
@@ -45,9 +54,12 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             srcData=null,             
             
             //в качестве shape выерем первый элемент (TODO это временный вариант)
-            shape=this.target=this.stage.children[0],
+            shape=this.scope=this.target=this.stage.children[0],            
+    
             prop=shape.properties;
-
+    
+        this.domTarget.scope=shape;
+   
         //перебераем все группы в shape
         for(var i in prop){                
             srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
@@ -89,7 +101,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         else return "<fieldset class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
     },
 
-            
+    // создадим свойства
     makeProperty:function(item){        
         var field="<div style='display:inline;'>";        
         //console.log('prop',item['label']);
@@ -129,10 +141,9 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             for(var v in me.widgets){                
                 me.bindMap[ me.widgets[v].domTarget.attr('data-dsource') ]= me.widgets[v];
             }
-        });
-        
-    },        
-
+        });        
+    },     
+    
 
     /**
      * Обновляет элементы из карты новыми данными
@@ -143,8 +154,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         for (var i in this.bindMap) {
             this.bindMap[i].set('value', me.target[i] );                        
         }                        
-    }
-            
+    }            
 });
 
     

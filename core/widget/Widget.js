@@ -23,11 +23,14 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
      * @constructor
      */
     init: function () {	           
+        this.view=this.domTarget.parents('.scope'); // TODO попробывать перенести в родительский класс
+        
         this._super();     
                
         this.domTarget=$(this.domTarget);                
         // пометим виджет классом, чтобы отличать активированные виджеты от неактивированных
         $(this.domTarget).addClass('live_widget');
+                     
         
         //если нет id то он будет сгенерирован автматически
         if ($(this.domTarget).attr("id")=="" ) $(this.domTarget).attr("id", core.utilites.genId() );
@@ -47,6 +50,10 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
             
     //обьявим метод ответственный за обновлеие виджета
     refresh:function(){},
+    
+    getScope:function(){
+        return this.view[0].scope;        
+    },
 	
     //события
     listeners: null

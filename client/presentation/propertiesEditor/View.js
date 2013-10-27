@@ -29,7 +29,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         this.domTarget=$('#property-panel')[0];        
         $(this.domTarget).addClass('scope');
 
-        this.domTarget.scope
+        this.domTarget.scope={};
         
         this.apply( cnf );                                
         var me=this;        
@@ -43,7 +43,8 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     listeners:{                        
          //на каждом кадре обновляем числа                    
         "stage onrender":function(){                                
-            this.dataUpdate();     
+            $(this.domTarget).trigger('updatedata',{});
+            this.dataUpdate();                 
         }        
     },
 
@@ -133,15 +134,15 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      * Задача быстро устанавливать значения элементам
      */
     createBindMap:function(){
-        var me=this;
-        this.bindMap={};
+//        var me=this;
+//        this.bindMap={};
 
         //отреагируем на создание виджетов
-        this.on("widgetsupdate",function(w){        
-            for(var v in me.widgets){                
-                me.bindMap[ me.widgets[v].domTarget.attr('data-dsource') ]= me.widgets[v];
-            }
-        });        
+//        this.on("widgetsupdate",function(w){        
+//            for(var v in me.widgets){                
+//                me.bindMap[ me.widgets[v].domTarget.attr('data-dsource') ]= me.widgets[v];
+//            }
+//        });        
     },     
     
 
@@ -150,10 +151,10 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      * Задача найти свойства
      */            
     dataUpdate:function(){
-        var me=this;
-        for (var i in this.bindMap) {
-            this.bindMap[i].set('value', me.target[i] );                        
-        }                        
+        //var me=this;
+        //for (var i in this.bindMap) {
+            //this.bindMap[i].set('value', me.target[i] );                        
+        //}                        
     }            
 });
 

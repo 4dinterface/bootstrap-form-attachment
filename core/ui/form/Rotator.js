@@ -10,8 +10,8 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     
     startX:0,
     startY:0,        
-    input:null,
-    rotator:null,
+    input:null,   //ссылка на html input
+    rotator:null, //ссылка на html rotator
     
     tmpl:"<div class='rotator'>"+
             "<div style='width:1px; height:10px; margin-left:10px;background-color:#EEE;'></div>"+
@@ -21,35 +21,39 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     /**
      * @constructor
      */
-    init: function (cfg) {                        
+    init: function (cfg) {                                
+        
         this.apply(cfg);        
         
         this.domTarget=$(this.domTarget);
         this.domTarget.addClass('widget_rotator');
-        
-
+        this.bindPropName= this.domTarget.attr('data-dsource');                
+               
         //применим шаблон        
         this.domTarget.append(this.tmpl);        
-            
+
+        //получим ссылки на нужные dom из шаблона            
         this.rotator=this.domTarget.find('.rotator');                                
         this.input=this.domTarget.find('input');                        
-        
-        //$.fn.data(this.domTarget,'widget',this);                      
-        //console.log( 'original', $.fn.data(this.domTarget,'widget') ) ;
-         this._super();
-         //alert( this.domTarget.parent('.);      
-         setTimeout(function(){
-            console.log( 12323  );    
-         })
-         
+                
+
+        this._super();        
+                
     },
 
     //обработчики событий
     // вешаются по принципу "this.источник событие"
     // либо "cобытие" будет повешено прямо на this
     listeners:{
-        "domTarget mousedown":function(e){                     
-            
+        
+        // Событие генеррует view, если данные в scope изменятся
+        // по этому событию мы узнаем что пора перерисоват компонент согласно новым данным
+        "view updatedata":function(){
+            this.set('value', this.getScope() [ this.bindPropName ] );              
+        },
+        
+        
+        "domTarget mousedown":function(e){                                 
             var onChange=this.onChange.bind(this);            
             this.startX=e.x;
             this.startY=e.y;
@@ -63,7 +67,8 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
                 $( 'body' ).off('mousemove',onChange);            
             })
         },
-                
+
+        //ввод в поле input                
         "input change":function(){
             this.set( this.input.val() );
         }
@@ -82,34 +87,22 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     },
             
     /**
-     * Устанавливает свойства события
+     * Устанавливает значеник
      */
     set:function(name,deg){
         switch(name){
             case 'value':
-                this.value=deg;
-                this.domTarget.attr('value',deg);
-                this.refreshView();               
-            break;
-            
-            default:
-                
-            break;
+                this.value=deg;            
+                this.render();               
+            break;                        
         }        
     },
-            
-    /**
-     * устанавливает значения из итрибутов в свойства виджетов
-     */        
-    refresh:function(){
-        this.value=this.domTarget.val();                        
-        this.refreshView();             
-    },            
+                    
 
     /**
      * Перерисовывает виджет согласно данным
      */
-    refreshView:function(){                
+    render:function(){                
         this.input.val(this.value);
         
         //Достаточно заметное замедление даёт поворот через анимацию
@@ -117,6 +110,5 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
             rotateZ: this.value+'deg'
         },0);        
         //this.domTarget.find('.widget_rotator').css({'transform': 'rotateZ('+this.value+'deg);'} );
-    }
-        
+    }        
 });

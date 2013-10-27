@@ -74,12 +74,10 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
         })
         
     }, 
-
             
     refreshWidget:function(){        
         core.widget.widgetManager.refresh( $(this.domTarget) );
     },        
-
 
     //события
     listeners: null

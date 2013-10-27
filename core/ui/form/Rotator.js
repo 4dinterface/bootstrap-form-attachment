@@ -27,6 +27,8 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         
         this.domTarget=$(this.domTarget);
         this.domTarget.addClass('widget_rotator');
+        
+        
         this.bindPropName= this.domTarget.attr('data-dsource');                
                
         //применим шаблон        
@@ -35,7 +37,8 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         //получим ссылки на нужные dom из шаблона            
         this.rotator=this.domTarget.find('.rotator');                                
         this.input=this.domTarget.find('input');                        
-                
+        
+        //вызовем родительский конструктор
         this._super();                        
     },
 
@@ -69,7 +72,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         "input change":function(){
             this.set('value', this.input.val() );
             this.digest();
-        }
+        }   
     },        
     
     /**
@@ -79,26 +82,11 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         var deg=(e.x-this.startX)+(this.startY-e.y );
         this.set( 'value', deg );    
         this.digest();
-    },        
-            
-    /**
-     * Устанавливает значеник   
-     */
-    set:function(name,deg){                
-        this[name]=deg;            
-        this.render();                                   
-    },
-     
-    // метод публикует установленные значения    
-    digest:function(){
-       this.domTarget.trigger('change',{
-            srcElement: this.domTarget,
-            value:this.value
-        });                  
-    },
-                    
+    },                    
+                                 
     /**
      * Перерисовывает виджет согласно данным
+     * автоматически вызывается при вызове метода SET
      */
     render:function(){                
         this.input.val( Math.round( this.value ) );        

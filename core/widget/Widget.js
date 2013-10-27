@@ -51,8 +51,34 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     //обьявим метод ответственный за обновлеие виджета
     refresh:function(){},
     
+    //Возвращает scope
     getScope:function(){
         return this.view[0].scope;        
+    },
+    
+    //устанавливает view
+    set:function(name,deg){
+        if (!deg) {
+            name='value';
+            deg=name            
+        }
+    
+        this[name]=deg;            
+        this.render();                                                 
+    },
+    
+    //Абстрактный метод перерисовки виджет, наследуется всеми классами
+    render:function(){
+                
+    },
+    
+    // метод публикует установленные значения    
+    digest:function(){
+       this.domTarget.trigger('change',{
+            srcElement: this.domTarget,
+            widget:this,
+            value:this.value
+        });                  
     },
 	
     //события

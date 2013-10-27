@@ -36,23 +36,20 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         this.rotator=this.domTarget.find('.rotator');                                
         this.input=this.domTarget.find('input');                        
                 
-
-        this._super();        
-                
+        this._super();                        
     },
 
     //обработчики событий
     // вешаются по принципу "this.источник событие"
     // либо "cобытие" будет повешено прямо на this
-    listeners:{
-        
-        // Событие генеррует view, если данные в scope изменятся
+    listeners:{        
+        // Событие генерруется если данные в scope изменятся
         // по этому событию мы узнаем что пора перерисоват компонент согласно новым данным
         "view updatedata":function(){
             this.set('value', this.getScope() [ this.bindPropName ] );              
         },
         
-        
+        //Событие клика нажатия кнопки мыши на виджете
         "domTarget mousedown":function(e){                                 
             var onChange=this.onChange.bind(this);            
             this.startX=e.x;
@@ -70,45 +67,44 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
 
         //ввод в поле input                
         "input change":function(){
-            this.set( this.input.val() );
+            this.set('value', this.input.val() );
+            this.digest();
         }
     },        
     
     /**
-     * Обработчик события перемещения
+     * Обработчик события mousemove     
      */        
-    onChange:function(e){       
+    onChange:function(e){                               
         var deg=(e.x-this.startX)+(this.startY-e.y );
-        this.set( 'value', deg );
-        
-        this.domTarget.trigger('change',{
-            srcElement: this.domTarget            
-        });        
-    },
+        this.set( 'value', deg );    
+        this.digest();
+    },        
             
     /**
-     * Устанавливает значеник
+     * Устанавливает значеник   
      */
-    set:function(name,deg){
-        switch(name){
-            case 'value':
-                this.value=deg;            
-                this.render();               
-            break;                        
-        }        
+    set:function(name,deg){                
+        this[name]=deg;            
+        this.render();                                   
+    },
+     
+    // метод публикует установленные значения    
+    digest:function(){
+       this.domTarget.trigger('change',{
+            srcElement: this.domTarget,
+            value:this.value
+        });                  
     },
                     
-
     /**
      * Перерисовывает виджет согласно данным
      */
     render:function(){                
-        this.input.val(this.value);
-        
+        this.input.val( Math.round( this.value ) );        
         //Достаточно заметное замедление даёт поворот через анимацию
         this.rotator.animate({
             rotateZ: this.value+'deg'
         },0);        
-        //this.domTarget.find('.widget_rotator').css({'transform': 'rotateZ('+this.value+'deg);'} );
     }        
 });

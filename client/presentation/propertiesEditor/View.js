@@ -26,13 +26,14 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      * @constructor
      */
     init: function( cnf ) {
+        var me=this;        
+        
         this.domTarget=$('#property-panel')[0];        
         $(this.domTarget).addClass('scope');
 
         this.domTarget.scope={};
         
         this.apply( cnf );                                
-        var me=this;        
         this._super();
         
         this.render(); //прорисуем view
@@ -43,9 +44,10 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     listeners:{                        
          //на каждом кадре обновляем числа                    
         "stage onrender":function(){                                
-            $(this.domTarget).trigger('updatedata',{});
-            this.dataUpdate();                 
-        }        
+            $(this.domTarget).trigger('updatedata',{});            
+        },
+                 
+        
     },
 
             
@@ -65,9 +67,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         for(var i in prop){                
             srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
             this.makeGroup(srcData, $('#property-panel') );
-        }            
-                        
-        this.createBindMap();                       
+        }                                         
     },        
 
     // создадим группу
@@ -127,35 +127,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         }                
         field+="</div> <div style='display:block;'></div>";
         return field;
-    },
-            
-    /**
-     * Строит карту по принципу имяСвойства:domElement
-     * Задача быстро устанавливать значения элементам
-     */
-    createBindMap:function(){
-//        var me=this;
-//        this.bindMap={};
-
-        //отреагируем на создание виджетов
-//        this.on("widgetsupdate",function(w){        
-//            for(var v in me.widgets){                
-//                me.bindMap[ me.widgets[v].domTarget.attr('data-dsource') ]= me.widgets[v];
-//            }
-//        });        
-    },     
-    
-
-    /**
-     * Обновляет элементы из карты новыми данными
-     * Задача найти свойства
-     */            
-    dataUpdate:function(){
-        //var me=this;
-        //for (var i in this.bindMap) {
-            //this.bindMap[i].set('value', me.target[i] );                        
-        //}                        
-    }            
+    }                         
 });
 
     

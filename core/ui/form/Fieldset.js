@@ -57,21 +57,13 @@ Define("core.ui.form.Fieldset", /** @lends {app.Component.prototype} */({
     },        
                 
     set:function(){
-        this.value= this.value==true? false : true;                                        
-        this.domTarget.val(this.value);
-        this.refreshView();
     },
 
     //refrash считывает данные с атрибутов и рендерит элемент
     refresh:function(){
-        this.value=this.domTarget.val();                
-        this.refreshView();
     },
 
     //обновляем вид виджета
     refreshView:function(){
-        if(this.value) this.fieldset_metka.html('<B>{<br/>&<br/>{</B>');
-        else this.fieldset_metka.html('|<br/>|<br/>|');              
-    }
-    
+    }    
 }));

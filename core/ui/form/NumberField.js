@@ -16,8 +16,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
      * @constructor
      */
     init: function (cfg) {        
-        this.apply(cfg);                
-        this.domTarget=$(this.domTarget);
+        this.apply(cfg);                        
         this._super();
     },
             
@@ -25,6 +24,10 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
      * слушаем события
      */
     listeners:{
+        "view updatedata":function(){            
+            this.set('value', this.getScope() [ this.bindPropName ] );
+        },  
+        
         "domTarget mousedown":function(e){
             var onChange=this.onChange.bind(this); 
             
@@ -39,8 +42,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
             // при отпускании отписываемся от слежением за movie
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',onChange);            
-            })
-            
+            })            
             e.stopPropagation();
         }
     },
@@ -52,34 +54,13 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     onChange:function(e){       
         var val=this.startValue+(e.x-this.startX)+(this.startY-e.y );
         this.set('value',val);
-        
-        $(this.domTarget).trigger('change',{
-            srcElement: this.domTarget            
-        })        
-        
-    },
-    
-    
-    /**
-     * сеттер для свойств виджета
-     */
-    set:function(name,val){
-        switch (name){            
-            case 'value':
-                this.value=val;
-                $(this.domTarget).val(val);        
-            break;
-            
-            default:
-                
-            break;            
-        }        
-    },
+        this.digest();                     
+    },       
 
     /**
      * метод считывает свойства виджетов с атрибутов
      */
-    refresh:function(){
-        this.value=$(this.domTarget).val();        
+    render:function(){          
+        $(this.domTarget).val( this.value );        
     }    
 }));

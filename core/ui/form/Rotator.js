@@ -1,5 +1,5 @@
 /**
- * Collapsible
+ * Rotator
  *   
  * @class
  * @name app.Component
@@ -26,10 +26,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         this.apply(cfg);        
         
         this.domTarget=$(this.domTarget);
-        this.domTarget.addClass('widget_rotator');
-        
-        
-        this.bindPropName= this.domTarget.attr('data-dsource');                
+        this.domTarget.addClass('widget_rotator');                        
                
         //применим шаблон        
         this.domTarget.append(this.tmpl);        

@@ -79,10 +79,15 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         // Предполагается, что событие срабатывает после готовности документа
         this.model.on( 'load', function( e ) {
-            $( '#timeline-editor-body-box' ).jqotesub( '#template-timeline-line', this.createTimeline() );
+            console.log( 'timeline:view:load', this.model );
+            this.refrashTimeline();
             this.renderRuler();
         }.bind( this ));
 
+        this.model.on( 'shapecollectionchange', function(e,a,b,c) {
+            console.log( 'timeline:view:shapecollectionchange', this.model );
+            this.refrashTimeline();
+        }.bind( this ));
 
         //=====================================================================//
         //внимание
@@ -252,7 +257,10 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         var data = [];
 
         this.model.get( 'shapeCollection' ).forEach(function( shape ) {
-            shape.get( 'propertyCollection' ).forEach(function( prop ) {
+            var props = shape.get( 'propertyCollection' );
+            console.log( 'timeline:view:shape', shape, props );
+            props.forEach(function( prop ) {
+                console.log( 'timeline:view:prop', prop );
                 data.push({
                     shape: shape,
                     props: [ prop ]

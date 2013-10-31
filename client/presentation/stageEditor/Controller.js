@@ -30,7 +30,7 @@
 
         //editPos.left=editPos.left-(pos.left - editPos.left);
 
-        alert(editPos.left)
+        //alert(editPos.left)
 
         this.apply( prop );
         this._super();
@@ -148,7 +148,7 @@
 
         //можно отловить событие клика по краю
         $('.editor-selector-brick-right-center').on('mousedown',function(){
-            alert(1);
+            //alert(1);
         })
 
         

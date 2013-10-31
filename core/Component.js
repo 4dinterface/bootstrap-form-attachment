@@ -34,7 +34,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
             } 
             // подпишемся на события одного из свойств компонента
             else {
-                console.log('res[0]',"="+res[0]+"=", this );
+                //console.log('res[0]',"="+res[0]+"=", this );
                 this[ res[0] ].on( res[1], this.listeners[ event ].bind(this) );
             }
 	    }
@@ -152,7 +152,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
     useOneBehaviour:function(name){
         this.unUseBehavioursAll();
         this.behaviours[name].status=true;        
-        console.log( name,this.behaviours[name] );
+        //console.log( name,this.behaviours[name] );
     },
 
 

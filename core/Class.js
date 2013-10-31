@@ -53,7 +53,7 @@ core.Define = Define = function (name, prop) {
                 child.prototype[x] = prop.mixins[i].prototype[x];
             }
             
-            console.log('mixins prototype=', child.prototype);
+            //console.log('mixins prototype=', child.prototype);
         }
     }
     

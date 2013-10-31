@@ -94,9 +94,9 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
      */    
     addShapeToComposition: function (type,x,y,width,height) {                        
 
-        var shapes = new app.business.model.Shape({});                    
+        var shape = new app.business.model.Shape({});                    
 
-        shapes.set('stageShape',{
+        shape.set('stageShape',{
             xtype:type,
             x:x,
             y:y,
@@ -104,7 +104,7 @@ Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
             height:height,
         });
 
-        this.composition.get('shapeCollection').push( shapes );
+        this.composition.get('shapeCollection').push( shape );
         //console.log('composition', this.composition.get('shapeCollection'));            
     },
             

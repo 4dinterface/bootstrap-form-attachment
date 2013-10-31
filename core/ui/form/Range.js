@@ -6,17 +6,25 @@
  */
 Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     extend:"core.widget.Widget",    
-    widget:"Rotator2",           
+    widget:"Rotator",           
     
     startX:0,
     startY:0,        
     input:null,   //ссылка на html input
     rotator:null, //ссылка на html rotator
     
-    tmpl:"<div class='rotator'>"+
-            "<div style='width:1px; height:10px; margin-left:10px;background-color:#EEE;'></div>"+
-        "</div>"+
-        '<input style="display:inline;width:40px;margin-left:5px;">',
+    tmpl:'<div class="ui-range-horizontal">'+
+            '<div class="ui-range-horizontal__indicator">'+
+                ' <div class="ui-range-horizontal__indicator__dot"></div>'+
+            '</div> '+
+            '<div class="ui-range-horizontal__line"></div>'+
+        '</div>'+
+        '<div class="ui-range-vertical">'+
+            '<div class="ui-range-vertical__indicator">'+
+                '<div class="ui-range-vertical__indicator__dot"></div>'+
+            '</div>'+
+            '<div class="ui-range-vertical__line"></div>'+
+        '</div>',
 
     /**
      * @constructor

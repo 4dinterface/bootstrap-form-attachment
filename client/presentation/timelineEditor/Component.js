@@ -31,6 +31,10 @@ Define( 'app.presentation.timelineEditor.Component', {
             movie:cnf.movie
         });
         
+        cnf.composition.on('shapecollectionschange',function(){
+            alert(1);            
+        })
+        
     }    
     //ниже должно идти 
 });        

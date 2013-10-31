@@ -27,7 +27,6 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      */
     init: function( cnf ) {
         var me=this;        
-        
         this.domTarget=$('#property-panel')[0];        
         $(this.domTarget).addClass('scope');
 
@@ -122,7 +121,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             break;
 
             default:
-                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />px";
+                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />";
             break;                
         }                
         field+="</div> <div style='display:block;'></div>";

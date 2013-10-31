@@ -258,6 +258,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
         this.model.get( 'shapeCollection' ).forEach(function( shape ) {
             var props = shape.get( 'propertyCollection' );
+            console.log( 'timeline:view:shape', shape, props );
             props.forEach(function( prop ) {
                 console.log( 'timeline:view:prop', prop );
                 data.push({

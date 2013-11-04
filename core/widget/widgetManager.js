@@ -1,20 +1,19 @@
 
 /**
- * @class
- * @name app.WidgetManager
  * 
  * Менеджер виджетов
  * сканирует область dom в поисках виджета и если видет невключённый виджет то активирует его
  * 
  * Из важных вопросов остаётся биндинг с моделью, требуется ли он. 
  * Вообще как работает виджет, как происходит обмен данными, вопрос остаётся открытым
+ * 
+ * @class widgetManager
  */
-Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
+
+Define("core.widget.widgetManager", /** @lends widgetManager.prototype */{
     extend:"core.Component",
     mode:"one",
-    /**
-     * @constructor
-     */
+
     init: function () {	      
         this._super();
     },
@@ -95,8 +94,8 @@ Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
     /*
      * 
      */
-    createWidget:function(name,prop){
+    createWidget: function(name,prop){
         
     }
     
-}));
+});

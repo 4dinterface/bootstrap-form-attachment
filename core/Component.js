@@ -1,9 +1,36 @@
 /**
  * 
  * @class core.Component
+ * 
  * @classdesc
- * Поведения для компонентов. Это слушатели событий, 
- * которые можно включать и выключать на лету помере необходимости.
+ * <B>Компоненты, базовые строительные блоки приложения. </B> <br/>
+ * 1) обеспечивают уникальный id каждому компоненту <br/>
+ * 2) реализуют механизьм событий on, off, fire <br/>
+ * 3) реализует механизьм управления поведениями useBehaviour, unUseBehaviour, useOneBehaviour, unUseBehavioursAll <br/><br/>
+ * Пример использования Component</br>
+ * <pre>
+ * Define( "example",{
+ *   extend: "core.Component",
+ *   behaviours:{
+ *     'bahav1':'app.exampleBehaviours1',
+ *     'bahav2':'app.exampleBehaviours2'
+ *   },
+ *   
+ *   init:function(){
+ *      this.super();
+ *      this.useBehaviour('behav1');
+ *   },
+ *   
+ *   listeners:{
+ *       "свойство событие1":function(){
+ *          this.useOneBehaviour('behav1');
+ *       },
+ *       "свойство событие2":function(){
+ *          this.useOneBehaviour('behav2');
+ *       }*       
+ *   }
+ * });  
+ * </pre>
  * 
  * @param {object} param обьект со свойствами которые передаются конструктору 2
  */
@@ -28,7 +55,7 @@ Define("core.Component", /** @lends core.Component.prototype */{
         //подключаем обработчики событий
         this.event={};
                 
-	    for (event in this.listeners) {
+        for (event in this.listeners) {
             res=event.split(' ');
             // подпишемся на событие компонента
             if(res.length==1){                
@@ -39,7 +66,7 @@ Define("core.Component", /** @lends core.Component.prototype */{
                 //console.log('res[0]',"="+res[0]+"=", this );
                 this[ res[0] ].on( res[1], this.listeners[ event ].bind(this) );
             }
-	    }
+	}
 
         //инициализация поведений
         if (this.behaviours) {

@@ -1,12 +1,10 @@
 'use strict';
 
 /**
- * 
  * @class core.Controller
+ * @augments core.Component
  * @classdesc
- * Компонент
- * 
- * @param {object} param обьект со свойствами которые передаются конструктору 2
+ * Контроллер
  */
 Define( "core.Controller", /** @lends core.Controller.prototype */{
 

@@ -1,1 +1,1 @@
-jsdoc ..\core\*.js -t docstrap  -c conf.json
+jsdoc ..\core\*.js ..\core\widget\*.js -t docstrap  -c conf.json

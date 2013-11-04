@@ -24,10 +24,9 @@
  *  this.getScope() возвращает обьект который виджеты изменяют
  *  this.bindPropName //указывает на то какое именно свойство нужно изменять в обьекте который вернул this.getScope()               
  *  
- * @class
- * @name app.Component
+ * @class core.widget.Widget
  */
-Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
+Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     extend:"core.Component",
     
     domTarget:"",
@@ -38,10 +37,7 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     preprocessor:function(cls){
         if(this.widget!="") core.widget.widgetManager.registerWidget(this.widget,cls);
     },
-
-    /**
-     * @constructor
-     */
+ 
     init: function () {	           
         this.view=this.domTarget.parents('.scope'); // TODO попробывать перенести в родительский класс
         this.bindPropName= this.domTarget.attr('data-dsource');                
@@ -99,4 +95,4 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
 	
     //события
     listeners: null
-}));
+});

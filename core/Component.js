@@ -1,13 +1,13 @@
 /**
  * 
- * @class
+ * @class core.Component
  * @classdesc
  * Поведения для компонентов. Это слушатели событий, 
  * которые можно включать и выключать на лету помере необходимости.
  * 
  * @param {object} param обьект со свойствами которые передаются конструктору 2
  */
-Define("core.Component", /** @lends Component.prototype */{    
+Define("core.Component", /** @lends core.Component.prototype */{    
     /**
      * Регистр событий и их обработчиков
      * @type {Object}
@@ -104,9 +104,18 @@ Define("core.Component", /** @lends Component.prototype */{
 	this.event[name].push(fun);	
     },
     
+    
+    /**
+     * Удалит обработчик на событии
+     * @param {string} name имя события
+     * @param {function (Object): ?} fun функция-обработчик
+     */
     off: function (name) {},
 
-    //метод обеспечивающий всплытие
+    /*
+     * Метод обеспечивающий всплытие
+     * в данный момент не применяется, вероятно будет удален
+     */
     liftEvent:function(src,opt){
         //console.log('buble');
         
@@ -134,7 +143,10 @@ Define("core.Component", /** @lends Component.prototype */{
         }
     },
     
-    //вставляет свойста в обьект
+    /**
+     * вставляет свойста в обьект
+     * @param {object} prop обьект со свойствами
+     */
     apply:function(prop){        
        	for(var x in prop){	        		
 		   this[x] = prop[x];
@@ -142,7 +154,9 @@ Define("core.Component", /** @lends Component.prototype */{
     },
 
     /**
-     *  включим поведение
+     *  включает поведение. Тоесть обработчики события в поведеннии 
+     *  начнут срабатывать
+     *  @param {string} name имя поведения
      */
     useBehaviour:function(name){
         this.behaviours[name].status=true;
@@ -150,6 +164,7 @@ Define("core.Component", /** @lends Component.prototype */{
 
     /**
      *  включим одно поведение, и выключим остальные
+     *  @param {string} name имя поведения
      */
     useOneBehaviour:function(name){
         this.unUseBehavioursAll();

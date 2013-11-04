@@ -72,12 +72,11 @@ Define( "core.View", /** @lends core.View.prototype */{
         })
         
     }, 
-            
+    /** Вероятно метод уже ненужен, метод заставлял рендериться виджеты в выбранной области */        
     refreshWidget:function(){        
         core.widget.widgetManager.refresh( $(this.domTarget) );
     },        
 
     //события
-    listeners: null
-    
+    listeners: null    
 });

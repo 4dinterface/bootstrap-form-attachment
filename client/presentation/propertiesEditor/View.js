@@ -105,12 +105,11 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     makeProperty:function(item){        
         var field="<div style='display:inline;'>";        
         //console.log('prop',item['label']);
-        if(item.label) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.label+"</div>";
+        //if(item.label) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.label+"</div>";
         //field+="<div class='romb_button'></div>";         
         switch(item.xtype){
             case "range" :                
-                field+="<div widget='Range' max='0.01' data-dsource='"+item.target+"' value='0'/>"
-                
+                field+="<div widget='Range' max='1' data-dsource='"+item.target+"' value='0'/><br class='clear'>"
             break;
 
             case "color" :                    
@@ -122,7 +121,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             break;
 
             default:
-                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />";
+                field+="<div widget='NumberField' data-dsource='"+item.target+"' ></div> <span class='clear'></span>";
             break;                
         }                
         field+="</div> <div style='display:block;'></div>";

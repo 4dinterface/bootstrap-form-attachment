@@ -1,21 +1,23 @@
 /**
- * Базовый класс компонента
+ * 
  * @class
- * @name app.Component
+ * @classdesc
+ * Поведения для компонентов. Это слушатели событий, 
+ * которые можно включать и выключать на лету помере необходимости.
+ * 
+ * @param {object} param обьект со свойствами которые передаются конструктору 2
  */
-Define("core.Component", /** @lends {app.Component.prototype} */({
+Define("core.Component", /** @lends Component.prototype */{    
     /**
      * Регистр событий и их обработчиков
      * @type {Object}
      * @private
      */
+
     event: null,
     componentCount:0,
     behaviours:null,
 
-    /**
-     * @constructor
-     */
     init: function () {	
         var res;
         
@@ -174,7 +176,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
 
 
 
-}));
+});
 
 //счётчик временно здесь, потом определим его куданибудь в утилиты
 var componentCount=0;

@@ -29,8 +29,7 @@ Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
     update:function(target){        
         
         var me=this,                
-            id;
-        
+            id;       
         //если target непередали используем весь документ
         //target=target || $(document);                     
 
@@ -41,8 +40,6 @@ Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
         me.liveWidget[id]=me.liveWidget[id]||{};
         //me.liveWidget[id]=me.liveWidget[id]||[];
         
-
-
         //перебираем все виджеты в пределах target
         //TODO а надо ли исключать live_widget ?
          $('[widget]',target).not('.live_widget').each(function(num,el){            
@@ -93,5 +90,13 @@ Define("core.widget.widgetManager", /** @lends {app.Component.prototype} */({
     //вспомогательный метод возвращающий ID         
     getTargetId:function(target){          
         return $(target).attr('id');
+    },
+    
+    /*
+     * 
+     */
+    createWidget:function(name,prop){
+        
     }
+    
 }));

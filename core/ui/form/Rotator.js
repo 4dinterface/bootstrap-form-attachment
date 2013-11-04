@@ -16,7 +16,7 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     tmpl:"<div class='rotator'>"+
             "<div style='width:1px; height:10px; margin-left:10px;background-color:#EEE;'></div>"+
         "</div>"+
-        '<input style="display:inline;width:40px;margin-left:5px;">',
+        '<input style="display:inline;width:40px;margin-left:5px;" class="ui-input">',
 
     /**
      * @constructor

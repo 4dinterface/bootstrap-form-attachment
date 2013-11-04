@@ -1,0 +1,12 @@
+{
+	"templates":{
+	    "systemName"      : "AMIX EDITOR",
+	    "footer"          : "Hard metal forever",
+	    "copyright"       : "amix",
+	    "navType"         : "vertical",
+	    "theme"           : "readable",
+	    "linenums"        : true,
+	    "collapseSymbols" : false,
+	    "inverseNav"      : true
+	}
+}

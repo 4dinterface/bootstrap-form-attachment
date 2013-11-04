@@ -12,12 +12,18 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     startY:0,
     startValue:0,    
     
+    tmpl:"<input value='' type='text' />",
+    
     /**
      * @constructor
      */
     init: function (cfg) {        
         this.apply(cfg);                        
         this._super();
+        this.domTarget.append(this.tmpl);
+        
+        $(this.domTarget).addClass('ui-element');        
+        $(this.domTarget).find('input').addClass('ui-input');
     },
             
     /**
@@ -61,6 +67,6 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
      * метод считывает свойства виджетов с атрибутов
      */
     render:function(){          
-        $(this.domTarget).val( this.value );        
+        $(this.domTarget).find('input').val( this.value );        
     }    
 }));

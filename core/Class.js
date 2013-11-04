@@ -1,7 +1,6 @@
-/**
- * Главный неймспейс для фреймворка
- * @namespace
- */
+/** 
+ * @namespace core
+ **/
 window.core=window.core||{};
 
 /**

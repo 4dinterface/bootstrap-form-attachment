@@ -9,15 +9,25 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     widget:"Range",           
     
     startX:0,
+    max:100,//TODO PRIDIMAT KAK ISPOLZOVAT max
     //startY:0,            
     
-    tmpl:'<div class="ui-range-horizontal">'+
-            '<div class="ui-range-horizontal__indicator">'+
-                ' <div class="ui-range-horizontal__indicator__dot"></div>'+
-            '</div> '+
-            '<div class="ui-range-horizontal__line"></div>'+
-        '</div>'+'',
-
+    tmpl:'<div class="ui-element">'+
+            '<i class="ui-pic ui-pic-alpha"></i>'+
+            '<div class="ui-pipe">'+
+                '<div class="ui-pipe__shadow"></div>'+
+                '<div class="ui-pipe__btn ui-pipe__btn_active"></div>'+
+            '</div>'+
+            '<div class="ui-range-horizontal">'+
+                '<div class="ui-range-horizontal__indicator">'+
+                    '<div class="ui-range-horizontal__indicator__dot"></div>'+
+                '</div>'+
+                '<div class="ui-range-horizontal__line"></div>'+
+            '</div>'+
+            '<input type="text" class="ui-input" value="100"><div class="ui-unit">%</div>'+
+          '</div>'+
+          '<br class="clear">',
+  
        //'<div class="ui-range-vertical">'+
        //    '<div class="ui-range-vertical__indicator">'+
        //         '<div class="ui-range-vertical__indicator__dot"></div>'+
@@ -28,7 +38,7 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     /**
      * @constructor
      */
-    init: function (cfg) {                                        s
+    init: function (cfg) {                                        
         this.apply(cfg);        
         
         this.domTarget=$(this.domTarget);
@@ -39,7 +49,9 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
 
         //получим ссылки на нужные dom из шаблона                    
         this.indicator=this.domTarget.find('.ui-range-horizontal__indicator');                                        
-        this.baseX=this.domTarget.offset().left;
+        this.input=this.domTarget.find('input');                                        
+        this.uiRange=this.domTarget.find('.ui-range-horizontal');
+        this.baseX=this.indicator.offset().left;
         
         //вызовем родительский конструктор
         this._super();                        
@@ -56,7 +68,7 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         },
         
         //Событие клика нажатия кнопки мыши на виджете
-        "domTarget mousedown":function(e){                                                                 
+        "uiRange mousedown":function(e){                                                                 
             var onChange=this.onChange.bind(this);                         
             onChange(e);
                         
@@ -68,14 +80,24 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',onChange);            
             })
+        },
+        
+        //ручной ввод значения
+        "input change":function(e){                        
+            this.set( 'value',this.input.val()/100 );
+            this.digest();
         }
     },        
     
     /**
      * Обработчик события mousemove     
      */        
-    onChange:function(e){                                            
-        this.set( 'value', e.x-this.baseX);    
+    onChange:function(e){                         
+        var val=(e.x-this.baseX)/100;        
+        val=val>1?1:val;
+        val=val<0?0:val;                
+        this.set( 'value', val);                    
+        
         this.digest();
     },                    
                                  
@@ -87,7 +109,9 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         //this.input.val( Math.round( this.value ) );        
         //Достаточно заметное замедление даёт поворот через анимацию
         this.indicator.css({
-            left: this.value
-        });        
+            left: this.value*100
+        });                
+        
+        this.input.val(this.value*100);
     }        
 });

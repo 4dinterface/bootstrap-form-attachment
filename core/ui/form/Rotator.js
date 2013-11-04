@@ -6,7 +6,7 @@
  */
 Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
     extend:"core.widget.Widget",    
-    widget:"Rotator2",           
+    widget:"Rotator",           
     
     startX:0,
     startY:0,        

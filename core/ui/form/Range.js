@@ -4,44 +4,42 @@
  * @class
  * @name app.Component
  */
-Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
+Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     extend:"core.widget.Widget",    
-    widget:"Rotator",           
+    widget:"Range",           
     
     startX:0,
-    startY:0,        
-    input:null,   //ссылка на html input
-    rotator:null, //ссылка на html rotator
+    //startY:0,            
     
     tmpl:'<div class="ui-range-horizontal">'+
             '<div class="ui-range-horizontal__indicator">'+
                 ' <div class="ui-range-horizontal__indicator__dot"></div>'+
             '</div> '+
             '<div class="ui-range-horizontal__line"></div>'+
-        '</div>'+
-        '<div class="ui-range-vertical">'+
-            '<div class="ui-range-vertical__indicator">'+
-                '<div class="ui-range-vertical__indicator__dot"></div>'+
-            '</div>'+
-            '<div class="ui-range-vertical__line"></div>'+
-        '</div>',
+        '</div>'+'',
+
+       //'<div class="ui-range-vertical">'+
+       //    '<div class="ui-range-vertical__indicator">'+
+       //         '<div class="ui-range-vertical__indicator__dot"></div>'+
+       //     '</div>'+
+       //     '<div class="ui-range-vertical__line"></div>'+
+       // '</div>',
 
     /**
      * @constructor
      */
-    init: function (cfg) {                                
-        
+    init: function (cfg) {                                        s
         this.apply(cfg);        
         
         this.domTarget=$(this.domTarget);
-        this.domTarget.addClass('widget_rotator');                        
+        this.domTarget.addClass('widget_range');                        
                
         //применим шаблон        
-        this.domTarget.append(this.tmpl);        
+        this.domTarget.append(this.tmpl);            
 
-        //получим ссылки на нужные dom из шаблона            
-        this.rotator=this.domTarget.find('.rotator');                                
-        this.input=this.domTarget.find('input');                        
+        //получим ссылки на нужные dom из шаблона                    
+        this.indicator=this.domTarget.find('.ui-range-horizontal__indicator');                                        
+        this.baseX=this.domTarget.offset().left;
         
         //вызовем родительский конструктор
         this._super();                        
@@ -58,11 +56,10 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         },
         
         //Событие клика нажатия кнопки мыши на виджете
-        "domTarget mousedown":function(e){                                 
-            var onChange=this.onChange.bind(this);            
-            this.startX=e.x;
-            this.startY=e.y;
-            
+        "domTarget mousedown":function(e){                                                                 
+            var onChange=this.onChange.bind(this);                         
+            onChange(e);
+                        
             //подпишемся на перемещаения мыши
             $( 'body' ).on('mousemove',onChange);
             
@@ -71,21 +68,14 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',onChange);            
             })
-        },
-
-        //ввод в поле input                
-        "input change":function(){
-            this.set('value', this.input.val() );
-            this.digest();
-        }   
+        }
     },        
     
     /**
      * Обработчик события mousemove     
      */        
-    onChange:function(e){                               
-        var deg=(e.x-this.startX)+(this.startY-e.y );
-        this.set( 'value', deg );    
+    onChange:function(e){                                            
+        this.set( 'value', e.x-this.baseX);    
         this.digest();
     },                    
                                  
@@ -94,10 +84,10 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
      * автоматически вызывается при вызове метода SET
      */
     render:function(){                
-        this.input.val( Math.round( this.value ) );        
+        //this.input.val( Math.round( this.value ) );        
         //Достаточно заметное замедление даёт поворот через анимацию
-        this.rotator.animate({
-            rotateZ: this.value+'deg'
-        },0);        
+        this.indicator.css({
+            left: this.value
+        });        
     }        
 });

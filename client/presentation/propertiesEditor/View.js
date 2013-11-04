@@ -108,8 +108,9 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         if(item.label) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.label+"</div>";
         //field+="<div class='romb_button'></div>";         
         switch(item.xtype){
-            case "range" :
-                field+="<input widget='null' type='range' data-dsource='"+item.target+"' value='0' style='width:50%;'/>";
+            case "range" :                
+                field+="<div widget='Range' max='0.01' data-dsource='"+item.target+"' value='0'/>"
+                
             break;
 
             case "color" :                    

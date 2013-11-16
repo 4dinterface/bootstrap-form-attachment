@@ -221,12 +221,23 @@
     font: 16px "Arial";
     line-height: 19px;
     color: #4d4d4d;
+    height: 22px;
+    width: 110px;
 }
 .ui-lock__bottom {
     margin: 8px 0 0 3px;
     font: 16px "Arial";
     line-height: 19px;
     color: #4d4d4d;
+    width: 110px;
+    height: 22px;
+
+}
+.ui-lock__title {
+    float: left;
+    width: 14px;
+    height: 19px;
+    display: inline-block;
 }
 
 /* ui property block */
@@ -335,6 +346,7 @@
     display: inline-block;
     color: #545454;
     font: 14px "Georgia";
+    min-width: 20px;
     padding-top: 2px;
     padding-left: 1px;
     padding-right: 1px;

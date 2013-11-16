@@ -11,7 +11,6 @@ blockquote:before,blockquote:after,q:before,q:after { content:""; }
 blockquote,q { quotes:"" ""; }
 /* Reset defaults <- */
 
-
 /* Отменить выделение на всей странице */
 html {
     -moz-user-select: none;
@@ -333,7 +332,7 @@ html, body {
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-
+    padding-top: 16px;
 }
 .tab-head-title__timeline {
     /*margin-top: -2px;*/

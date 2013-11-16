@@ -1,10 +1,9 @@
 /**
  * Rotator
  *   
- * @class
- * @name app.Component
+ * @class core.ui.form.Rotator
  */
-Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
+Define("core.ui.form.Rotator", /** @lends core.ui.form.Rotator.prototype */{
     extend:"core.widget.Widget",    
     widget:"Rotator",           
     
@@ -17,7 +16,6 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
             "<div style='width:1px; height:10px; margin-left:10px;background-color:#EEE;'></div>"+
         "</div>"+
         '<input style="display:inline;width:40px;margin-left:5px;" class="ui-input">',
-
     /**
      * @constructor
      */
@@ -25,8 +23,10 @@ Define("core.ui.form.Rotator", /** @lends {app.Component.prototype} */{
         
         this.apply(cfg);        
         
-        this.domTarget=$(this.domTarget);
+        this.domTarget=this.domTarget || $(div);
+        
         this.domTarget.addClass('widget_rotator');                        
+        this.domTarget.addClass('ui-element');
                
         //применим шаблон        
         this.domTarget.append(this.tmpl);        

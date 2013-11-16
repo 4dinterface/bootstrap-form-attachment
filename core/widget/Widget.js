@@ -1,7 +1,10 @@
+'use strict';
 /**
- * Виджет, 
- * 
- * @Example
+ * @class core.widget.Widget
+ * @augments core.Component
+ * @classdesc 
+ * Пример обьявления виджета
+ * <pre>
  * Define("core.ui.form.NumberField", {
  *    extend:"core.widget.Widget",
  *    widget:"NumberField",       
@@ -14,32 +17,36 @@
  *         $(this.domTarget).val( this.value );        
  *    }                
  * });        
- *
- *  Основные инструменты
- *  this.value  значение виджета 
- *  this.set('value',знач) //устанавливает this.value и вызывает метод render
- *  this.domTarget //указывает на дум к которому прикреплен виджет
- *  this.digest()  // если кто то ввел новое значение в виджет, 
+ * </pre>
+ * 
+ *  Основные инструменты <br/>
+ *  this.value  значение виджета <br/>
+ *  this.set('value',знач) //устанавливает this.value и вызывает метод render <br/>
+ *  this.domTarget //указывает на дум к которому прикреплен виджет <br/>
+ *  this.digest()  // если кто то ввел новое значение в виджет,  <br/>
  *                 // то для того чтобы это значение повлияло на таймлайн нужно вызвать digest
- *  this.getScope() возвращает обьект который виджеты изменяют
- *  this.bindPropName //указывает на то какое именно свойство нужно изменять в обьекте который вернул this.getScope()               
- *  
- * @class core.widget.Widget
+ *  this.getScope() возвращает обьект который виджеты изменяют <br/>
+ *  this.bindPropName //указывает на то какое именно свойство нужно изменять в обьекте который вернул this.getScope()                <br/>
  */
 Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     extend:"core.Component",
     
+    isWidget:true,
+    
     domTarget:"",
     widget:"",
-
-    //препроцессор
-    //в момент обьявления класса, зарегестрирует виджет в менеджере виджетов
+    
+    /**
+     * Препроцесс срабатывает на стадии наследования, до создания экземпляров класса.
+     * Данный препроцессор в момент обьявления класса, зарегестрирует виджет в менеджере виджетов
+     * @property cls
+     */
     preprocessor:function(cls){
         if(this.widget!="") core.widget.widgetManager.registerWidget(this.widget,cls);
     },
- 
-    init: function () {	           
-        this.view=this.domTarget.parents('.scope'); // TODO попробывать перенести в родительский класс
+    
+    /* @constructs */
+    init: function (property) {	                           
         this.bindPropName= this.domTarget.attr('data-dsource');                
         
         this._super();     
@@ -68,8 +75,16 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     //обьявим метод ответственный за обновлеие виджета
     refresh:function(){},//?
     
+    /**
+     * Метод ответственный за добавление в виджет содержимое
+     */
+    add:function(){
+        
+    },
+    
     //Возвращает scope
     getScope:function(){
+        this.view=this.domTarget.parents('.scope'); 
         return this.view[0].scope;        
     },
     
@@ -81,7 +96,7 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     
     //Обстрактный метод перерисовки виджет, наследуется всеми классами
     render:function(){
-                
+                        
     },
     
     // метод публикует установленные значения    

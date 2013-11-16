@@ -1,4 +1,5 @@
 /**
+ * @param {object} param обьект со свойствами которые передаются конструктору 2
  * 
  * @class core.Component
  * 
@@ -9,30 +10,28 @@
  * 3) реализует механизьм управления поведениями useBehaviour, unUseBehaviour, useOneBehaviour, unUseBehavioursAll <br/><br/>
  * Пример использования Component</br>
  * <pre>
- * Define( "example",{
- *   extend: "core.Component",
- *   behaviours:{
- *     'bahav1':'app.exampleBehaviours1',
- *     'bahav2':'app.exampleBehaviours2'
- *   },
- *   
- *   init:function(){
- *      this.super();
- *      this.useBehaviour('behav1');
- *   },
- *   
- *   listeners:{
- *       "свойство событие1":function(){
- *          this.useOneBehaviour('behav1');
- *       },
- *       "свойство событие2":function(){
- *          this.useOneBehaviour('behav2');
- *       }*       
- *   }
- * });  
- * </pre>
- * 
- * @param {object} param обьект со свойствами которые передаются конструктору 2
+   Define( "example",{
+     extend: "core.Component",
+     behaviours:{
+       'bahav1':'app.exampleBehaviours1',
+       'bahav2':'app.exampleBehaviours2'
+     },
+     
+     init:function(){
+        this.super();
+        this.useBehaviour('behav1');
+     },
+     
+     listeners:{
+         "свойство событие1":function(){
+            this.useOneBehaviour('behav1');
+         },
+         "свойство событие2":function(){
+            this.useOneBehaviour('behav2');
+         }
+     }
+  });  
+ * </pre>  
  */
 Define("core.Component", /** @lends core.Component.prototype */{    
     /**
@@ -102,16 +101,19 @@ Define("core.Component", /** @lends core.Component.prototype */{
             if( !('eventName' in options)  )  options.eventName=name;
             if( !('eventTarget' in options) ) options.eventTarget=this; 
         }
+        
+        // если event=null тогда присвоим обьект
+        // TODO убедится что это оптимальное решение
+        this.event=this.event||{}
 
-        //сработают все обработчики
-        //TODO если нет не одного обработчика будет ошибка, исправить !
+        //сработают все обработчики                
         if (name in this.event){
             for (item in this.event[name]) {
                 this.event[name][item].call(context,options);                
             }        
         }
         
-        //bubble event
+        //bubble event 
         for (item in this.event['bubble']) {
            this.event['bubble'][item].call(context,options);           
         }     

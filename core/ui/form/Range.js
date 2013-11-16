@@ -9,7 +9,7 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     widget:"Range",           
     
     startX:0,
-    max:100,//TODO PRIDIMAT KAK ISPOLZOVAT max
+    max:100,//TODO придумать как использовать max
     //startY:0,            
     
     tmpl:'<div class="ui-element">'+
@@ -53,6 +53,8 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         this.uiRange=this.domTarget.find('.ui-range-horizontal');
         this.baseX=this.indicator.offset().left;
         
+        this.scope=cfg.scope|| this.getScope();
+        
         //вызовем родительский конструктор
         this._super();                        
     },
@@ -60,11 +62,9 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     //обработчики событий
     // вешаются по принципу "this.источник событие"
     // либо "cобытие" будет повешено прямо на this
-    listeners:{        
-        // Событие генерруется если данные в scope изменятся
-        // по этому событию мы узнаем что пора перерисоват компонент согласно новым данным
-        "view updatedata":function(){
-            this.set('value', this.getScope() [ this.bindPropName ] );              
+    listeners:{                        
+        'scope change':function(){
+            this.set('value', this.getScope() .get(this.bindPropName) ); 
         },
         
         //Событие клика нажатия кнопки мыши на виджете

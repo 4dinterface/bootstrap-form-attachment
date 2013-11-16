@@ -1,10 +1,9 @@
-﻿/**
+'use strict';
+/**
  * Представление properties
  *
  * @returns {Object} Timeline объект представления таймлайна
  */
-
-'use strict';
 
 Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     extend: core.View,
@@ -30,28 +29,29 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         this.domTarget=$('#property-panel')[0];        
         $(this.domTarget).addClass('scope');
 
-        this.domTarget.scope={};
+        this.domTarget.scope={};                                                        
         
         this.apply( cnf );                                
         this._super();
         
         this.render(); //прорисуем view
-    },
-                
+    },                
     
     //События
     listeners:{                        
          //на каждом кадре обновляем числа                    
-        "stage onrender":function(){                                
-            $(this.domTarget).trigger('updatedata',{});            
-        },
-                 
-        
+        //"stage onrender":function(){                                
+         //$(this.domTarget).trigger('updatedata',{});            
+        //},                         
     },
 
             
      //Рисует VIEW
     render:function(e){
+        
+        //Отпишемся от старого разработчика
+        if ( this.target ) this.target.off(onTick);
+                
         var me=this,
             srcData=null,             
             
@@ -59,8 +59,20 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             shape=this.scope=this.target=this.stage.children[0],            
     
             prop=shape.properties;
-    
-        this.domTarget.scope=shape;
+        
+        //создал shapeProxy
+        var shapeProxy=new core.data.Model(shape);
+        console.log('shapeProxy',shapeProxy, shapeProxy.get('width') );        
+        var shapeProxy=new app.presentation.properties.ProxyObject({
+            target:shape
+        })        
+        this.domTarget.scope=shapeProxy;                        
+        
+        shape.addEventListener('tick',onTick);
+        
+        function onTick(){
+            shapeProxy.fire('change',{})
+        }
    
         //перебераем все группы в shape
         for(var i in prop){                
@@ -94,7 +106,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             name= item.name||"";
     
         for(var i in items) if(i!=="name"){            
-            fields+=this.makeProperty( items[i] )
+            fields+=this.makeProperty( items[i] );
         }
         
         if (item.sync==true) return "<fieldset widget='Fieldset' class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
@@ -112,13 +124,13 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
                 field+="<div widget='Range' max='1' data-dsource='"+item.target+"' value='0'/><br class='clear'>"
             break;
 
-            case "color" :                    
-                field+="<div widget='InputColor' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
-            break;
+//            case "color" :                    
+//                field+="<div widget='InputColor' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
+//            break;
             
-            case "rotator" :                    
-                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div>";                
-            break;
+//            case "rotator" :                    
+//                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div>";                
+//            break;
 
             default:
                 field+="<div widget='NumberField' data-dsource='"+item.target+"' ></div> <span class='clear'></span>";
@@ -129,4 +141,29 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     }                         
 });
 
+//ProxyModel    
+// Класс должен обеспечить доступ к обьекту shape точно таким же набором методов как и в модели
+Define( "app.presentation.properties.ProxyObject", /** @lends {app.component} */ {
+    extend: core.Component,
     
+    object:null,
+    
+    init:function(prop){
+        this.target=prop.target;        
+    },
+    
+    get:function(name){
+        return  this.target[name];
+    },
+    
+    set:function(name,value){
+        this.target[name]=value;
+        
+        //fire change
+        this.fireChange({
+            operation:"set",
+            field:name,
+            value:value
+        });
+    }    
+});

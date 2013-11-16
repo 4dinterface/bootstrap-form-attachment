@@ -34,14 +34,12 @@ Define('app.presentation.stage.shape.Rectangle', {
             //силизация
             "stylize",
             
-            //corners - управление угламиы
-
+            //corners - управление углами
             //shadow
             "shadow"                        
         ],
         //======================================================================//
-        
-        
+                
 	// инициализация
 	init  : function (cnf){          
             //alert (createjs.BoxBlurFilter);

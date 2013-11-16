@@ -1,4 +1,4 @@
-
+'use strict';
 /**
  * 
  * Менеджер виджетов
@@ -9,11 +9,12 @@
  * 
  * @class widgetManager
  */
-
 Define("core.widget.widgetManager", /** @lends widgetManager.prototype */{
     extend:"core.Component",
-    mode:"one",
-
+    mode:"one",    
+    /* 
+     * @constructs 
+     */
     init: function () {	      
         this._super();
     },
@@ -24,7 +25,9 @@ Define("core.widget.widgetManager", /** @lends widgetManager.prototype */{
     // живые виджеты   
     liveWidget:{},
             
-    //Обновляет все виджеты на экране
+    /**
+     * Обновляет все виджеты на экране
+     */
     update:function(target){        
         
         var me=this,                
@@ -35,23 +38,28 @@ Define("core.widget.widgetManager", /** @lends widgetManager.prototype */{
         //меод возвращает ID, этот код неверный,так как в случае отсутствия id его нужно создать уникальным
         id= me.getTargetId(target);            
 
-        //если для этого dom элемента виджеты нет ещё не одного виджета тогда создадим массив
+        //если этого dom элемент несодержит виджеты тогда создадим обьект
         me.liveWidget[id]=me.liveWidget[id]||{};
         //me.liveWidget[id]=me.liveWidget[id]||[];
         
         //перебираем все виджеты в пределах target
         //TODO а надо ли исключать live_widget ?
          $('[widget]',target).not('.live_widget').each(function(num,el){            
-
-                var widgetName= $(this).attr("widget");                    
-
+                var properties={},
+                    widgetName= $(this).attr("widget");                                                 
+                    
                 //если муляж виджета тогда пропускаем его
-                if (widgetName=="null") return;                                                
+                if (widgetName=="null") return; 
+                
+                //подготовим параметры                
+                $.each( this.attributes, function( index, attr ) {
+                    properties[ attr.name ] = attr.value;
+                }); 
+                
+                properties.domTarget = $(this);
 
                 //создадим виджет                
-                var widget=new me.regWidget[widgetName]({ 
-                        domTarget:$(this) 
-                    });
+                var widget=new me.regWidget[widgetName](properties);
                                     
                 me.liveWidget[id][ $(this).attr('id') ]=widget;                                                                    
         })        
@@ -91,11 +99,10 @@ Define("core.widget.widgetManager", /** @lends widgetManager.prototype */{
         return $(target).attr('id');
     },
     
-    /*
-     * 
+    /**
+     * создает виджет с указанным именем и свойствами
      */
-    createWidget: function(name,prop){
-        
-    }
-    
+    createWidget: function(widgetName,prop){
+        return new me.regWidget[widgetName](prop);
+    }    
 });

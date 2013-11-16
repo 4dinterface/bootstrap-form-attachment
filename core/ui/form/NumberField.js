@@ -1,3 +1,4 @@
+'use strict';   
 /**
  * NumberField
  *   
@@ -12,27 +13,35 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     startY:0,
     startValue:0,    
     
-    tmpl:"<input value='' type='text' />",
+    tmpl:"<input value='' type='text' class='ui-input' />",
     
     /**
      * @constructor
      */
     init: function (cfg) {        
         this.apply(cfg);                        
-        this._super();
-        this.domTarget.append(this.tmpl);
         
-        $(this.domTarget).addClass('ui-element');        
-        $(this.domTarget).find('input').addClass('ui-input');
+        this.scope=cfg.scope|| this.getScope();                 
+        this._super();
+        
+        //либо domtarget нам передали, либо создаем его сами
+        this.domTarget=this.domTarget||$('<div>');
+                                
+        $(this.domTarget).addClass('ui-element');
+        
+        this.domTarget.append(this.tmpl);                
+        
+        var me=this;        
     },
             
     /**
      * слушаем события
      */
     listeners:{
-        "view updatedata":function(){            
-            this.set('value', this.getScope() [ this.bindPropName ] );
-        },  
+       
+        "scope change":function(){
+             this.set('value', this.getScope().get(this.bindPropName) );
+        },
         
         "domTarget mousedown":function(e){
             var onChange=this.onChange.bind(this); 
@@ -64,7 +73,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     },       
 
     /**
-     * метод считывает свойства виджетов с атрибутов
+     * метод рендерит инфу
      */
     render:function(){          
         $(this.domTarget).find('input').val( this.value );        

@@ -14,7 +14,7 @@ Define("app.presentation.properties.Сontroller", {
             //TODO сейчас применяется к первому shape а не к выбранном (собственно пока выбрать то нечего и нельзя)                        
                 
             this.facade.addKeyToProperty( el.attr('data-dsource'), e.data.value );
-            console.log();            
+            console.log(el.attr('data-dsource'),e.data.value);            
         }
     }
 });

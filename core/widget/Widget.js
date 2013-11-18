@@ -47,8 +47,7 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     
     /* @constructs */
     init: function (property) {	                           
-        this.bindPropName= this.domTarget.attr('data-dsource');                
-        
+        this.bindPropName= property['data-dsource']; //this.domTarget.attr('data-dsource');                        
         this._super();     
                
         this.domTarget=$(this.domTarget);                

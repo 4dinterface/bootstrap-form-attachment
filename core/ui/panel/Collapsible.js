@@ -14,12 +14,19 @@ Define("core.ui.panel.Collapsible", /** @lends {app.Component.prototype} */({
     init: function (cfg) {
         this.apply(cfg);
         this._super();
-
+        
         var me=this;
+        
+        if( $( this.domTarget ).find('h2').length==0 ) $( this.domTarget ).append('<h2 style="background-color:#ccc; padding-left:5px;height:20px;"><b>'+cfg.title+'</b></h2>');
+        if( $( this.domTarget ).find('div').length==0 ) $( this.domTarget ).append('<div class="innerPanel"></div>');
         
         $( this.domTarget ).find('h2').click(function(){                                        
             $('div',me.domTarget).toggle();
         });
+    },
+    
+    add:function(el){
+        $( this.domTarget ).find('.innerPanel').append(el.domTarget);
     }
             
 }));

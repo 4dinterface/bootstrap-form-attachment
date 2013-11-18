@@ -64,7 +64,9 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     // либо "cобытие" будет повешено прямо на this
     listeners:{                        
         'scope change':function(){
-            this.set('value', this.getScope() .get(this.bindPropName) ); 
+            console.log(this.scope,this.bindPropName); 
+            //this.set('value', this.getScope() .get(this.bindPropName) ); 
+            this.set('value', this.scope.get(this.bindPropName) );                         
         },
         
         //Событие клика нажатия кнопки мыши на виджете

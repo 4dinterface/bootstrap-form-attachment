@@ -25,7 +25,8 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      * @constructor
      */
     init: function( cnf ) {
-        var me=this;        
+        console.log('cnf',cnf);
+        var me=this;              
         this.domTarget=$('#property-panel')[0];        
         $(this.domTarget).addClass('scope');
 
@@ -34,7 +35,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         this.apply( cnf );                                
         this._super();
         
-        this.render(); //прорисуем view
+        this.render(); //прорисуем view                
     },                
     
     //События
@@ -47,29 +48,28 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
 
             
      //Рисует VIEW
-    render:function(e){
-        
+    render:function(e){        
         //Отпишемся от старого разработчика
-        if ( this.target ) this.target.off(onTick);
-                
+        if ( this.target ) this.target.off(onTick);                
         var me=this,
             srcData=null,             
             
             //в качестве shape выерем первый элемент (TODO это временный вариант)
-            shape=this.scope=this.target=this.stage.children[0],            
-    
+            shape=this.scope=this.target=this.stage.children[0],                
             prop=shape.properties;
         
         //создал shapeProxy
         var shapeProxy=new core.data.Model(shape);
-        console.log('shapeProxy',shapeProxy, shapeProxy.get('width') );        
-        var shapeProxy=new app.presentation.properties.ProxyObject({
-            target:shape
-        })        
+        shapeProxy.data=shape;        
+        
+        //console.log('shapeProxy',shape,shapeProxy, shapeProxy.get('alpha') );        
+       // var shapeProxy=new app.presentation.properties.ProxyObject({
+       //     target:shape
+       // })        
         this.domTarget.scope=shapeProxy;                        
         
-        shape.addEventListener('tick',onTick);
-        
+        //событие change при перерисове 
+        shape.addEventListener('tick',onTick);        
         function onTick(){
             shapeProxy.fire('change',{})
         }
@@ -77,26 +77,41 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         //перебераем все группы в shape
         for(var i in prop){                
             srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
-            this.makeGroup(srcData, $('#property-panel') );
-        }                                         
+            this.makeGroup(srcData, $('#property-panel'),shapeProxy);
+        }                        
     },        
 
     // создадим группу
-    makeGroup:function(gr,panel){
+    makeGroup:function(gr,panel,shape){
         //Создадим группу
-        var cont="<div widget='Collapsible'>"
-                 +"<h2 style='background-color:#ccc; padding-left:5px;height:20px;'><b>"+  gr.name + "</b></h2>"
-                 +"<div style='padding-left:5px;'>";        
-         
+        //
+        //Создадим вложенные подгруппы
+        //for (var i in gr.items) if(i!=="name") {
+           // if (gr.items[i].items || gr.items[i] instanceof Array ) cont=cont+this.makeSubGroup(gr.items[i]);
+           // else cont=cont+this.makeProperty( gr.items[i] );
+        //}        
+
+        
+        
+        
+        //createWidget
+        var sld=core.widget.widgetManager.createWidget('Collapsible',{            
+            scope:shape,                        
+            title:'hello'
+        })          
+                
         //Создадим вложенные подгруппы
         for (var i in gr.items) if(i!=="name") {
-            if (gr.items[i].items || gr.items[i] instanceof Array ) cont=cont+this.makeSubGroup(gr.items[i]);
-            else cont=cont+this.makeProperty( gr.items[i] );
+           // if (gr.items[i].items || gr.items[i] instanceof Array ) cont=cont+this.makeSubGroup(gr.items[i]);
+           // else cont=cont+this.makeProperty( gr.items[i] );                     
+            var r=core.widget.widgetManager.createWidget('Range',{            
+                scope:shape,            
+                'data-dsource':'alpha'
+            })              
+            sld.add(r);
         }        
-
-        cont=cont+"</div></div>";        
-        
-        panel.append(cont);
+                                
+        panel.append(sld.domTarget);                
     },
 
     // создадим подгруппу

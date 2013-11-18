@@ -103,6 +103,7 @@ Define("core.widget.widgetManager", /** @lends widgetManager.prototype */{
      * создает виджет с указанным именем и свойствами
      */
     createWidget: function(widgetName,prop){
-        return new me.regWidget[widgetName](prop);
+        prop.domTarget = $('<div>');
+        return new this.regWidget[widgetName](prop);
     }    
 });

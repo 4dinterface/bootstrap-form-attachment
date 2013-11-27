@@ -45,9 +45,9 @@ Define("core.ui.form.Rotator", /** @lends core.ui.form.Rotator.prototype */{
     listeners:{        
         // Событие генерруется если данные в scope изменятся
         // по этому событию мы узнаем что пора перерисоват компонент согласно новым данным
-        "view updatedata":function(){
-            this.set('value', this.getScope() [ this.bindPropName ] );              
-        },
+        //"view updatedata":function(){
+        //    this.set('value', this.getScope() [ this.bindPropName ] );              
+        //},
         
         //Событие клика нажатия кнопки мыши на виджете
         "domTarget mousedown":function(e){                                 

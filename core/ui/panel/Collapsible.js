@@ -25,6 +25,7 @@ Define("core.ui.panel.Collapsible", /** @lends {app.Component.prototype} */({
         });
     },
     
+    // Добавить
     add:function(el){
         $( this.domTarget ).find('.innerPanel').append(el.domTarget);
     }

@@ -15,8 +15,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      * @type {app.model.Timeline}
      * @private
      */
-    model: null,    
-    bindMap:null,
+    model: null,        
     
     //experemental
     scope:null,//связываемся вот с этим обьектом
@@ -25,8 +24,9 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
      * @constructor
      */
     init: function( cnf ) {
-        console.log('cnf',cnf);
-        var me=this;              
+        //console.log('cnf',cnf);
+        var me=this;
+        
         this.domTarget=$('#property-panel')[0];        
         $(this.domTarget).addClass('scope');
 
@@ -35,66 +35,50 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         this.apply( cnf );                                
         this._super();
         
-        this.render(); //прорисуем view                
+        this.render(); //прорисуем view
     },                
     
     //События
-    listeners:{                        
-         //на каждом кадре обновляем числа                    
-        //"stage onrender":function(){                                
-         //$(this.domTarget).trigger('updatedata',{});            
-        //},                         
-    },
-
+    listeners:{},
             
      //Рисует VIEW
-    render:function(e){        
-        //Отпишемся от старого разработчика
-        if ( this.target ) this.target.off(onTick);                
+    render:function(e){                
         var me=this,
-            srcData=null,             
+           srcData=null,             
             
-            //в качестве shape выерем первый элемент (TODO это временный вариант)
-            shape=this.scope=this.target=this.stage.children[0],                
-            prop=shape.properties;
+           //в качестве shape выерем первый элемент (TODO это временный вариант)
+           shape=this.scope=this.target=this.stage.children[0],                
+           //Список свойств которые будет отображать propertyEditor        
+           prop=shape.properties;
+    
+        //Отпишемся от старого разработчика
+        //if ( this.target ) this.target.off(onTick);                        
         
         //создал shapeProxy
-        var shapeProxy=new core.data.Model(shape);
-        shapeProxy.data=shape;        
+        this.shapeProxy=new core.data.Model(shape);//todo удалить shape
+        this.shapeProxy.data=shape;                        
         
-        //console.log('shapeProxy',shape,shapeProxy, shapeProxy.get('alpha') );        
-       // var shapeProxy=new app.presentation.properties.ProxyObject({
-       //     target:shape
-       // })        
-        this.domTarget.scope=shapeProxy;                        
+        this.domTarget.scope=this.shapeProxy;                        
         
         //событие change при перерисове 
         shape.addEventListener('tick',onTick);        
         function onTick(){
-            shapeProxy.fire('change',{})
+            this.shapeProxy.fire('change',{})
         }
-   
+        
         //перебераем все группы в shape
         for(var i in prop){                
             srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
-            this.makeGroup(srcData, $('#property-panel'),shapeProxy);
-        }                        
+            //Создаем в группе
+            this.makeGroup(srcData, $('#property-panel'),this.shapeProxy);
+        }
+        
     },        
 
     // создадим группу
     makeGroup:function(gr,panel,shape){
-        //Создадим группу
-        //
-        //Создадим вложенные подгруппы
-        //for (var i in gr.items) if(i!=="name") {
-           // if (gr.items[i].items || gr.items[i] instanceof Array ) cont=cont+this.makeSubGroup(gr.items[i]);
-           // else cont=cont+this.makeProperty( gr.items[i] );
-        //}        
-
         
-        
-        
-        //createWidget
+        //Создадим группы
         var sld=core.widget.widgetManager.createWidget('Collapsible',{            
             scope:shape,                        
             title:'hello'
@@ -102,83 +86,66 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
                 
         //Создадим вложенные подгруппы
         for (var i in gr.items) if(i!=="name") {
-           // if (gr.items[i].items || gr.items[i] instanceof Array ) cont=cont+this.makeSubGroup(gr.items[i]);
-           // else cont=cont+this.makeProperty( gr.items[i] );                     
-            var r=core.widget.widgetManager.createWidget('Range',{            
-                scope:shape,            
-                'data-dsource':'alpha'
-            })              
-            sld.add(r);
-        }        
-                                
-        panel.append(sld.domTarget);                
+            if (gr.items[i].items || gr.items[i] instanceof Array ) {
+                sld.add( this.makeSubGroup(gr.items[i], shape) );               
+            } else {
+                sld.add( this.makeProperty(gr.items[i], shape) );               
+            }            
+        }                        
+        panel.append(sld.domTarget);                        
     },
 
     // создадим подгруппу
-    makeSubGroup:function(item){
+    makeSubGroup:function(item, shape){
+        /*r*/       
+        var r=core.widget.widgetManager.createWidget('Fieldset',{            
+            scope:this.shape,            
+            'data-dsource':'alpha'
+        })                  
+
         var fields="",
             items=item.items||item,
             name= item.name||"";
     
-        for(var i in items) if(i!=="name"){            
-            fields+=this.makeProperty( items[i] );
-        }
-        
-        if (item.sync==true) return "<fieldset widget='Fieldset' class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
-        else return "<fieldset class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
+        for(var i in items) if(i!=="name"){                        
+            r.add(
+                this.makeProperty( items[i], shape)
+            );            
+        }        
+        return r;        
     },
 
     // создадим свойства
-    makeProperty:function(item){        
-        var field="<div style='display:inline;'>";        
-        //console.log('prop',item['label']);
-        //if(item.label) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.label+"</div>";
-        //field+="<div class='romb_button'></div>";         
+    makeProperty:function(item,shape){                
+        
         switch(item.xtype){
             case "range" :                
-                field+="<div widget='Range' max='1' data-dsource='"+item.target+"' value='0'/><br class='clear'>"
+                var r1=core.widget.widgetManager.createWidget('Range',{            
+                     scope:shape,            
+                    'data-dsource':item.target
+                })          
             break;
 
 //            case "color" :                    
 //                field+="<div widget='InputColor' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
 //            break;
             
-//            case "rotator" :                    
-//                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div>";                
-//            break;
+            case "rotator" :                    
+                var r1=core.widget.widgetManager.createWidget('Rotator',{            
+                     scope:shape,            
+                    'data-dsource':item.target
+                })          
+
+            break;
 
             default:
-                field+="<div widget='NumberField' data-dsource='"+item.target+"' ></div> <span class='clear'></span>";
+                var r1=core.widget.widgetManager.createWidget('NumberField',{            
+                     scope:shape,            
+                    'data-dsource':item.target
+                })          
             break;                
-        }                
-        field+="</div> <div style='display:block;'></div>";
-        return field;
-    }                         
-});
-
-//ProxyModel    
-// Класс должен обеспечить доступ к обьекту shape точно таким же набором методов как и в модели
-Define( "app.presentation.properties.ProxyObject", /** @lends {app.component} */ {
-    extend: core.Component,
+        }
+        return r1;        
+    }          
     
-    object:null,
-    
-    init:function(prop){
-        this.target=prop.target;        
-    },
-    
-    get:function(name){
-        return  this.target[name];
-    },
-    
-    set:function(name,value){
-        this.target[name]=value;
-        
-        //fire change
-        this.fireChange({
-            operation:"set",
-            field:name,
-            value:value
-        });
-    }    
 });

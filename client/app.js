@@ -69,9 +69,22 @@ $( function () {
              'client/business/Facade.js',
              
              // ---------- Timeline -------------
-             "client/presentation/timelineEditor/utilites.js",
-             "client/presentation/timelineEditor/View.js",
-             "client/presentation/timelineEditor/Controller.js",
+             "client/presentation/timelineEditor/timeline/Component.js",
+             "client/presentation/timelineEditor/timeline/Controller.js",
+             "client/presentation/timelineEditor/timeline/View.js",
+             // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/left/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/left/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/left/View.js",
+             // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/left/shape/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/left/shape/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/left/shape/View.js",
+             // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/right/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/right/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/right/View.js",
+             // --------------------------------
              "client/presentation/timelineEditor/Component.js",
 
              // ---------- Холст -------------

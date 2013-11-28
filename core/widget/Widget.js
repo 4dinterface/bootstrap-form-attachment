@@ -152,7 +152,8 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
                         
     },
     
-    // метод публикует установленные значения    
+    // метод публикует установленные значения        
+    // TODO Вероятно метод лишний, его может заменить отслеживание модели
     digest:function(){
        this.domTarget.trigger('change',{
             srcElement: this.domTarget,

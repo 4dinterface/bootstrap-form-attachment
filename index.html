@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
     <head>
+        <meta charset="utf-8">
         <title></title>
         <link rel="stylesheet" href="./css/style.css"/>
         <link rel="stylesheet" href="./css/ui.css"/>
@@ -79,9 +80,35 @@
                         </div>
 
                         <div class="tab-body" id="property-panel" style="overflow-y: scroll; height:400px;">
-                            <!--
+
                             <br class="clear">
                             <br class="clear">
+
+                            <div class="ui-element">
+                                    <i class="ui-pic ui-pic-lock ui-pic-lock_active"></i>
+                                <div class="ui-lock">
+                                    <div class="ui-lock__top">
+                                        <div class="ui-lock__title">W</div>
+                                        <div class="ui-pipe">
+                                            <div class="ui-pipe__shadow"></div>
+                                            <div class="ui-pipe__btn ui-pipe__btn_active"></div>
+                                        </div>
+                                        <div class="ui-range-btn-vertical ui-right"><div class="ui-range-btn-vertical__indicator"><div class="ui-range-btn-vertical__indicator__dot"></div></div><div class="ui-range-btn-vertical__line"></div><div class="ui-range-btn-vertical__indicator__underdot"></div></div>
+                                        <div class="ui-unit ui-right">%</div>
+                                        <input type="text" class="ui-input ui-right" value="30"/>
+                                    </div>
+                                    <div class="ui-lock__bottom">
+                                        <div class="ui-lock__title">H</div>
+                                        <div class="ui-pipe">
+                                            <div class="ui-pipe__shadow"></div>
+                                            <div class="ui-pipe__btn"></div>
+                                        </div>
+                                        <div class="ui-range-btn-vertical ui-right"><div class="ui-range-btn-vertical__indicator ui-range-btn-vertical__indicator_active"><div class="ui-range-btn-vertical__indicator__dot"></div></div><div class="ui-range-btn-vertical__line ui-range-btn-vertical__line_active"></div><div class="ui-range-btn-vertical__indicator__underdot"></div></div>
+                                        <div class="ui-unit ui-right">px</div>
+                                        <input type="text" class="ui-input ui-right" value="30"/>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="ui-element">
                                 <i class="ui-pic ui-pic-alpha"></i>
@@ -108,8 +135,25 @@
                             <div class="ui-element">
                                 <div class="ui-range-vertical"><div class="ui-range-vertical__indicator"><div class="ui-range-vertical__indicator__dot"></div></div><div class="ui-range-vertical__line"></div></div>
                             </div>
+
+                            <div class="ui-element">
+                                <div class="ui-range-btn-vertical"><div class="ui-range-btn-vertical__indicator"><div class="ui-range-btn-vertical__indicator__dot"></div></div><div class="ui-range-btn-vertical__line"></div><div class="ui-range-btn-vertical__indicator__underdot"></div></div>
+                            </div>
+
+                            <div class="ui-element">
+                                <div class="ui-range-btn-vertical"><div class="ui-range-btn-vertical__indicator ui-range-btn-vertical__indicator_active"><div class="ui-range-btn-vertical__indicator__dot"></div></div><div class="ui-range-btn-vertical__line ui-range-btn-vertical__line_active"></div><div class="ui-range-btn-vertical__indicator__underdot"></div></div>
+                            </div>
+
+                            <div class="ui-property-block">
+                                <div class="ui-property-block__header ui-grad-vert_light">
+                                    <i class="ui-minimize ui-minimize_active"></i>
+                                    <div class="ui-property-block__header__title">
+                                        Base
+                                    </div>
+                                </div>
+                            </div>
+
                             <br class="clear">
-                            -->
                         </div>
                     </div>
 
@@ -198,7 +242,28 @@
                         </div>
                         <div class="tab-body tab-body-timeline">
 
-                            <div class="tab-body-timeline-params"></div>
+                            <div class="tab-body-timeline-params">
+
+                                <div class="ui-body-timeline-params__property-block">
+                                    <div class="ui-body-timeline-params__property-block__header ui-grad-vert_lightness">
+                                        <i class="ui-minimize"></i>
+                                        <div class="ui-body-timeline-params__property-block__header__title">
+                                            Квадратная фигура<i class="ui-eye-big ui-eye-big_active"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-body-timeline-params__property-block__property">
+                                        <div class="ui-body-timeline-params__property-block__property__title">width</div><i class="ui-eye"></i>
+                                    </div>
+                                    <div class="ui-body-timeline-params__property-block__property">
+                                        <div class="ui-body-timeline-params__property-block__property__title">height</div><i class="ui-eye ui-eye_active"></i>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
 
                             <div id="timeline-editor" class="timeline__editor">
                                 <div id="timeline-editor-head" class="timeline__editor_head">

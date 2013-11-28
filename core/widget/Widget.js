@@ -36,6 +36,22 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     domTarget:"",
     widget:"",
     
+    
+    
+     /**
+     * Дочерние виджеты
+     * @type {Array}
+     * @public
+     */    
+    childrens:null,    
+    
+     /**
+     * ссылка на родительский виджет
+     * @type {Array}
+     * @public
+     */        
+    parent:null,
+    
     /**
      * Препроцесс срабатывает на стадии наследования, до создания экземпляров класса.
      * Данный препроцессор в момент обьявления класса, зарегестрирует виджет в менеджере виджетов
@@ -46,7 +62,11 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     },
     
     /* @constructs */
-    init: function (property) {	                           
+    init: function (property) {
+        
+        //здесь хранятся дочерние виджеты        
+        this.childrens=[];
+        
         this.bindPropName= property['data-dsource']; //this.domTarget.attr('data-dsource');                        
         this._super();     
                
@@ -58,6 +78,33 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
         //если нет id то он будет сгенерирован автматически
         if ($(this.domTarget).attr("id")=="" ) $(this.domTarget).attr("id", core.utilites.genId() );
     },
+    
+    /**
+     *  Деструктор
+     *  деструктор срабатывает при ликвидации виджета
+     *  TODO проверить
+     */
+    destructor:function(){
+        this.childrens.foreEach(function(item){
+            item.destructor();            
+        })
+        //this.domTarget.remove();
+    },
+    
+    /**
+     * Удаляет дочерний виджет из childrens
+     * TODO проверить
+     */
+    removeChild:function(child){
+        this.childrens.foreEach(function(item,num){
+            if(item===child){
+                this.childrens.splice(num,1);
+                //child.destructor();
+                return false;// ХЗ ПРОКИТ ЛИ :)
+            }
+            
+        })                
+    },       
             
    //TODO вероятно методнеиспользуется
     useEvent:function(){
@@ -77,8 +124,15 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     /**
      * Метод ответственный за добавление в виджет содержимое
      */
-    add:function(){
-        
+    add:function(el){
+        if(el){
+            this.childrens.forEach(function(item,num){
+                if (item == el) return false;
+            })
+            //ссылка на родителя
+            el.parent=this;
+            this.childrens.push(el);            
+        }        
     },
     
     //Возвращает scope

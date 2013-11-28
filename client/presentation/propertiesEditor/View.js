@@ -52,16 +52,16 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
            prop=shape.properties;
     
         //Отпишемся от старого разработчика
-        //if ( this.target ) this.target.off(onTick);                        
+       
         
         //создал shapeProxy
         this.shapeProxy=new core.data.Model(shape);//todo удалить shape
         this.shapeProxy.data=shape;                        
         
-        this.domTarget.scope=this.shapeProxy;                        
+        this.domTarget.scope=this.shapeProxy;                                        
         
         //событие change при перерисове 
-        shape.addEventListener('tick',onTick);        
+        shape.addEventListener('tick',onTick.bind(this));        
         function onTick(){
             this.shapeProxy.fire('change',{})
         }
@@ -99,7 +99,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     makeSubGroup:function(item, shape){
         /*r*/       
         var r=core.widget.widgetManager.createWidget('Fieldset',{            
-            scope:this.shape,            
+            scope:shape,            
             'data-dsource':'alpha'
         })                  
 

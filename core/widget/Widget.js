@@ -88,18 +88,25 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
         this.childrens.foreEach(function(item){
             item.destructor();            
         })
-        //this.domTarget.remove();
+        
+        //нужно сообщить родителю что элемент удален 
+        //false укажет что второй раз вызывать деструктор ненужно
+        this.parent.removeChild(this,false);  
     },
     
     /**
      * Удаляет дочерний виджет из childrens
      * TODO проверить
-     */
-    removeChild:function(child){
-        this.childrens.foreEach(function(item,num){
+     */ 
+    removeChild:function(child,mode){
+        this.childrens.foreEach(function(item,mode){
             if(item===child){
+                //удалим из массива детей
                 this.childrens.splice(num,1);
-                //child.destructor();
+                
+                //если mode Не false то вызываем деструктор
+                if(mode!==false)child.destructor();
+                
                 return false;// ХЗ ПРОКИТ ЛИ :)
             }
             
@@ -141,7 +148,7 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
         return this.view[0].scope;        
     },
     
-    //устанавливает значение
+    //устанавливает значение виджета
     set:function(name,deg){        
         this[name]=deg;            
         this.render();                                                 

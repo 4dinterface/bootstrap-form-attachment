@@ -3,28 +3,26 @@
 'use strict';
 
 
-Define( 'app.timeline.panels.Left', {
+Define( 'app.timeline.panels.right.Runner', {
 
     extend: core.Component,
 
     init:function( cfg ) {
 
-        // Ссылка на компонет таймлайна
-        this.parent = cfg.parent;
-        this.shapes = [];
+        // Ссылка на компонет правой панель таймлайна
+        this.apply(cfg);
 
-        // Контроллер левой панели таймлайна
-        this.controller = new app.timeline.panels.Left.Controller({
+        // Контроллер бегунка
+        this.controller = new app.timeline.panels.right.Runner.Controller({
             owner: this
         });
 
-        // Представление левой панели таймлайна
-        this.view = new app.timeline.panels.Left.View({
+        // Представление бегунка
+        this.view = new app.timeline.panels.right.Runner.View({
             owner: this
         });
 
 
-        this.parent.model
         // TODO: тест создание фигуры на левой панели таймлайна
         var shape = new app.timeline.panels.left.Shape({
             parent: this

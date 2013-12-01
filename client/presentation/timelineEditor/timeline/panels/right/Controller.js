@@ -5,9 +5,11 @@
 
 Define( 'app.timeline.panels.Right.Controller', {
 
-    extend: core.Component,
+    extend: core.Controller,
 
-    init: function( cfg ) {
+    init: function(cfg) {
+        this.apply(cfg);
+
 
     }
 

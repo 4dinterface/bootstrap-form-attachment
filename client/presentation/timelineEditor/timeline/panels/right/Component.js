@@ -7,20 +7,23 @@ Define( 'app.timeline.panels.Right', {
 
     extend: core.Component,
 
-    init:function( cfg ) {
+    init: function(cfg) {
 
         // Ссылка на компонет таймлайна
-        this.parent = cfg.parent;
+        this.apply(cfg);
 
         // Контроллер правой панели таймлайна
         this.controller = new app.timeline.panels.Right.Controller({
-            component: this
+            owner: this
         });
 
         // Представление правой панели таймлайна
         this.view = new app.timeline.panels.Right.View({
-            component: this
+            owner: this
         });
+
+        // Бегунок
+        this.runner = new app.timeline.panels.right.Runner(cfg);
 
     }
 

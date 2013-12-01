@@ -10,10 +10,8 @@ Define( 'app.timeline.Timeline.Controller', {
     extend: core.Controller,
 
     init: function( cfg ) {
-
-        this.owner = cfg.component;
+        this.apply(cfg);
         this.domRoot = document.getElementById('timeline');
-
         this.assign(this.domRoot, this.handlers);
     },
 

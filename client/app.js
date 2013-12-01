@@ -69,6 +69,8 @@ $( function () {
              'client/business/Facade.js',
              
              // ---------- Timeline -------------
+             'client/presentation/timelineEditor/timeline/utilites.js',
+             // --------------------------------
              "client/presentation/timelineEditor/timeline/Component.js",
              "client/presentation/timelineEditor/timeline/Controller.js",
              "client/presentation/timelineEditor/timeline/View.js",
@@ -84,6 +86,10 @@ $( function () {
              "client/presentation/timelineEditor/timeline/panels/right/Component.js",
              "client/presentation/timelineEditor/timeline/panels/right/Controller.js",
              "client/presentation/timelineEditor/timeline/panels/right/View.js",
+             // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/right/runner/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/right/runner/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/right/runner/View.js",
              // --------------------------------
              "client/presentation/timelineEditor/Component.js",
 

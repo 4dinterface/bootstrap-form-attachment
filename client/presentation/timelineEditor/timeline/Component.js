@@ -12,25 +12,29 @@ Define( 'app.timeline.Timeline', {
 
         this.model = cfg.model;
         this.movie = cfg.movie;
-
+        this.utilites = app.timeline.utilites;
 
         // Контроллер таймлайна
         this.controller = new app.timeline.Timeline.Controller({
-            component: this
+            owner: this
         });
 
         // Представление таймлайна
         this.view = new app.timeline.Timeline.View({
-            component: this
+            owner: this
         });
 
 
         // Левая и правая панели таймлайна
         this.panels = {
             left: new app.timeline.panels.Left({
+                model: this.model,
+                movie: this.movie,
                 parent: this
             }),
             right: new app.timeline.panels.Right({
+                model: this.model,
+                movie: this.movie,
                 parent: this
             })
         };

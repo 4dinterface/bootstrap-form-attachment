@@ -9,10 +9,8 @@ Define( "app.timeline.Timeline.View", {
     extend: core.Component,
 
     init: function( cfg ) {
-
-        this.owner = cfg.component;
+        this.apply(cfg);
         this.domRoot = document.getElementById('timeline')
-
     }
 
 });

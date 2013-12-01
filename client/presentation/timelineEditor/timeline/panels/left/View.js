@@ -7,11 +7,12 @@ Define( "app.timeline.panels.Left.View", {
 
     extend: core.Component,
 
-    init: function( cfg ) {
+    init: function(cfg) {
+        this.apply(cfg);
 
-        // Ссылка на компонент
-        this.owner = cfg.owner;
-
+        this.owner.model.on('load', function() {
+            console.info('model.load', this.model);
+        }.bind(this));
     }
 
 });

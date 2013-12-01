@@ -13,7 +13,6 @@ Define( 'app.timeline.panels.Right.View', {
         this.apply(cfg);
 
         this.dom = {};
-
         this.dom.editorBody = this.utilites.getById('timeline-editor-body');
 
         this.owner.movie.on('onframe', function(e) {

@@ -7,7 +7,7 @@ Define( 'app.timeline.panels.Left', {
 
     extend: core.Component,
 
-    init:function( cfg ) {
+    init:function(cfg) {
 
         this.apply(cfg);
         this.shapes = [];
@@ -22,11 +22,14 @@ Define( 'app.timeline.panels.Left', {
             owner: this
         });
 
-
         this.model.on('load', function() {
-            console.info('model.load');
-        });
-
+            this.model.get('shapeCollection').forEach(function(shape) {
+                this.shapes.push(new app.timeline.panels.left.Shape({
+                    parent: this,
+                    shape: shape
+                }));
+            }.bind(this));
+        }.bind(this));
     }
 
 });        

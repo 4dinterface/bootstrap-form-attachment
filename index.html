@@ -224,8 +224,9 @@
             </div>
 
             <div class="body-block">
+
                 <!-- TIMELINE -->
-                <div class="body-timeline">
+                <div id="timeline" class="body-timeline">
                     <div class="tab tab-timeline">
                         <div class="tab-head">
                             <div class="tab-head-circle"></div>
@@ -241,6 +242,8 @@
                             </div>
 
                         </div>
+
+
                         <div class="tab-body tab-body-timeline">
 
                             <div class="tab-body-timeline-params">
@@ -262,11 +265,9 @@
 
                                 </div>
 
-
-
                             </div>
 
-                            <div id="timeline-editor" class="timeline__editor">
+                            <div class="timeline__editor">
                                 <div id="timeline-editor-head" class="timeline__editor_head">
                                     <div id="timeline-ruler-box" class="timeline__ruler_box">
                                         <!--here ruler-->
@@ -290,41 +291,41 @@
             </div>
         <!-- END TIMELINE -->
 
-        <!-- TEMPLATES -->
-                <script type="text/x-jqote-template" id="template-timeline-line">
-                    <div class="timeline__line <%=this.clazz%>" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">
-                        <%= $.jqote( '#template-timeline-property', this.properties ) %>
-                    </div>
-                </script>
+        <!--&lt;!&ndash; TEMPLATES &ndash;&gt;-->
+                <!--<script type="text/x-jqote-template" id="template-timeline-line">-->
+                    <!--<div class="timeline__line <%=this.clazz%>" id="line-<%=this.index%>" data-shape-id="<%=this.shapeId%>">-->
+                        <!--<%= $.jqote( '#template-timeline-property', this.properties ) %>-->
+                    <!--</div>-->
+                <!--</script>-->
 
-                <script type="text/x-jqote-template" id="template-timeline-property">
-                    <div class="timeline__property <%=this.clazz%>" data-property-id="<%=this.id%>" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;">
-                        <%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>
-                    </div>
-                </script>
+                <!--<script type="text/x-jqote-template" id="template-timeline-property">-->
+                    <!--<div class="timeline__property <%=this.clazz%>" data-property-id="<%=this.id%>" style="margin-left:<%=this.left%>px; width:<%=this.width%>px;">-->
+                        <!--<%= $.jqote( '#template-timeline-keyframe', this.keyframes ) %>-->
+                    <!--</div>-->
+                <!--</script>-->
 
-                <script type="text/x-jqote-template" id="template-timeline-keyframe">
-                    <div class="timeline__keyframe" data-keyframe-id="<%=this.id%>" style="left:<%=this.left%>px;"></div>
-                </script>
+                <!--<script type="text/x-jqote-template" id="template-timeline-keyframe">-->
+                    <!--<div class="timeline__keyframe" data-keyframe-id="<%=this.id%>" style="left:<%=this.left%>px;"></div>-->
+                <!--</script>-->
 
-                <script type="text/x-jqote-template" id="template-timeline-ruler">
-                        <div id="timeline__ruler" style="left:<%=this.left%>px;">
-                            <%= $.jqote( '#template-timeline-ruler-tick', this.ticks ) %>
-                        </div>
-                   </script>
+                <!--<script type="text/x-jqote-template" id="template-timeline-ruler">-->
+                        <!--<div id="timeline__ruler" style="left:<%=this.left%>px;">-->
+                            <!--<%= $.jqote( '#template-timeline-ruler-tick', this.ticks ) %>-->
+                        <!--</div>-->
+                   <!--</script>-->
 
-                <script type="text/x-jqote-template" id="template-timeline-ruler-tick">
-                        <div class="timeline__ruler_tick" style="width:<%=this.width%>px;">
-                            <%=this.value%>
-                        </div>
-                   </script>
-        <!-- END TEMPLATES -->
+                <!--<script type="text/x-jqote-template" id="template-timeline-ruler-tick">-->
+                        <!--<div class="timeline__ruler_tick" style="width:<%=this.width%>px;">-->
+                            <!--<%=this.value%>-->
+                        <!--</div>-->
+                   <!--</script>-->
+        <!--&lt;!&ndash; END TEMPLATES &ndash;&gt;-->
 
 
             <!-- SNAKESKIN TEMPLATES -->
             <script type="text/x-snakeskin-template" id="templates-timeline">
 
-            </script>
+                </script>
             <!-- END SNAKESKIN TEMPLATES -->
 
             <!--COMPILE SNAKESKIN TEMPLATES -->

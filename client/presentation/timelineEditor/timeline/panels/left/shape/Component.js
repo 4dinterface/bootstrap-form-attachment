@@ -22,6 +22,13 @@ Define( 'app.timeline.panels.left.Shape', {
             component: this
         });
 
+    },
+
+
+    destroy: function() {
+        this.controller.destroy();
+        this.view.destroy();
     }
+
 
 });        

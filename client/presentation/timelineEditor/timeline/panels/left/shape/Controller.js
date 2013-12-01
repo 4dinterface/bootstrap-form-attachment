@@ -9,6 +9,12 @@ Define( 'app.timeline.panels.left.Shape.Controller', {
 
     init: function( cfg ) {
 
+    },
+
+
+    destroy: function() {
+        //
     }
+
 
 });

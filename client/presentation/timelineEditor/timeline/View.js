@@ -10,6 +10,9 @@ Define( "app.timeline.Timeline.View", {
 
     init: function( cfg ) {
 
+        this.owner = cfg.component;
+        this.domRoot = document.getElementById('timeline')
+
     }
 
 });

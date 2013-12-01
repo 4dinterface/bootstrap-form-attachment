@@ -9,6 +9,9 @@ Define( "app.timeline.panels.Left.View", {
 
     init: function( cfg ) {
 
+        // Ссылка на компонент
+        this.owner = cfg.owner;
+
     }
 
 });

@@ -76,6 +76,18 @@ Define( "core.Controller", /** @lends {app.Component.prototype} */({
 
     },
 
+    /**
+     * Назначает обработчики событий html элементу через свойства (DOM Level 0)
+     * @param {HTMLElement} elem
+     * @param {Object} handlers В формате { click: handler }
+     * @param {Object} [context]
+     */
+    assign: function(elem, handlers, context) {
+        for(var key in handlers) {
+            elem['on' + key] = handlers[key].bind(context || this, elem);
+        }
+    },
+
 
     //события
     listeners: null

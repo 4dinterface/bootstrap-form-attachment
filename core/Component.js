@@ -133,10 +133,19 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
     },
     
     //вставляет свойста в обьект
-    apply:function(prop){        
-       	for(var x in prop){	        		
-		   this[x] = prop[x];
-	    }	
+    apply:function(prop){
+        var dst = arguments.length === 1 ? this : arguments[ 0 ];
+
+        for(var index in arguments) {
+            var obj = arguments[index];
+            if (dst !== obj) {
+                for(var key in obj) {
+                    dst[key] = obj[key];
+                }
+            }
+        }
+
+        return dst;
     },
 
     /**

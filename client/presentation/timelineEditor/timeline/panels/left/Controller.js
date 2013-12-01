@@ -9,6 +9,11 @@ Define( 'app.timeline.panels.Left.Controller', {
 
     init: function( cfg ) {
 
+        // Ссылка на компонент
+        this.owner = cfg.owner;
+
+        this.domRoot = document.getElementById()
+
     }
 
 });

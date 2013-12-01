@@ -14,12 +14,12 @@ Define( 'app.timeline.panels.Left', {
 
         // Контроллер левой панели таймлайна
         this.controller = new app.timeline.panels.Left.Controller({
-            component: this
+            owner: this
         });
 
         // Представление левой панели таймлайна
         this.view = new app.timeline.panels.Left.View({
-            component: this
+            owner: this
         });
 
 

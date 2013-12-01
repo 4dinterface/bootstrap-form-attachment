@@ -3,7 +3,7 @@
 'use strict';
 
 
-Define( "app.timeline.panels.Right.View", {
+Define( 'app.timeline.panels.Right.View', {
 
     extend: core.Component,
 
@@ -14,8 +14,7 @@ Define( "app.timeline.panels.Right.View", {
 
         this.dom = {};
 
-        this.dom.editor = {};
-        this.dom.editor.body = this.utilites.getById('timeline-editor-body');
+        this.dom.editorBody = this.utilites.getById('timeline-editor-body');
 
         this.owner.movie.on('onframe', function(e) {
             var x = this.utilites.toPixels(this.owner.model.pixelsPerSecond, e.elapsedTime);

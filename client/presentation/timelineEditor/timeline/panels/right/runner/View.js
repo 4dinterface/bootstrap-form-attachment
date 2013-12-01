@@ -15,15 +15,14 @@ Define( 'app.timeline.panels.right.Runner.View', {
 
         this.dom = {};
 
-        this.dom.runner = {};
-        this.dom.runner.head = this.utilites.getById('timeline-runner-head');
-        this.dom.runner.body = this.utilites.getById('timeline-runner-body');
+        this.dom.runnerHead = this.utilites.getById('timeline-runner-head');
+        this.dom.runnerBody = this.utilites.getById('timeline-runner-body');
     },
 
 
     moveTo: function(x) {
-        this.dom.runner.head.style.left = x + 'px';
-        this.dom.runner.body.style.left = x + 'px';
+        this.dom.runnerHead.style.left = x + 'px';
+        this.dom.runnerBody.style.left = x + 'px';
     }
 
 

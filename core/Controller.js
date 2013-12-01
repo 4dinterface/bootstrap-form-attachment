@@ -84,7 +84,7 @@ Define( "core.Controller", /** @lends {app.Component.prototype} */({
      */
     assign: function(elem, handlers, context) {
         for(var key in handlers) {
-            elem['on' + key] = handlers[key].bind(context || this, elem);
+            elem['on' + key] = handlers[key].bind(context || this);
         }
     },
 

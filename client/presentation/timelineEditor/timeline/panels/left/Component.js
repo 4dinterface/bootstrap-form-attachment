@@ -9,8 +9,7 @@ Define( 'app.timeline.panels.Left', {
 
     init:function( cfg ) {
 
-        // Ссылка на компонет таймлайна
-        this.parent = cfg.parent;
+        this.apply(cfg);
         this.shapes = [];
 
         // Контроллер левой панели таймлайна
@@ -24,13 +23,9 @@ Define( 'app.timeline.panels.Left', {
         });
 
 
-        this.parent.model
-        // TODO: тест создание фигуры на левой панели таймлайна
-        var shape = new app.timeline.panels.left.Shape({
-            parent: this
+        this.model.on('load', function() {
+            console.info('model.load');
         });
-
-        console.info('тест создание фигуры на левой панели таймлайна', shape);
 
     }
 

@@ -12,7 +12,7 @@ Define( 'app.timeline.Timeline', {
 
         this.model = cfg.model;
         this.movie = cfg.movie;
-        this.utilites = app.timeline.utilites;
+
 
         // Контроллер таймлайна
         this.controller = new app.timeline.Timeline.Controller({

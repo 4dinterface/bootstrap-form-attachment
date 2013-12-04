@@ -11,12 +11,12 @@ Define( 'app.timeline.panels.left.Shape', {
 
         this.apply(cfg);
 
-        // Контроллер фигуры на левой таймлайна
+        // Контроллер фигуры на левой панели таймлайна
         this.controller = new app.timeline.panels.left.Shape.Controller({
             owner: this
         });
 
-        // Представление фигуры на левой таймлайна
+        // Представление фигуры на левой панели таймлайна
         this.view = new app.timeline.panels.left.Shape.View({
             owner: this
         });

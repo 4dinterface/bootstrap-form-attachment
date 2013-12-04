@@ -24,11 +24,11 @@ Define( 'app.timeline.panels.right.Runner', {
 
 
         // TODO: тест создание фигуры на левой панели таймлайна
-        var shape = new app.timeline.panels.left.Shape({
-            parent: this
-        });
+//        var shape = new app.timeline.panels.left.Shape({
+//            parent: this
+//        });
 
-        console.info('тест создание фигуры на левой панели таймлайна', shape);
+//        console.info('тест создание фигуры на левой панели таймлайна', shape);
 
     }
 

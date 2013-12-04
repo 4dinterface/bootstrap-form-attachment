@@ -7,6 +7,7 @@ Define( 'app.timeline.panels.Left', {
 
     extend: core.Component,
 
+
     init:function(cfg) {
 
         this.apply(cfg);
@@ -23,12 +24,17 @@ Define( 'app.timeline.panels.Left', {
         });
 
         this.model.on('load', function() {
-            this.model.get('shapeCollection').forEach(function(shape) {
-                this.shapes.push(new app.timeline.panels.left.Shape({
-                    parent: this,
-                    shape: shape
-                }));
-            }.bind(this));
+            this.render();
+        }.bind(this));
+    },
+
+
+    render: function() {
+        this.model.get('shapeCollection').forEach(function(shape) {
+            this.shapes.push(new app.timeline.panels.left.Shape({
+                parent: this,
+                shape: shape
+            }));
         }.bind(this));
     }
 

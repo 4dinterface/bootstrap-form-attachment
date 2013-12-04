@@ -6,6 +6,17 @@ app.timeline = app.timeline || {};
 app.timeline.utilites = {
 
     /**
+     * Преобразовывает строку в NodeList
+     * @param {String} str
+     * @returns {NodeList}
+     */
+    stringToDOM: function(str) {
+        var container = document.createElement('div');
+        container.innerHTML = str;
+        return container.childNodes[ 1 ]; // TODO: 0 - Text, 1 - Node, 2 - Text
+    },
+
+    /**
      * Возвращает элемент по id
      * @param {String} id
      * @returns {HTMLElement}

@@ -7,12 +7,13 @@ Define( "app.timeline.panels.Left.View", {
 
     extend: core.Component,
 
+    utilites: app.timeline.utilites,
+
     init: function(cfg) {
         this.apply(cfg);
 
-        this.owner.model.on('load', function() {
-            console.info('model.load', this.model);
-        }.bind(this));
+        this.dom = {};
+        this.dom.shapeContainer = this.utilites.getById('timeline-panel-left__shape-container');
     }
 
 });

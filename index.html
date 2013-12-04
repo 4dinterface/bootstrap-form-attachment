@@ -246,24 +246,24 @@
 
                         <div class="tab-body tab-body-timeline">
 
-                            <div class="tab-body-timeline-params">
+                            <div id="timeline-panel-left__shape-container" class="tab-body-timeline-params">
 
-                                <div class="ui-body-timeline-params__property-block">
-                                    <div class="ui-body-timeline-params__property-block__header ui-grad-vert_lightness">
-                                        <i class="ui-minimize"></i>
-                                        <div class="ui-body-timeline-params__property-block__header__title">
-                                            Квадратная фигура<i class="ui-eye-big ui-eye-big_active"></i>
-                                        </div>
-                                    </div>
+                                <!-- Shapes here -->
+                                <!--<div class="ui-body-timeline-params__property-block">-->
+                                    <!--<div class="ui-body-timeline-params__property-block__header ui-grad-vert_lightness">-->
+                                        <!--<i class="ui-minimize"></i>-->
+                                        <!--<div class="ui-body-timeline-params__property-block__header__title">-->
+                                            <!--Квадратная фигура<i class="ui-eye-big ui-eye-big_active"></i>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                    <div class="ui-body-timeline-params__property-block__property">
-                                        <div class="ui-body-timeline-params__property-block__property__title">width</div><i class="ui-eye"></i>
-                                    </div>
-                                    <div class="ui-body-timeline-params__property-block__property">
-                                        <div class="ui-body-timeline-params__property-block__property__title">height</div><i class="ui-eye ui-eye_active"></i>
-                                    </div>
-
-                                </div>
+                                    <!--<div class="ui-body-timeline-params__property-block__property">-->
+                                        <!--<div class="ui-body-timeline-params__property-block__property__title">width</div><i class="ui-eye"></i>-->
+                                    <!--</div>-->
+                                    <!--<div class="ui-body-timeline-params__property-block__property">-->
+                                        <!--<div class="ui-body-timeline-params__property-block__property__title">height</div><i class="ui-eye ui-eye_active"></i>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
                             </div>
 
@@ -323,14 +323,30 @@
 
 
             <!-- SNAKESKIN TEMPLATES -->
-            <script type="text/x-snakeskin-template" id="templates-timeline">
+            <script type="text/x-snakeskin-template" id="templates">
+                    {template app.templates.timeline.panels.left.shape(shape)}
+                        <div class="ui-body-timeline-params__property-block">
+                            <div class="ui-body-timeline-params__property-block__header ui-grad-vert_lightness">
+                                <i class="ui-minimize"></i>
+                                <div class="ui-body-timeline-params__property-block__header__title">
+                                    Id: {shape.id}<i class="ui-eye-big ui-eye-big_active"></i>
+                                </div>
+                            </div>
 
+                            <div class="ui-body-timeline-params__property-block__property">
+                                <div class="ui-body-timeline-params__property-block__property__title">width</div><i class="ui-eye"></i>
+                            </div>
+                            <div class="ui-body-timeline-params__property-block__property">
+                                <div class="ui-body-timeline-params__property-block__property__title">height</div><i class="ui-eye ui-eye_active"></i>
+                            </div>
+                        </div>
+                    {/template}
                 </script>
             <!-- END SNAKESKIN TEMPLATES -->
 
             <!--COMPILE SNAKESKIN TEMPLATES -->
             <script>
-                Snakeskin.compile( document.getElementById( 'templates-timeline' ) );
+                Snakeskin.compile( document.getElementById( 'templates' ) );
             </script>
             <!--END COMPILE SNAKESKIN TEMPLATES -->
 

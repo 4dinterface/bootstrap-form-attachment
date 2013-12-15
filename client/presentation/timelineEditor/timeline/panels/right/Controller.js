@@ -13,8 +13,8 @@ Define( 'app.timeline.panels.Right.Controller', {
         this.apply(cfg);
 
         this.dom = {};
-        this.dom.editor = this.utilites.getById('timeline-editor');
-        this.dom.editorBody = this.utilites.getById('timeline-editor-body');
+        this.dom.editor = this.utilites.getById('timeline-panel-right__editor');
+        this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
 
         this.assign(this.dom.editorBody, this.handlers);
     },

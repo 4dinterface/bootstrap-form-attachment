@@ -15,8 +15,8 @@ Define( 'app.timeline.panels.right.Runner.View', {
 
         this.dom = {};
 
-        this.dom.runnerHead = this.utilites.getById('timeline-runner-head');
-        this.dom.runnerBody = this.utilites.getById('timeline-runner-body');
+        this.dom.runnerHead = this.utilites.getById('timeline-panel-right__runner-head');
+        this.dom.runnerBody = this.utilites.getById('timeline-panel-right__runner-body');
     },
 
 

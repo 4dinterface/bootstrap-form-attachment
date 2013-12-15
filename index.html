@@ -310,10 +310,12 @@
 
                     {template app.templates.timeline.panels.right.shape.property(data)}
                         <div line class="timeline__line">
-                            <div property class="timeline__property" style="margin-left: {data.left}px; width: {data.width}px;">
-                                <!-- keyframes here -->
-                            </div>
+                            <div property class="timeline__property" style="left: {data.left}px; width: {data.width}px;"></div>
                         </div>
+                    {/template}
+
+                    {template app.templates.timeline.panels.right.shape.property.keyframe(data)}
+                        <div class="timeline__keyframe" style="left: {data.left}px;"></div>
                     {/template}
                 </script>
             <!-- END SNAKESKIN TEMPLATES -->

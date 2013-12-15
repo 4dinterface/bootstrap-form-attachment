@@ -47,7 +47,7 @@ Define( 'app.timeline.panels.Right', {
                 model: shape,
                 parent: this
             }));
-        }.bind(this));
+        }, this);
     }
 
 

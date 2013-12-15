@@ -9,7 +9,6 @@ Define( 'app.timeline.panels.right.Shape', {
 
 
     init:function(cfg) {
-
         this.apply(cfg);
         this.properties = [];
 
@@ -33,7 +32,7 @@ Define( 'app.timeline.panels.right.Shape', {
                 model: property,
                 parent: this
             }));
-        }.bind(this));
+        }, this);
     },
 
 

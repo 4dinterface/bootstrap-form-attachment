@@ -10,6 +10,7 @@ Define( 'app.timeline.panels.left.Shape', {
     init:function( cfg ) {
 
         this.apply(cfg);
+        this.properties = [];
 
         // Контроллер фигуры на левой панели таймлайна
         this.controller = new app.timeline.panels.left.Shape.Controller({
@@ -21,6 +22,17 @@ Define( 'app.timeline.panels.left.Shape', {
             owner: this
         });
 
+        this.render();
+    },
+
+
+    render: function() {
+        this.model.get('propertyCollection').forEach(function(property) {
+            this.properties.push(new app.timeline.panels.left.shape.Property({
+                model: property,
+                parent: this
+            }));
+        }.bind(this));
     },
 
 

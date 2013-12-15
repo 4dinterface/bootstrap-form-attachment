@@ -32,8 +32,8 @@ Define( 'app.timeline.panels.Left', {
     render: function() {
         this.model.get('shapeCollection').forEach(function(shape) {
             this.shapes.push(new app.timeline.panels.left.Shape({
-                parent: this,
-                shape: shape
+                model: shape,
+                parent: this
             }));
         }.bind(this));
     }

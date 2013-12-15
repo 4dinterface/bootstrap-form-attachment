@@ -13,7 +13,7 @@ Define( "app.timeline.panels.Left.View", {
         this.apply(cfg);
 
         this.dom = {};
-        this.dom.shapeContainer = this.utilites.getById('timeline-panel-left__shape-container');
+        this.dom.shapes = this.utilites.getById('timeline-panel-left__shape-container');
     }
 
 });

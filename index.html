@@ -332,13 +332,15 @@
                                     Id: {shape.id}<i class="ui-eye-big ui-eye-big_active"></i>
                                 </div>
                             </div>
-
-                            <div class="ui-body-timeline-params__property-block__property">
-                                <div class="ui-body-timeline-params__property-block__property__title">width</div><i class="ui-eye"></i>
+                            <div properties>
+                                <!-- properties here -->
                             </div>
-                            <div class="ui-body-timeline-params__property-block__property">
-                                <div class="ui-body-timeline-params__property-block__property__title">height</div><i class="ui-eye ui-eye_active"></i>
-                            </div>
+                        </div>
+                    {/template}
+                    {template app.templates.timeline.panels.left.shape.property(property)}
+                        <div class="ui-body-timeline-params__property-block__property">
+                            <div class="ui-body-timeline-params__property-block__property__title">{property.data.name}</div>
+                            <i class="ui-eye"></i>
                         </div>
                     {/template}
                 </script>

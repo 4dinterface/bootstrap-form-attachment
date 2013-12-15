@@ -79,6 +79,10 @@ $( function () {
              "client/presentation/timelineEditor/timeline/panels/left/Controller.js",
              "client/presentation/timelineEditor/timeline/panels/left/View.js",
              // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/left/shape/property/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/left/shape/property/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/left/shape/property/View.js",
+             // --------------------------------
              "client/presentation/timelineEditor/timeline/panels/left/shape/Component.js",
              "client/presentation/timelineEditor/timeline/panels/left/shape/Controller.js",
              "client/presentation/timelineEditor/timeline/panels/left/shape/View.js",

@@ -12,12 +12,13 @@ Define( 'app.timeline.panels.left.Shape.View', {
     init: function( cfg ) {
         this.apply(cfg);
 
-        var shape = app.templates.timeline.panels.left.shape(this.owner.shape);
+        var shape = app.templates.timeline.panels.left.shape(this.owner.model);
 
         this.dom = {};
         this.dom.shape = this.utilites.stringToDOM(shape);
+        this.dom.properties = this.dom.shape.querySelector('[properties]');
 
-        this.owner.parent.view.dom.shapeContainer.appendChild(this.dom.shape);
+        this.owner.parent.view.dom.shapes.appendChild(this.dom.shape);
     },
 
 

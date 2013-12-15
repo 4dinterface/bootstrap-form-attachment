@@ -11,7 +11,7 @@ Define( 'app.timeline.panels.right.Shape', {
     init:function(cfg) {
 
         this.apply(cfg);
-        this.shapes = [];
+        this.properties = [];
 
         // Контроллер левой панели таймлайна
         this.controller = new app.timeline.panels.right.Shape.Controller({
@@ -23,19 +23,17 @@ Define( 'app.timeline.panels.right.Shape', {
             owner: this
         });
 
-        this.model.on('load', function() {
-            this.render();
-        }.bind(this));
+        this.render();
     },
 
 
     render: function() {
-//        this.model.get('propertyCollection').forEach(function(property) {
-//            this.properties.push(new app.timeline.panels.right.shape.Property({
-//                model: property,
-//                parent: this
-//            }));
-//        }.bind(this));
+        this.model.get('propertyCollection').forEach(function(property) {
+            this.properties.push(new app.timeline.panels.right.shape.Property({
+                model: property,
+                parent: this
+            }));
+        }.bind(this));
     },
 
 

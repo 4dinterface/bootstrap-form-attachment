@@ -1,19 +1,16 @@
-/** 
- * Реализация паттерна "поведение"
- * @class
- * @name app.Behaviour
- * @autor Diablo
+/**
+ * @class core.Behaviour
+ * @classdesc
+ * Поведения для компонентов. Это слушатели событий, 
+ * которые можно включать и выключать на лету помере необходимости.
  * 
- * Компонент может иметь несколько схем поведений
- * Включённое поведение получает право обрабатывать события компонента
- * Выключенное поведения,  неполучают события.
- * Компонент может свободно включать и выключать поведения
- **/
-Define("core.Behaviour", /** @lends {app.Component.prototype} */({
+ * @param {object} param обьект со свойствами которые передаются конструктору 2
+ */
+Define("core.Behaviour",  /** @lends core.Behaviour.prototype */{
     /**
      * Регистр событий и их обработчиков
-     * @type {Object}
-     * @private
+     * type {Object}
+     * private
      */
     event: null,
     
@@ -22,9 +19,9 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
     
     //флаг активности true включен, false - выключен
     status:false,
-
-    /**
-     * @constructor
+   
+    /* 
+     * @constructs 
      */
     init: function (param) {	           
         
@@ -51,26 +48,26 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
     },
 	    
 
-    /**
-     * Отправит событие на обработку с указанным объектом события
+    /**     
+     * Отправит событие на обработку с указанным объектом события 
+     * само "поведение" неимеет собственных событий, поэтому поджигает события компонента
+     * 
      * @param {string} name имя события на отправку
      * @param {Object} options представляющий событие объект
      * @param {Object} context контекст исполнения
-     * 
-     * само "поведение" неимеет собственных событий, поэтому поджигает события компонента
      */
     fire: function (name, options, context) {
        this.parent.fire.apply(this.parent,options);
     },
 
-    /**
+    /**     
      * Установит обработчик на событие
-     * @param {string} name имя события
-     * @param {function (Object): ?} fun функция-обработчик
-     * 
      * Обработчики вешаются на компонент которому принадлежит поведение
      * На данный момент обработчики срабатывают в контексте поведения 
      * TODO убедится что контекст поведения оптимален
+     * 
+     * @param {string} name имя события
+     * @param {function (Object): ?} fun функция-обработчик     
      */
     on: function (name,fun,ctx) {
         var me=this;        
@@ -80,15 +77,21 @@ Define("core.Behaviour", /** @lends {app.Component.prototype} */({
         } );
     },
     
-    //отписываемся от события на компоненте
+    /**     
+     * Удалит обработчик с события
+     * @param {string} name имя события
+     */
     off: function (name) {
         this.parent.off(name)
     },
     
-    //вставляет свойста в обьект
+    /**     
+     * вставляет свойста в обьект
+     * @param {object} prop свойства
+     */    
     apply:function(prop){        
       for(var x in prop){	        		
 	      this[x] = prop[x];
 	  }	
     }       
-}));
+});

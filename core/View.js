@@ -1,11 +1,10 @@
-/**
- * Базовый класс компонента
- * @class
- * @name app.Component
- */
 'use strict';
 
-Define( "core.View", /** @lends {app.Component.prototype} */({
+/**
+ * Базовый класс компонента
+ * @class core.View
+ */
+Define( "core.View", /** @lends core.View.prototype */{
 
     extend: "core.Component",
 
@@ -18,9 +17,6 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
     // ссылка на виджеты работающие в этом view, заполняется методом  _autoUpdateWidget
     "widgets":{},
     
-    /**
-     * @constructor
-     */
     init: function() {        
         this._super();        
         if (this.widgetObserver) this.createWidgetObserver();                         
@@ -55,7 +51,9 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
     },
 
 
-    //ручное обновление виджетов            
+    /**
+     * ручное обновление виджетов            
+     */
     updateWidget:function(){        
         //if(this.widgetObserver){}
         clearTimeout(this.updateWidgetTimer);
@@ -74,14 +72,11 @@ Define( "core.View", /** @lends {app.Component.prototype} */({
         })
         
     }, 
-
-            
+    /** Вероятно метод уже ненужен, метод заставлял рендериться виджеты в выбранной области */        
     refreshWidget:function(){        
         core.widget.widgetManager.refresh( $(this.domTarget) );
     },        
 
-
     //события
-    listeners: null
-    
-}));
+    listeners: null    
+});

@@ -29,6 +29,9 @@ $( function () {
              "core/widget/Widget.js",
              "core/ui/panel/Collapsible.js",
              "core/ui/form/Rotator.js",
+             
+             "core/ui/form/Range.js",     
+             
              "core/ui/form/NumberField.js",
              "core/ui/form/InputColor.js",
              "core/ui/form/Fieldset.js",

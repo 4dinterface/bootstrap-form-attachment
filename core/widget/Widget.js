@@ -1,36 +1,117 @@
+'use strict';
 /**
- * Виджет, 
- * бля я хз что писать, 
- * должен быть базовый класс удобный для построения элементов управления :)
- * повсей видимости должен работать впаре с widget менеджером
- *  
- * @class
- * @name app.Component
+ * @class core.widget.Widget
+ * @augments core.Component
+ * @classdesc 
+ * Пример обьявления виджета
+ * <pre>
+ * Define("core.ui.form.NumberField", {
+ *    extend:"core.widget.Widget",
+ *    widget:"NumberField",       
+ *    listeners:{    
+ *        "view updatedata":function(){            
+ *            this.set('value', this.getScope() [ this.bindPropName ] );
+ *        }, 
+ *    },
+ *    render:function(){          
+ *         $(this.domTarget).val( this.value );        
+ *    }                
+ * });        
+ * </pre>
+ * 
+ *  Основные инструменты <br/>
+ *  this.value  значение виджета <br/>
+ *  this.set('value',знач) //устанавливает this.value и вызывает метод render <br/>
+ *  this.domTarget //указывает на дум к которому прикреплен виджет <br/>
+ *  this.digest()  // если кто то ввел новое значение в виджет,  <br/>
+ *                 // то для того чтобы это значение повлияло на таймлайн нужно вызвать digest
+ *  this.getScope() возвращает обьект который виджеты изменяют <br/>
+ *  this.bindPropName //указывает на то какое именно свойство нужно изменять в обьекте который вернул this.getScope()                <br/>
  */
-Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
+Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     extend:"core.Component",
-    /**
-     * @constructor
-     */
+    
+    isWidget:true,
+    
     domTarget:"",
     widget:"",
-
-    //препроцессор
-    //в момент обьявления класса, зарегестрирует виджет в менеджере виджетов
+    
+    
+    
+     /**
+     * Дочерние виджеты
+     * @type {Array}
+     * @public
+     */    
+    childrens:null,    
+    
+     /**
+     * ссылка на родительский виджет
+     * @type {Array}
+     * @public
+     */        
+    parent:null,
+    
+    /**
+     * Препроцесс срабатывает на стадии наследования, до создания экземпляров класса.
+     * Данный препроцессор в момент обьявления класса, зарегестрирует виджет в менеджере виджетов
+     * @property cls
+     */
     preprocessor:function(cls){
         if(this.widget!="") core.widget.widgetManager.registerWidget(this.widget,cls);
     },
-
-    //Конструктор
-    init: function () {	           
+    
+    /* @constructs */
+    init: function (property) {
+        
+        //здесь хранятся дочерние виджеты        
+        this.childrens=[];
+        
+        this.bindPropName= property['data-dsource']; //this.domTarget.attr('data-dsource');                        
         this._super();     
-        
+               
         this.domTarget=$(this.domTarget);                
-        $(this.domTarget).addClass('live_widget');
         
+        // пометим виджет классом, чтобы отличать активированные виджеты от неактивированных
+        $(this.domTarget).addClass('live_widget');
+                                             
         //если нет id то он будет сгенерирован автматически
         if ($(this.domTarget).attr("id")=="" ) $(this.domTarget).attr("id", core.utilites.genId() );
     },
+    
+    /**
+     *  Деструктор
+     *  деструктор срабатывает при ликвидации виджета
+     *  TODO проверить
+     */
+    destructor:function(){
+        this.childrens.foreEach(function(item){
+            item.destructor();            
+        })
+        
+        //нужно сообщить родителю что элемент удален 
+        //false укажет что второй раз вызывать деструктор ненужно
+        this.parent.removeChild(this,false);  
+    },
+    
+    /**
+     * Удаляет дочерний виджет из childrens
+     * TODO проверить
+     */ 
+    removeChild:function(child,mode){
+        this.childrens.foreEach(function(item,mode){
+            if(item===child){
+                //удалим из массива детей
+                this.childrens.splice(num,1);
+                
+                //если mode Не false то вызываем деструктор
+                if(mode!==false)child.destructor();
+                
+                return false;// ХЗ ПРОКИТ ЛИ :)
+            }
+            
+        })                
+    },       
             
    //TODO вероятно методнеиспользуется
     useEvent:function(){
@@ -45,8 +126,49 @@ Define("core.widget.Widget", /** @lends {app.Component.prototype} */({
     },
             
     //обьявим метод ответственный за обновлеие виджета
-    refresh:function(){},
+    refresh:function(){},//?
+    
+    /**
+     * Метод ответственный за добавление в виджет содержимое
+     */
+    add:function(el){
+        if(el){
+            this.childrens.forEach(function(item,num){
+                if (item == el) return false;
+            })
+            //ссылка на родителя
+            el.parent=this;
+            this.childrens.push(el);            
+        }        
+    },
+    
+    //Возвращает scope
+    getScope:function(){
+        this.view=this.domTarget.parents('.scope'); 
+        return this.view[0].scope;        
+    },
+    
+    //устанавливает значение виджета
+    set:function(name,deg){        
+        this[name]=deg;            
+        this.render();                                                 
+    },
+    
+    //Обстрактный метод перерисовки виджет, наследуется всеми классами
+    render:function(){
+                        
+    },
+    
+    // метод публикует установленные значения        
+    // TODO Вероятно метод лишний, его может заменить отслеживание модели
+    digest:function(){
+       this.domTarget.trigger('change',{
+            srcElement: this.domTarget,
+            widget:this,
+            value:this.value
+        });                  
+    },
 	
     //события
     listeners: null
-}));
+});

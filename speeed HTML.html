@@ -1,0 +1,71 @@
+<script>
+
+function Node(data){
+    return {
+        //данные которые хранит нода
+        data:data,
+        		
+        last:null,
+        next:null,
+        
+        insert:function(node){
+            node.next=this.next;  
+            node.last=this;
+            if (this.next) this.next.last=node;         
+            this.next=node;                         
+        },
+
+        delete:function(){
+
+            if (this.last) this.last.next=this.next;       
+            if (this.next) this.next.last=this.last;
+        
+            this.next=null;
+            this.last=null;            
+        }    
+    }
+}
+
+
+// сгенерируем таймлайн
+var timeline=[];
+for (var i=0;i<100;i++){
+    timeline.push({start:i*10,length:50});
+}
+
+// анимация.
+var start=new Date();
+var count=0;
+
+var first=Node();
+
++function f (){
+  var time=new Date()-start;  
+    
+  // подключим все ключи которые подходят по времени
+  while( timeline[count].start<=time ){      
+    first.insert( Node( timeline[count] ) )    
+    count++;
+  }       
+  
+  //выполним все активные анимации  
+  var log=time+" ";
+
+  var next=first.next;      
+  while( item=next){          
+    next=item.next;//запомним next заранее на случай удаления
+      
+    var anim=item.data;      
+    //здесь сама анимация      
+
+    if ( anim.start+anim.length<time ) item.delete();	
+	log=log+" "+item.data.start;
+  }        
+
+  console.log(log);    
+  setTimeout(f,1);
+}()
+</script>
+<body>
+
+</body>

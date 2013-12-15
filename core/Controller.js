@@ -1,28 +1,21 @@
-/**
- * Базовый класс компонента
- * @class
- * @name app.Component
- */
 'use strict';
 
-
-Define( "core.Controller", /** @lends {app.Component.prototype} */({
+/**
+ * @class core.Controller
+ * @augments core.Component
+ * @classdesc
+ * Контроллер
+ */
+Define( "core.Controller", /** @lends core.Controller.prototype */{
 
     extend: "core.Component",    
-
-
-    /**
-     * @constructor
-     */
+    
     init: function() {
         //this.apply();
         this._super();
 
         if('domListeners' in this) this.bind( Object.keys( this.domListeners ) );
-    },
-
-    
-
+    },    
 
     /**
      * Привязывает обработчики событий к элементам
@@ -93,4 +86,4 @@ Define( "core.Controller", /** @lends {app.Component.prototype} */({
     listeners: null
 
 
-}));
+});

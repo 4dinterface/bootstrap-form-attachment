@@ -10,13 +10,11 @@ Define("app.presentation.properties.Сontroller", {
             
     listeners:{
         "domTarget change":function(e){
-            var el=$(e.srcElement);                
-            
-            //TODO сейчас применяется к первому shape а не к выбранном (собственно пока выбрать то нечего и нельзя)            
-            
+            var el=$(e.srcElement);                            
+            //TODO сейчас применяется к первому shape а не к выбранном (собственно пока выбрать то нечего и нельзя)                        
                 
-            this.facade.addKeyToProperty( el.attr('data-dsource'), el.attr('value')*1);
-            //console.log(e);            
+            this.facade.addKeyToProperty( el.attr('data-dsource'), e.data.value );
+            console.log(el.attr('data-dsource'),e.data.value);            
         }
     }
 });

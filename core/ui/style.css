@@ -16,23 +16,15 @@
     float:left;
 }
 
-.widget_rotator{      
-}    
-
-.widget_rotator input{    
-    background-color:#d8d8d8;
-    border:white solid 0px;
-    font-size: 12px;
-}    
 
 
 /*  NumberFields  */
 .widget_numberfield{
-    color:#000;
-    font-size:12px;
-    border:solid 0px;
-    background-color:#d8d8d8;
-    width:30px;
+//    color:#000;
+//    font-size:12px;
+//    border:solid 0px;
+//    background-color:#d8d8d8;
+//    width:30px;
 }    
 
 /* Fieldset  */

@@ -99,6 +99,5 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
     
     forEach:function(callback, context ) {
         this.data.forEach(callback, context );
-    }
-    
+    }    
 });

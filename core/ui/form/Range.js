@@ -51,12 +51,17 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         this.indicator=this.domTarget.find('.ui-range-horizontal__indicator');                                        
         this.input=this.domTarget.find('input');                                        
         this.uiRange=this.domTarget.find('.ui-range-horizontal');
+        
         this.baseX=this.indicator.offset().left;
         
         this.scope=cfg.scope|| this.getScope();
+                
         
         //вызовем родительский конструктор
         this._super();                        
+                     
+        this.value=this.scope.get(this.bindPropName);
+        this.render();        
     },
 
     //обработчики событий
@@ -64,7 +69,7 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     // либо "cобытие" будет повешено прямо на this
     listeners:{                        
         'scope change':function(){
-            console.log(this.scope,this.bindPropName); 
+            //console.log(this.scope,this.bindPropName); 
             //this.set('value', this.getScope() .get(this.bindPropName) ); 
             this.set('value', this.scope.get(this.bindPropName) );                         
         },
@@ -88,8 +93,15 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         "input change":function(e){                        
             this.set( 'value',this.input.val()/100 );
             this.digest();
+            //this.model.set(this.bindPropName,this.value);  
         }
-    },        
+    },  
+    
+    digest:function(){
+        this.scope.set(this.bindPropName,this.value);
+        this._super();           
+    },
+    
     
     /**
      * Обработчик события mousemove     
@@ -100,7 +112,7 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         val=val<0?0:val;                
         this.set( 'value', val);                    
         
-        this.digest();
+        this.digest();        
     },                    
                                  
     /**

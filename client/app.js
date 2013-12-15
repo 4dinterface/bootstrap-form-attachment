@@ -95,6 +95,10 @@ $( function () {
              "client/presentation/timelineEditor/timeline/panels/right/runner/Controller.js",
              "client/presentation/timelineEditor/timeline/panels/right/runner/View.js",
              // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/right/shape/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/right/shape/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/right/shape/View.js",
+             // --------------------------------
              "client/presentation/timelineEditor/Component.js",
 
              // ---------- Холст -------------

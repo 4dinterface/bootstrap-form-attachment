@@ -3,7 +3,7 @@
 'use strict';
 
 
-Define( 'app.timeline.panels.left.Shape.View', {
+Define( "app.timeline.panels.right.Shape.View", {
 
     extend: core.Component,
 
@@ -12,7 +12,7 @@ Define( 'app.timeline.panels.left.Shape.View', {
     init: function(cfg) {
         this.apply(cfg);
 
-        var shape = app.templates.timeline.panels.left.shape(this.owner.model);
+        var shape = app.templates.timeline.panels.right.shape(this.owner.model);
 
         this.dom = {};
         this.dom.shape = this.utilites.stringToDOM(shape);
@@ -21,10 +21,8 @@ Define( 'app.timeline.panels.left.Shape.View', {
         this.owner.parent.view.dom.shapes.appendChild(this.dom.shape);
     },
 
-
     destroy: function() {
         //
     }
-
 
 });

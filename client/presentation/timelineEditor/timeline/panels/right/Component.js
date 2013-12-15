@@ -42,12 +42,12 @@ Define( 'app.timeline.panels.Right', {
 
 
     render: function() {
-//        this.model.get('shapeCollection').forEach(function(shape) {
-//            this.shapes.push(new app.timeline.panels.right.Shape({
-//                model: shape,
-//                parent: this
-//            }));
-//        }.bind(this));
+        this.model.get('shapeCollection').forEach(function(shape) {
+            this.shapes.push(new app.timeline.panels.right.Shape({
+                model: shape,
+                parent: this
+            }));
+        }.bind(this));
     }
 
 

@@ -247,7 +247,7 @@
                         <div class="tab-body tab-body-timeline">
                             <!--<div id="timeline-panel-left">-->
                                 <div id="timeline-panel-left__shapes" class="tab-body-timeline-params">
-                                    <!-- shapes and properties here -->
+                                    <!-- shapes & properties here -->
                                 </div>
                             <!--</div>-->
 
@@ -262,7 +262,7 @@
                                     </div>
                                     <div id="timeline-panel-right__editor-body" class="timeline__editor_body">
                                         <div id="timeline-panel-right__editor-body__shapes" class="timeline__editor_body_box">
-                                            <!--properties & keyframes -->
+                                            <!--shapes, properties & keyframes -->
                                         </div>
                                         <div id="timeline-panel-right__runner-body" class="timeline__runner_body"></div>
                                     </div>
@@ -292,6 +292,7 @@
                             </div>
                         </div>
                     {/template}
+
                     {template app.templates.timeline.panels.left.shape.property(property)}
                         <div class="ui-body-timeline-params__property-block__property">
                             <div class="ui-body-timeline-params__property-block__property__title">{property.data.name}</div>
@@ -300,7 +301,11 @@
                     {/template}
 
                     {template app.templates.timeline.panels.right.shape(shape)}
-                        <div class="timeline__line"></div>
+                        <div>
+                            <div properties>
+                                <!-- properties here -->
+                            </div>
+                        </div>
                     {/template}
                 </script>
             <!-- END SNAKESKIN TEMPLATES -->

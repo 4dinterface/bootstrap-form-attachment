@@ -8,12 +8,14 @@ app.timeline.utilites = {
     /**
      * Преобразовывает строку в NodeList
      * @param {String} str
-     * @returns {NodeList}
+     * @returns {HTMLElement}
      */
     stringToDOM: function(str) {
-        var container = document.createElement('div');
+        var container = document.createElement('div'), node;
         container.innerHTML = str;
-        return container.childNodes[ 1 ]; // TODO: 0 - Text, 1 - Node, 2 - Text
+        node = container.children[0];
+        container = undefined;
+        return node;
     },
 
     /**
@@ -33,7 +35,7 @@ app.timeline.utilites = {
      *  @param {Number} milliseconds
      *  @return {Number}
      */
-    toPixels: function( pixelsPerSecond, milliseconds ) {
+    toPixels: function(pixelsPerSecond, milliseconds) {
         return milliseconds / 1000 * pixelsPerSecond;
     },
 
@@ -45,7 +47,7 @@ app.timeline.utilites = {
      *  @param {Number} pixels
      *  @return {Number}
      */
-    toMilliseconds: function( pixelsPerSecond, pixels ) {
+    toMilliseconds: function(pixelsPerSecond, pixels) {
         return pixels / pixelsPerSecond * 1000;
     }
 

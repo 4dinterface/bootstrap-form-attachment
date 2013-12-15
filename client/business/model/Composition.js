@@ -79,6 +79,9 @@ Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototy
     init: function() {
         this._super();
         this.set( 'shapeCollection', new app.business.model.ShapeCollection() );
+        
+        //Здесь коллекция выбранных блоков
+        this.set('selectedBlock',new app.business.model.KeyframeBlockCollection());
     },
                         
     /**

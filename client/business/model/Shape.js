@@ -57,11 +57,8 @@ Define('app.business.model.Shape', /** @lends {app.model.Shape.prototype} */ {
            // непонятно как назвать толи filter толи FX
            this.set("filterCollection", new app.business.model.FilterCollection() ); 
            this.get("filterCollection").parent=this;
-
 	},
 
-                
-                
     /**
      * Умное добавление ключа.
      * Если св-во отсутствует, то оно создаётся

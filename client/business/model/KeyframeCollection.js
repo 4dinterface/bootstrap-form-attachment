@@ -43,14 +43,13 @@
  * здесь следует размещать все методы оперирирующие ключами
  */
 Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.KeyframeCollection} */({
-        extend:'core.data.ObjectCollection',
-                
-    //наследование
+    extend:'core.data.ObjectCollection',
+                    
     /**
      * @constructor
      * @param prop
      */
-	init:function (prop){
+    init:function (prop){
         this._super();
     },
     
@@ -62,18 +61,32 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
         
     //bug - непроверен
     moveKeyframe:function(oldTime,newTime){
+        
+        // если ключ уже существет по новому времеи то нет необходимости его перемещать
+        // два ключа немогут находится на одном времени
+        if( this[newTime] !=null){
+            //console.log('this[newTime]',this[newTime])
+            return;
+        }
+        
         var keyframe=this.data[oldTime];
+        //console.log(newTime,oldTime,keyframe);
+        
+        
         delete this[oldTime];//удалить
         delete this.data[oldTime];
+        
         keyframe.set('key',newTime)
         this.data[newTime]=keyframe;
+        this[newTime]=keyframe;
                                    
         //вызовем соответствующее событие
         this.fire("keyframecollectionchange", {
             key:newTime, 
             oldKey:oldTime,//возможножно бесполезные данные
             keyframeCollection:this,
-            value:keyframe
+            value:keyframe,
+            operation:'moveKeyframe'
         });
     },
 
@@ -102,15 +115,17 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
                 if (el['easing']=='none' && end==0 ) end=thTime;                
             }                      
         });
+        
+        console.log(start,end);
 
         // применим перемещение к блокам
-        this.forEach(function(n){
+        /*this.forEach(function(n){
             if(n ){
                 var keyframe=this[oldTime];
                     delete this[oldTime];
                     this[newTime]=keyframe;       
             }                
-        })
+        })*/
             
             
         //вызовем соответствующее событие
@@ -177,6 +192,28 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
             first: firstKeyframe,
             second: secondKeyframe
         };
-    }
+    },
+    
+    //определение лимита слева
+    getLeftLimit:function(key){        
+        var result=0;                
+        this.forEach(function(item){
+            if (item.get('key')<key) {
+                result=item.get('key');
+            }
+        })         
+        return result;        
+    },
+    
+    //определение лимита справа
+     getRightLimit:function(key){        
+        var result=0;
+        this.forEach(function(item){
+            if (item.get('key')>key  && result==0) {
+                result=item.get('key');
+            }
+        })         
+        return result;        
+    }        
     
 }));

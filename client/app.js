@@ -40,6 +40,10 @@ $( function () {
              // ---------- Model -------------
              "client/business/model/Keyframe.js",
              "client/business/model/KeyframeCollection.js",
+
+             "client/business/model/KeyframeBlock.js",
+             "client/business/model/KeyframeBlockCollection.js",
+
              "client/business/model/Property.js",       
              "client/business/model/PropertyCollection.js",       
              "client/business/model/Filter.js",   
@@ -51,6 +55,7 @@ $( function () {
              "client/business/model/Symbol.js",
              "client/business/model/SymbolCollection.js",
              "client/business/model/Project.js",
+             
              
              "client/proxy/demoData.js",
              "client/proxy/Reader.js",

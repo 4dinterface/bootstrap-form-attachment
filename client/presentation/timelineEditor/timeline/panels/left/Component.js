@@ -35,7 +35,7 @@ Define( 'app.timeline.panels.Left', {
                 model: shape,
                 parent: this
             }));
-        }.bind(this));
+        }, this);
     }
 
 });        

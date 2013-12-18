@@ -120,6 +120,7 @@
     margin: 0;
     background-color: #a3b852;
     display: inline-block;
+    position: absolute;
 }
 
 /**

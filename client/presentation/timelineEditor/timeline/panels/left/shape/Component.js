@@ -32,7 +32,7 @@ Define( 'app.timeline.panels.left.Shape', {
                 model: property,
                 parent: this
             }));
-        }.bind(this));
+        }, this);
     },
 
 

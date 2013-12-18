@@ -106,6 +106,10 @@ $( function () {
              "client/presentation/timelineEditor/timeline/panels/right/shape/property/Controller.js",
              "client/presentation/timelineEditor/timeline/panels/right/shape/property/View.js",
              // --------------------------------
+             "client/presentation/timelineEditor/timeline/panels/right/shape/property/keyframe/Component.js",
+             "client/presentation/timelineEditor/timeline/panels/right/shape/property/keyframe/Controller.js",
+             "client/presentation/timelineEditor/timeline/panels/right/shape/property/keyframe/View.js",
+             // --------------------------------
              "client/presentation/timelineEditor/Component.js",
 
              // ---------- Холст -------------

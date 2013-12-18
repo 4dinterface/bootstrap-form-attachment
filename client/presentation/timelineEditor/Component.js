@@ -40,6 +40,6 @@ Define( 'app.presentation.timelineEditor.Component', {
             model : cfg.composition,
             movie: cfg.movie
         });
-        
+
     }
 });        

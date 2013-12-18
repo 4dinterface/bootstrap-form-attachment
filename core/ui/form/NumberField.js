@@ -1,3 +1,4 @@
+'use strict';   
 /**
  * NumberField
  *   
@@ -12,19 +13,36 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     startY:0,
     startValue:0,    
     
+    tmpl:"<input value='' type='text' class='ui-input' />",
+    
     /**
      * @constructor
      */
     init: function (cfg) {        
-        this.apply(cfg);                
-        this.domTarget=$(this.domTarget);
+        this.apply(cfg);                        
+        
+        this.scope=cfg.scope|| this.getScope();                 
         this._super();
+        
+        //либо domtarget нам передали, либо создаем его сами
+        this.domTarget=this.domTarget||$('<div>');
+                                
+        $(this.domTarget).addClass('ui-element');
+        
+        this.domTarget.append(this.tmpl);                
+        
+        var me=this;        
     },
             
     /**
      * слушаем события
      */
     listeners:{
+       
+        "scope change":function(){
+             this.set('value', this.getScope().get(this.bindPropName) );
+        },
+        
         "domTarget mousedown":function(e){
             var onChange=this.onChange.bind(this); 
             
@@ -39,8 +57,7 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
             // при отпускании отписываемся от слежением за movie
             $( 'body' ).one('mouseup',function(e){            
                 $( 'body' ).off('mousemove',onChange);            
-            })
-            
+            })            
             e.stopPropagation();
         }
     },
@@ -52,34 +69,13 @@ Define("core.ui.form.NumberField", /** @lends {app.Component.prototype} */({
     onChange:function(e){       
         var val=this.startValue+(e.x-this.startX)+(this.startY-e.y );
         this.set('value',val);
-        
-        $(this.domTarget).trigger('change',{
-            srcElement: this.domTarget            
-        })        
-        
-    },
-    
-    
-    /**
-     * сеттер для свойств виджета
-     */
-    set:function(name,val){
-        switch (name){            
-            case 'value':
-                this.value=val;
-                $(this.domTarget).val(val);        
-            break;
-            
-            default:
-                
-            break;            
-        }        
-    },
+        this.digest();                     
+    },       
 
     /**
-     * метод считывает свойства виджетов с атрибутов
+     * метод рендерит инфу
      */
-    refresh:function(){
-        this.value=$(this.domTarget).val();        
+    render:function(){          
+        $(this.domTarget).find('input').val( this.value );        
     }    
 }));

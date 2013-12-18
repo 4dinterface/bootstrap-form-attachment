@@ -1,11 +1,7 @@
-/** 
- * неймспейс фреймворка
- **/
 window.core=window.core || {};
 
 /**
- * 
- * @type type
+ * @namespace core.utilites
  */
 window.core.utilites={
     //счётчик Id

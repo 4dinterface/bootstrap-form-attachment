@@ -1,4 +1,9 @@
-// компонент в разработке
+
+/**
+ * @class ClassLoader
+ * @classdesc
+ * Загрузчик приложения. В дальнейшем будет изменен
+ */
 Define("core.ClassLoader",{           
     init:function(){
         

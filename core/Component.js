@@ -1,21 +1,49 @@
 /**
- * Базовый класс компонента
- * @class
- * @name app.Component
+ * @param {object} param обьект со свойствами которые передаются конструктору 2
+ * 
+ * @class core.Component
+ * 
+ * @classdesc
+ * <B>Компоненты, базовые строительные блоки приложения. </B> <br/>
+ * 1) обеспечивают уникальный id каждому компоненту <br/>
+ * 2) реализуют механизьм событий on, off, fire <br/>
+ * 3) реализует механизьм управления поведениями useBehaviour, unUseBehaviour, useOneBehaviour, unUseBehavioursAll <br/><br/>
+ * Пример использования Component</br>
+ * <pre>
+   Define( "example",{
+     extend: "core.Component",
+     behaviours:{
+       'bahav1':'app.exampleBehaviours1',
+       'bahav2':'app.exampleBehaviours2'
+     },
+     
+     init:function(){
+        this.super();
+        this.useBehaviour('behav1');
+     },
+     
+     listeners:{
+         "свойство событие1":function(){
+            this.useOneBehaviour('behav1');
+         },
+         "свойство событие2":function(){
+            this.useOneBehaviour('behav2');
+         }
+     }
+  });  
+ * </pre>  
  */
-Define("core.Component", /** @lends {app.Component.prototype} */({
+Define("core.Component", /** @lends core.Component.prototype */{    
     /**
      * Регистр событий и их обработчиков
      * @type {Object}
      * @private
      */
+
     event: null,
     componentCount:0,
     behaviours:null,
 
-    /**
-     * @constructor
-     */
     init: function () {	
         var res;
         
@@ -26,7 +54,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
         //подключаем обработчики событий
         this.event={};
                 
-	    for (event in this.listeners) {
+        for (event in this.listeners) {
             res=event.split(' ');
             // подпишемся на событие компонента
             if(res.length==1){                
@@ -34,10 +62,10 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
             } 
             // подпишемся на события одного из свойств компонента
             else {
-                console.log('res[0]',"="+res[0]+"=", this );
+                //console.log('res[0]',"="+res[0]+"=", this );
                 this[ res[0] ].on( res[1], this.listeners[ event ].bind(this) );
             }
-	    }
+	}
 
         //инициализация поведений
         if (this.behaviours) {
@@ -73,16 +101,19 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
             if( !('eventName' in options)  )  options.eventName=name;
             if( !('eventTarget' in options) ) options.eventTarget=this; 
         }
+        
+        // если event=null тогда присвоим обьект
+        // TODO убедится что это оптимальное решение
+        this.event=this.event||{}
 
-        //сработают все обработчики
-        //TODO если нет не одного обработчика будет ошибка, исправить !
+        //сработают все обработчики                
         if (name in this.event){
             for (item in this.event[name]) {
                 this.event[name][item].call(context,options);                
             }        
         }
         
-        //bubble event
+        //bubble event 
         for (item in this.event['bubble']) {
            this.event['bubble'][item].call(context,options);           
         }     
@@ -102,9 +133,18 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
 	this.event[name].push(fun);	
     },
     
+    
+    /**
+     * Удалит обработчик на событии
+     * @param {string} name имя события
+     * @param {function (Object): ?} fun функция-обработчик
+     */
     off: function (name) {},
 
-    //метод обеспечивающий всплытие
+    /*
+     * Метод обеспечивающий всплытие
+     * в данный момент не применяется, вероятно будет удален
+     */
     liftEvent:function(src,opt){
         //console.log('buble');
         
@@ -132,6 +172,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
         }
     },
     
+
     //вставляет свойста в обьект
     apply:function(prop){
         var dst = arguments.length === 1 ? this : arguments[ 0 ];
@@ -149,7 +190,9 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
     },
 
     /**
-     *  включим поведение
+     *  включает поведение. Тоесть обработчики события в поведеннии 
+     *  начнут срабатывать
+     *  @param {string} name имя поведения
      */
     useBehaviour:function(name){
         this.behaviours[name].status=true;
@@ -157,11 +200,12 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
 
     /**
      *  включим одно поведение, и выключим остальные
+     *  @param {string} name имя поведения
      */
     useOneBehaviour:function(name){
         this.unUseBehavioursAll();
         this.behaviours[name].status=true;        
-        console.log( name,this.behaviours[name] );
+        //console.log( name,this.behaviours[name] );
     },
 
 
@@ -183,7 +227,7 @@ Define("core.Component", /** @lends {app.Component.prototype} */({
 
 
 
-}));
+});
 
 //счётчик временно здесь, потом определим его куданибудь в утилиты
 var componentCount=0;

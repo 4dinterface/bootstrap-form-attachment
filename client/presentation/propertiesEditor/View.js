@@ -1,150 +1,151 @@
-﻿/**
+'use strict';
+/**
  * Представление properties
  *
  * @returns {Object} Timeline объект представления таймлайна
  */
 
-'use strict';
-
 Define( "app.presentation.properties.View", /** @lends {app.component} */ {
     extend: core.View,
     
     //автоматически следим за созданием и удалением виджетов
-    widgetObserver:true,
-    
+    widgetObserver:true,    
     /**
      * Данные модели таймлайна
      * @type {app.model.Timeline}
      * @private
      */
-    model: null,    
-    bindMap:null,
+    model: null,        
+    
+    //experemental
+    scope:null,//связываемся вот с этим обьектом
 
+    /**
+     * @constructor
+     */
     init: function( cnf ) {
+        //console.log('cnf',cnf);
+        var me=this;
+        
         this.domTarget=$('#property-panel')[0];        
+        $(this.domTarget).addClass('scope');
+
+        this.domTarget.scope={};                                                        
+        
         this.apply( cnf );                                
-        var me=this;        
         this._super();
         
         this.render(); //прорисуем view
-    },
-                
+    },                
     
     //События
-    listeners:{                        
-         //на каждом кадре обновляем числа                    
-        "stage onrender":function(){                                
-            this.dataUpdate();     
-        }        
-    },
-
+    listeners:{},
             
      //Рисует VIEW
-    render:function(e){
+    render:function(e){                
         var me=this,
-            srcData=null,             
+           srcData=null,             
             
-            //в качестве shape выерем первый элемент (TODO это временный вариант)
-            shape=this.target=this.stage.children[0],
-            prop=shape.properties;
-
+           //в качестве shape выерем первый элемент (TODO это временный вариант)
+           shape=this.scope=this.target=this.stage.children[0],                
+           //Список свойств которые будет отображать propertyEditor        
+           prop=shape.properties;
+    
+        //Отпишемся от старого разработчика
+       
+        
+        //создал shapeProxy
+        this.shapeProxy=new core.data.Model(shape);//todo удалить shape
+        this.shapeProxy.data=shape;                        
+        
+        this.domTarget.scope=this.shapeProxy;                                        
+        
+        //событие change при перерисове 
+        shape.addEventListener('tick',onTick.bind(this));        
+        function onTick(){
+            this.shapeProxy.fire('change',{})
+        }
+        
         //перебераем все группы в shape
         for(var i in prop){                
             srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
-            this.makeGroup(srcData, $('#property-panel') );
-        }            
-                        
-        this.createBindMap();                       
+            //Создаем в группе
+            this.makeGroup(srcData, $('#property-panel'),this.shapeProxy);
+        }
+        
     },        
 
     // создадим группу
-    makeGroup:function(gr,panel){
-        //Создадим группу
-        var cont="<div widget='Collapsible'>"
-                 +"<h2 style='background-color:#ccc; padding-left:5px;height:20px;'><b>"+  gr.name + "</b></h2>"
-                 +"<div style='padding-left:5px;'>";        
-         
+    makeGroup:function(gr,panel,shape){
+        
+        //Создадим группы
+        var sld=core.widget.widgetManager.createWidget('Collapsible',{            
+            scope:shape,                        
+            title:'hello'
+        })          
+                
         //Создадим вложенные подгруппы
         for (var i in gr.items) if(i!=="name") {
-            if (gr.items[i].items || gr.items[i] instanceof Array ) cont=cont+this.makeSubGroup(gr.items[i]);
-            else cont=cont+this.makeProperty( gr.items[i] );
-        }        
-
-        cont=cont+"</div></div>";        
-        
-        panel.append(cont);
+            if (gr.items[i].items || gr.items[i] instanceof Array ) {
+                sld.add( this.makeSubGroup(gr.items[i], shape) );               
+            } else {
+                sld.add( this.makeProperty(gr.items[i], shape) );               
+            }            
+        }                        
+        panel.append(sld.domTarget);                        
     },
 
     // создадим подгруппу
-    makeSubGroup:function(item){
+    makeSubGroup:function(item, shape){
+        /*r*/       
+        var r=core.widget.widgetManager.createWidget('Fieldset',{            
+            scope:shape,            
+            'data-dsource':'alpha'
+        })                  
+
         var fields="",
             items=item.items||item,
             name= item.name||"";
     
-        for(var i in items) if(i!=="name"){            
-            fields+=this.makeProperty( items[i] )
-        }
-        
-        if (item.sync==true) return "<fieldset widget='Fieldset' class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
-        else return "<fieldset class='fieldset'> <legend>"+name+"</legend>"+fields+"</fieldset>" 
+        for(var i in items) if(i!=="name"){                        
+            r.add(
+                this.makeProperty( items[i], shape)
+            );            
+        }        
+        return r;        
     },
 
-            
-    makeProperty:function(item){        
-        var field="<div style='display:inline;'>";        
-        //console.log('prop',item['label']);
-        if(item.label) field+="<div style='float:left; margin-left:10px;margin-right:5px;'>"+item.label+"</div>";
-        //field+="<div class='romb_button'></div>";         
+    // создадим свойства
+    makeProperty:function(item,shape){                
+        
         switch(item.xtype){
-            case "range" :
-                field+="<input widget='null' type='range' data-dsource='"+item.target+"' value='0' style='width:50%;'/>";
+            case "range" :                
+                var r1=core.widget.widgetManager.createWidget('Range',{            
+                     scope:shape,            
+                    'data-dsource':item.target
+                })          
             break;
 
-            case "color" :                    
-                field+="<div widget='InputColor' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
-            break;
+//            case "color" :                    
+//                field+="<div widget='InputColor' style='width:15px;height:20px;background-color:#11F;float:left;'></div>";
+//            break;
             
             case "rotator" :                    
-                field+="<div  widget='Rotator' data-dsource='"+item.target+"'> </div>";                
+                var r1=core.widget.widgetManager.createWidget('Rotator',{            
+                     scope:shape,            
+                    'data-dsource':item.target
+                })          
+
             break;
 
             default:
-                field+="<input widget='NumberField' data-dsource='"+item.target+"' value='' type='text' class='widget_numberfield' />px";
+                var r1=core.widget.widgetManager.createWidget('NumberField',{            
+                     scope:shape,            
+                    'data-dsource':item.target
+                })          
             break;                
-        }                
-        field+="</div> <div style='display:block;'></div>";
-        return field;
-    },
-            
-    /**
-     * Строит карту по принципу имяСвойства:domElement
-     * Задача быстро устанавливать значения элементам
-     */
-    createBindMap:function(){
-        var me=this;
-        this.bindMap={};
-
-        //отреагируем на создание виджетов
-        this.on("widgetsupdate",function(w){        
-            for(var v in me.widgets){                
-                me.bindMap[ me.widgets[v].domTarget.attr('data-dsource') ]= me.widgets[v];
-            }
-        });
-        
-    },        
-
-
-    /**
-     * Обновляет элементы из карты новыми данными
-     * Задача найти свойства
-     */            
-    dataUpdate:function(){
-        var me=this;
-        for (var i in this.bindMap) {
-            this.bindMap[i].set('value', me.target[i] );                        
-        }                        
-    }
-            
-});
-
+        }
+        return r1;        
+    }          
     
+});

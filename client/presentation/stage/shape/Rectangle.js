@@ -34,18 +34,15 @@ Define('app.presentation.stage.shape.Rectangle', {
             //силизация
             "stylize",
             
-            //corners - управление угламиы
-
+            //corners - управление углами
             //shadow
             "shadow"                        
         ],
         //======================================================================//
-        
-        
+                
 	// инициализация
 	init  : function (cnf){          
             //alert (createjs.BoxBlurFilter);
-            
             this.initialize();
             
             var me = this;
@@ -60,8 +57,7 @@ Define('app.presentation.stage.shape.Rectangle', {
             var blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
             this.filters = [blurFilter];                                              
                 
-            me.renderToCache();     
-         
+            me.renderToCache();              
 	},
         hihi:0,
         

@@ -1,6 +1,7 @@
 bootstrap-form-attachment
 =========================
 
-bootstrap no ajax form multipart
+![Screenshot](https://github.com/4dinterface/bootstrap-form-attachment/blob/master/files/screenshot.png?raw=true)
 
-https://github.com/4dinterface/bootstrap-form-attachment/blob/master/files/82U2hlR_QWY.jpg?raw=true
+Плагин позволяет прикреплять картинки к форме и передавать из на сервер. Картинки передаются как multipart, ajax не используется.
+

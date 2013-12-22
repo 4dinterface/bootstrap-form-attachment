@@ -35,7 +35,7 @@ Define("core.ui.form.Fieldset", /** @lends {app.Component.prototype} */{
         this.render();
         this._super();
         
-        if (cfg.sync) this.domTarget.find(".ui-pic-lock").css({opacity:0});
+        if (!cfg.sync) this.domTarget.find(".ui-pic-lock").css({opacity:0});
         
         this.domTarget.find(".ui-pic-lock").click(function(){            
             $(this).toggleClass('ui-pic-lock_active');

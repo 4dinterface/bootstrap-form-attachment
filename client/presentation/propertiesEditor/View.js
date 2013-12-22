@@ -81,7 +81,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         //Создадим группы
         var sld=core.widget.widgetManager.createWidget('Collapsible',{            
             scope:shape,                        
-            title:'hello'
+            title:gr.name            
         })          
                 
         //Создадим вложенные подгруппы
@@ -100,8 +100,9 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         /*r*/       
         var r=core.widget.widgetManager.createWidget('Fieldset',{            
             scope:shape,            
-            'data-dsource':'alpha'
-        })                  
+            'data-dsource':'alpha',
+            sync:item.sync||false
+        })                                  
 
         var fields="",
             items=item.items||item,
@@ -111,7 +112,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             r.add(
                 this.makeProperty( items[i], shape)
             );            
-        }        
+        }                
         return r;        
     },
 
@@ -132,7 +133,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             
             case "rotator" :                    
                 var r1=core.widget.widgetManager.createWidget('Rotator',{            
-                     scope:shape,            
+                    scope:shape,            
                     'data-dsource':item.target
                 })          
 
@@ -140,8 +141,9 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
 
             default:
                 var r1=core.widget.widgetManager.createWidget('NumberField',{            
-                     scope:shape,            
-                    'data-dsource':item.target
+                    scope:shape,            
+                    'data-dsource':item.target,
+                    label:item.label
                 })          
             break;                
         }

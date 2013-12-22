@@ -16,22 +16,31 @@ Define("core.ui.form.Fieldset", /** @lends {app.Component.prototype} */{
      //    "</div>"+
      //    "<div class='fildsetContent'>123</div>",
  
-    tmpl:'<div class="ui-element">'+
-                '<i class="ui-pic ui-pic-lock ui-pic-lock_active"></i>'+
-                    '<div class="ui-lock fildsetContent">'+
-                               
-                    '</div>'+
-            '</div>',
+     tmpl:'<div class="ui-element">'+
+            '<i class="ui-pic ui-pic-lock ui-pic-lock_active"></i>'+
+            '<div class="ui-lock" style="width:90%;"></div>'+
+          '</div>',
     /**
      * @constructor
      */    
     init: function (cfg) {        
-        this.apply(cfg);                
-        this.domTarget=$(this.domTarget);
-        this.domTarget.append(this.tmpl);
+        this.apply(cfg);   
+        
+        
+        //this.domTarget=$(this.domTaret);
+        //this.domTarget.append(this.tmpl);
+         this.domTarget=$(this.tmpl);
+         this.domTarget.before('<br class="clear">');
         
         this.render();
         this._super();
+        
+        if (cfg.sync) this.domTarget.find(".ui-pic-lock").css({opacity:0});
+        
+        this.domTarget.find(".ui-pic-lock").click(function(){            
+            $(this).toggleClass('ui-pic-lock_active');
+        })
+        
     },
             
     /**
@@ -43,7 +52,7 @@ Define("core.ui.form.Fieldset", /** @lends {app.Component.prototype} */{
     
     //ADD
     add:function(el){
-        $( this.domTarget ).find('.fildsetContent').append(el.domTarget);
+        $( this.domTarget ).find('.ui-lock').append(el.domTarget);
     },
     
     //Render

@@ -22,9 +22,8 @@ Define( 'app.timeline.panels.Right.Controller', {
 
     handlers: {
         click: function(event) {
-            var rect = this.dom.editor.getBoundingClientRect();
-            var scrollLeft = this.dom.editorBody.scrollLeft;
-            var x = event.pageX - window.pageXOffset - (rect.left - scrollLeft);
+            var offsetX = this.owner.view.getOffsetX();
+            var x = event.pageX - offsetX;
             var ms = this.utilites.toMilliseconds(this.owner.model.pixelsPerSecond, x);
             this.owner.movie.gotoAndStop(ms);
         }

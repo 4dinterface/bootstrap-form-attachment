@@ -17,13 +17,21 @@ Define( 'app.timeline.panels.right.shape.Property.Controller', {
 
     events: {
         property: {
-            click: function(event) {
-                this.attach({ document: this.dom.document }, this.events);
+            mousedown: function(event) {
+                var offsetX = this.owner.parent.parent.view.getOffsetX();
+                var x = event.pageX - offsetX;
+                this.attach({ document: this.dom.document}, this.events, offsetX);
+                event.stopPropagation();
+                event.preventDefault();
             }
         },
         document: {
-            click: function() {
-                console.log('doc');
+            mousemove: function(offsetX, event) {
+                console.log('doc', arguments);
+            },
+            mouseup: function() {
+                this.detach({ document: this.dom.document }, this.events);
+                console.log(111111111111111);
             }
         }
     },

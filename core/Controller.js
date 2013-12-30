@@ -84,19 +84,22 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
 
     /**
      * Прикрепляет обработчики события к dom-элементам
-     * @param [elements=this.dom] Пример {elem:dom}
-     * @param [events=this.events] Пример {elem:{event:function}}
+     * @param {Object} [elements=this.dom] Пример {elem:dom}
+     * @param {Object} [events=this.events] Пример {elem:{event:function}}
+     * @param {*...} [data] Данные, кот. крепятся к обработчикам
      */
-    attach: function(elements, events) {
+    attach: function(elements, events, data) {
         elements = elements || this.dom;
         events = events || this.events;
         this._events = this._events || {}; // TODO: убрать отсюда
+        data = Array.prototype.slice.call(arguments, 2);
+        data.unshift(this);
 
         for(var key in elements) {
             if (key in events) {
                 this._events[key] = this._events[key] || {};
                 for(var event in events[key]) {
-                    this._events[key][event] = events[key][event].bind(this);
+                    this._events[key][event] = Function.prototype.bind.apply(this.events[key][event], data);
                     elements[key].addEventListener(event, this._events[key][event], false);
                 }
             }
@@ -118,7 +121,7 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
             if (key in events) {
                 this._events[key] = this._events[key] || {};
                 for(var event in events[key]) {
-                    elements[key].removeEventListener(event, events[key][event], false);
+                    elements[key].removeEventListener(event, this._events[key][event], false);
                     delete this._events[key][event];
                 }
             }

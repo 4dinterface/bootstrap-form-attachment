@@ -12,13 +12,14 @@ Define( 'app.timeline.panels.right.shape.Property', {
         this.apply(cfg);
         this.keyframes = [];
 
-        // Контроллер фигуры на левой панели таймлайна
-        this.controller = new app.timeline.panels.right.shape.Property.Controller({
+        // Представление фигуры на левой панели таймлайна
+        this.view = new app.timeline.panels.right.shape.Property.View({
             owner: this
         });
 
-        // Представление фигуры на левой панели таймлайна
-        this.view = new app.timeline.panels.right.shape.Property.View({
+        // Контроллер фигуры на левой панели таймлайна
+        this.controller = new app.timeline.panels.right.shape.Property.Controller({
+            dom: this.apply({}, this.view.dom),
             owner: this
         });
 

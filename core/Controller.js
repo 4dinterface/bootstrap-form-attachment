@@ -82,6 +82,50 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
     },
 
 
+    /**
+     * Прикрепляет обработчики события к dom-элементам
+     * @param [elements=this.dom] Пример {elem:dom}
+     * @param [events=this.events] Пример {elem:{event:function}}
+     */
+    attach: function(elements, events) {
+        elements = elements || this.dom;
+        events = events || this.events;
+        this._events = this._events || {}; // TODO: убрать отсюда
+
+        for(var key in elements) {
+            if (key in events) {
+                this._events[key] = this._events[key] || {};
+                for(var event in events[key]) {
+                    this._events[key][event] = events[key][event].bind(this);
+                    elements[key].addEventListener(event, this._events[key][event], false);
+                }
+            }
+        }
+    },
+
+
+    /**
+     * Отвязывает обработчики событий от dom-элементов
+     * @param [elements=this.dom] Пример {elem:dom}
+     * @param [events=this.events] Пример {elem:{event:function}}
+     */
+    detach: function(elements, events) {
+        elements = elements || this.dom;
+        events = events || this.events;
+        this._events = this._events || {}; // TODO: убрать отсюда
+
+        for(var key in elements) {
+            if (key in events) {
+                this._events[key] = this._events[key] || {};
+                for(var event in events[key]) {
+                    elements[key].removeEventListener(event, events[key][event], false);
+                    delete this._events[key][event];
+                }
+            }
+        }
+    },
+
+
     //события
     listeners: null
 

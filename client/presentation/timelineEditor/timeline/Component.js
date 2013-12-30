@@ -10,9 +10,7 @@ Define( 'app.timeline.Timeline', {
 
     init:function( cfg ) {
 
-        this.model = cfg.model;
-        this.movie = cfg.movie;
-
+        this.apply(cfg); // model, movie
 
         // Контроллер таймлайна
         this.controller = new app.timeline.Timeline.Controller({
@@ -39,7 +37,6 @@ Define( 'app.timeline.Timeline', {
             })
         };
 
-        console.info( 'app.timeline.Timeline', this)
-
+        //console.info('app.timeline.Timeline', this);
     }
 });        

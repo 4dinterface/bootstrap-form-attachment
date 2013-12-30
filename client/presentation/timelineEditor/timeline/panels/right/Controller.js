@@ -22,7 +22,7 @@ Define( 'app.timeline.panels.Right.Controller', {
 
     handlers: {
         click: function(event) {
-            var offsetX = this.owner.view.getOffsetX();
+            var offsetX = this.owner.view.getEditorOffsetX();
             var x = event.pageX - offsetX;
             var ms = this.utilites.toMilliseconds(this.owner.model.pixelsPerSecond, x);
             this.owner.movie.gotoAndStop(ms);

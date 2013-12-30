@@ -21,7 +21,7 @@ Define( 'app.timeline.panels.Right.View', {
 
 
     // Возвращает смещение
-    getOffsetX: function() {
+    getEditorOffsetX: function() {
         var rect = this.dom.editor.getBoundingClientRect();
         var scrollLeft = this.dom.editorBody.scrollLeft;
         return rect.left - window.pageXOffset - scrollLeft;

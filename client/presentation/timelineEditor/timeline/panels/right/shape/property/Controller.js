@@ -18,8 +18,9 @@ Define( 'app.timeline.panels.right.shape.Property.Controller', {
     events: {
         property: {
             mousedown: function(event) {
-                var offsetX = this.owner.parent.parent.view.getOffsetX();
-                var x = event.pageX - offsetX;
+                var propertyOffsetX = this.owner.view.getPropertyOffsetX();
+                var editorOffsetX = this.owner.parent.parent.view.getEditorOffsetX();
+                var offsetX = event.pageX - (propertyOffsetX - editorOffsetX);
                 this.attach({ document: this.dom.document}, this.events, offsetX);
                 event.stopPropagation();
                 event.preventDefault();
@@ -27,11 +28,10 @@ Define( 'app.timeline.panels.right.shape.Property.Controller', {
         },
         document: {
             mousemove: function(offsetX, event) {
-                console.log('doc', arguments);
+                this.owner.view.dom.property.style.left = event.pageX - offsetX + 'px';
             },
             mouseup: function() {
                 this.detach({ document: this.dom.document }, this.events);
-                console.log(111111111111111);
             }
         }
     },

@@ -32,6 +32,12 @@ Define( 'app.timeline.panels.right.shape.Property.View', {
     },
 
 
+    getPropertyOffsetX: function() {
+        var rect = this.dom.property.getBoundingClientRect();
+        return rect.left - window.pageXOffset;
+    },
+
+
     destroy: function() {
         //
     }

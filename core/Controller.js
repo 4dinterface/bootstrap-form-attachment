@@ -11,6 +11,7 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
     extend: "core.Component",    
     
     init: function() {
+
         //this.apply();
         this._super();
 
@@ -83,48 +84,48 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
 
 
     /**
-     * Прикрепляет обработчики события к dom-элементам
-     * @param {Object} [elements=this.dom] Пример {elem:dom}
-     * @param {Object} [events=this.events] Пример {elem:{event:function}}
-     * @param {*...} [data] Данные, кот. крепятся к обработчикам
+     * Прикрепляет обработчики события к dom-элементу
+     * @param {HTMLElement} element
+     * @param {Object} events Пример {event:function}
+     * @param {*} [data] Данные, кот. крепятся к обработчикам
      */
-    attach: function(elements, events, data) {
-        elements = elements || this.dom;
-        events = events || this.events;
-        this._events = this._events || {}; // TODO: убрать отсюда
-        data = Array.prototype.slice.call(arguments, 2);
-        data.unshift(this);
+    attach: function(element, events, data) {
+        var that = this, elem, event;
+        this._fn = this._fn || {};
 
-        for(var key in elements) {
-            if (key in events) {
-                this._events[key] = this._events[key] || {};
-                for(var event in events[key]) {
-                    this._events[key][event] = Function.prototype.bind.apply(this.events[key][event], data);
-                    elements[key].addEventListener(event, this._events[key][event], false);
-                }
-            }
+        // get key for dom element
+        for(elem in this.dom) {
+            if (this.dom[elem] === element) break;
+        }
+
+        this._fn[elem] = this._fn[elem] || {};
+
+        for(event in events) {
+            this._fn[elem][event] = function(e) {events[e.type].call(that, e, data);};
+            element.addEventListener(event, this._fn[elem][event], false);
         }
     },
 
 
     /**
      * Отвязывает обработчики событий от dom-элементов
-     * @param [elements=this.dom] Пример {elem:dom}
-     * @param [events=this.events] Пример {elem:{event:function}}
+     * @param {HTMLElement} element
+     * @param {Object} events Пример {event:function}
      */
-    detach: function(elements, events) {
-        elements = elements || this.dom;
-        events = events || this.events;
-        this._events = this._events || {}; // TODO: убрать отсюда
+    detach: function(element, events) {
+        var elem, event;
+        this._fn = this._fn || {};
 
-        for(var key in elements) {
-            if (key in events) {
-                this._events[key] = this._events[key] || {};
-                for(var event in events[key]) {
-                    elements[key].removeEventListener(event, this._events[key][event], false);
-                    delete this._events[key][event];
-                }
-            }
+        // get key for dom element
+        for(elem in this.dom) {
+            if (this.dom[elem] === element) break;
+        }
+
+        this._fn[elem] = this._fn[elem] || {};
+
+        for(event in events) {
+            element.removeEventListener(event, this._fn[elem][event], false);
+            delete this._fn[elem][event];
         }
     },
 

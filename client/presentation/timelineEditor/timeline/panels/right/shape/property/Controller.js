@@ -9,8 +9,7 @@ Define( 'app.timeline.panels.right.shape.Property.Controller', {
 
     init: function(cfg) {
         this.apply(cfg);
-        this.attach();
-
+        this.attach(this.dom.property, this.events.property);
         this.dom.document = document;
     },
 
@@ -21,17 +20,17 @@ Define( 'app.timeline.panels.right.shape.Property.Controller', {
                 var propertyOffsetX = this.owner.view.getPropertyOffsetX();
                 var editorOffsetX = this.owner.parent.parent.view.getEditorOffsetX();
                 var offsetX = event.pageX - (propertyOffsetX - editorOffsetX);
-                this.attach({ document: this.dom.document}, this.events, offsetX);
+                this.attach(this.dom.document, this.events.document, offsetX);
                 event.stopPropagation();
                 event.preventDefault();
             }
         },
         document: {
-            mousemove: function(offsetX, event) {
-                this.owner.view.dom.property.style.left = event.pageX - offsetX + 'px';
+            mousemove: function(event, offsetX) {
+                this.dom.property.style.left = event.pageX - offsetX + 'px';
             },
             mouseup: function() {
-                this.detach({ document: this.dom.document }, this.events);
+                this.detach(this.dom.document, this.events.document);
             }
         }
     },

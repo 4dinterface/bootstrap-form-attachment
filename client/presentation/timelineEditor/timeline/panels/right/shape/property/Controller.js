@@ -13,17 +13,23 @@ Define('app.timeline.panels.right.shape.Property.Controller', {
         this.dom.document = document;
 
 
-        this.owner.model.on('keyframechange', function() {
-            console.log('keyframechange');
+        this.owner.model.on('keyframechange', function(ev) {
+            console.log('keyframechange',ev);
+            // код указан примерно
+            //примерно так, id дум элемента лучше назначить в view чтобы он был один с моделью
+            //getElementById('el'+ev.id).style.left=ev.time;
         });
-
+        
+        //определяем блок
         var buffer = new app.business.model.KeyframeBlock({
             time:1000,
             model:this.owner.model
         });
 
+        //вставляеи блок в колекцию  выбранных блоков, при этом коллекция обнуляция
         this.owner.parent.parent.parent.model.get('selectedBlock').setBlock(buffer);
 
+        //смещает все ключи во всех блоках коллекции на 1000 миллисекунд вправо
         this.owner.parent.parent.parent.model.get('selectedBlock').offset(1000);
     },
 

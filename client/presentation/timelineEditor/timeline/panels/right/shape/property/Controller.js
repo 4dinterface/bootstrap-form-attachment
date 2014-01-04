@@ -3,7 +3,7 @@
 'use strict';
 
 
-Define( 'app.timeline.panels.right.shape.Property.Controller', {
+Define('app.timeline.panels.right.shape.Property.Controller', {
 
     extend: core.Controller,
 
@@ -11,6 +11,20 @@ Define( 'app.timeline.panels.right.shape.Property.Controller', {
         this.apply(cfg);
         this.attach(this.dom.property, this.events.property);
         this.dom.document = document;
+
+
+        this.owner.model.on('keyframechange', function() {
+            console.log('keyframechange');
+        });
+
+        var buffer = new app.business.model.KeyframeBlock({
+            time:1000,
+            model:this.owner.model
+        });
+
+        this.owner.parent.parent.parent.model.get('selectedBlock').setBlock(buffer);
+
+        this.owner.parent.parent.parent.model.get('selectedBlock').offset(1000);
     },
 
 

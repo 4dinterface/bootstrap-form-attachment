@@ -11,14 +11,20 @@
         
     </head>
     <body>
-        <script src="../../client/core/ObjectCollection.js"></script>            
-        <script src="../../client/core/Model.js"></script>            
+        <script src="../../client/core/data/ObjectCollection.js"></script>            
+        <script src="../../client/core/data/ArrayCollection.js"></script>            
+        <script src="../../client/core/data/Model.js"></script>            
+        
         <script src="../../client/model/Keyframe.js"></script>            
         <script src="../../client/model/KeyframeCollection.js"></script>            
-        <script src="../../client/model/PropertyCollection.js"></script>            
+        
+        <script src="../../client/model/Property.js"></script>            
+        <script src="../../client/model/PropertyCollection.js"></script>                    
+        
         <script src="../../client/model/Shape.js"></script>            
         <script src="../../client/model/ShapeCollection.js"></script> 
-        <script src="../../client/model/Timeline.js"></script>                    
+        
+        <script src="../../client/model/Composition.js"></script>                    
 
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>                        
@@ -28,40 +34,49 @@
               test( "test length", function() { 
                   //stop();                  
                   var key=new app.model.Keyframe(),
-                      keyCol=new app.model.KeyframeCollection(),
-                      shape=new app.model.Shape(),                                                          
-                      //timeline=new app.model.ShapeCollection();
-                      timeline=new app.timeline.model();
+                      property= new app.model.Property();
+                      shape=new app.model.Shape(),                                                                                
+                      composition=new app.model.Composition();
+                                    
+                                    
+                  composition.get('shapeCollection').push(shape);                  
+                  shape.get('propertyCollection').set('test',property);                  
+                  property.get('keyframeCollection').set('100',key);
                   
-                  timeline.get('shapeCollection').push(shape);
-                  shape.get('propertyCollection').set('test',keyCol);
-                  keyCol.set('100',key);                          
-                  
-                  // изменение кейфрейма
-                  timeline.on('keyframechange',function(e){
+                                                      
+                  // изменение кейфрейма                  
+                  property.get('keyframeCollection').on('keyframechange',function(e){                                            
                       ok( 3==3, e.eventName );
-                  })    
+                  })
+
                   
+                          
                   // изменение в коллекции кейфреймов
-                  timeline.on('keyframecollectionchange',function(e){
+                  composition.on('keyframecollectionchange',function(e){
                       ok( 3==3, e.eventName );
                   })    
 
+    
                   // изменение в составе свойств shape
-                  timeline.on('propertycollectionchange',function(e){
+                  composition.on('propertycollectionchange',function(e){
                       ok( 3==3, e.eventName );
                   })    
-
+    
+                  
+    
                   //тест на изменение ключа                  
-                  key.set("easing","none");                                      
+                  //console.log( );
+                  key.set("easing","none");
+                  
+                  
                   // тест на изменение коллекции ключей
-                  keyCol.set("200",key);      
+                  property.get('keyframeCollection').set("200",key);      
                   
                   // тест на изменение местоположения ключа
-                  keyCol.moveKeyframe(200,210);      
+                  property.get('keyframeCollection').moveKeyframe(200,210);      
 
                   //тест на изменение состава свойств
-                  shape.get('propertyCollection').set("opacity",keyCol);
+                  shape.get('propertyCollection').set("opacity",property);
                   
               });              
               

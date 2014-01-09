@@ -118,8 +118,7 @@ Define('core.data.ObjectCollection', /** @lends app.ObjectCollection */({
         var prop;
         for(prop in this.data) {
             if ( this[prop] === this.proto[prop] ) continue;                
-            //if ( isFinite(parseInt(prop, 10)) ) callback(this[prop],prop , this);
-            if(prop*1) callback.call( context || window, this.data[prop], prop , this );
+            if(isFinite(parseInt(prop, 10))) callback.call( context || window, this.data[prop], prop , this );
         }
         return this;
     }     			

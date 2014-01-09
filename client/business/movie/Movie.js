@@ -105,8 +105,8 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         var self = this;
 
-        this.fetch.on('missingboth', function () {
-            console.log("MOVIE: stop!");
+        this.fetch.on('noshaperendered', function () {
+            console.log("app.movie.Movie: no shape is rendered. stop!");
             self.pause();
         });
 

@@ -165,28 +165,12 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
      * Попытается найти в коллекции 2 ключевых кадра, удволетворяющих условию
      * ВРЕМЯ_ПЕРВОГО <= ТЕКУЩЕЕ_ВРЕМЯ < ВРЕМЯ_ВТОРОГО
      * @param {number} elapsedTime текущее время с момента старта
-     * @return {{ first: app.business.model.KeyframeCollection, second: app.business.model.KeyframeCollection }}
+     * @return {{ first: app.business.model.Keyframe, second: app.business.model.Keyframe }}
      */
     lookupKeyframes: function (elapsedTime) {
 
-        var firstKeyframe,
-            secondKeyframe,
-            key,
-            keyframe;
-            //elapsedTime=parseInt( elapsedTime , 10); //Эксперементальная строчка (DIABLO)
-
-        for (var i = 0, m = this.cache.length; i < m; i++) {
-            key = parseInt(this.cache[i], 10);
-
-            if (isFinite(key)) {
-                keyframe = this[ key ];
-                if (elapsedTime < key) {
-                    secondKeyframe = keyframe;
-                    break;
-                }
-                firstKeyframe = keyframe;
-            }
-        }
+        var firstKeyframe = this.getLeftLimit(elapsedTime);
+        var secondKeyframe = this.getRightLimit(elapsedTime);
 
         return {
             first: firstKeyframe,

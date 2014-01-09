@@ -133,7 +133,8 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
             key:newTime, 
             oldKey:oldTime,//возможножно бесполезные данные
             keyframeCollection:this,
-            value:keyframe
+            value:keyframe,
+            operation: "moveLineKeyframe"
         });
     },        
                 
@@ -149,7 +150,8 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
         this.fire("keyframecollectionchange", {
             key:time,
             keyframeCollection:this,
-            value:keyframe
+            value:keyframe,
+            operation: 'remove'
         });    
     },
                 

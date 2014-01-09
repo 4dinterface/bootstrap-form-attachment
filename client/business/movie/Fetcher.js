@@ -41,7 +41,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         });
 
         if (!someoneRendered) {
-            self.fire('missingboth');
+            self.fire('noshaperendered');
         }
     },
 
@@ -98,22 +98,8 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
         offset = firstKeyframe.get('key');
         fractionalTime = ( elapsedTime - offset ) / deltaTime;
-        currentValue = this.blend(propertyName, firstKeyframe.get('value'), secondKeyframe.get('value'), fractionalTime);
-
+        currentValue = (1.0 - fractionalTime) * firstKeyframe.get('value') + fractionalTime * secondKeyframe.get('value');
         return currentValue;
-    },
-
-    /**
-     * Вычислит текущее значение свойства
-     * @param {string} property имя свойства
-     * @param {number} from стартовая точка
-     * @param {number} to конечная точка
-     * @param {number} progress прогресс между двумя точками
-     * @return {number} текущее значение при переданном прогрессе
-     */
-    blend: function (property, from, to, progress) {
-        //TODO будут ли какие-то другие форматы для свойств, нежели "число" ?
-        return (1.0 - progress) * from + progress * to;
     }
 
 }));

@@ -112,6 +112,10 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         this.onetimeTick = this.onetimeTick.bind(this);
 
+        this.getTimeline().on("load", function () {
+            self.renderFrame();
+        });
+
     },
 
     /**
@@ -176,7 +180,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     * Получение таймлайна проигрывателя.
     * @return {!app.model.Timeline}
     */
-    getTimeline: function (timeline) {
+    getTimeline: function () {
         return this.fetch.timeline;
     },
 

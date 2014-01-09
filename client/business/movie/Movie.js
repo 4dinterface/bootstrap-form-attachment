@@ -172,6 +172,14 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         timeline.on('keyframecollectionchange', this.onetimeTick);
     },
 
+    /**
+    * Получение таймлайна проигрывателя.
+    * @return {!app.model.Timeline}
+    */
+    getTimeline: function (timeline) {
+        return this.fetch.timeline;
+    },
+
      /**
      * Установка сцены для проигрывателя.
      * @param {app.scene.Stage} stage объект сцены

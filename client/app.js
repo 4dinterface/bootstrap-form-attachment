@@ -209,15 +209,9 @@ $( function () {
                         movie:movie                    
                     })
                     
-                    //TODO убрать КОСТЫЛЬ  !!!!!!                                               
-                    project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});                                        
-                    //TODO еще один костыль
+                    //TODO убрать КОСТЫЛЬ  !!!!!!
+                    project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});
 
-                    setTimeout(function(){
-                        movie.gotoAndStop(1);
-                    },1)
-                    
-                    
                     //=======================================================//
                     //======== эксперемент с переключением композиций =======//
                     //=======================================================//                    

@@ -168,14 +168,8 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
     */
     setTimeline: function (timeline) {
-        var me=this;
         this.fetch.timeline = timeline;
-
-        // максим я добавил реакцию на событие в модели
-        // используй этот пример в качестве TODO
-        timeline.on('keyframecollectionchange',function(){
-            me.renderFrame();
-        })
+        timeline.on('keyframecollectionchange', this.onetimeTick);
     },
 
      /**

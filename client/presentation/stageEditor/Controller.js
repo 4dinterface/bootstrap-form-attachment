@@ -1,4 +1,4 @@
-    Define("app.bussiness.stageEditor.Сontroller", {
+    Define("app.business.stageEditor.Сontroller", {
 
     extend: core.Component,
 

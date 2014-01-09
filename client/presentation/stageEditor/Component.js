@@ -21,7 +21,7 @@ Define( 'app.presentation.stageEditor.Component', {
         this.toolbar = new app.presentation.panels.Toolbar();
         
         // контролёр сцены
-        this.controller = new app.bussiness.stageEditor.Сontroller({
+        this.controller = new app.business.stageEditor.Сontroller({
             stage:cnf.stage,     
             toolbar: this.toolbar,
             facade:cnf.facade

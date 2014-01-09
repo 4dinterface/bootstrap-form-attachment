@@ -176,7 +176,7 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
             //elapsedTime=parseInt( elapsedTime , 10); //Эксперементальная строчка (DIABLO)
 
         for (var i = 0, m = this.cache.length; i < m; i++) {
-            key = parseInt(this.cache[i], 10);                                
+            key = parseInt(this.cache[i], 10);
 
             if (isFinite(key)) {
                 keyframe = this[ key ];
@@ -184,7 +184,7 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
                     secondKeyframe = keyframe;
                     break;
                 }
-                firstKeyframe = keyframe;            
+                firstKeyframe = keyframe;
             }
         }
 
@@ -193,26 +193,42 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
             second: secondKeyframe
         };
     },
-    
-    //определение лимита слева
-    getLeftLimit:function(key){        
-        var result=0;                
+
+    /**
+     * Определение лимита слева ( "<=" )
+     * Здесь равно, потому что может захватить и нуль.
+     * @param {number} key
+     * @return {app.business.model.Keyframe}
+     */
+    getLeftLimit:function(key){
+        var result = null;
         this.forEach(function(item){
-            if (item.get('key')<key) {
-                result=item.get('key');
+            if (item.get('key') <= key) {
+                var isCloser = !result ||  item.get('key') > result.get('key');
+                if (isCloser) {
+                    result = item;
+                }
             }
-        })         
+        });
         return result;        
     },
-    
-    //определение лимита справа
+
+    /**
+     * Определение лимита справа ( ">" )
+     * Здесь неравно, чтобы не захватывал нуль
+     * @param {number} key
+     * @return {app.business.model.Keyframe}
+     */
      getRightLimit:function(key){        
-        var result=0;
+        var result = null;
         this.forEach(function(item){
-            if (item.get('key')>key  && result==0) {
-                result=item.get('key');
+            if (item.get('key') > key) {
+                var isCloser = !result || item.get('key') < result.get('key');
+                if (isCloser) {
+                    result = item;
+                }
             }
-        })         
+        });
         return result;        
     }        
     

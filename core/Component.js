@@ -169,6 +169,16 @@ Define("core.Component", /** @lends core.Component.prototype */{
         }
     },
 
+    /**
+     * Удалит все события и обработчики
+     */
+    destructor: function () {
+        for (var eventName in this.event) {
+            // Массивы съест GC
+            delete this.event[name];
+        }
+    },
+
     /*
      * Метод обеспечивающий всплытие
      * в данный момент не применяется, вероятно будет удален

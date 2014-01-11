@@ -147,7 +147,7 @@ Define("core.Component", /** @lends core.Component.prototype */{
         if (!(name in this.event)) {
             this.event[name] = [];
         }
-
+        //FIXME: если передана fun, которая уже есть в массиве this.event[name]
         this.event[name].push(fun);
     },
 
@@ -155,9 +155,18 @@ Define("core.Component", /** @lends core.Component.prototype */{
     /**
      * Удалит обработчик на событии
      * @param {string} name имя события
-     * @param {function (Object): ?} fun функция-обработчик
+     * @param {function (Object): ?} callback функция-обработчик
      */
-    off: function (name) {
+    off: function (name, callback) {
+        if (name in this.event) {
+            var listeners = this.event[name], listenerCallback;
+            for (var i = 0; i < listeners.length; i++) {
+                listenerCallback = listeners[i];
+                if (listenerCallback === callback) {
+                    listeners.splice(i, 1);
+                }
+            }
+        }
     },
 
     /*

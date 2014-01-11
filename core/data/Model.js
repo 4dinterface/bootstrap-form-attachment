@@ -85,7 +85,7 @@ Define('core.data.Model', /** @lends {app.Model} */ {
         //событие генерируется при любом изменении, имя события состоит из именикласса (маленькими буквами)+change                
         this.fireChange({
             operation:"set",
-            field:name,
+            field:name,     
             value:value
         });
 

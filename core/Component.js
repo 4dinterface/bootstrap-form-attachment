@@ -126,14 +126,14 @@ Define("core.Component", /** @lends core.Component.prototype */{
         //сработают все обработчики                
         if (name in this.event) {
             for (item in this.event[name]) {
-                this.event[name][item].call(context, options);
+                this.event[name][item].callback.call(context, options);
             }
         }
 
         //TODO buble event вероятно устарела, проверить и если не используется удалить
         //bubble event 
         for (item in this.event['bubble']) {
-            this.event['bubble'][item].call(context, options);
+            this.event['bubble'][item].callback.call(context, options);
         }
 
     },
@@ -142,31 +142,52 @@ Define("core.Component", /** @lends core.Component.prototype */{
      * Установит обработчик на событие
      * @param {string} name имя события
      * @param {function (Object): ?} fun функция-обработчик
+     * @return {string} идентификатор подписчика
      */
     on: function (name, fun) {
         if (!(name in this.event)) {
             this.event[name] = [];
         }
+
+        var id = core.utilites.genId();
+
         //FIXME: если передана fun, которая уже есть в массиве this.event[name]
-        this.event[name].push(fun);
+
+        var listenerDescriptor = {
+            id: id,
+            callback: fun
+        };
+
+        this.event[name].push(listenerDescriptor);
+
+        return id;
     },
 
 
     /**
      * Удалит обработчик на событии
      * @param {string} name имя события
-     * @param {function (Object): ?} callback функция-обработчик
+     * @param {string|Function} identify функция-обработчик или идентификатор подписчика
      */
-    off: function (name, callback) {
+    off: function (name, identify) {
+
         if (name in this.event) {
-            var listeners = this.event[name], listenerCallback;
+
+            var id = typeof identify === 'string' ? identify : null;
+            var callback = typeof identify === 'function' ? identify : null;
+
+            var listeners = this.event[name], listenerDescriptor;
+
             for (var i = 0; i < listeners.length; i++) {
-                listenerCallback = listeners[i];
-                if (listenerCallback === callback) {
+                listenerDescriptor = listeners[i];
+                if (listenerDescriptor.id === id || listenerDescriptor.callback === callback) {
                     listeners.splice(i, 1);
+                    break;
                 }
             }
+
         }
+
     },
 
     /**

@@ -32,7 +32,7 @@ Define('core.data.Model', /** @lends {app.Model} */ {
     //описывает названия событий которые должны генерировать атоматически
     autoFireEvent:{            
         //set:" имя события"
-    },
+    },    
 
     /**
      * @method fire
@@ -57,6 +57,21 @@ Define('core.data.Model', /** @lends {app.Model} */ {
     //вспомогательный метод для генерации события change
     fireChange:function (par){
         this.fire(this._className.toLowerCase()+"change", par );        
+    },
+    
+    on:function(eventname,fieldname,callback){
+        //console.log('proto',this._parentClass);
+
+        // проверим является ли второй параметр строкой, если да то там указано поле
+        if (typeof fieldname=='string' ){            
+            this._parentClass.on.call(this, eventname,function(e){
+                if (e.field==fieldname) callback.apply(this,arguments);             
+            })
+        }  
+        else { //если во втором параметре функция то это обычный вызов
+            this._super();    
+        }
+        
     },
 
         

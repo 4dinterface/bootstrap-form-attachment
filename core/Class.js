@@ -33,10 +33,11 @@ core.Define = Define = function (name, prop) {
 
     //ссылки на класс
     child.prototype["proto"] = child.prototype;
+    child.prototype["_parentClass"] = src.prototype || src;
 
     //неймспес класса
     child.prototype._classNS=name;
-    child.prototype._className=className;
+    child.prototype._className=className;    
 
     //prop
     //NS child.prototype[x]

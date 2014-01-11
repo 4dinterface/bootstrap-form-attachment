@@ -113,6 +113,7 @@ Define("core.Component", /** @lends core.Component.prototype */{
             }        
         }
         
+        //TODO buble event вероятно устарела, проверить и если не используется удалить
         //bubble event 
         for (item in this.event['bubble']) {
            this.event['bubble'][item].call(context,options);           

@@ -270,7 +270,7 @@
                         </div>
                     {/template}
 
-                    {template app.templates.timeline.panels.left.shape.property(property)}
+                    {template app.templates.timeline.panels.left.property(property)}
                         <div class="ui-body-timeline-params__property-block__property">
                             <div class="ui-body-timeline-params__property-block__property__title">{property.data.name}</div>
                             <i class="ui-eye"></i>
@@ -285,13 +285,13 @@
                         </div>
                     {/template}
 
-                    {template app.templates.timeline.panels.right.shape.property(data)}
+                    {template app.templates.timeline.panels.right.property(data)}
                         <div line class="timeline__line">
                             <div property class="timeline__property" style="left: {data.left}px; width: {data.width}px;"></div>
                         </div>
                     {/template}
 
-                    {template app.templates.timeline.panels.right.shape.property.keyframe(data)}
+                    {template app.templates.timeline.panels.right.keyframe(data)}
                         <div class="timeline__keyframe" style="left: {data.left}px;"></div>
                     {/template}
                 </script>

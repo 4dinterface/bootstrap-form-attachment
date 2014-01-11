@@ -30,14 +30,14 @@
  */
 'use strict';
 
-Define( 'app.presentation.timelineEditor.Component', {
+Define('app.presentation.timelineEditor.Component', {
 
     extend: core.Component,
 
-    init: function( cfg ) {
+    init: function(cfg) {
 
         this.timeline = new app.timeline.Timeline({
-            model : cfg.composition,
+            model: cfg.composition,
             movie: cfg.movie
         });
 

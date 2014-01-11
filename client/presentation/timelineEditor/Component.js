@@ -37,7 +37,7 @@ Define('app.presentation.timelineEditor.Component', {
     init: function(cfg) {
 
         this.timeline = new app.timeline.Timeline({
-            model: cfg.composition,
+            composition: cfg.composition,
             movie: cfg.movie
         });
 

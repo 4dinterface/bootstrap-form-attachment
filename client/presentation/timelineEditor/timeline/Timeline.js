@@ -17,14 +17,16 @@ Define('app.timeline.Timeline', {
 
         // Левая панель
         this.children.push(new app.timeline.panels.Left({
-            model: this.model,
+            composition: this.composition,
+            model: this.composition,
             movie: this.movie,
             parent: this
         }));
 
         // Правая панель
         this.children.push(new app.timeline.panels.Right({
-            model: this.model,
+            composition: this.composition,
+            model: this.composition,
             movie: this.movie,
             parent: this
         }));

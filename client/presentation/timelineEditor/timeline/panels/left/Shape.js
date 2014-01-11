@@ -21,6 +21,7 @@ Define('app.timeline.panels.left.Shape', {
     render: function() {
         this.model.get('propertyCollection').forEach(function(item) {
             this.addChild(new app.timeline.panels.left.Property({
+                composition: this.composition,
                 model: item,
                 parent: this
             }));

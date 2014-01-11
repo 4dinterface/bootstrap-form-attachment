@@ -22,6 +22,7 @@ Define('app.timeline.panels.Left', {
     render: function() {
         this.model.get('shapeCollection').forEach(function(item) {
             this.addChild(new app.timeline.panels.left.Shape({
+                composition: this.composition,
                 model: item,
                 parent: this
             }));

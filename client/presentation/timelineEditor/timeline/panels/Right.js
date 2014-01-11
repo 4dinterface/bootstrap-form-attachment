@@ -36,6 +36,7 @@ Define('app.timeline.panels.Right', {
     render: function() {
         this.model.get('shapeCollection').forEach(function(item) {
             this.addChild(new app.timeline.panels.right.Shape({
+                composition: this.composition,
                 model: item,
                 parent: this
             }));

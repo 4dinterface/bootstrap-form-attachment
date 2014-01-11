@@ -10,11 +10,9 @@ Define('app.timeline.panels.right.Keyframe', {
     init: function(cfg) {
         this.apply(cfg);
 
-        var pixelsPerSecond = this.parent.parent.parent.model.pixelsPerSecond;
-
         this.dom = {};
         this.dom.root = this.template.compile({
-            left: this.utilites.toPixels(pixelsPerSecond, this.model.data.key)
+            left: this.utilites.toPixels(this.composition.pixelsPerSecond, this.model.data.key)
         });
     },
 

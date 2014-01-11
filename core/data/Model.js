@@ -19,6 +19,8 @@ Define('core.data.Model', /** @lends {app.Model} */ {
 
         this.data = {};
 
+        this.listenerWrappers = {};
+
         for (i in prop) {
             if (prop.hasOwnProperty(i)) {
                 //this.data[i] = prop[i];
@@ -58,7 +60,14 @@ Define('core.data.Model', /** @lends {app.Model} */ {
     fireChange:function (par){
         this.fire(this._className.toLowerCase()+"change", par );        
     },
-    
+
+    /**
+     * Для ассоциативной связи между функцией-подписчиком и её враппером.
+     * ключ - ID, значение - оригинальная функция-подписчик
+     * @enum {Function}
+     */
+    listenerWrappers: null,
+
     /**
      * On подписка на события
      * eventName имя события
@@ -67,18 +76,36 @@ Define('core.data.Model', /** @lends {app.Model} */ {
      */
     on:function(eventname,fieldname,callback){
         //console.log('proto',this._parentClass);
+        var listenerWrapperId;
 
         // проверим является ли второй параметр строкой, если да то там указано поле
-        if (typeof fieldname=='string' ){            
-            this._parentClass.on.call(this, eventname,function(e){
+        if (typeof fieldname=='string' ){
+            listenerWrapperId = this._parentClass.on.call(this, eventname,function(e){
                 if (e.field==fieldname) callback.apply(this,arguments);             
-            })
+            });
+            this.listenerWrappers[ listenerWrapperId ] = callback;
         }  
         else { //если во втором параметре функция то это обычный вызов
-            this._super();    
+            this._super();
         }        
     },
 
+    /**
+     * @override
+     * @param {string} eventName
+     * @param {!Function} callback
+     */
+    off: function (eventName, callback) {
+        var listenerId;
+        for (var wrapperId in this.listenerWrappers) {
+            if (this.listenerWrappers[wrapperId] === callback) {
+                listenerId = wrapperId;
+                break;
+            }
+        }
+        this._parentClass.off.call(this, eventName, listenerId);
+        delete this.listenerWrappers[wrapperId];
+    },
         
     /**
      * @method set

@@ -62,6 +62,27 @@ Define('core.data.ObjectCollection', /** @lends app.ObjectCollection */({
     fireChange:function (par){
         this.fire(this._className.toLowerCase()+"change", par );        
     },
+
+    
+    /**
+     * On подписка на события
+     * eventName имя события
+     * fieldname имя отслеживаемого параметра (можно опускать)
+     * callback (callback);
+     */
+    on:function(eventname,fieldname,callback){
+        //console.log('proto',this._parentClass);
+
+        // проверим является ли второй параметр строкой, если да то там указано поле
+        if (typeof fieldname=='string' ){            
+            this._parentClass.on.call(this, eventname,function(e){
+                if (e.field==fieldname) callback.apply(this,arguments);             
+            })
+        }  
+        else { //если во втором параметре функция то это обычный вызов
+            this._super();    
+        }        
+    },
     
                 
 

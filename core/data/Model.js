@@ -59,6 +59,12 @@ Define('core.data.Model', /** @lends {app.Model} */ {
         this.fire(this._className.toLowerCase()+"change", par );        
     },
     
+    /**
+     * On подписка на события
+     * eventName имя события
+     * fieldname имя отслеживаемого параметра (можно опускать)
+     * callback (callback);
+     */
     on:function(eventname,fieldname,callback){
         //console.log('proto',this._parentClass);
 
@@ -70,8 +76,7 @@ Define('core.data.Model', /** @lends {app.Model} */ {
         }  
         else { //если во втором параметре функция то это обычный вызов
             this._super();    
-        }
-        
+        }        
     },
 
         

@@ -1,8 +1,9 @@
 /** 
- * @name app.Model
+ * @name core.data.Model
  * @class
+ * @extends {core.Component}
  */
-Define('core.data.Model', /** @lends {app.Model} */ {
+Define('core.data.Model', /** @lends {core.data.Model.prototype} */ {
     extend : core.Component,
     data : null,
     isModel:true,
@@ -70,11 +71,12 @@ Define('core.data.Model', /** @lends {app.Model} */ {
 
     /**
      * On подписка на события
-     * eventName имя события
-     * fieldname имя отслеживаемого параметра (можно опускать)
-     * callback (callback);
+     * @param {string} eventname имя события
+     * @param {string=} fieldname имя отслеживаемого параметра (можно опускать)
+     * @param {Function} callback (callback);
+     * @override
      */
-    on:function(eventname,fieldname,callback){
+    on:function(eventname, fieldname, callback){
         //console.log('proto',this._parentClass);
         var listenerWrapperId;
 

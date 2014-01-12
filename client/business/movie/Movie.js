@@ -105,10 +105,17 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         var self = this;
 
-        this.fetch.on('missingboth', function () {
-            console.log("MOVIE: stop!");
+        this.fetch.on('noshaperendered', function () {
+            console.log("app.movie.Movie: no shape is rendered. stop!");
             self.pause();
         });
+
+        this.onetimeTick = this.onetimeTick.bind(this);
+
+        this.getTimeline().on("load", function () {
+            self.renderFrame();
+        });
+
     },
 
     /**
@@ -118,8 +125,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         createjs.Ticker.addEventListener('tick', this.tick);
         this.renderFrame();
 
-        // TODO: Макс, по возможности в событие надо передать elapsedTime
-        this.fire( 'onplay' );  // by nerv added
+        var elapsedTime = this.elapsedTime;
+
+        this.fire( 'onplay', {
+            elapsedTime: elapsedTime
+        });
     },
 
     /**
@@ -128,7 +138,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     pause: function () {
         createjs.Ticker.removeEventListener('tick', this.tick);
 
-        this.fire( 'onpause' ); // by nerv added
+        var elapsedTime = this.elapsedTime;
+
+        this.fire('onpause', {
+            elapsedTime: elapsedTime
+        });
     },
 
     /**
@@ -138,7 +152,11 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         this.pause();
         this.renderFrame();
 
-        this.fire( 'onstop' );  // by nerv added
+        var elapsedTime = this.elapsedTime;
+
+        this.fire('onstop', {
+            elapsedTime: elapsedTime
+        });
     },
 
     /**
@@ -154,14 +172,16 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     * @param {app.model.Timeline} timeline данные о фигурах и их свойствах (таймлайн)
     */
     setTimeline: function (timeline) {
-        var me=this;
         this.fetch.timeline = timeline;
+        timeline.on('keyframecollectionchange', this.onetimeTick);
+    },
 
-        // максим я добавил реакцию на событие в модели
-        // используй этот пример в качестве TODO
-        timeline.on('keyframecollectionchange',function(){            
-            me.renderFrame();            
-        })
+    /**
+    * Получение таймлайна проигрывателя.
+    * @return {!app.model.Timeline}
+    */
+    getTimeline: function () {
+        return this.fetch.timeline;
     },
 
      /**

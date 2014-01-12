@@ -34,22 +34,27 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
      * @param {number} elapsedTime время с момента старта
      * */
     fetch: function (elapsedTime) {
-        var self = this;
+        var self = this, someoneRendered = false;
 
         self.timeline.get('shapeCollection').forEach(function ( /** @type {app.model.Shape} */ item) {
-            self.fetchShape(item, elapsedTime);
-        });        
+            someoneRendered = someoneRendered || self.fetchShape(item, elapsedTime);
+        });
+
+        if (!someoneRendered) {
+            self.fire('noshaperendered');
+        }
     },
 
     /**
      * Высчитает текущие значения свойств для одной фигуры
      * @param {app.model.Shape} item слой (фигура и её данные)
      * @param {number} elapsedTime прошедшее с момента старта время
+     * @return {boolean} имелись ли в наличии два ключевых кадра для фигуры хотя бы для одного свойства
      */
     fetchShape: function (item, elapsedTime) {
 
         var self = this;
-        var someoneRendered = false;
+        var somePropRendered = false;
 
         item.get('propertyCollection').forEach(function (prop, propertyName) {            
 
@@ -66,19 +71,14 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
                     item.target[ propertyName ] = keyframes.second.get('value');
                 }
             } else {
-                someoneRendered = true;
+                somePropRendered = true;
                 item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
             }
 
             item.target.renderToCache();
         });
 
-        //TODO - максим первый shape у которого закончаться ключи остановит весь ролик
-        //перенеси эту проверку в fetch, нас интерисует случай когда ни у одного shape небыло не одного св-ва анимировано
-        if (!someoneRendered) {
-            self.fire('missingboth');
-        }
-
+        return somePropRendered;
     },
 
     /**
@@ -98,22 +98,8 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         deltaTime = secondKeyframe.get('key') - firstKeyframe.get('key');
         offset = firstKeyframe.get('key');
         fractionalTime = ( elapsedTime - offset ) / deltaTime;
-        currentValue = this.blend(propertyName, firstKeyframe.get('value'), secondKeyframe.get('value'), fractionalTime);
-
+        currentValue = (1.0 - fractionalTime) * firstKeyframe.get('value') + fractionalTime * secondKeyframe.get('value');
         return currentValue;
-    },
-
-    /**
-     * Вычислит текущее значение свойства
-     * @param {string} property имя свойства
-     * @param {number} from стартовая точка
-     * @param {number} to конечная точка
-     * @param {number} progress прогресс между двумя точками
-     * @return {number} текущее значение при переданном прогрессе
-     */
-    blend: function (property, from, to, progress) {
-        //TODO будут ли какие-то другие форматы для свойств, нежели "число" ?
-        return (1.0 - progress) * from + progress * to;
     }
 
 }));

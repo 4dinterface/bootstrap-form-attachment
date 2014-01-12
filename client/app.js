@@ -79,41 +79,17 @@ $( function () {
              // ---------- Timeline -------------
              'client/presentation/timelineEditor/timeline/utilites.js',
              // --------------------------------
-             "client/presentation/timelineEditor/timeline/Component.js",
-             "client/presentation/timelineEditor/timeline/Controller.js",
-             "client/presentation/timelineEditor/timeline/View.js",
+             "client/presentation/timelineEditor/timeline/Timeline.js",
              // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/left/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/left/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/left/View.js",
+             "client/presentation/timelineEditor/timeline/panels/Left.js",
+             "client/presentation/timelineEditor/timeline/panels/left/Shape.js",
+             "client/presentation/timelineEditor/timeline/panels/left/Property.js",
              // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/left/shape/property/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/left/shape/property/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/left/shape/property/View.js",
-             // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/left/shape/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/left/shape/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/left/shape/View.js",
-             // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/right/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/right/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/right/View.js",
-             // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/right/runner/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/right/runner/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/right/runner/View.js",
-             // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/right/shape/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/right/shape/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/right/shape/View.js",
-             // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/right/shape/property/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/right/shape/property/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/right/shape/property/View.js",
-             // --------------------------------
-             "client/presentation/timelineEditor/timeline/panels/right/shape/property/keyframe/Component.js",
-             "client/presentation/timelineEditor/timeline/panels/right/shape/property/keyframe/Controller.js",
-             "client/presentation/timelineEditor/timeline/panels/right/shape/property/keyframe/View.js",
+             "client/presentation/timelineEditor/timeline/panels/Right.js",
+             "client/presentation/timelineEditor/timeline/panels/right/Runner.js",
+             "client/presentation/timelineEditor/timeline/panels/right/Shape.js",
+             "client/presentation/timelineEditor/timeline/panels/right/Property.js",
+             "client/presentation/timelineEditor/timeline/panels/right/Keyframe.js",
              // --------------------------------
              "client/presentation/timelineEditor/Component.js",
 
@@ -209,15 +185,9 @@ $( function () {
                         movie:movie                    
                     })
                     
-                    //TODO убрать КОСТЫЛЬ  !!!!!!                                               
-                    project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});                                        
-                    //TODO еще один костыль
+                    //TODO убрать КОСТЫЛЬ  !!!!!!
+                    project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});
 
-                    setTimeout(function(){
-                        movie.gotoAndStop(1);
-                    },1)
-                    
-                    
                     //=======================================================//
                     //======== эксперемент с переключением композиций =======//
                     //=======================================================//                    

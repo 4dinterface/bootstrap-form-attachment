@@ -159,6 +159,29 @@ Define('core.data.Model', /** @lends {core.data.Model.prototype} */ {
     clear : function (name) {		
         this.data={};		
         this.event={};
-    }        
+    },
+
+    /**
+     * Деструктор для модели
+     * @override
+     */
+    destructor: function () {
+
+        // Очистка врапперов обработчиков событий
+        for (var wrapperId in this.listenerWrappers) {
+            delete this.listenerWrappers[wrapperId];
+        }
+
+        // Вызов декструкторов для данных внутри модели
+        for (var value in this.data) {
+            if (value.isCollection || value.isModel) {
+                value.destructor();
+            }
+        }
+
+        // Передадим управление перекрытому родительскому методу
+        this._super();
+
+    }
 });
 

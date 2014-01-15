@@ -149,6 +149,24 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
             if (isFinite(parseInt(prop, 10))) callback.call(context || window, this.data[prop], prop, this);
         }
         return this;
+    },
+
+    /**
+     * Деструктор для ObjectCollection
+     * @override
+     */
+    destructor: function () {
+
+        // Вызов декструкторов для данных внутри модели
+        for (var value in this.data) {
+            if (value.isCollection || value.isModel) {
+                value.destructor();
+            }
+        }
+
+        // Передадим управление перекрытому родительскому методу
+        this._super();
+
     }
 
 }));

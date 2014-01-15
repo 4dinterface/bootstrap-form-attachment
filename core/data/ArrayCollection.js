@@ -24,7 +24,7 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
      * @param {name} name
      * @param {value} options
      * @param {value} context
-     * @return {undefuned} 
+     * @return {undefuned}
      * 
      * Перегрузим стандартный fire класса Components, 
      * тоесть он будет срабатывать не только для класса но и в том классе куда он агрегирован при помощи set
@@ -99,5 +99,24 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
     
     forEach:function(callback, context ) {
         this.data.forEach(callback, context );
-    }    
+    },
+
+    /**
+     * Деструктор для ArrayCollection
+     * @override
+     */
+    destructor: function () {
+
+        // Вызов декструкторов для данных внутри модели
+        for (var value in this.data) {
+            if (value.isCollection || value.isModel) {
+                value.destructor();
+            }
+        }
+
+        // Передадим управление перекрытому родительскому методу
+        this._super();
+
+    }
+
 });

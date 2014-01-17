@@ -3,14 +3,12 @@
 'use strict';
 
 Define('app.timeline.panels.Left', {
-    extend: core.Component,
+    extend: app.timeline.Component,
 
 
-    init: function(cfg) {
-        this.apply(cfg);
-        this.children = []; // детки-конфетки
+    init: function() {
+        this._super();
 
-        this.dom = {};
         this.dom.children = document.getElementById('timeline-panel-left__shapes');
 
         this.model.on('load', function() {
@@ -37,10 +35,5 @@ Define('app.timeline.panels.Left', {
     addChild: function(child) {
         this.dom.children.appendChild(child.dom.root);
         this.children.push(child);
-    },
-
-
-    destroy: function() {
-        delete this.dom;
     }
 });

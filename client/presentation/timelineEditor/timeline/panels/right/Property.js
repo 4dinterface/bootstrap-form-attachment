@@ -3,21 +3,18 @@
 'use strict';
 
 Define('app.timeline.panels.right.Property', {
-    extend: core.Controller,
+    extend: app.timeline.Component,
 
-    helpers: app.timeline.utilites,
 
-    init: function(cfg) {
-        this.apply(cfg);
-        this.children = [];
+    init: function() {
+        this._super();
 
         var keys = this.model.get('keyframeCollection').cache;
 
-        this.dom = {};
         this.dom.document = document;
         this.dom.root = this.dom.children = this.template.compile({
-            left: this.helpers.toPixels(this.composition.pixelsPerSecond, keys[0]),
-            width: this.helpers.toPixels(this.composition.pixelsPerSecond, keys[keys.length - 1])
+            left: this.utilites.toPixels(this.composition.pixelsPerSecond, keys[0]),
+            width: this.utilites.toPixels(this.composition.pixelsPerSecond, keys[keys.length - 1])
         });
         this.dom.property = this.dom.root.querySelector('[property]');
 
@@ -84,10 +81,5 @@ Define('app.timeline.panels.right.Property', {
         compile: function(data) {
             return app.timeline.utilites.stringToDOM(this._fn(data));
         }
-    },
-
-
-    destroy: function() {
-        delete this.dom;
     }
 });

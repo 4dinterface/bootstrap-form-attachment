@@ -3,13 +3,12 @@
 'use strict';
 
 Define('app.timeline.panels.right.Runner', {
-    extend: core.Component,
+    extend: app.timeline.Component,
 
 
-    init: function(cfg) {
-        this.apply(cfg);
+    init: function() {
+        this._super();
 
-        this.dom = {};
         this.dom.runnerHead = document.getElementById('timeline-panel-right__runner-head');
         this.dom.runnerBody = document.getElementById('timeline-panel-right__runner-body');
     },
@@ -18,10 +17,5 @@ Define('app.timeline.panels.right.Runner', {
     moveTo: function(x) {
         this.dom.runnerHead.style.left = x + 'px';
         this.dom.runnerBody.style.left = x + 'px';
-    },
-
-
-    destroy: function() {
-        delete this.dom;
     }
 });

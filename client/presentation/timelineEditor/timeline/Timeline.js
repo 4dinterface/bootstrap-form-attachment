@@ -1,18 +1,43 @@
-/**
- */
+/*
+
+ Объектная структура таймлайна
+
+ таймлайн: {
+     panels: [
+         {
+             фигуры: [
+                свойство: {},
+                свойство: {},
+             ]
+         },
+         {
+             бегунок: {},
+             линейка: {},
+             фигуры: [
+                 свойство: {
+                    keys: []
+                 },
+                 свойство: {
+                    keys: []
+                 },
+             ]
+         }
+     ]
+ }
+
+
+*/
+
+
 'use strict';
 
-Define('app.timeline.Timeline', {
-    extend: core.Component,
-
-    utilites: app.timeline.utilites,
+Define('app.presentation.timelineEditor.Component', {
+    extend: app.timeline.Component,
 
 
-    init: function(cfg) {
-        this.apply(cfg);
-        this.children = []; // детки-конфетки
+    init: function() {
+        this._super();
 
-        this.dom = {};
         this.dom.root = this.utilites.getById('timeline');
 
         // Левая панель
@@ -30,10 +55,5 @@ Define('app.timeline.Timeline', {
             movie: this.movie,
             parent: this
         }));
-    },
-
-
-    destroy: function() {
-        delete this.dom;
     }
 });

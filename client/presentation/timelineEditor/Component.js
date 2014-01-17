@@ -1,45 +1,33 @@
 /**
- * Компонент таймлана
- *
- * Объектная структура таймлайна
-
-    таймлайн: {
-        panels: [
-            {
-                фигуры: [
-                    свойство: {},
-                    свойство: {},
-                ]
-            },
-            {
-                бегунок: {},
-                линейка: {},
-                фигуры: [
-                    свойство: {
-                        keys: []
-                    },
-                    свойство: {
-                        keys: []
-                    },
-                ]
-            }
-        ]
-    }
-
- *
- */
+ * Абстрактный компонент таймлана от которого
+ * наследуются все компоненты таймлайна
+  */
 'use strict';
 
-Define('app.presentation.timelineEditor.Component', {
 
-    extend: core.Component,
+Define('app.timeline.Component', {
+
+
+    extend: core.Controller,
+
+
+    utilites: app.timeline.utilites,
+
 
     init: function(cfg) {
+        this.apply(cfg);
+        this.children = []; // детки-конфетки
+        this.dom = {};
+    },
 
-        this.timeline = new app.timeline.Timeline({
-            composition: cfg.composition,
-            movie: cfg.movie
-        });
 
+    destroy: function() {
+        if (this.children && this.children.length) {
+            for(var key in Object.keys(this.children)) {
+                this.children[key].destroy();
+            }
+        }
+        this._super();
     }
-});        
+
+});

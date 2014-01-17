@@ -3,15 +3,12 @@
 'use strict';
 
 Define('app.timeline.panels.right.Shape', {
-    extend: core.Controller,
+    extend: app.timeline.Component,
 
-    helpers: app.timeline.utilites,
 
-    init: function(cfg) {
-        this.apply(cfg);
-        this.children = [];
+    init: function() {
+        this._super();
 
-        this.dom = {};
         this.dom.root = this.template.compile(this.model);
         this.dom.children = this.dom.root.querySelector('[properties]');
 
@@ -49,10 +46,5 @@ Define('app.timeline.panels.right.Shape', {
         compile: function(data) {
             return app.timeline.utilites.stringToDOM(this._fn(data));
         }
-    },
-
-
-    destroy: function() {
-        delete this.dom;
     }
 });

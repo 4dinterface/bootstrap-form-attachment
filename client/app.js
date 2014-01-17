@@ -78,6 +78,7 @@ $( function () {
              
              // ---------- Timeline -------------
              'client/presentation/timelineEditor/timeline/utilites.js',
+             'client/presentation/timelineEditor/Component.js',
              // --------------------------------
              "client/presentation/timelineEditor/timeline/Timeline.js",
              // --------------------------------

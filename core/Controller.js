@@ -131,7 +131,16 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
 
 
     //события
-    listeners: null
+    listeners: null,
+
+
+    /**
+     * Деструктор
+     */
+    destroy: function() {
+        // TODO: тут отвязать обработчики событий от DOM элементов
+        this._super();
+    }
 
 
 });

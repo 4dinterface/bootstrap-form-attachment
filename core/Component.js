@@ -282,8 +282,20 @@ Define("core.Component", /** @lends core.Component.prototype */{
         for (var i in this.behaviours) {
             this.behaviours[i].status = false;
         }
-    }
+    },
 
+
+    /**
+     * Деструктор
+     */
+    destroy: function() {
+        for(var key in Object.keys(this)) {
+//            if (this[key].isModel) {
+//                delete this[key].event;
+//            }
+            delete this[key];
+        }
+    }
 
 
 });

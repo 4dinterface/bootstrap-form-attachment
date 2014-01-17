@@ -3,18 +3,14 @@
 'use strict';
 
 Define('app.timeline.panels.right.Keyframe', {
-    extend: core.Component,
+    extend: app.timeline.Component,
 
-    utilites: app.timeline.utilites,
 
-    init: function(cfg) {
-        this.apply(cfg);
+    init: function() {
+        this._super();
 
-        var pixelsPerSecond = this.parent.parent.parent.model.pixelsPerSecond;
-
-        this.dom = {};
         this.dom.root = this.template.compile({
-            left: this.utilites.toPixels(pixelsPerSecond, this.model.data.key)
+            left: this.utilites.toPixels(this.composition.pixelsPerSecond, this.model.data.key)
         });
     },
 
@@ -28,9 +24,5 @@ Define('app.timeline.panels.right.Keyframe', {
         compile: function(data) {
             return app.timeline.utilites.stringToDOM(this._fn(data));
         }
-    },
-
-    destroy: function() {
-        delete this.dom;
     }
 });

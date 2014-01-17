@@ -3,14 +3,12 @@
 'use strict';
 
 Define('app.timeline.panels.left.Shape', {
-    extend: core.Component,
+    extend: app.timeline.Component,
 
 
-    init: function(cfg) {
-        this.apply(cfg);
-        this.children = []; // детки-конфетки
+    init: function() {
+        this._super();
 
-        this.dom = {};
         this.dom.root = this.template.compile(this.model);
         this.dom.children = this.dom.root.querySelector('[properties]');
 
@@ -21,6 +19,7 @@ Define('app.timeline.panels.left.Shape', {
     render: function() {
         this.model.get('propertyCollection').forEach(function(item) {
             this.addChild(new app.timeline.panels.left.Property({
+                composition: this.composition,
                 model: item,
                 parent: this
             }));
@@ -47,9 +46,5 @@ Define('app.timeline.panels.left.Shape', {
         compile: function(data) {
             return app.timeline.utilites.stringToDOM(this._fn(data));
         }
-    },
-
-    destroy: function() {
-        delete this.dom;
     }
 });

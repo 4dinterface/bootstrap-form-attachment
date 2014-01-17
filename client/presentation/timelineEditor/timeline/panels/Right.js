@@ -3,19 +3,15 @@
 'use strict';
 
 Define('app.timeline.panels.Right', {
-    extend: core.Controller,
-
-    utilites: app.timeline.utilites,
+    extend: app.timeline.Component,
 
 
     init: function(cfg) {
-        this.apply(cfg);
-        this.children = []; // детки-конфетки
+        this._super();
 
         // Бегунок
         this.runner = new app.timeline.panels.right.Runner(cfg);
 
-        this.dom = {};
         this.dom.root = this.utilites.getById('timeline-panel-right__editor');
         this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
         this.dom.children = this.utilites.getById('timeline-panel-right__editor-body__shapes');
@@ -36,6 +32,7 @@ Define('app.timeline.panels.Right', {
     render: function() {
         this.model.get('shapeCollection').forEach(function(item) {
             this.addChild(new app.timeline.panels.right.Shape({
+                composition: this.composition,
                 model: item,
                 parent: this
             }));
@@ -68,10 +65,5 @@ Define('app.timeline.panels.Right', {
         var rect = this.dom.root.getBoundingClientRect();
         var scrollLeft = this.dom.editorBody.scrollLeft;
         return rect.left - window.pageXOffset - scrollLeft;
-    },
-
-
-    destroy: function() {
-        delete this.dom;
     }
 });

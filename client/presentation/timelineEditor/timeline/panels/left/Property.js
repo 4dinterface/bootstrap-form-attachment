@@ -3,14 +3,15 @@
 'use strict';
 
 Define('app.timeline.panels.left.Property', {
-    extend: core.Component,
+    extend: app.timeline.Component,
 
-    init: function(cfg) {
-        this.apply(cfg);
 
-        this.dom = {};
+    init: function() {
+        this._super();
+
         this.dom.root = this.template.compile(this.model);
     },
+
 
     /**
      * Шаблонизация
@@ -21,9 +22,5 @@ Define('app.timeline.panels.left.Property', {
         compile: function(data) {
             return app.timeline.utilites.stringToDOM(this._fn(data));
         }
-    },
-
-    destroy: function() {
-        delete this.dom;
     }
 });

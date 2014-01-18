@@ -273,12 +273,13 @@
                     {template app.templates.timeline.panels.left.property(property)}
                         <div class="ui-body-timeline-params__property-block__property">
                             <div class="ui-body-timeline-params__property-block__property__title">{property.data.name}</div>
-                            <i class="ui-eye"></i>
+                            <i class="ui-eye" disabled></i>
                         </div>
                     {/template}
 
                     {template app.templates.timeline.panels.right.shape(shape)}
                         <div>
+                            <p style="margin-bottom:6px">Id: {shape.id}</p>
                             <div properties>
                                 <!-- properties here -->
                             </div>

@@ -10,11 +10,23 @@ Define('app.timeline.panels.left.Property', {
         this._super();
 
         this.dom.root = this.template.compile(this.model);
+        this.dom.disabled = this.dom.root.querySelector('[disabled]');
 
-//        // Скрыть/показать фигуру
-//        this.model.on('shapechange', 'minimized', function() {
-//            this.dom.children.classList.toggle('minimized');
-//        }.bind(this));
+        this.addListeners(this.dom, this.events);
+
+        // Активное/неактивное свойство
+        this.model.on('propertychange', 'disabled', function(event) {
+            this.dom.root.classList[event.value ? 'add' : 'remove']('disabled');
+        }.bind(this));
+    },
+
+
+    events: {
+        disabled: {
+            click: function() {
+                this.model.set('disabled', !this.model.get('disabled'));
+            }
+        }
     },
 
 

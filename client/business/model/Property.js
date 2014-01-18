@@ -57,7 +57,8 @@ Define('app.business.model.Property', /** @lends {app.business.model.Keyframe.pr
                 this.set("keyframeCollection", new app.business.model.KeyframeCollection() ); 
                 this.get("keyframeCollection").parent=this;
             }
-            
+
+        this.set('disabled', false);
 	},        
 	/**
 	 * @method set

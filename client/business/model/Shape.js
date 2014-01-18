@@ -59,7 +59,7 @@ Define('app.business.model.Shape', /** @lends {app.model.Shape.prototype} */ {
         this.get("filterCollection").parent=this;
 
         this.set('minimized', false);
-        this.set('active', true);
+        this.set('disabled', false);
     },
 
     /**

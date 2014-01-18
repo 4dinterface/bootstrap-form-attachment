@@ -22,6 +22,11 @@ Define('app.timeline.panels.right.Property', {
 
         this.addListeners(['property'], this.events);
         this.render();
+
+        // Активное/неактивное свойство
+        this.model.on('propertychange', 'disabled', function(event) {
+            this.dom.root.classList[event.value ? 'add' : 'remove']('disabled');
+        }.bind(this));
     },
 
 

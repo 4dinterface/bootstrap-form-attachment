@@ -289,11 +289,9 @@ Define("core.Component", /** @lends core.Component.prototype */{
      * Деструктор
      */
     destroy: function() {
-        for(var key in Object.keys(this)) {
-//            if (this[key].isModel) {
-//                delete this[key].event;
-//            }
-            delete this[key];
+        var props = Object.keys(this);
+        for(var name in props) {
+            delete this[props[name]];
         }
     }
 

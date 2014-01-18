@@ -70,63 +70,63 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
 
     },
 
+
     /**
-     * Назначает обработчики событий html элементу через свойства (DOM Level 0)
-     * @param {HTMLElement} elem
-     * @param {Object} handlers В формате { click: handler }
-     * @param {Object} [context]
+     * Добавляет множество слушателей для множества элементов
+     * @param {Array|Object} elementsObject
+     * @param {Object} listenersObject
      */
-    assign: function(elem, handlers, context) {
-        for(var key in handlers) {
-            elem['on' + key] = handlers[key].bind(context || this);
+    addListeners: function(elementsObject, listenersObject) {
+        var props = Array.isArray(elementsObject) ? elementsObject : Object.keys(elementsObject);
+        for(var index in props) {
+            var key1 = props[index];
+            for(var key2 in listenersObject[key1]) {
+                this.addListener(key1, key2, listenersObject[key1][key2]);
+            }
         }
     },
 
 
     /**
-     * Прикрепляет обработчики события к dom-элементу
-     * @param {HTMLElement} element
-     * @param {Object} events Пример {event:function}
-     * @param {*} [data] Данные, кот. крепятся к обработчикам
+     * Удаляет множество слушателей для множества элементов
+     * @param {Array|Object} elementsObject
+     * @param {Object} listenersObject
      */
-    attach: function(element, events, data) {
-        var that = this, elem, event;
-        this._fn = this._fn || {};
-
-        // get key for dom element
-        for(elem in this.dom) {
-            if (this.dom[elem] === element) break;
-        }
-
-        this._fn[elem] = this._fn[elem] || {};
-
-        for(event in events) {
-            this._fn[elem][event] = function(e) {events[e.type].call(that, e, data);};
-            element.addEventListener(event, this._fn[elem][event], false);
+    removeListeners: function(elementsObject, listenersObject) {
+        var props = Array.isArray(elementsObject) ? elementsObject : Object.keys(elementsObject);
+        for(var index in props) {
+            var key1 = props[index];
+            for(var key2 in listenersObject[key1]) {
+                this.removeListener(key1, key2);
+            }
         }
     },
 
 
     /**
-     * Отвязывает обработчики событий от dom-элементов
-     * @param {HTMLElement} element
-     * @param {Object} events Пример {event:function}
+     * Добавляет слушатель события
+     * @param {String} key Имя свойства(элемента) в this.dom[key]
+     * @param {String} event
+     * @param {Function} listener
      */
-    detach: function(element, events) {
-        var elem, event;
-        this._fn = this._fn || {};
+    addListener: function(key, event, listener) {
+        var name = key + ':' + event;
+        var fn = listener.bind(this);
+        this.dom[key].addEventListener(event, fn, false);
+        this._listeners[name] = fn;
+    },
 
-        // get key for dom element
-        for(elem in this.dom) {
-            if (this.dom[elem] === element) break;
-        }
 
-        this._fn[elem] = this._fn[elem] || {};
-
-        for(event in events) {
-            element.removeEventListener(event, this._fn[elem][event], false);
-            delete this._fn[elem][event];
-        }
+    /**
+     * Удаляет слушатель события
+     * @param {String} key
+     * @param {String} event
+     */
+    removeListener: function(key, event) {
+        var name = key + ':' + event;
+        var fn = this._listeners[name];
+        this.dom[key].removeEventListener(event, fn, false);
+        delete this._listeners[name];
     },
 
 

@@ -18,7 +18,9 @@ Define('app.timeline.panels.right.Property', {
         });
         this.dom.property = this.dom.root.querySelector('[property]');
 
-        this.attach(this.dom.property, this.events.property);
+        this.offsetX = 0; //
+
+        this.addListeners(['property'], this.events);
         this.render();
     },
 
@@ -43,24 +45,27 @@ Define('app.timeline.panels.right.Property', {
         this.children.push(child);
     },
 
-
+    /**
+     * Обработчики DOM событий для элементов this.dom[key]
+     * @this {child}
+     */
     events: {
         property: {
             mousedown: function(event) {
                 var propertyOffsetX = this.getPropertyOffsetX();
                 var editorOffsetX = this.parent.parent.getEditorOffsetX();
-                var offsetX = event.pageX - (propertyOffsetX - editorOffsetX);
-                this.attach(this.dom.document, this.events.document, offsetX);
+                this.offsetX = event.pageX - (propertyOffsetX - editorOffsetX);
+                this.addListeners(['document'], this.events);
                 event.stopPropagation();
                 event.preventDefault();
             }
         },
         document: {
-            mousemove: function(event, offsetX) {
-                this.dom.property.style.left = event.pageX - offsetX + 'px';
+            mousemove: function(event) {
+                this.dom.property.style.left = event.pageX - this.offsetX + 'px';
             },
             mouseup: function() {
-                this.detach(this.dom.document, this.events.document);
+                this.removeListeners(['document'], this.events);
             }
         }
     },

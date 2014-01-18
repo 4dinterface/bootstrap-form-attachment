@@ -18,6 +18,7 @@ Define('app.timeline.Component', {
         this.apply(cfg);
         this.children = []; // детки-конфетки
         this.dom = {};
+        this._listeners = {};
     },
 
 

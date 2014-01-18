@@ -161,4 +161,13 @@
 
 /* END TIMELINE EDITOR BODY */
 
+
+.minimized {
+    display: none;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
 /******************** END TIMELINE STYLES **********************/

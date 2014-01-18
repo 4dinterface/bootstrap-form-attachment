@@ -10,6 +10,11 @@ Define('app.timeline.panels.left.Property', {
         this._super();
 
         this.dom.root = this.template.compile(this.model);
+
+//        // Скрыть/показать фигуру
+//        this.model.on('shapechange', 'minimized', function() {
+//            this.dom.children.classList.toggle('minimized');
+//        }.bind(this));
     },
 
 

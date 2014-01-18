@@ -13,6 +13,16 @@ Define('app.timeline.panels.right.Shape', {
         this.dom.children = this.dom.root.querySelector('[properties]');
 
         this.render();
+
+        // Скрыть/показать фигуру
+        this.model.on('shapechange', 'minimized', function(event) {
+            this.dom.children.classList[event.value ? 'add' : 'remove']('minimized');
+        }.bind(this));
+
+        // Активная/неактивная фигура
+        this.model.on('shapechange', 'disabled', function(event) {
+            this.dom.root.classList[event.value ? 'add' : 'remove']('disabled');
+        }.bind(this));
     },
 
 

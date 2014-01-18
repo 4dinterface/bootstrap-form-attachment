@@ -44,20 +44,23 @@ Define('app.business.model.Shape', /** @lends {app.model.Shape.prototype} */ {
 	 * @param {Object} prop объект с описанием экземпляра
 	 */
 	init : function () {
-            this._super(); 
-            this.set("propertyCollection", new app.business.model.PropertyCollection() ); 
-            this.get("propertyCollection").parent=this;
-            
-            //WARNING свойство добавляются для всех, возможно есть резон пересмотреть механизм
-            this.get("propertyCollection").set('x', new app.business.model.Property());
-            this.get("propertyCollection").set('y', new app.business.model.Property());
-            this.get("propertyCollection").set('width', new app.business.model.Property());
-            this.get("propertyCollection").set('height', new app.business.model.Property());
-           
-           // непонятно как назвать толи filter толи FX
-           this.set("filterCollection", new app.business.model.FilterCollection() ); 
-           this.get("filterCollection").parent=this;
-	},
+        this._super();
+        this.set("propertyCollection", new app.business.model.PropertyCollection() );
+        this.get("propertyCollection").parent=this;
+
+        //WARNING свойство добавляются для всех, возможно есть резон пересмотреть механизм
+        this.get("propertyCollection").set('x', new app.business.model.Property());
+        this.get("propertyCollection").set('y', new app.business.model.Property());
+        this.get("propertyCollection").set('width', new app.business.model.Property());
+        this.get("propertyCollection").set('height', new app.business.model.Property());
+
+        // непонятно как назвать толи filter толи FX
+        this.set("filterCollection", new app.business.model.FilterCollection() );
+        this.get("filterCollection").parent=this;
+
+        this.set('minimized', false);
+        this.set('active', true);
+    },
 
     /**
      * Умное добавление ключа.

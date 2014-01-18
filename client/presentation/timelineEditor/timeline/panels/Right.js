@@ -16,7 +16,7 @@ Define('app.timeline.panels.Right', {
         this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
         this.dom.children = this.utilites.getById('timeline-panel-right__editor-body__shapes');
 
-        this.attach(this.dom.editorBody, this.events.editorBody);
+        this.addListeners(this.dom, this.events);
 
         this.model.on('load', function() {
             this.render();
@@ -40,6 +40,10 @@ Define('app.timeline.panels.Right', {
     },
 
 
+    /**
+     * Обработчики DOM событий для элементов this.dom[key]
+     * @this {child}
+     */
     events: {
         editorBody: {
             click: function(event) {
@@ -50,6 +54,7 @@ Define('app.timeline.panels.Right', {
             }
         }
     },
+
 
     /**
      * Добавляет фигуру на панель

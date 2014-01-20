@@ -189,10 +189,6 @@ $( function () {
                     //TODO убрать КОСТЫЛЬ  !!!!!!
                     project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});
 
-                    window.stageEditor = stageEditor
-                    window.timelineEditor = timelineEditor;
-                    window.transport = transport;
-
                     //=======================================================//
                     //======== эксперемент с переключением композиций =======//
                     //=======================================================//                    

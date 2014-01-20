@@ -24,7 +24,17 @@ Define( 'app.presentation.properties.Component', {
             stage:cnf.stage,
             facade:cnf.facade
         });        
-    }    
+    },
+
+    /**
+     * Деструктор
+     * @override
+     */
+    destroy: function () {
+        this.view.destroy();
+        this.controller.destroy();
+        this._super();
+    }
     //ниже должны идти функции
     
 });                

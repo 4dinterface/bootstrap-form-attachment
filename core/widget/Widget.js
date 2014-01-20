@@ -84,9 +84,9 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
      *  деструктор срабатывает при ликвидации виджета
      *  TODO проверить
      */
-    destructor:function(){
+    destroy:function(){
         this.childrens.foreEach(function(item){
-            item.destructor();            
+            item.destroy();
         })
         
         //нужно сообщить родителю что элемент удален 
@@ -105,7 +105,7 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
                 this.childrens.splice(num,1);
                 
                 //если mode Не false то вызываем деструктор
-                if(mode!==false)child.destructor();
+                if(mode!==false) child.destroy();
                 
                 return false;// ХЗ ПРОКИТ ЛИ :)
             }

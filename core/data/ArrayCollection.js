@@ -105,12 +105,12 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
      * Деструктор для ArrayCollection
      * @override
      */
-    destructor: function () {
+    destroy: function () {
 
         // Вызов декструкторов для данных внутри модели
         for (var value in this.data) {
             if (value.isCollection || value.isModel) {
-                value.destructor();
+                value.destroy();
             }
         }
 

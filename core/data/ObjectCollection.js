@@ -155,12 +155,12 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
      * Деструктор для ObjectCollection
      * @override
      */
-    destructor: function () {
+    destroy: function () {
 
         // Вызов декструкторов для данных внутри модели
         for (var value in this.data) {
             if (value.isCollection || value.isModel) {
-                value.destructor();
+                value.destroy();
             }
         }
 

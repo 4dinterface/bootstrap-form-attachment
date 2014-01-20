@@ -165,7 +165,7 @@ Define('core.data.Model', /** @lends {core.data.Model.prototype} */ {
      * Деструктор для модели
      * @override
      */
-    destructor: function () {
+    destroy: function () {
 
         // Очистка врапперов обработчиков событий
         for (var wrapperId in this.listenerWrappers) {
@@ -175,7 +175,7 @@ Define('core.data.Model', /** @lends {core.data.Model.prototype} */ {
         // Вызов декструкторов для данных внутри модели
         for (var value in this.data) {
             if (value.isCollection || value.isModel) {
-                value.destructor();
+                value.destroy();
             }
         }
 

@@ -39,6 +39,7 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
                 }
 
                 switch ( params.length ) {
+                    //FIXME: было бы зодорово уйти от прямого вызова методов Zepto.
 
                     case 3:
                         $( params[ 0 ], this.domTarget )
@@ -68,6 +69,58 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
 
         }, this );
 
+    },
+
+    /**
+     * Отвяжет обработчики событий
+     * @param {Array|String} listeners
+     */
+    unbind: function (listeners) {
+        //FIXME: в основном, копипаст метода bind. похоже, стоит вынести логику разбивки аргумента :)
+        listeners = $.isArray( listeners ) ? listeners : [ listeners ];
+
+        listeners.forEach(function( listener ){
+            var params = listener.split( '%' );
+
+            // Один обработчик на все события
+            if ( $.isFunction( this.domListeners[ listener ] ) ) {
+
+                listener = $.trim( listener );
+                params = listener.split( '%' );
+
+                if ( !params[ 0 ].length ) {
+                    params.shift();
+                }
+
+                switch ( params.length ) {
+
+                    case 3:
+                        $( params[ 0 ], this.domTarget )
+                            .off( params[ 1 ], params[ 2 ] );
+                        break;
+
+                    case 2:
+                        $( params[ 0 ], this.domTarget )
+                            .off( params[ 1 ] );
+                        break;
+
+                    case 1:
+                        $( this.domTarget )
+                            .off( params[ 0 ] );
+                        break;
+
+                }
+
+                // Несколько обработчиков
+            } else {
+
+                listener = $.trim( listener );
+
+                // object
+
+            }
+
+        }, this );
     },
 
     /**
@@ -138,7 +191,10 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
      * Деструктор
      */
     destroy: function() {
-        // TODO: тут отвязать обработчики событий от DOM элементов
+        //FIXME: свойство 'domListeners' есть только в app.presentation.panels.Transport, но его использование определно в core.Controller. МБ перенести это свойство в core.Controller?
+        if (this.domListeners) {
+            this.unbind( Object.keys( this.domListeners ) );
+        }
         this._super();
     }
 

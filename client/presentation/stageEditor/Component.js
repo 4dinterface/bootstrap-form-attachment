@@ -26,5 +26,15 @@ Define( 'app.presentation.stageEditor.Component', {
             toolbar: this.toolbar,
             facade:cnf.facade
         });                                                                                                                        
-    }        
+    },
+
+    /**
+     * Деструктор
+     * @override
+     */
+    destroy: function () {
+        this.toolbar.destroy();
+        this.controller.destroy();
+        this._super();
+    }
 });        

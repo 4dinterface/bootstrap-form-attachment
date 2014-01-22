@@ -45,7 +45,7 @@ Define('app.presentation.stage.shape.GeometricShape', {
                     
                 {
                     name:"Scale",                    
-                    sync:true,                    
+                    sync:true,                
                     items:[
                         {type:"int",label:"W",target:"w"},                          
                         {type:"int",label:"H",target:"h"}                            

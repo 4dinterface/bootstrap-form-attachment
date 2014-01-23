@@ -1,0 +1,8 @@
+[                       
+    "/client/business/package.json",             
+             
+    "client/proxy/demoData.js",
+    "client/proxy/Reader.js",
+
+    "/client/presentation/package.json"
+]         

@@ -16,6 +16,9 @@ $( function () {
         
          var a=new core.ClassLoader();                
          a.require([
+             "/core/package.json",
+             "/client/package.json",
+/*             
              //классы ядра             
              "core/Component.js",             
              "core/data/ObjectCollection.js",
@@ -107,10 +110,10 @@ $( function () {
              "client/presentation/propertiesEditor/View.js",
              "client/presentation/propertiesEditor/Controller.js",
              "client/presentation/propertiesEditor/Component.js",
-             
+*/             
             // ---------- Panels -------------                                     
-             "client/presentation/panels/Menu.js",             
-             "client/presentation/panels/Transport.js"
+            //"client/presentation/panels/Menu.js",             
+            //"client/presentation/panels/Transport.js"
                           
              ], function(){                 
                  

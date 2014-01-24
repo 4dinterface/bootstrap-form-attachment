@@ -17,6 +17,7 @@ Define('app.timeline.panels.Right', {
         });
 
         this.dom.root = this.utilites.getById('timeline-panel-right__editor');
+        this.dom.editorHead = this.utilites.getById('timeline-panel-right__editor-head');
         this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
         this.dom.children = this.utilites.getById('timeline-panel-right__editor-body__shapes');
 
@@ -44,7 +45,7 @@ Define('app.timeline.panels.Right', {
      * @this {child}
      */
     events: {
-        editorBody: {
+        editorHead: {
             click: function(event) {
                 var shiftX = this.getEditorOffsetX() - this.getEditorScrollLeft();
                 var x = event.pageX - shiftX;

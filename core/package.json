@@ -1,21 +1,26 @@
 [            
-             "core/Component.js",             
-             "core/data/ObjectCollection.js",
-             "core/data/ArrayCollection.js",
-             "core/data/Model.js",
-             "core/Controller.js",
-             "core/Behaviour.js",
-             "core/View.js",
+    "core/utilites.js",
+    "core/Class.js",
+    
+    "core/Component.js",             
+    "core/data/ObjectCollection.js",
+    "core/data/ArrayCollection.js",
+    "core/data/Model.js",
+    "core/Controller.js",
+    "core/Behaviour.js",
+    "core/View.js",
 
-             "core/widget/widgetManager.js",
-             "core/widget/Widget.js",
-             "core/ui/panel/Collapsible.js",
-             "core/ui/form/Rotator.js",
+    "core/widget/widgetManager.js",
+    "core/widget/Widget.js",
+    "core/ui/panel/Collapsible.js",
+    "core/ui/form/Rotator.js",
              
-             "core/ui/form/Range.js",     
+    "core/ui/form/Range.js",     
              
-             "core/ui/form/NumberField.js",
-             "core/ui/form/InputColor.js",
-             "core/ui/form/Fieldset.js"
+    "core/ui/form/NumberField.js",
+    "core/ui/form/InputColor.js",
+    "core/ui/form/Fieldset.js",             
+             
+    "core/ui/style.css"
 ]
          

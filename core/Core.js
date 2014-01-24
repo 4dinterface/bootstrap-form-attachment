@@ -2,17 +2,18 @@
 /**
  * @class ClassLoader
  * @classdesc
- * Загрузчик приложения. В дальнейшем будет изменен
+ * Загрузчик приложения. 
  */
-Define("core.ClassLoader",{           
-    init:function(){
-        
-    },    
+
+window.core=window.core||{};
+window.core.ClassLoader=window.core.ClassLoader||{};
+
++function(p){    
     /**
      * XmlHttpRequest
      * TODO создать отдельную библиотеку для взаимодействия с сервером
      */
-    getXmlHttp:function(){
+    p.getXmlHttp=function(){
         var xmlhttp;
         
         try {
@@ -29,12 +30,12 @@ Define("core.ClassLoader",{
         }
         
         return xmlhttp;
-    },
+    };
     
     /**
      * Синхронный Загрузчик скриптов
      */       
-    loadScript:function(src,callback){
+    p.loadScript=function(src,callback){
         var script = document.createElement("script");
 
         //TODO: Временно закомментировал, т.к. слетают точки останова
@@ -48,10 +49,29 @@ Define("core.ClassLoader",{
 	script.onload = function () {
             callback();
 	};        
-    },
+    };
+    
+//core/ui/style.css
+    p.loadStyle=function(src,callback){
+        var style = document.createElement("link");
+
+        //TODO: Временно закомментировал, т.к. слетают точки останова
+	//script.src = src+"?ns="+( Math.random()*1000 );
+        style.href = src;
+        style.rel = "stylesheet";
+        
+
+	document.getElementsByTagName("head")[0].appendChild(style);        
+        
+	//обработчик загрузки
+	//script.onload = function () {
+            //callback();
+	//};        
+        callback();
+    },        
     
     //подгружаем JSON файл           
-    loadJson:function(src,callback){        
+    p.loadJson=function(src,callback){        
         var count=0,
             me=this;
         
@@ -66,31 +86,41 @@ Define("core.ClassLoader",{
     },
             
     //подгружает скрипты   
-    require:function(prop,callback){                        
-        this.load(prop,callback);        
+    p.require=function(prop,callback){                        
+        p.load(prop,function(){            
+            $(function(){                
+                callback();   
+            });            
+        });                
     },
     
-    load:function(prop,callback){
+    p.load=function(prop,callback){
         var me=this,
             count=0;    
     
-        prop.forEach(function(fname){
+        prop.forEach(function(fname){            
             count++;            
-            if  ( fname.match(/(?:^|\/|\\)([^\\\/]+)$/)[1].split('.')[1] =="json"){                                
+            var ext=fname.match(/(?:^|\/|\\)([^\\\/]+)$/)[1].split('.')[1] ;
+            if  ( ext=='json'){                                
                 me.loadJson(fname,function(){
                     count--;    
                     if (count==0) callback();
                 });                                          
-            } else {                            
+            } else if (ext=='js'){                            
                 me.loadScript(fname,function(){
                     count--;
                     if (count==0) callback();
                 });                
-            }                            
-        })                        
-    },            
+            } else if(ext=="css"){
+                me.loadStyle(fname,function(){});                
+                count--;                
+                if (count==0) callback();
+            }                           
+            
+        })                                
+    }            
+    core.require=p.require;
     
-    creatorScript: function (src, parent) {
-
-    }
-});
+    //creatorScript: function (src, parent) {}
+}(core.ClassLoader);    
+//});

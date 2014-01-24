@@ -1,9 +1,9 @@
 [             
-             "client/presentation/stage/package.json",                         
-             "client/presentation/timelineEditor/package.json",
-             "client/presentation/stageEditor/package.json",                         
-             "client/presentation/propertiesEditor/package.json",             
+    "client/presentation/stage/package.json",                         
+    "client/presentation/timelineEditor/package.json",
+    "client/presentation/stageEditor/package.json",                         
+    "client/presentation/propertiesEditor/package.json",             
                          
-             "client/presentation/panels/Menu.js",             
-             "client/presentation/panels/Transport.js"        
+    "client/presentation/panels/Menu.js",             
+    "client/presentation/panels/Transport.js"        
 ]

@@ -41,7 +41,7 @@ Define("app.presentation.stageEditor.behaviours.ShapeDrawer",{
         //stage.addEventListener('click',function(e){
         me.on('dragstop',function(e){            
             me.parent.facade.addShapeToComposition(me.parent.figure, e.startX,e.startY, e.width ,e.height );
-        	el.remove();
+            el.remove();
         });
     },
 

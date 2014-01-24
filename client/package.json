@@ -1,8 +1,5 @@
 [                       
-    "/client/business/package.json",             
-             
-    "client/proxy/demoData.js",
-    "client/proxy/Reader.js",
-
+    "/client/business/package.json",                          
+    "/client/proxy/package.json",    
     "/client/presentation/package.json"
 ]         

@@ -23,6 +23,31 @@ Define('app.timeline.panels.Right', {
 
         this.addListeners(this.dom, this.events);
 
+        // ------------------------------
+
+        // Авто-скролл при воспроизведении
+        this.enableAutoScroll = false;
+
+        this.movie.on('onplay', function() {
+            this.enableAutoScroll = true;
+        }.bind(this));
+
+        this.movie.on('onpause', function() {
+            this.enableAutoScroll = false;
+        }.bind(this));
+
+        this.movie.on('onstop', function() {
+            this.enableAutoScroll = false;
+        }.bind(this));
+
+        this.movie.on('onframe', function(e) {
+            if (!this.enableAutoScroll) return;
+            var x = this.utilites.toPixels(this.model.pixelsPerSecond, e.elapsedTime);
+            this.autoScroll(x);
+        }.bind(this));
+
+        // ------------------------------
+
         this.model.on('load', function() {
             this.render();
         }.bind(this));
@@ -55,6 +80,20 @@ Define('app.timeline.panels.Right', {
         }
     },
 
+
+    autoScroll: function(x) {
+        var elem = this.dom.editorBody;
+        var percent = (x - elem.scrollLeft) / elem.clientWidth * 100;
+        if (percent < 90) return;
+        this.editorScrollTo(x);
+//        this.editorScrollTo(x - elem.clientWidth * 0.1);
+    },
+
+
+    editorScrollTo: function(x) {
+        this.dom.editorBody.scrollLeft = x;
+//        this.movie.pause();  // debug only
+    },
 
     /**
      * Добавляет фигуру на панель

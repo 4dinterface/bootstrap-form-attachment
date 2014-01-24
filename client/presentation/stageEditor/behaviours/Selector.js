@@ -9,7 +9,7 @@ Define("app.presentation.stageEditor.behaviours.Selector",{
 
     	var stage=me.parent.stage;
 
-        console.log('>>>',this.parent.stage);
+//        console.log('>>>',this.parent.stage);
 
         var mx,my;
         var p=$('#canvas');        

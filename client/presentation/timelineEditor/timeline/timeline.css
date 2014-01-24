@@ -75,6 +75,12 @@
     margin-left: -3px;
     background-color: #DED300;
     border: 1px solid #000;
+
+/*    -moz-transition: left .5s;
+    -webkit-transition: left .5s;
+    -ms-transition: left .5s;
+    -o-transition: left .5s;
+    transition: left .5s;*/
 }
 
 /* END TIMELINE EDITOR HEAD */
@@ -157,6 +163,12 @@
 
     background-color: #DED300;
     width: 2px;
+
+/*    -moz-transition: left .5s;
+    -webkit-transition: left .5s;
+    -ms-transition: left .5s;
+    -o-transition: left .5s;
+    transition: left .5s;*/
 }
 
 /* END TIMELINE EDITOR BODY */

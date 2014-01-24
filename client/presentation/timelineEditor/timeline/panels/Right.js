@@ -6,11 +6,15 @@ Define('app.timeline.panels.Right', {
     extend: app.timeline.Component,
 
 
-    init: function(cfg) {
+    init: function() {
         this._super();
 
         // Бегунок
-        this.runner = new app.timeline.panels.right.Runner(cfg);
+        this.runner = new app.timeline.panels.right.Runner({
+            composition: this.composition,
+            movie: this.movie,
+            parent: this
+        });
 
         this.dom.root = this.utilites.getById('timeline-panel-right__editor');
         this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
@@ -20,11 +24,6 @@ Define('app.timeline.panels.Right', {
 
         this.model.on('load', function() {
             this.render();
-        }.bind(this));
-
-        this.movie.on('onframe', function(e) {
-            var x = this.utilites.toPixels(this.model.pixelsPerSecond, e.elapsedTime);
-            this.runner.moveTo(x);
         }.bind(this));
     },
 
@@ -47,8 +46,8 @@ Define('app.timeline.panels.Right', {
     events: {
         editorBody: {
             click: function(event) {
-                var offsetX = this.getEditorOffsetX();
-                var x = event.pageX - offsetX;
+                var shiftX = this.getEditorOffsetX() - this.getEditorScrollLeft();
+                var x = event.pageX - shiftX;
                 var ms = this.utilites.toMilliseconds(this.model.pixelsPerSecond, x);
                 this.movie.gotoAndStop(ms);
             }
@@ -68,7 +67,11 @@ Define('app.timeline.panels.Right', {
 
     getEditorOffsetX: function() {
         var rect = this.dom.root.getBoundingClientRect();
-        var scrollLeft = this.dom.editorBody.scrollLeft;
-        return rect.left - window.pageXOffset - scrollLeft;
+        return rect.left;
+    },
+
+
+    getEditorScrollLeft: function() {
+        return this.dom.editorBody.scrollLeft;
     }
 });

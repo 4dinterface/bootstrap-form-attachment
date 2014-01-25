@@ -37,7 +37,7 @@ Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
 
         //реакция на изменения в модели
 
-        this.composition.on('shapecollectionchange',function(val){            
+        this.composition.on(app.events.shapecollection.CHANGE, function(val){
             //console.log(val.value);
             me.buildShape(val.value);
             me.stage.update();

@@ -105,7 +105,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         var self = this;
 
-        this.fetch.on('noshaperendered', function () {
+        this.fetch.on(app.events.fetcher.NO_SHAPE_RENDERED, function () {
             console.log("app.movie.Movie: no shape is rendered. stop!");
             self.pause();
         });
@@ -127,7 +127,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         var elapsedTime = this.elapsedTime;
 
-        this.fire( 'onplay', {
+        this.fire(app.events.movie.PLAY, {
             elapsedTime: elapsedTime
         });
     },
@@ -140,7 +140,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         var elapsedTime = this.elapsedTime;
 
-        this.fire('onpause', {
+        this.fire(app.events.movie.STOP, {
             elapsedTime: elapsedTime
         });
     },
@@ -154,7 +154,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         var elapsedTime = this.elapsedTime;
 
-        this.fire('onstop', {
+        this.fire(app.events.movie.STOP, {
             elapsedTime: elapsedTime
         });
     },
@@ -173,7 +173,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     */
     setTimeline: function (timeline) {
         this.fetch.timeline = timeline;
-        timeline.on('keyframecollectionchange', this.onetimeTick);
+        timeline.on(app.events.keyframecollection.CHANGE, this.onetimeTick);
     },
 
     /**
@@ -239,7 +239,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         this.fetch.fetch(elapsedTime);
         this.stage.update();
         
-        this.fire("onframe", {
+        this.fire(app.events.movie.FRAME, {
             elapsedTime: elapsedTime
         });
 

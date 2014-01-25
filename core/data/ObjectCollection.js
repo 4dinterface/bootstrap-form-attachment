@@ -63,6 +63,7 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
     },
 
     fireChange: function (par) {
+        //TODO пустить через app.events
         this.fire(this._className.toLowerCase() + "change", par);
     },
 

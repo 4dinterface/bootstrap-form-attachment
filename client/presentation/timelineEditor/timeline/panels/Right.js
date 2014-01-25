@@ -22,7 +22,7 @@ Define('app.timeline.panels.Right', {
             this.render();
         }.bind(this));
 
-        this.movie.on('onframe', function(e) {
+        this.movie.on(app.events.movie.FRAME, function(e) {
             var x = this.utilites.toPixels(this.model.pixelsPerSecond, e.elapsedTime);
             this.runner.moveTo(x);
         }.bind(this));

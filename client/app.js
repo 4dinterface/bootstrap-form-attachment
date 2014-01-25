@@ -16,6 +16,10 @@ $( function () {
         
          var a=new core.ClassLoader();                
          a.require([
+
+             // ---------- Events -------------
+             "client/events.js",
+
              //классы ядра             
              "core/Component.js",             
              "core/data/ObjectCollection.js",

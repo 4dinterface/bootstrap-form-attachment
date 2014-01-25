@@ -59,6 +59,7 @@ Define('core.data.Model', /** @lends {core.data.Model.prototype} */ {
 
     //вспомогательный метод для генерации события change
     fireChange:function (par){
+        //TODO пустить через app.events
         this.fire(this._className.toLowerCase()+"change", par );        
     },
 

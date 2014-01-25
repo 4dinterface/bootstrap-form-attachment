@@ -81,7 +81,7 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
         this[newTime]=keyframe;
                                    
         //вызовем соответствующее событие
-        this.fire("keyframecollectionchange", {
+        this.fire(app.events.keyframecollection.CHANGE, {
             key:newTime, 
             oldKey:oldTime,//возможножно бесполезные данные
             keyframeCollection:this,
@@ -129,7 +129,7 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
             
             
         //вызовем соответствующее событие
-        this.fire("keyframecollectionchange", {
+        this.fire(app.events.keyframecollection.CHANGE, {
             key:newTime, 
             oldKey:oldTime,//возможножно бесполезные данные
             keyframeCollection:this,
@@ -147,7 +147,7 @@ Define('app.business.model.KeyframeCollection', /** @lends {app.business.model.K
         //this[time].fire('onRemove');
         var keyframe=this[time]
         delete this[time];
-        this.fire("keyframecollectionchange", {
+        this.fire(app.events.keyframecollection.CHANGE, {
             key:time,
             keyframeCollection:this,
             value:keyframe,

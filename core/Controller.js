@@ -15,12 +15,7 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
         //this.apply();
         this._super();
 
-        //FIXME: удалить это
-        if('domListeners' in this) {
-            debugger;
-//            this.addListeners(this.domListeners);
-            this.bind( Object.keys( this.domListeners ) );
-        }
+        if('domListeners' in this) this.bind( Object.keys( this.domListeners ) );
     },    
 
     /**
@@ -143,14 +138,7 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
      * Деструктор
      */
     destroy: function() {
-        debugger;
-        var key, event;
-        for (var eventName in this._listeners) {
-            eventName = eventName.split(":");
-            key = eventName[0];
-            name = eventName[1];
-            this.removeEventListener(key, event);
-        }
+        // TODO: тут отвязать обработчики событий от DOM элементов
         this._super();
     }
 

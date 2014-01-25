@@ -18,7 +18,7 @@ Define('app.timeline.panels.right.Property', {
         });
         this.dom.property = this.dom.root.querySelector('[property]');
 
-        this.offsetX = 0; //
+        this.dragOffsetX = 0; //
 
         this.addListeners(['property'], this.events);
         this.render();
@@ -59,7 +59,7 @@ Define('app.timeline.panels.right.Property', {
             mousedown: function(event) {
                 var propertyOffsetX = this.getPropertyOffsetX();
                 var editorOffsetX = this.parent.parent.getEditorOffsetX();
-                this.offsetX = event.pageX - (propertyOffsetX - editorOffsetX);
+                this.dragOffsetX = event.pageX - (propertyOffsetX - editorOffsetX);
                 this.addListeners(['document'], this.events);
                 event.stopPropagation();
                 event.preventDefault();
@@ -67,7 +67,7 @@ Define('app.timeline.panels.right.Property', {
         },
         document: {
             mousemove: function(event) {
-                this.dom.property.style.left = event.pageX - this.offsetX + 'px';
+                this.dom.property.style.left = event.pageX - this.dragOffsetX + 'px';
             },
             mouseup: function() {
                 this.removeListeners(['document'], this.events);
@@ -78,7 +78,7 @@ Define('app.timeline.panels.right.Property', {
 
     getPropertyOffsetX: function() {
         var rect = this.dom.property.getBoundingClientRect();
-        return rect.left - window.pageXOffset;
+        return rect.left;
     },
 
 

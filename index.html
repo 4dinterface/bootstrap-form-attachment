@@ -234,6 +234,17 @@
                                     <div id="timeline-panel-right__editor-head" class="timeline__editor_head">
                                         <div id="timeline-panel-right__ruler" class="timeline__ruler_box">
                                             <!--here ruler-->
+                                            <div class="timeline-panel-right__ruler__division"></div>
+                                            <div class="timeline-panel-right__ruler__division_half"></div>
+                                            <div class="timeline-panel-right__ruler__division_vertex">
+                                                <div class="timeline-panel-right__ruler__division_vertex__number">1</div>
+                                            </div>
+                                            <div class="timeline-panel-right__ruler__division_half"></div>
+                                            <div class="timeline-panel-right__ruler__division"></div>
+                                            <div class="timeline-panel-right__ruler__division_half"></div>
+                                            <div class="timeline-panel-right__ruler__division_vertex">
+                                                <div class="timeline-panel-right__ruler__division_vertex__number">2</div>
+                                            </div>
                                         </div>
                                         <div class="timeline__ruler_background"></div>
                                         <div id="timeline-panel-right__runner-head" class="timeline__runner_head"></div>
@@ -294,7 +305,10 @@
                     {/template}
 
                     {template app.templates.timeline.panels.right.keyframe(data)}
-                        <div class="timeline__keyframe" style="left: {data.left}px;"></div>
+                        <div class="timeline__keyframe" style="left: {data.left}px;">
+                            <div class="timeline__keyframe__end"></div>
+                            <div class="timeline__keyframe__start"></div>
+                        </div>
                     {/template}
                 </script>
             <!-- END SNAKESKIN TEMPLATES -->

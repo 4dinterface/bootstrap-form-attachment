@@ -68,7 +68,7 @@ Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototy
     
     //автогенерация событий при вызове методов
     autoFireEvent:{            
-        "set":"compositionchange"
+        "set": app.events.composition.CHANGE
     },
 
 

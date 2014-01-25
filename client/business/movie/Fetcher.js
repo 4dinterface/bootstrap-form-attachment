@@ -41,7 +41,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         });
 
         if (!someoneRendered) {
-            self.fire('noshaperendered');
+            self.fire(app.events.fetcher.NO_SHAPE_RENDERED);
         }
     },
 

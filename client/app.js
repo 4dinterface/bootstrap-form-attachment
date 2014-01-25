@@ -90,6 +90,7 @@ $( function () {
              "client/presentation/timelineEditor/timeline/panels/right/Runner.js",
              "client/presentation/timelineEditor/timeline/panels/right/Shape.js",
              "client/presentation/timelineEditor/timeline/panels/right/Property.js",
+             "client/presentation/timelineEditor/timeline/panels/right/Transition.js",
              "client/presentation/timelineEditor/timeline/panels/right/Keyframe.js",
              // --------------------------------
              "client/presentation/timelineEditor/Component.js",

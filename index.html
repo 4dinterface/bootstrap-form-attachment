@@ -287,9 +287,11 @@
                     {/template}
 
                     {template app.templates.timeline.panels.right.property(data)}
-                        <div line class="timeline__line">
-                            <div property class="timeline__property" style="left: {data.left}px; width: {data.width}px;"></div>
-                        </div>
+                        <div class="timeline__property"></div>
+                    {/template}
+
+                    {template app.templates.timeline.panels.right.transition(data)}
+                        <div class="timeline__transition" style="left: {data.left}px; width: {data.width}px;"></div>
                     {/template}
 
                     {template app.templates.timeline.panels.right.keyframe(data)}

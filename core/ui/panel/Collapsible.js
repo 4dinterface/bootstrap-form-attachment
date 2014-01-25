@@ -23,15 +23,17 @@ Define("core.ui.panel.Collapsible", /** @lends {app.Component.prototype} */({
     
     init: function (cfg) {
         this.apply(cfg);
-        this._super();
+        this._super();                
         
         var me=this;
         
-        $( this.domTarget ).append(this.tmpl);
+        $( this.domTarget ).append(this.tmpl);        
                 
         $( this.domTarget ).find('.ui-property-block__header').click(function(){                                        
             $('.innerPanel',me.domTarget).toggle();
         });
+        
+        $( this.domTarget ).find('.ui-property-block__header__title').html(cfg.title);
     },
     
     // Добавить

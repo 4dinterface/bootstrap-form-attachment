@@ -190,16 +190,6 @@ Define("core.Component", /** @lends core.Component.prototype */{
 
     },
 
-    /**
-     * Удалит все события и обработчики
-     */
-    destructor: function () {
-        for (var eventName in this.event) {
-            // Массивы съест GC
-            delete this.event[name];
-        }
-    },
-
     /*
      * Метод обеспечивающий всплытие
      * в данный момент не применяется, вероятно будет удален
@@ -287,12 +277,22 @@ Define("core.Component", /** @lends core.Component.prototype */{
 
     /**
      * Деструктор
+     * Уберёт все замыкания
      */
     destroy: function() {
-        var props = Object.keys(this);
-        for(var name in props) {
-            delete this[props[name]];
+
+        var listeners,
+            callback;
+
+        // Удаление обработчиков событий
+        for (var eventName in this.event) {
+            var listeners = this.event[eventName];
+            for (var i = 0; i < listeners.length; i++) {
+                callback = listeners[i].callback;
+                this.off(eventName, callback);
+            }
         }
+
     }
 
 

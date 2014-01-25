@@ -65,7 +65,6 @@ Define( 'app.business.model.Project', /** @lends {app.model.Keyframe.prototype} 
             value: value
         });
         
-        this.liftEvent(value);        
     },
                             
     //очистка

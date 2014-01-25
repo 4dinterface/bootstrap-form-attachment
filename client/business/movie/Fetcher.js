@@ -13,7 +13,7 @@
  */
 Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
 
-    extend: core.Component,
+    extend: "core.Component",
 
     /**
      * Данные, которыми может располагать Fetcher

@@ -31,10 +31,14 @@
 Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
     extend:"core.Component",
     
+    //зависит от класса 
+    require:["core.widget.widgetManager"],
+    
     isWidget:true,
     
     domTarget:"",
     widget:"",
+    
     
     
     

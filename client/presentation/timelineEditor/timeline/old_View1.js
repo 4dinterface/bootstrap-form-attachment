@@ -8,7 +8,7 @@
 
 Define( "app.timeline.View", /** @lends {app.component} */{
 
-    extend: core.Component,
+    extend: "core.Component",
 
     /**
      * Данные модели таймлайна

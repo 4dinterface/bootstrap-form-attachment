@@ -7,18 +7,18 @@
  */
 Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */({
 
-	extend: createjs.Stage,
-        mixins:[ core.Component ],
+	extend: "createjs.Stage",
+        mixins:[ "core.Component" ],
 
 	// инициализация
 	init  : function () {            
-		var me = this;
-                this.event={};
+            var me = this;
+            this.event={};
 
-		$(function () {
-			canvas = $("#canvas")[0];
-			me.initialize(canvas);
-		});
+            $(function () {
+                canvas = $("#canvas")[0];
+		me.initialize(canvas);
+            });
 	},
 
                     
@@ -27,6 +27,7 @@ Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */
          */
         update:function(){            
             this._super();
+            console.log(this);
             this.fire('onrender',{})
         },        
 

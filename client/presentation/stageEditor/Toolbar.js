@@ -1,6 +1,6 @@
 Define("app.presentation.panels.Toolbar", {
 
-    extend: core.Component,
+    extend: "core.Component",
 
     init: function () {
 

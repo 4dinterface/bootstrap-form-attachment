@@ -7,7 +7,7 @@
  * 
  */
 Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
-    extend: core.Component,
+    extend: "core.Component",
     
     /**
      * Сцена

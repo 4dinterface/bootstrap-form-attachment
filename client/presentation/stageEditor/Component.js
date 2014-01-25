@@ -9,7 +9,7 @@
 
 Define( 'app.presentation.stageEditor.Component', {
 
-    extend: core.Component,
+    extend: "core.Component",
     //view таймлайна
     
     //view:null,

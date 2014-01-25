@@ -41,17 +41,19 @@ window.core.ClassLoader=window.core.ClassLoader||{};
         //TODO: Временно закомментировал, т.к. слетают точки останова
 	//script.src = src+"?ns="+( Math.random()*1000 );
         script.src = src;
+        
+        //Если функция define обьявлена то можно грузить асинхронно
+        //script.async=(core.Define)?true:false;        
         script.async=false;        
 
 	document.getElementsByTagName("head")[0].appendChild(script);        
         
 	//обработчик загрузки
-	script.onload = function () {
-            callback();
-	};        
+	script.onload = callback;   
+	
     };
     
-//core/ui/style.css
+    //core/ui/style.css
     p.loadStyle=function(src,callback){
         var style = document.createElement("link");
 
@@ -60,13 +62,8 @@ window.core.ClassLoader=window.core.ClassLoader||{};
         style.href = src;
         style.rel = "stylesheet";
         
-
-	document.getElementsByTagName("head")[0].appendChild(style);        
-        
-	//обработчик загрузки
-	//script.onload = function () {
-            //callback();
-	//};        
+	document.getElementsByTagName("head")[0].appendChild(style);                
+        //ждать загрузки стиля нет надобности (по крайней мере пока) :)
         callback();
     },        
     
@@ -87,11 +84,17 @@ window.core.ClassLoader=window.core.ClassLoader||{};
             
     //подгружает скрипты   
     p.require=function(prop,callback){                        
-        p.load(prop,function(){            
-            $(function(){                
-                callback();   
+        p.load(prop,function(){                        
+            //проверяем чтобы все классы были загружены
+            p.waitReady(function(){                    
+                if(p.waitList.length==1) {
+                    p.waitList.splice(0,1);                        
+                    $(callback);
+                }
+            })
+                //callback();   
             });            
-        });                
+        
     },
     
     p.load=function(prop,callback){
@@ -109,7 +112,12 @@ window.core.ClassLoader=window.core.ClassLoader||{};
             } else if (ext=='js'){                            
                 me.loadScript(fname,function(){
                     count--;
-                    if (count==0) callback();
+                    if (count==0) {
+                        callback();               
+                        
+                        //сообщим ожидающим функция о том что еще один скрипт загружен
+                        p.fireReady();            
+                    }
                 });                
             } else if(ext=="css"){
                 me.loadStyle(fname,function(){});                
@@ -119,8 +127,43 @@ window.core.ClassLoader=window.core.ClassLoader||{};
             
         })                                
     }            
+    
+    //список классов ожидающих загрузки
+    p.waitList=[];
+    
+    //регистрируем функцию ожидающую загрузки
+    p.waitReady=function(wait){
+        this.waitList.push(wait);
+    }
+    
+    //Проверяем какаие классы готовы к инициализации
+    p.fireReady=function(){
+        var i=this.waitList.length;
+        while(i--){
+            //если ready функция класса вернет true тогда удалимм ее из списка и перезапустим цикл
+            if ( this.waitList[i]()==true ){
+                this.waitList.splice(i,1)
+                i=this.waitList.length;
+            }
+        }
+    }
+    
     core.require=p.require;
     
     //creatorScript: function (src, parent) {}
 }(core.ClassLoader);    
 //});
+
+//устанавливает значение по неймспейсу
+core.NS=function(name, obj) {
+    var result = window;
+    name.split(".").forEach(function (val, num, arr) {        
+
+        if (num == arr.length - 1) result[val] = obj||result[val];
+        else result[val] = result[val] || {};
+
+        result = result[val];
+    });
+
+    return result;
+}   

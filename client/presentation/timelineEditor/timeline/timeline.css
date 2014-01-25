@@ -104,9 +104,9 @@
     bottom: 0px;
     width: 6px;
     margin: 3px 0 0 -3px;
-    background-color: #EDEDED;
-    /*background-color: #DED300;*/
-    /*background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAATCAYAAACz13xgAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAWOwAAFjsBpM94xAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAB8SURBVBiV7cw7DoJQGETh818oqaiUtVm4AEo7Qy4kBDsLN2Dj1sBHYkFiQoEwFhQ0mLgApzxfMiYJAK5FhehJvAcwScatOPFuUywAF5WsfWaq8zPDY8vzAhZCvIEwPpjqvbgfYeymSxfBaodDwxwBxtfkfNkffgdTk2sJPhpfKbIo1LZhAAAAAElFTkSuQmCC") left top no-repeat;*/
+    /*background-color: #EDEDED;*/
+    background-color: #DED300;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAATCAYAAACz13xgAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAWOwAAFjsBpM94xAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAB8SURBVBiV7cw7DoJQGETh818oqaiUtVm4AEo7Qy4kBDsLN2Dj1sBHYkFiQoEwFhQ0mLgApzxfMiYJAK5FhehJvAcwScatOPFuUywAF5WsfWaq8zPDY8vzAhZCvIEwPpjqvbgfYeymSxfBaodDwxwBxtfkfNkffgdTk2sJPhpfKbIo1LZhAAAAAElFTkSuQmCC") left top no-repeat;
 }
 
 /* END TIMELINE EDITOR HEAD */
@@ -210,8 +210,8 @@
     top: 0px;
     bottom: 0px;
     margin-left: -1px;
-    /*background-color: #ffcc00;*/
-    background-color: #EDEDED;
+    background-color: #ffcc00;
+    /*background-color: #EDEDED;*/
     width: 2px;
 }
 

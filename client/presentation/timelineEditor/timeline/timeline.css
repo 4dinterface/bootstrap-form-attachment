@@ -46,7 +46,38 @@
 .timeline__ruler_background {
     height: 22px;
     margin-top: -22px;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QMTEB0DHTu5JgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY2CAgv///5vjYDAwMAAAvw0JnXzCDWwAAAAASUVORK5CYII=");
+}
+
+.timeline-panel-right__ruler__division {
+    border-right: 1px solid #b2b2b2;
+    width: 40px;
+    height: 4px;
+    margin: 18px 0 0 0;
+    float: left;
+}
+
+.timeline-panel-right__ruler__division_half {
+    border-right: 1px solid #b2b2b2;
+    width: 40px;
+    height: 6px;
+    margin: 16px 0 0 0;
+    float: left;
+}
+
+.timeline-panel-right__ruler__division_vertex {
+    border-right: 1px solid #b2b2b2;
+    width: 40px;
+    height: 10px;
+    margin: 12px 0 0 0;
+    float: left;
+    position: relative;
+}
+.timeline-panel-right__ruler__division_vertex__number {
+    position: absolute;
+    right: 0;
+    margin: -4px -12px 0 0;
+    font: 11px "Arial";
+    color: #e4e4e4;
 }
 
 /**
@@ -72,9 +103,9 @@
     left: 0px;
     bottom: 0px;
     width: 6px;
-    margin-left: -3px;
+    margin: 3px 0 0 -3px;
     background-color: #DED300;
-    border: 1px solid #000;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAATCAYAAACz13xgAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAWOwAAFjsBpM94xAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAB8SURBVBiV7cw7DoJQGETh818oqaiUtVm4AEo7Qy4kBDsLN2Dj1sBHYkFiQoEwFhQ0mLgApzxfMiYJAK5FhehJvAcwScatOPFuUywAF5WsfWaq8zPDY8vzAhZCvIEwPpjqvbgfYeymSxfBaodDwxwBxtfkfNkffgdTk2sJPhpfKbIo1LZhAAAAAElFTkSuQmCC") left top no-repeat;
 }
 
 /* END TIMELINE EDITOR HEAD */
@@ -99,7 +130,7 @@
 /**
  * Линия редактора таймлайна
  */
-.timeline__line {
+.timeline__property {
     height: 18px;
 
     /* TODO Пока так. Как должно быть https://webdav.yandex.ru/inkscape-amix20.png */
@@ -113,7 +144,7 @@
 /**
  * Свойство/блок на линии в редакторе таймлайна
  */
-.timeline__property {
+.timeline__transition {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
@@ -126,7 +157,7 @@
 /**
  * Выделенное свойство/блок
  */
-.timeline__property_select {
+.timeline__transition_select {
     background-color: #7a9900;
 }
 
@@ -146,6 +177,23 @@
     border-radius: 6px;
     position: absolute;
 }
+.timeline__keyframe__start {
+    position: absolute;
+    width: 5px;
+    height: 14px;
+    margin-left: 3px;
+    margin-top: -4px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAOCAYAAADnqNYmAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAdHQAAHR0BuLam0AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADWSURBVBiVYzg0mzHt////DMiYiZmZqe7YAjYtBiTAxMPN/puLk2PWgVmMrHBBBob/DGKiwlZ8fHz9cEFGBgYGZmYmRjEx8agzy/j9oSoZGBkYGBh4efkEBQSFWw/MYhRiYWBk+A/TJi2jqP3z568FcJUM/6FyjIzsTDAxBgYGhmdPH9x49+ZFLBNM4POXzx/ev39TY5v8+xULAwMD49+///6/evVmmUnkx7UMDAwMLAwMDAyvXr89+unT53yYLpbPX38yMfxnSnZI+/8HbvihOUwJ6AECAAIDVmu4oCjyAAAAAElFTkSuQmCC") left top no-repeat;
+}
+.timeline__keyframe__end {
+    position: absolute;
+    width: 5px;
+    height: 14px;
+    margin-left: -2px;
+    margin-top: -4px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAOCAYAAADnqNYmAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAdEQAAHREBY8EppwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADISURBVBiVY/z//z8DMjg8hymREVnw2Hw2bQaGfzvhggdmMbLy8/MeZGb8I8kEU8XLyzdZXFTIgoGBgYGJgYGB4fRSvmBxcfEwZmZmRkYGBgamA7MYRQUEhZt5eXgFoZoYmYRFJBfJyCppwm1jZPjPxMTMDDcXrvLdmxexz54+vP4fSSmTbfLvV+/fv6798uXLB5gwEwMDA4NJ5Me1r169XPr379//DAwMjCww2U+fPhYwMf3TZWZkkEf3phoj4//djBgBMpc5AQAC4ERb6V7VIAAAAABJRU5ErkJggg==") left top no-repeat;
+}
+
 
 /**
 * Бегунок
@@ -154,8 +202,8 @@
     position: absolute;
     top: 0px;
     bottom: 0px;
-
-    background-color: #DED300;
+    margin-left: -1px;
+    background-color: #ffcc00;
     width: 2px;
 }
 

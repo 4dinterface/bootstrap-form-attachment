@@ -1,6 +1,6 @@
     Define("app.business.stageEditor.Сontroller", {
 
-    extend: core.Component,
+    extend: "core.Component",
 
     behaviours:{
         move:"app.presentation.stageEditor.behaviours.Selector",

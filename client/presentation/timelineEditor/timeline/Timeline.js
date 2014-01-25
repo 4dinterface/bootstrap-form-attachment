@@ -32,7 +32,7 @@
 'use strict';
 
 Define('app.presentation.timelineEditor.Component', {
-    extend: app.timeline.Component,
+    extend: "app.timeline.Component",
 
 
     init: function() {

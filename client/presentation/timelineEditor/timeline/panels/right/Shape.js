@@ -3,8 +3,7 @@
 'use strict';
 
 Define('app.timeline.panels.right.Shape', {
-    extend: app.timeline.Component,
-
+    extend: "app.timeline.Component",
 
     init: function() {
         this._super();

@@ -7,7 +7,7 @@
  */
 Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.prototype */({
     //наследование
-    extend: core.Component,
+    extend: "core.Component",
 
     cache: null,
     data: null,

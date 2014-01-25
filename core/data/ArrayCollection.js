@@ -5,7 +5,7 @@
  * @extends {app.Component}
  */
 Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
-    extend : core.Component,
+    extend : "core.Component",
     data:null,
 
     isModel:false,

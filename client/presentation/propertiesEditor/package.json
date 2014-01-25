@@ -1,0 +1,5 @@
+[
+    "client/presentation/propertiesEditor/View.js",
+    "client/presentation/propertiesEditor/Controller.js",
+    "client/presentation/propertiesEditor/Component.js"
+]

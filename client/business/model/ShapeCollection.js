@@ -34,7 +34,7 @@
  
 Define('app.business.model.ShapeCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
     //по сути это arrayCollection
-    extend : core.data.ArrayCollection,
+    extend : "core.data.ArrayCollection",
     data:null,
 
     /**

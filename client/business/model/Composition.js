@@ -40,7 +40,7 @@
 Define( 'app.business.model.Composition', /** @lends {app.model.Keyframe.prototype} */ {
 
     //Композиция это типичная модель
-    extend: core.data.Model,
+    extend: "core.data.Model",
     
     //TODO - предпочтительно чтобы мсвойства хранились в атрибутах модели, а не просто как свойства
     // 

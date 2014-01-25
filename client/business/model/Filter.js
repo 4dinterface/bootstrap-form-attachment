@@ -29,7 +29,7 @@
  */
 
 Define('app.business.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
-	extend : core.data.Model,//
+	extend : "core.data.Model",//
 	/***
 	 * Конструктор экземпляров
 	 * @constructor

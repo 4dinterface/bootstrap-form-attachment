@@ -26,7 +26,7 @@
 
 Define('app.business.model.FilterCollection', /** @lends {app.Model} */ {
     //можно унаследовать от 
-    extend : core.data.ArrayCollection,    
+    extend : "core.data.ArrayCollection",    
     /***
      * Конструктор экземпляров
     * @constructor

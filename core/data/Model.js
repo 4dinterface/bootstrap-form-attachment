@@ -4,7 +4,7 @@
  * @extends {core.Component}
  */
 Define('core.data.Model', /** @lends {core.data.Model.prototype} */ {
-    extend : core.Component,
+    extend : "core.Component",
     data : null,
     isModel:true,
     isCollection:false,

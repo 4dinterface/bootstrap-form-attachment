@@ -2,7 +2,7 @@
  * Html Element
  */
 Define('app.presentation.stage.shape.HtmlElement', {
-	extend: createjs.DOMElement,
+	extend: "createjs.DOMElement",
         //extend:createjs.Container,
         
         width:70,

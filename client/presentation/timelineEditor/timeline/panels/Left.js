@@ -3,7 +3,7 @@
 'use strict';
 
 Define('app.timeline.panels.Left', {
-    extend: app.timeline.Component,
+    extend: "app.timeline.Component",
 
 
     init: function() {

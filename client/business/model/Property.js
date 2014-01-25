@@ -43,7 +43,7 @@
 
 //компонент в разработке
 Define('app.business.model.Property', /** @lends {app.business.model.Keyframe.prototype} */ {
-	extend : core.data.Model,
+	extend : "core.data.Model",
 	/***
 	 * Конструктор экземпляров
 	 * @constructor

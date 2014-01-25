@@ -6,7 +6,7 @@
  */
 
 Define( "app.presentation.properties.View", /** @lends {app.component} */ {
-    extend: core.View,
+    extend: "core.View",
     
     //автоматически следим за созданием и удалением виджетов
     widgetObserver:true,    

@@ -1,0 +1,25 @@
+[
+    "client/business/model/Keyframe.js",
+    "client/business/model/KeyframeCollection.js",
+    
+    "client/business/model/KeyframeBlock.js",
+    "client/business/model/KeyframeBlockCollection.js",
+    
+    "client/business/model/Property.js",       
+    "client/business/model/PropertyCollection.js",       
+    "client/business/model/Filter.js",   
+    "client/business/model/FilterCollection.js",             
+    "client/business/model/Shape.js",   
+    "client/business/model/ShapeCollection.js",
+    "client/business/model/Composition.js",
+    "client/business/model/CompositionCollection.js",
+    "client/business/model/Symbol.js",
+    "client/business/model/SymbolCollection.js",
+    "client/business/model/Project.js",        
+        
+    "client/business/movie/Fetcher.js",
+    "client/business/movie/Movie.js",
+    "client/business/movie/StageBuilder.js",
+                                         
+    "client/business/Facade.js"
+]

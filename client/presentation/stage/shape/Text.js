@@ -3,7 +3,7 @@
  */
 
 Define('app.presentation.stage.shape.Text', {
-	extend: createjs.Text,
+	extend: "createjs.Text",
         
         //text:"текст Big big big text very very very",
         font:"35px Arial",

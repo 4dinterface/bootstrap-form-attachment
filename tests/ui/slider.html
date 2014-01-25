@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+                
+        <link rel="stylesheet" href="/css/ui.css"/>
+        <script src="/frameworks/zepto/zepto.js"></script>
+        
+        <!-- ЗАГРУЗКА ПРИЛОЖЕНИЯ -->
+        <script src="/core/Core.js"></script>                
+    </head>
+    
+    <body>
+        <h1></h1>        
+        <script>
+            core.require([ "/core/package.json"], function(){
+                var model=new core.data.Model({
+                    test:0.1
+                })
+                
+                //alert(core.ui.form.Range);
+                var r1=new core.ui.form.Range({            
+                     scope:model,            
+                    'data-dsource':'test'
+                })
+                
+                /*var r1=core.widget.widgetManager.createWidget('Range',{            
+                     scope:model,            
+                    'data-dsource':'test'
+                })*/          
+                
+                $('body').append(r1.domTarget);
+                
+                model.on('change',function(){
+                    alert(1213143);
+                    $('h1').html('x');                
+                })
+            });
+        </script>    
+    </body>    
+    
+</html>

@@ -25,10 +25,16 @@ and open the template in the editor.
                     test:0.1
                 })
                 
-                var r1=core.widget.widgetManager.createWidget('Range',{            
+                //alert(core.ui.form.Range);
+                var r1=new core.ui.form.Range({            
                      scope:model,            
                     'data-dsource':'test'
-                })          
+                })
+                
+                /*var r1=core.widget.widgetManager.createWidget('Range',{            
+                     scope:model,            
+                    'data-dsource':'test'
+                })*/          
                 
                 $('body').append(r1.domTarget);
                 

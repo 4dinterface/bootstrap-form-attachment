@@ -71,13 +71,13 @@ Define("core.widget.Widget", /** @lends core.widget.Widget.prototype */{
         //здесь хранятся дочерние виджеты        
         this.childrens=[];
         
-        this.bindPropName= property['data-dsource']; //this.domTarget.attr('data-dsource');                        
+        this.bindPropName= property['property']||property['data-dsource']; //this.domTarget.attr('data-dsource');                        
         this._super();     
                
         this.domTarget=$(this.domTarget);                
         
         // пометим виджет классом, чтобы отличать активированные виджеты от неактивированных
-        $(this.domTarget).addClass('live_widget');
+        this.domTarget.addClass('live_widget');
                                              
         //если нет id то он будет сгенерирован автматически
         if ($(this.domTarget).attr("id")=="" ) $(this.domTarget).attr("id", core.utilites.genId() );

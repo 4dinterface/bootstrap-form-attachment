@@ -12,7 +12,7 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     max:100,//TODO придумать как использовать max
     //startY:0,            
     
-    tmpl:'<div class="ui-element">'+
+    tmpl:'<div class="ui-element widget_range">'+
             '<i class="ui-pic ui-pic-alpha"></i>'+
             '<div class="ui-pipe">'+
                 '<div class="ui-pipe__shadow"></div>'+
@@ -41,22 +41,17 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
     init: function (cfg) {                                        
         this.apply(cfg);        
         
-        this.domTarget=$(this.domTarget);
-        this.domTarget.addClass('widget_range');                        
-               
-        //применим шаблон        
-        this.domTarget.append(this.tmpl);            
-
+        //создадим шаблон
+        this.domTarget=$(this.tmpl);                       
+        
         //получим ссылки на нужные dom из шаблона                    
         this.indicator=this.domTarget.find('.ui-range-horizontal__indicator');                                        
         this.input=this.domTarget.find('input');                                        
         this.uiRange=this.domTarget.find('.ui-range-horizontal');
         
-        this.baseX=this.indicator.offset().left;
-        
+        this.baseX=this.indicator.offset().left;        
         this.scope=cfg.scope|| this.getScope();
-                
-        
+                        
         //вызовем родительский конструктор
         this._super();                        
                      
@@ -128,4 +123,5 @@ Define("core.ui.form.Range", /** @lends {app.Component.prototype} */{
         
         this.input.val(this.value*100);
     }        
+    
 });

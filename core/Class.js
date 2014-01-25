@@ -41,8 +41,7 @@
     function Class(name, prop){
         
         var classNsArr=name.split('.'),
-        className=classNsArr[classNsArr.length-1]; //отделяет имя класса от неймспейса     
-        
+            className=classNsArr[classNsArr.length-1]; //отделяет имя класса от неймспейса     
     
         //если extend( родительский класс ) передали строкой
         prop.extend =typeof prop.extend == "string" ? core.NS(prop.extend): prop.extend;
@@ -54,19 +53,18 @@
             //конструктор    
             Child = function () {
                 if (this.init) return this.init.apply(this, arguments)||this;
-            };
-                    
+            };                    
 
         //child prototype - скопируем туда родителя
-        child.prototype = Object.create( src.prototype || src );
+        Child.prototype = Object.create( src.prototype || src );
 
         //ссылки на класс
-        child.prototype["proto"] = child.prototype;
-        child.prototype["_parentClass"] = src.prototype || src;
+        Child.prototype["proto"] = Child.prototype;
+        Child.prototype["_parentClass"] = src.prototype || src;
 
         //неймспес класса
-        child.prototype._classNS=name;
-        child.prototype._className=className;    
+        Child.prototype._classNS=name;
+        Child.prototype._className=className;    
 
         //prop
         //NS child.prototype[x]
@@ -82,7 +80,7 @@
         
                 //копируем свойства
                 for (var x in mixsrc.prototype) { 
-                    child.prototype[x] = mixsrc.prototype[x];
+                    Child.prototype[x] = mixsrc.prototype[x];
                 }
                 //console.log('mixins prototype=', child.prototype);
             }
@@ -94,7 +92,7 @@
             if (typeof prop[x] == "function")
                 if ( fnTest.test(prop[x]) ) prop[x] = wrapper(x, prop[x], src.prototype);
 
-            child.prototype[x] = prop[x];                
+            Child.prototype[x] = prop[x];                
         }
 
         // ============ поддержка интерфейсов (DRIFT)=============//
@@ -111,12 +109,12 @@
         }*/
 
         //вызовем препроцессор, если есть
-        if ('preprocessor' in child.prototype) child.prototype.preprocessor(child);
+        if ('preprocessor' in Child.prototype) Child.prototype.preprocessor(Child);
 
         // специальный режим при котором несоздаётся класс, вместо этого сразу создаётся экземпляр
-        if (prop.mode=='one') child=new child();            
+        if (prop.mode=='one') Child=new Child();            
                 
-        return child;
+        return Child;
     };    
 
 

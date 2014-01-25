@@ -9,13 +9,6 @@ Define('app.timeline.panels.right.Property', {
     init: function() {
         this._super();
 
-//        var keys = this.model.get('keyframeCollection').cache;
-
-//        this.dom.document = document;
-//        this.dom.root = this.dom.children = this.template.compile({
-//            left: this.utilites.toPixels(this.composition.pixelsPerSecond, keys[0]),
-//            width: this.utilites.toPixels(this.composition.pixelsPerSecond, keys[keys.length - 1])
-//        });
         this.dom.root = this.dom.children = this.template.compile();
 
         this.render();
@@ -45,14 +38,6 @@ Define('app.timeline.panels.right.Property', {
                 parent: this
             }));
         }
-
-//        this.model.get('keyframeCollection').forEach(function(item) {
-////            this.addChild(new app.timeline.panels.right.Keyframe({
-////                composition: this.composition,
-////                model: item,
-////                parent: this
-////            }));
-//        }, this);
     },
 
 
@@ -64,37 +49,6 @@ Define('app.timeline.panels.right.Property', {
         this.dom.children.appendChild(child.dom.root);
         this.children.push(child);
     },
-
-//    /**
-//     * Обработчики DOM событий для элементов this.dom[key]
-//     * @this {child}
-//     */
-//    events: {
-//        property: {
-//            mousedown: function(event) {
-//                var propertyOffsetX = this.getPropertyOffsetX();
-//                var editorOffsetX = this.parent.parent.getEditorOffsetX();
-//                this.dragOffsetX = event.pageX - (propertyOffsetX - editorOffsetX);
-//                this.addListeners(['document'], this.events);
-//                event.stopPropagation();
-//                event.preventDefault();
-//            }
-//        },
-//        document: {
-//            mousemove: function(event) {
-//                this.dom.property.style.left = event.pageX - this.dragOffsetX + 'px';
-//            },
-//            mouseup: function() {
-//                this.removeListeners(['document'], this.events);
-//            }
-//        }
-//    },
-//
-//
-//    getPropertyOffsetX: function() {
-//        var rect = this.dom.property.getBoundingClientRect();
-//        return rect.left;
-//    },
 
 
     /**

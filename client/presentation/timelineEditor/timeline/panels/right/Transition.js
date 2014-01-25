@@ -17,9 +17,9 @@ Define('app.timeline.panels.right.Transition', {
             width: this.utilites.toPixels(this.composition.pixelsPerSecond, keyframes[1] - keyframes[0])
         });
 
-//        this.dragShiftX = 0; //
+        this.dragShiftX = 0; //
 
-//        this.addListeners(['runnerHead'], this.events);
+        this.addListeners(['root'], this.events);
     },
 
 
@@ -27,32 +27,31 @@ Define('app.timeline.panels.right.Transition', {
      * Обработчики DOM событий для элементов this.dom[key]
      * @this {child}
      */
-//    events: {
-//        runnerHead: {
-//            mousedown: function(event) {
-//                this.dragShiftX = this.parent.getEditorOffsetX();
-//                this.addListeners(['document'], this.events);
-//                event.stopPropagation();
-//                event.preventDefault();
-//            }
-//        },
-//        document: {
-//            mousemove: function(event) {
-//                var x = Math.max(event.pageX - this.dragShiftX, 0);
-//                var ms = this.utilites.toMilliseconds(this.composition.pixelsPerSecond, x);
-//                this.movie.gotoAndStop(ms);
-//            },
-//            mouseup: function() {
-//                this.removeListeners(['document'], this.events);
-//            }
-//        }
-//    },
-//
-//
-//    moveTo: function(x) {
-//        this.dom.runnerHead.style.left = x + 'px';
-//        this.dom.runnerBody.style.left = x + 'px';
-//    },
+    events: {
+        root: {
+            mousedown: function(event) {
+                var offsetX = event.pageX - this.getRootOffsetX();
+                this.dragShiftX = offsetX + this.parent.parent.parent.getEditorOffsetX();
+                this.addListeners(['document'], this.events);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        },
+        document: {
+            mousemove: function(event) {
+                this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';
+            },
+            mouseup: function() {
+                this.removeListeners(['document'], this.events);
+            }
+        }
+    },
+
+
+    getRootOffsetX: function() {
+        var rect = this.dom.root.getBoundingClientRect();
+        return rect.left;
+    },
 
 
     /**

@@ -76,11 +76,6 @@ Define('app.business.model.Property', /** @lends {app.business.model.Keyframe.pr
                 value:value
             });
 
-            // всплытие
-            this.liftEvent(value,function(e){                
-                e.property=me;
-                me.fire(e.eventName,e);
-            })            
 	},
                 
     /**

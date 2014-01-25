@@ -130,12 +130,6 @@ Define("core.Component", /** @lends core.Component.prototype */{
             }
         }
 
-        //TODO buble event вероятно устарела, проверить и если не используется удалить
-        //bubble event 
-        for (item in this.event['bubble']) {
-            this.event['bubble'][item].callback.call(context, options);
-        }
-
     },
 
     /**
@@ -189,38 +183,6 @@ Define("core.Component", /** @lends core.Component.prototype */{
         }
 
     },
-
-    /*
-     * Метод обеспечивающий всплытие
-     * в данный момент не применяется, вероятно будет удален
-     */
-    liftEvent: function (src, opt) {
-        //console.log('buble');
-
-        var me = this;
-        if (!src.on) return;
-
-        switch (typeof opt) {
-            //если второй параметр undefined
-            case "undefined":
-                src.on('bubble', function (e) {
-                    me.fire(e.eventName, e);
-                })
-                break;
-
-            //если второй параметр функция
-            case "function":
-                src.on('bubble', opt)
-                break;
-
-            case "object":
-                /*src.on('bubble',function(e){
-                 me.fire(e.eventName,e);
-                 })*/
-                break;
-        }
-    },
-
 
     //вставляет свойста в обьект
     apply: function (prop) {

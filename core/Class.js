@@ -42,19 +42,20 @@
         
         var classNsArr=name.split('.'),
         className=classNsArr[classNsArr.length-1]; //отделяет имя класса от неймспейса     
+        
     
         //если extend( родительский класс ) передали строкой
         prop.extend =typeof prop.extend == "string" ? core.NS(prop.extend): prop.extend;
         
-        if(prop.extend) console.log('prop.extend',prop.extend.prototype);
+        //if(prop.extend) console.log('prop.extend',prop.extend.prototype);
 
         //проверим передали ли ли нам extend вообще
         var src = prop.extend || {},
             //конструктор    
-            child = function () {
+            Child = function () {
                 if (this.init) return this.init.apply(this, arguments)||this;
             };
-            
+                    
 
         //child prototype - скопируем туда родителя
         child.prototype = Object.create( src.prototype || src );

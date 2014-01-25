@@ -112,11 +112,11 @@ window.core.ClassLoader=window.core.ClassLoader||{};
             } else if (ext=='js'){                            
                 me.loadScript(fname,function(){
                     count--;
-                    if (count==0) {
-                        callback();               
-                        
-                        //сообщим ожидающим функция о том что еще один скрипт загружен
+                    if (count==0) {                                                
+                        //сообщим ожидающим функция о том что еще один скрипт загружен                        
                         p.fireReady();            
+                        
+                        callback();               
                     }
                 });                
             } else if(ext=="css"){
@@ -134,6 +134,8 @@ window.core.ClassLoader=window.core.ClassLoader||{};
     //регистрируем функцию ожидающую загрузки
     p.waitReady=function(wait){
         this.waitList.push(wait);
+        //сразу проверим на готовность
+        this.fireReady();
     }
     
     //Проверяем какаие классы готовы к инициализации

@@ -1,37 +1,38 @@
-+function(core){    
-    //тест на наличие функции супер в коде        
-    var fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+/**
+ *  Система класов
+ *  
+ *  Обьявление происходит в несколько этапов
+ *  Сначало DEFINE подписывается на слежение за событиями       
+ */
+
++function(core){            
+    var 
+        //тест на наличие функции супер в коде        
+        fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/,
+
+        //тест на наличие обьекта по неймспейсу
+        readyRequiresTest=function(name){
+            return core.NS(name)!==undefined; 
+        };        
     
     /**
      * Конструктор классов
      * @param {string} name имя класса
      * @param {Object} prop описывающий класс объект
-     * @returns {*}
      * @constructor
      */    
     core.Define = Define = function (name, prop) {  
         //класс в неймспейс попадет только тогда когда будут подгружены все зависимости    
-
-        core.ClassLoader.waitReady(function(){
-            console.log( 'make class',name );
-            
-            if(prop.extend)
-                if (core.NS(prop.extend)===undefined) return false;
-
-            if (prop.require)
-                if (core.NS(prop.require[0])===undefined) return false;
-            
-            if (prop.mixins){
-                
-                if (core.NS(prop.mixins[0])===undefined) return false;
-            }    
-
-            core.NS(name, Class(name,prop) );
-            
-            return true;
-        })
+        var ret=getRequires(prop);                                
+        core.ClassLoader.waitReady(function(){            
+            if ( ret.every(readyRequiresTest) ) {
+                core.NS(name, Class(name,prop) );            
+                return true;                
+            }                        
+        })        
         //core.NS(name, Class(name,prop) );                   
     }
+        
     
     /**
      * Функция CLASS 
@@ -98,16 +99,15 @@
         // ============ поддержка интерфейсов (DRIFT)=============//
         var error="";
 
-        if(prop.interface){
+        /*if(prop.interface){
             for (var x in prop.interface) {           
                 if ( typeof prop[x] != typeof prop.interface[x] ) error+="  "+x+ ": " + typeof prop.interface[x] +"\n"; 
             }
-
             if (error !=""){
                 error="CORE framework: unreleased interface property in class "+name+"\n"+error;        
                 throw "\n"+error;
             }
-        }
+        }*/
 
         //вызовем препроцессор, если есть
         if ('preprocessor' in child.prototype) child.prototype.preprocessor(child);
@@ -136,5 +136,15 @@
             return fun.apply(this,arguments);	
 	}
     }    
+    
+    /**
+     * Вернет массив со всеми зависимостями
+     * @param {type} prop
+     * @returns {Array}
+     */
+    function getRequires(prop){        
+        var ret= (prop.extend)?[prop.extend]:[];
+        return ret.concat(prop.mixins||[],prop.require||[])        
+    }
     
 }(window.core||{})

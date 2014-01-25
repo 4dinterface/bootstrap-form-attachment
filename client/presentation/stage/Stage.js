@@ -15,10 +15,10 @@ Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */
             var me = this;
             this.event={};
 
-            $(function () {
+            //$(function () {
                 canvas = $("#canvas")[0];
 		me.initialize(canvas);
-            });
+            //});
 	},
 
                     

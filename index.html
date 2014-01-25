@@ -236,17 +236,18 @@
                                     <div id="timeline-panel-right__editor-head" class="timeline__editor_head">
                                         <div id="timeline-panel-right__ruler" class="timeline__ruler_box">
                                             <!--here ruler-->
-                                            <div class="timeline-panel-right__ruler__division"></div>
-                                            <div class="timeline-panel-right__ruler__division_half"></div>
-                                            <div class="timeline-panel-right__ruler__division_vertex">
-                                                <div class="timeline-panel-right__ruler__division_vertex__number">1</div>
-                                            </div>
-                                            <div class="timeline-panel-right__ruler__division_half"></div>
-                                            <div class="timeline-panel-right__ruler__division"></div>
-                                            <div class="timeline-panel-right__ruler__division_half"></div>
-                                            <div class="timeline-panel-right__ruler__division_vertex">
-                                                <div class="timeline-panel-right__ruler__division_vertex__number">2</div>
-                                            </div>
+
+                                            <!--<div class="timeline-panel-right__ruler__division"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_vertex">-->
+                                                <!--<div class="timeline-panel-right__ruler__division_vertex__number">1</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_vertex">-->
+                                                <!--<div class="timeline-panel-right__ruler__division_vertex__number">2</div>-->
+                                            <!--</div>-->
                                         </div>
                                         <div class="timeline__ruler_background"></div>
                                         <div id="timeline-panel-right__runner-head" class="timeline__runner_head"></div>
@@ -291,6 +292,17 @@
                         </div>
                     {/template}
 
+                    {template app.templates.timeline.panels.right.ruler(data)}
+                        <div style="position:relative; left{data.left}px">
+                            {forEach data.ticks => item}
+                                <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                <div class="timeline-panel-right__ruler__division_vertex" style="width:{item.width}px">
+                                    <div class="timeline-panel-right__ruler__division_vertex__number">{item.value}</div>
+                                </div>
+                            {/forEach}
+                        </div>
+                    {/template}
+
                     {template app.templates.timeline.panels.right.shape(shape)}
                         <div>
                             <p style="margin-bottom:6px">Id: {shape.id}</p>
@@ -305,7 +317,7 @@
                     {/template}
 
                     {template app.templates.timeline.panels.right.transition(data)}
-                        <div class="timeline__transition" style="left: {data.left}px; width: {data.width}px;">
+                        <div class="timeline__transition" style="left:{data.left}px; width:{data.width}px;">
                             <div class="timeline__keyframe__end"></div>
                             <div class="timeline__keyframe__start"></div>
                         </div>

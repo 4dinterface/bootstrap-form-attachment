@@ -130,7 +130,7 @@
 /**
  * Линия редактора таймлайна
  */
-.timeline__line {
+.timeline__property {
     height: 18px;
 
     /* TODO Пока так. Как должно быть https://webdav.yandex.ru/inkscape-amix20.png */
@@ -144,7 +144,7 @@
 /**
  * Свойство/блок на линии в редакторе таймлайна
  */
-.timeline__property {
+.timeline__transition {
     /*border-top: 1px solid #4682b4;*/
     /*border-bottom: 1px solid #4682b4;*/
     height: 18px;
@@ -157,7 +157,7 @@
 /**
  * Выделенное свойство/блок
  */
-.timeline__property_select {
+.timeline__transition_select {
     background-color: #7a9900;
 }
 

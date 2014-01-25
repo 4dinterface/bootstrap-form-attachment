@@ -304,13 +304,6 @@
 
                     {template app.templates.timeline.panels.right.transition(data)}
                         <div class="timeline__transition" style="left: {data.left}px; width: {data.width}px;">
-                            <div class="timeline__keyframe" style="left: 0px"></div>
-                            <div class="timeline__keyframe" style="right: 0px"></div>
-                        </div>
-                    {/template}
-
-                    {template app.templates.timeline.panels.right.keyframe(data)}
-                        <div class="timeline__keyframe" style="left: {data.left}px;">
                             <div class="timeline__keyframe__end"></div>
                             <div class="timeline__keyframe__start"></div>
                         </div>

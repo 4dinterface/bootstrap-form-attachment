@@ -20,7 +20,7 @@
  */
 Define('app.business.Facade', /** @lends {app.movie.Movie.prototype} */ ({
     
-    extend: core.Component,
+    extend: "core.Component",
 
 // Эксперементы с интерфейсом
 /*    interface:{

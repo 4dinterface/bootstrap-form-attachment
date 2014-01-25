@@ -1,10 +1,9 @@
 /**
- * !!! НЕ ИСПОЛЬЗУЕТСЯ
  */
 'use strict';
 
 Define('app.timeline.panels.right.Keyframe', {
-    extend: app.timeline.Component,
+    extend: "app.timeline.Component",
 
 
     init: function() {

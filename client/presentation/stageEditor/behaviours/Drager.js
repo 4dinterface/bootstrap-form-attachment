@@ -4,7 +4,7 @@
 //Внимание код на уровне эксперементов законченный вариант может выглядеть иначе
 
 Define("app.presentation.stageEditor.behaviours.Drager",{    
-    extend: core.Behaviour,
+    extend: "core.Behaviour",
     init: function(cnf){
 
         var me=this;

@@ -1,6 +1,6 @@
 Define("app.presentation.panels.Toolbar", {
 
-    extend: core.Component,
+    extend: "core.Component",
 
     init: function () {
 
@@ -37,7 +37,7 @@ Define("app.presentation.panels.Toolbar", {
 
             $(this.selected).addClass('tool__selected');
 
-            me.fire("toolbarchange", {
+            me.fire(app.events.toolbar.CHANGE, {
                 name:name
             });
 

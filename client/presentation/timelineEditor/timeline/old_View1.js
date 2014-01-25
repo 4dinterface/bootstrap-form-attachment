@@ -8,7 +8,7 @@
 
 Define( "app.timeline.View", /** @lends {app.component} */{
 
-    extend: core.Component,
+    extend: "core.Component",
 
     /**
      * Данные модели таймлайна
@@ -84,8 +84,8 @@ Define( "app.timeline.View", /** @lends {app.component} */{
             this.renderRuler();
         }.bind( this ));
 
-        this.model.on( 'shapecollectionchange', function(e,a,b,c) {
-            console.log( 'timeline:view:shapecollectionchange', this.model );
+        this.model.on( app.events.shapecollection.CHANGE, function(e,a,b,c) {
+            console.log( 'timeline:view:' + app.events.shapecollection.CHANGE, this.model );
             this.refrashTimeline();
         }.bind( this ));
 
@@ -97,12 +97,12 @@ Define( "app.timeline.View", /** @lends {app.component} */{
         //=====================================================================//
 
         //изменение коллекции ключей (ключ добавили / удалили)
-        this.model.on( 'keyframecollectionchange', function( e ) {
+        this.model.on( app.events.keyframecollection.CHANGE, function( e ) {
             this.refrashTimeline();
         }.bind( this ));
 
         //изменение состава свойств (стало видно новое свойств/или наоборот его убрали)
-        this.model.on( 'propertycollectionchange', function( e ) {
+        this.model.on( app.events.propertycollection.CHANGE, function( e ) {
             this.refrashTimeline();
         }.bind( this ));
 
@@ -129,7 +129,7 @@ Define( "app.timeline.View", /** @lends {app.component} */{
 
 
         // Передвижение бегунка при воспроизведении анимации
-        this.movie.on( 'onframe', function( e ) {
+        this.movie.on( app.events.movie.FRAME, function( e ) {
             var x = this.utilites.toPixels( this.model, e.elapsedTime );
 
             this.runnerMoveTo( x );

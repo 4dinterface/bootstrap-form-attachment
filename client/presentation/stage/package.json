@@ -1,0 +1,8 @@
+[
+    "client/presentation/stage/shape/GeometricShape.js",
+    "client/presentation/stage/shape/HtmlElement.js",
+    "client/presentation/stage/shape/Text.js",
+    "client/presentation/stage/shape/Circle.js",
+    "client/presentation/stage/shape/Rectangle.js",
+    "client/presentation/stage/Stage.js"
+]

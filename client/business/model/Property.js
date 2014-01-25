@@ -43,7 +43,7 @@
 
 //компонент в разработке
 Define('app.business.model.Property', /** @lends {app.business.model.Keyframe.prototype} */ {
-	extend : core.data.Model,
+	extend : "core.data.Model",
 	/***
 	 * Конструктор экземпляров
 	 * @constructor
@@ -71,7 +71,7 @@ Define('app.business.model.Property', /** @lends {app.business.model.Keyframe.pr
             value.parent=me;
             
             this._super();
-            this.fire("propertychange", {
+            this.fire(app.events.property.CHANGE, {
                 key:name,
                 value:value
             });

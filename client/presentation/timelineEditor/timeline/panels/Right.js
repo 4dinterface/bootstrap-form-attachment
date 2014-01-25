@@ -3,7 +3,7 @@
 'use strict';
 
 Define('app.timeline.panels.Right', {
-    extend: app.timeline.Component,
+    extend: "app.timeline.Component",
 
 
     init: function() {
@@ -40,8 +40,7 @@ Define('app.timeline.panels.Right', {
             this.enableAutoScroll = false;
         }.bind(this));
 
-        this.movie.on('onframe', function(e) {
-            if (!this.enableAutoScroll) return;
+        this.movie.on(app.events.movie.FRAME, function(e) {
             var x = this.utilites.toPixels(this.model.pixelsPerSecond, e.elapsedTime);
             this.autoScroll(x);
         }.bind(this));

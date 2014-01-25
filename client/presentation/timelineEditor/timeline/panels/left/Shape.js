@@ -3,7 +3,7 @@
 'use strict';
 
 Define('app.timeline.panels.left.Shape', {
-    extend: app.timeline.Component,
+    extend: "app.timeline.Component",
 
 
     init: function() {
@@ -18,12 +18,12 @@ Define('app.timeline.panels.left.Shape', {
         this.render();
 
         // Скрыть/показать фигуру
-        this.model.on('shapechange', 'minimized', function(event) {
+        this.model.on(app.events.shape.CHANGE, 'minimized', function(event) {
             this.dom.children.classList[event.value ? 'add' : 'remove']('minimized');
         }.bind(this));
 
         // Активная/неактивная фигура
-        this.model.on('shapechange', 'disabled', function(event) {
+        this.model.on(app.events.shape.CHANGE, 'disabled', function(event) {
             this.dom.root.classList[event.value ? 'add' : 'remove']('disabled');
         }.bind(this));
     },

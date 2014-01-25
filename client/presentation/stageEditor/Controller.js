@@ -1,6 +1,6 @@
     Define("app.business.stageEditor.Сontroller", {
 
-    extend: core.Component,
+    extend: "core.Component",
 
     behaviours:{
         move:"app.presentation.stageEditor.behaviours.Selector",
@@ -64,7 +64,7 @@
 
         //============================ Отслеживаеи тулбар====================//;
 
-        this.toolbar.on("toolbarchange", function (e) {
+        this.toolbar.on(app.events.toolbar.CHANGE, function (e) {
             var name = e.name;
             console.log(name);            
             switch(name){

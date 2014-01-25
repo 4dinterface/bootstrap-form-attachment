@@ -37,7 +37,7 @@
 Define( 'app.business.model.Project', /** @lends {app.model.Keyframe.prototype} */ {
 
     //Композиция это типичная модель
-    extend: core.data.Model,
+    extend: "core.data.Model",
 
     /**
      * Конструктор экземпляров
@@ -60,7 +60,7 @@ Define( 'app.business.model.Project', /** @lends {app.model.Keyframe.prototype} 
         value.parent = me;
 
         this._super();
-        this.fire( 'projectchange', {
+        this.fire( app.events.project.CHANGE, {
             key: name,
             value: value
         });

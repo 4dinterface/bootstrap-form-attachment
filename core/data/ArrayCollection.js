@@ -5,7 +5,7 @@
  * @extends {app.Component}
  */
 Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.prototype} */ {
-    extend : core.Component,
+    extend : "core.Component",
     data:null,
 
     isModel:false,
@@ -41,7 +41,8 @@ Define('core.data.ArrayCollection', /** @lends {app.model.ShapeCollection.protot
     },
 
     //Вспомогательный метод
-    fireChange:function (par){        
+    fireChange:function (par){
+        //TODO пустить через app.events
         this.fire(this._className.toLowerCase()+"change", par );        
     },
                 

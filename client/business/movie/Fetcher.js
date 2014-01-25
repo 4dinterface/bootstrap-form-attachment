@@ -13,7 +13,7 @@
  */
 Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
 
-    extend: core.Component,
+    extend: "core.Component",
 
     /**
      * Данные, которыми может располагать Fetcher
@@ -41,7 +41,7 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
         });
 
         if (!someoneRendered) {
-            self.fire('noshaperendered');
+            self.fire(app.events.fetcher.NO_SHAPE_RENDERED);
         }
     },
 

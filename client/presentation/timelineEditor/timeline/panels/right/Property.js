@@ -3,7 +3,7 @@
 'use strict';
 
 Define('app.timeline.panels.right.Property', {
-    extend: app.timeline.Component,
+    extend: "app.timeline.Component",
 
 
     init: function() {
@@ -14,7 +14,7 @@ Define('app.timeline.panels.right.Property', {
         this.render();
 
         // Активное/неактивное свойство
-        this.model.on('propertychange', 'disabled', function(event) {
+        this.model.on(app.events.property.CHANGE, 'disabled', function(event) {
             this.dom.root.classList[event.value ? 'add' : 'remove']('disabled');
         }.bind(this));
     },

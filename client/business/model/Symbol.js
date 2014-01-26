@@ -39,7 +39,7 @@
 Define( 'app.business.model.Symbol', /** @lends {app.model.Keyframe.prototype} */ {
 
     //Композиция это типичная модель
-    extend: core.data.Model,
+    extend: "core.data.Model",
 
     /**
      * Конструктор экземпляров

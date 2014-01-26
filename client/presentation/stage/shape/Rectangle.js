@@ -2,7 +2,7 @@
  * Квадрат
  */
 Define('app.presentation.stage.shape.Rectangle', {
-	extend: app.presentation.stage.shape.GeometricShape,
+	extend: "app.presentation.stage.shape.GeometricShape",
     
         //свойства влияющие на кэш
         width:100,

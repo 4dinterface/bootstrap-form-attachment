@@ -3,30 +3,29 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        
+        <!-- СТИЛИ ПРИЛОЖЕНИЯ -->
         <link rel="stylesheet" href="./css/style.css"/>
         <link rel="stylesheet" href="./css/ui.css"/>
 
         <link rel="stylesheet" href="client/presentation/stageEditor/stage.css"/>
         <link rel="stylesheet" href="client/presentation/timelineEditor/timeline/timeline.css" />
-        <link rel="stylesheet" href="client/presentation/propertiesEditor/propertystyle.css"/>         
-        <link rel="stylesheet" href="core/ui/style.css"/>   
+        <!-- <link rel="stylesheet" href="client/presentation/propertiesEditor/propertystyle.css"/> -->
         
-        <script src="frameworks/easelJs/easeljs-0.6.0.min.js.js"></script>
+        <!-- ЗАГРУЗКА ВЕНДОРОВ -->
+        <!-- <script src="frameworks/easelJs/easeljs-0.7.1.min.js"></script> -->        
+        <script src="frameworks/easelJs/easeljs-NEXT.min.js"></script>        
+        
         <script src="frameworks/easelJs/filters/BoxBlurFilter.js"></script>
+        
         <script src="frameworks/zepto/zepto.js"></script>
-
         <script src="frameworks/zepto/zepto.data.js"></script>
         <script src="frameworks/zepto/zepto.scrollLeft.js"></script>
         <script src="frameworks/zepto/zepto.clientWidth.js"></script>
-        <script src="frameworks/zepto/zepto.draggable.js"></script>
-        <script src="frameworks/jqote2/jquery.jqote2.js"></script>
-        <script src="frameworks/snakeskin/snakeskin.min.js"></script>
-
-        <script src="core/utilites.js"></script>
-        <script src="core/Class.js"></script>
-        <script src="core/ClassLoader.js"></script>
+        <script src="frameworks/zepto/zepto.draggable.js"></script>        
         
-        <script src="client/app.js"></script>
+        <script src="frameworks/snakeskin/snakeskin.min.js"></script>
+        
     </head>
     <body>
 
@@ -130,7 +129,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                            -->
                             <br class="clear">
 -->
                         </div>
@@ -234,6 +232,18 @@
                                     <div id="timeline-panel-right__editor-head" class="timeline__editor_head">
                                         <div id="timeline-panel-right__ruler" class="timeline__ruler_box">
                                             <!--here ruler-->
+
+                                            <!--<div class="timeline-panel-right__ruler__division"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_vertex">-->
+                                                <!--<div class="timeline-panel-right__ruler__division_vertex__number">1</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                            <!--<div class="timeline-panel-right__ruler__division_vertex">-->
+                                                <!--<div class="timeline-panel-right__ruler__division_vertex__number">2</div>-->
+                                            <!--</div>-->
                                         </div>
                                         <div class="timeline__ruler_background"></div>
                                         <div id="timeline-panel-right__runner-head" class="timeline__runner_head"></div>
@@ -278,6 +288,17 @@
                         </div>
                     {/template}
 
+                    {template app.templates.timeline.panels.right.ruler(data)}
+                        <div style="position:relative; left{data.left}px">
+                            {forEach data.ticks => item}
+                                <!--<div class="timeline-panel-right__ruler__division_half"></div>-->
+                                <div class="timeline-panel-right__ruler__division_vertex" style="width:{item.width}px">
+                                    <div class="timeline-panel-right__ruler__division_vertex__number">{item.value}</div>
+                                </div>
+                            {/forEach}
+                        </div>
+                    {/template}
+
                     {template app.templates.timeline.panels.right.shape(shape)}
                         <div>
                             <p style="margin-bottom:6px">Id: {shape.id}</p>
@@ -288,13 +309,14 @@
                     {/template}
 
                     {template app.templates.timeline.panels.right.property(data)}
-                        <div line class="timeline__line">
-                            <div property class="timeline__property" style="left: {data.left}px; width: {data.width}px;"></div>
-                        </div>
+                        <div class="timeline__property"></div>
                     {/template}
 
-                    {template app.templates.timeline.panels.right.keyframe(data)}
-                        <div class="timeline__keyframe" style="left: {data.left}px;"></div>
+                    {template app.templates.timeline.panels.right.transition(data)}
+                        <div class="timeline__transition" style="left:{data.left}px; width:{data.width}px;">
+                            <div class="timeline__keyframe__end"></div>
+                            <div class="timeline__keyframe__start"></div>
+                        </div>
                     {/template}
                 </script>
             <!-- END SNAKESKIN TEMPLATES -->
@@ -304,6 +326,11 @@
                 Snakeskin.compile(document.getElementById('templates'));
             </script>
             <!--END COMPILE SNAKESKIN TEMPLATES -->
+
+
+            <!-- ЗАГРУЗКА ПРИЛОЖЕНИЯ -->
+            <script src="core/Core.js"></script>
+            <script src="client/app.js"></script>
 
             </div>
         </div>

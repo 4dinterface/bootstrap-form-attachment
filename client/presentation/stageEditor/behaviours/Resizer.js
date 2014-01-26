@@ -2,7 +2,7 @@
  * Компонент отвечает за ресайз фигур в в stageEditor
  */
 Define("app.presentation.stageEditor.behaviours.Resizer",{    
-    extend: core.Behaviour,
+    extend: "core.Behaviour",
     init: function(cnf){
 
         var me=this;

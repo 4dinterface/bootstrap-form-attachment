@@ -40,7 +40,7 @@
 
 Define('app.business.model.Keyframe', /** @lends {app.model.Keyframe.prototype} */ {
 
-	extend : core.data.Model,
+	extend : "core.data.Model",
 
 	/***
 	 * Конструктор экземпляров

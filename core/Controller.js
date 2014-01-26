@@ -15,7 +15,11 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
         //this.apply();
         this._super();
 
-        if('domListeners' in this) this.bind( Object.keys( this.domListeners ) );
+        //FIXME: удалить это
+        if('domListeners' in this) {
+//            this.addListeners(this.domListeners);
+            this.bind( Object.keys( this.domListeners ) );
+        }
     },    
 
     /**
@@ -138,7 +142,7 @@ Define( "core.Controller", /** @lends core.Controller.prototype */{
      * Деструктор
      */
     destroy: function() {
-        // TODO: тут отвязать обработчики событий от DOM элементов
+        // TODO: отписка от DOM событий
         this._super();
     }
 

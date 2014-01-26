@@ -8,7 +8,7 @@
 
 Define( 'app.presentation.properties.Component', {
 
-    extend: core.Component,
+    extend: "core.Component",
     //view таймлайна
     
     view:null,

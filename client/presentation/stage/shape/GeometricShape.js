@@ -2,9 +2,8 @@
  * Базовый класс для примитивных фигур 
  */
 
-
 Define('app.presentation.stage.shape.GeometricShape', {
-    extend: createjs.Shape,
+    extend: "createjs.Shape",
     init:function(){
             
     },

@@ -1,0 +1,19 @@
+[
+     "client/presentation/timelineEditor/timeline/utilites.js",
+     "client/presentation/timelineEditor/Component.js",
+
+     "client/presentation/timelineEditor/timeline/Timeline.js",
+
+     "client/presentation/timelineEditor/timeline/panels/Left.js",
+     "client/presentation/timelineEditor/timeline/panels/left/Shape.js",
+     "client/presentation/timelineEditor/timeline/panels/left/Property.js",
+
+     "client/presentation/timelineEditor/timeline/panels/Right.js",
+     "client/presentation/timelineEditor/timeline/panels/right/Runner.js",
+     "client/presentation/timelineEditor/timeline/panels/right/Ruler.js",
+     "client/presentation/timelineEditor/timeline/panels/right/Shape.js",
+     "client/presentation/timelineEditor/timeline/panels/right/Property.js",
+     "client/presentation/timelineEditor/timeline/panels/right/Transition.js",
+
+     "client/presentation/timelineEditor/Component.js"
+]

@@ -1,5 +1,5 @@
 Define("app.presentation.panels.Transport", {
-    extend: core.Controller,
+    extend: "core.Controller",
     
     domTarget:".player",
     

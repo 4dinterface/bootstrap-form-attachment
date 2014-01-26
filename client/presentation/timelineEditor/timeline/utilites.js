@@ -49,6 +49,24 @@ app.timeline.utilites = {
      */
     toMilliseconds: function(pixelsPerSecond, pixels) {
         return pixels / pixelsPerSecond * 1000;
-    }
+    },
 
+
+    /**
+     * Округляет число до целого заданной точности, которая задается определенным числом
+     * Режим округления (вниз/вверх) задается параметром direction
+     *
+     * roundToIntByNumber(57, 10, 1) => 60
+     * roundToIntByNumber(57, 10, -1) => 50
+     *
+     * @param {Number} number Число, которое предстоит округлить
+     * @param {Number} precision Число, задающее точность округления
+     * @param {Number} direction Режим округления
+     * @return {Number} Округленное число
+     */
+    roundToIntByNumber: function(number, precision, direction) {
+        var rest = number % precision;
+        number += direction < 0 ? -rest : precision - rest;
+        return number;
+    }
 };

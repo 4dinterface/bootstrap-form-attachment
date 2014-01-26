@@ -7,14 +7,18 @@
 
 Define('app.timeline.Component', {
 
+    extend: "core.Controller",
+    
+    //указываем что есть зависимость от обьекта app.timeline.utilites
+    require:['app.timeline.utilites'],
 
-    extend: core.Controller,
-
-
-    utilites: app.timeline.utilites,
-
+    // Опасный код, если скрипты грузятся асинхронно то нет гарантии что app.timeline.utilites загрузится раньше
+    //utilites: app.timeline.utilites,
 
     init: function(cfg) {
+        //безопасный код
+        this.utilites=app.timeline.utilites;
+        
         this.apply(cfg);
         this.children = []; // детки-конфетки
         this.dom = {};

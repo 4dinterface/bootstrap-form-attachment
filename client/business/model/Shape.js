@@ -37,7 +37,7 @@
 
 //компонент в разработке
 Define('app.business.model.Shape', /** @lends {app.model.Shape.prototype} */ {
-	extend : core.data.Model,
+	extend : "core.data.Model",
 	/***
 	 * Конструктор экземпляров
 	 * @constructor

@@ -2,14 +2,14 @@
 //Внимание код на уровне эксперементов законченный вариант может выглядеть иначе
 
 Define("app.presentation.stageEditor.behaviours.Selector",{    
-    extend: core.Behaviour,
+    extend: "core.Behaviour",
     init: function(cnf){
     	var me=this;
     	this._super(cnf);        
 
     	var stage=me.parent.stage;
 
-        console.log('>>>',this.parent.stage);
+//        console.log('>>>',this.parent.stage);
 
         var mx,my;
         var p=$('#canvas');        

@@ -3,7 +3,7 @@
  * @author ColCh <colouredchalkmelky@gmail.com>
  * Date: 25.01.14
  */
-app.events = {
+core.NS('app.events', {
 
     composition: {
         /**
@@ -67,4 +67,4 @@ app.events = {
         CHANGE: "toolbarchange"
     }
 
-};
+});

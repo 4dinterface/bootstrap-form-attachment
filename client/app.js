@@ -36,8 +36,9 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
                 // создадим ролик                
                 movie=new app.movie.Movie({
                         timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
-                        stage:stage                        
-                }),
+                        stage:stage,
+                        ignoreReflow: false
+                    }),
                     
                 //создадим конструктор сцены
                 stageBuilder=new app.movie.StageBuilder({

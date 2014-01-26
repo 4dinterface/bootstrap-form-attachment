@@ -69,6 +69,20 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     framesPerSecond: 60,
 
     /**
+     * Используется ли requestAnimationFame или нет
+     * @private
+     * @type {boolean|null}
+     */
+    _useRAF: null,
+
+    /**
+     * Проигрывается ли сейчас movie или нет
+     * @private
+     * @type {boolean}
+     */
+    _isPlaying: false,
+
+    /**
      * Установит или получит текущее значение
      * кадров в секунду
      * @param {number} framesPerSecond
@@ -86,6 +100,22 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     },
 
     /**
+     * Использовать ли requestAnimationFrame (true) или нет (false)
+     * @param {boolean} value
+     */
+    useRAF: function (value) {
+        var boolVal = typeof value === 'boolean' ? value : Boolean(value);
+        if (boolVal !== this._useRAF) {
+            this._useRAF = boolVal;
+            createjs.Ticker.useRAF = boolVal;
+            if (this._isPlaying) {
+                this.pause();
+                this.play();
+            }
+        }
+    },
+
+    /**
     * Конструктор объекта, позволяющего управлять воспроизведением
     * @constructor
     * @param {{ stage: app.scene.Stage, timeline: app.model.Timeline }} cfg объект с дополнительными свойствами
@@ -93,7 +123,6 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     init: function (cfg) {
         this._super();
 
-        this.apply(cfg);
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
 
@@ -102,6 +131,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         this.fps(this.framesPerSecond);
         this.elapsedTime = 0;
+        this.useRAF(!cfg.ignoreReflow);
 
         var self = this;
 
@@ -122,6 +152,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
      * Продолжает воспроизведение, начиная с текущей временной метки
      */
     play: function() {
+
+        if (this._isPlaying) return;
+
         createjs.Ticker.addEventListener('tick', this.tick);
         this.renderFrame();
 
@@ -130,12 +163,18 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         this.fire(app.events.movie.PLAY, {
             elapsedTime: elapsedTime
         });
+
+        this._isPlaying = true;
+
     },
 
     /**
      * Производит приостановку воспроизведения
      */
     pause: function () {
+
+        if (!this._isPlaying) return;
+
         createjs.Ticker.removeEventListener('tick', this.tick);
 
         var elapsedTime = this.elapsedTime;
@@ -143,6 +182,9 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
         this.fire(app.events.movie.STOP, {
             elapsedTime: elapsedTime
         });
+
+        this._isPlaying = false;
+
     },
 
     /**

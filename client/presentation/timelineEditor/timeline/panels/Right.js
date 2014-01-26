@@ -9,6 +9,15 @@ Define('app.timeline.panels.Right', {
     init: function() {
         this._super();
 
+        this.dom.root = this.utilites.getById('timeline-panel-right__editor');
+        this.dom.editorHead = this.utilites.getById('timeline-panel-right__editor-head');
+        this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
+        this.dom.children = this.utilites.getById('timeline-panel-right__editor-body__shapes');
+
+        this.addListeners(this.dom, this.events);
+
+        // ------------------------------
+
         // Бегунок
         this.runner = new app.timeline.panels.right.Runner({
             composition: this.composition,
@@ -16,12 +25,11 @@ Define('app.timeline.panels.Right', {
             parent: this
         });
 
-        this.dom.root = this.utilites.getById('timeline-panel-right__editor');
-        this.dom.editorHead = this.utilites.getById('timeline-panel-right__editor-head');
-        this.dom.editorBody = this.utilites.getById('timeline-panel-right__editor-body');
-        this.dom.children = this.utilites.getById('timeline-panel-right__editor-body__shapes');
-
-        this.addListeners(this.dom, this.events);
+        // Линейка
+        this.ruler = new app.timeline.panels.right.Ruler({
+            composition: this.composition,
+            parent: this
+        });
 
         // ------------------------------
 
@@ -81,8 +89,9 @@ Define('app.timeline.panels.Right', {
 
 
     autoScroll: function(x) {
-        var elem = this.dom.editorBody;
-        var percent = (x - elem.scrollLeft) / elem.clientWidth * 100;
+        var scrollLeft = this.getEditorScrollLeft();
+        var visibleWidth = this.getEditorVisibleWidth();
+        var percent = (x - scrollLeft) / visibleWidth * 100;
         if (percent < 90) return;
         this.editorScrollTo(x);
 //        this.editorScrollTo(x - elem.clientWidth * 0.1);
@@ -112,5 +121,10 @@ Define('app.timeline.panels.Right', {
 
     getEditorScrollLeft: function() {
         return this.dom.editorBody.scrollLeft;
+    },
+
+
+    getEditorVisibleWidth: function() {
+        return this.dom.editorBody.clientWidth;
     }
 });

@@ -69,6 +69,13 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     framesPerSecond: 60,
 
     /**
+     * Используется ли requestAnimationFame или нет
+     * @private
+     * @type {boolean|null}
+     */
+    _useRAF: null,
+
+    /**
      * Проигрывается ли сейчас movie или нет
      * @private
      * @type {boolean}
@@ -93,6 +100,22 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     },
 
     /**
+     * Использовать ли requestAnimationFrame (true) или нет (false)
+     * @param {boolean} value
+     */
+    useRAF: function (value) {
+        var boolVal = typeof value === 'boolean' ? value : Boolean(value);
+        if (boolVal !== this._useRAF) {
+            this._useRAF = boolVal;
+            createjs.Ticker.useRAF = boolVal;
+            if (this._isPlaying) {
+                this.pause();
+                this.play();
+            }
+        }
+    },
+
+    /**
     * Конструктор объекта, позволяющего управлять воспроизведением
     * @constructor
     * @param {{ stage: app.scene.Stage, timeline: app.model.Timeline }} cfg объект с дополнительными свойствами
@@ -109,6 +132,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
         this.fps(this.framesPerSecond);
         this.elapsedTime = 0;
+        this.useRAF(!cfg.ignoreReflow);
 
         var self = this;
 

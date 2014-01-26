@@ -148,7 +148,8 @@ $( function () {
                     // TODO - 
                     movie=new app.movie.Movie({
                         timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
-                        stage:stage                        
+                        stage:stage,
+                        ignoreReflow: false
                     }),
                     
                     //создадим конструктор сцены

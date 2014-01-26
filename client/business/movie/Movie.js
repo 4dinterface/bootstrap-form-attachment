@@ -123,7 +123,6 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     init: function (cfg) {
         this._super();
 
-        this.apply(cfg);
         this.fetch = new app.movie.Fetch();
         this.tick = this.tick.bind(this);
 

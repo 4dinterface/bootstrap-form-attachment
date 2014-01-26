@@ -94,10 +94,14 @@
 
             Child.prototype[x] = prop[x];                
         }
+        
+        //скопируем ссылки на обьекты из USING в прототип класса
+        for (var i in prop.using){
+            Child.prototype[i]= core.NS(prop.using[i]);                       
+        };
 
         // ============ поддержка интерфейсов (DRIFT)=============//
-        var error="";
-
+        //var error="";
         /*if(prop.interface){
             for (var x in prop.interface) {           
                 if ( typeof prop[x] != typeof prop.interface[x] ) error+="  "+x+ ": " + typeof prop.interface[x] +"\n"; 
@@ -142,8 +146,19 @@
      * @returns {Array}
      */
     function getRequires(prop){        
-        var ret= (prop.extend)?[prop.extend]:[];
+        var ret= (prop.extend)?[prop.extend]:[];        
+        //TODO Внимание, поведение using при наследовании может оказаться неудовлетворительным        
+        if (prop.using){
+            for (var i in prop.using) ret.push( prop.using[i] );
+        }            
+        
         return ret.concat(prop.mixins||[],prop.require||[])        
     }
     
 }(window.core||{})
+
+
+
+
+
+//alert([].concat(df));

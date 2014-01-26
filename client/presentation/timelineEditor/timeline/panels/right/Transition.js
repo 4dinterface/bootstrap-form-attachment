@@ -8,17 +8,15 @@ Define('app.timeline.panels.right.Transition', {
 
     init: function() {
         this._super();
-
-        var keyframes = Object.keys(this.model);
+        //this.collection=
 
         this.dom.document = document;
         this.dom.root = this.dom.children = this.template.compile({
-            left: this.utilites.toPixels(this.composition.pixelsPerSecond, keyframes[0]),
-            width: this.utilites.toPixels(this.composition.pixelsPerSecond, keyframes[1] - keyframes[0])
+            left: this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[0].get('key')),
+            width: this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[1].get('key') - this.model[0].get('key'))
         });
 
         this.dragShiftX = 0; //
-
         this.addListeners(['root'], this.events);
     },
 
@@ -28,13 +26,17 @@ Define('app.timeline.panels.right.Transition', {
      * @this {child}
      */
     events: {
+        //элемент transition
         root: {
             mousedown: function(event) {
-                var offsetX = event.pageX - this.getRootOffsetX();
-                this.dragShiftX = offsetX + this.parent.parent.parent.getEditorOffsetX();
-                this.addListeners(['document'], this.events);
-                event.stopPropagation();
-                event.preventDefault();
+                //alert(8);
+                //var offsetX = event.pageX - this.getRootOffsetX();
+                //this.dragShiftX = offsetX + this.parent.parent.parent.getEditorOffsetX();
+                //this.addListeners(['document'], this.events);
+                //event.stopPropagation();
+                //event.preventDefault();
+                var block=new app.business.model.KeyframeBlock();
+                
             }
         },
         document: {
@@ -47,7 +49,7 @@ Define('app.timeline.panels.right.Transition', {
         }
     },
 
-
+    
     getRootOffsetX: function() {
         var rect = this.dom.root.getBoundingClientRect();
         return rect.left;

@@ -8,9 +8,9 @@ Define('app.timeline.panels.right.Property', {
 
     init: function() {
         this._super();
-
+        
         this.dom.root = this.dom.children = this.template.compile();
-
+        
         this.render();
 
         // Активное/неактивное свойство
@@ -19,22 +19,19 @@ Define('app.timeline.panels.right.Property', {
         }.bind(this));
     },
 
-
+        
     render: function() {
-        var collection = this.model.get('keyframeCollection');
-        var cache = collection.cache;
+        var keyframeCollection = this.model.get('keyframeCollection');
 
-        for(var i = 0, len = cache.length - 1; i < len; i++) {
-            var key1 = cache[i];
-            var key2 = cache[i + 1];
-            var model = {};
-
-            model[key1] = collection[key1];
-            model[key2] = collection[key2];
-
+        for(var i = 0, len = keyframeCollection.length - 1; i < len; i++) {            
+            
             this.addChild(new app.timeline.panels.right.Transition({
                 composition: this.composition,
-                model: model,
+                keyframeCollection:keyframeCollection,
+                model: [
+                    keyframeCollection.item(i),
+                    keyframeCollection.item(i+1)
+                ],
                 parent: this
             }));
         }
@@ -47,7 +44,7 @@ Define('app.timeline.panels.right.Property', {
      */
     addChild: function(child) {
         this.dom.children.appendChild(child.dom.root);
-        this.children.push(child);
+        this.children.push(child);        
     },
 
 

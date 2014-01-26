@@ -27,7 +27,7 @@ Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */
          */
         update:function(){            
             this._super();
-            console.log(this);
+            //console.log(this);
             this.fire('onrender',{})
         },        
 

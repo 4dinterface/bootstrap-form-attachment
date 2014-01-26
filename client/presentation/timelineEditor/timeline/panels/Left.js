@@ -5,7 +5,6 @@
 Define('app.timeline.panels.Left', {
     extend: "app.timeline.Component",
 
-
     init: function() {
         this._super();
 

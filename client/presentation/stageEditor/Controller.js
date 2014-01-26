@@ -66,7 +66,7 @@
 
         this.toolbar.on(app.events.toolbar.CHANGE, function (e) {
             var name = e.name;
-            console.log(name);            
+            //console.log(name);            
             switch(name){
 
                 //указатель 

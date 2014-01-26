@@ -32,14 +32,16 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
 
         this.cache = [];
         this.data = {};
-
+        
+        //установим в цикле все свойства
         for (var i in prop) {
-            this[i] = prop[i];//удалить
-            this.data[i] = prop[i];
+            this[i] = prop[i];//код дублирует ссылки на ключи в само обьекте (стоит вопрос о полезности)
+            this.data[i] = prop[i]; //здесь хранятся собственно самы данные
         }
 
-        this.cache = Object.keys(this.data);
-        this.length = this.cache.length;
+        //TODO не вижу здесь контроля со стороны tstSort (это может быть важно для Safary и Firefox)
+        this.cache = Object.keys(this.data); //копия ключей в массиве
+        this.length = this.cache.length;     //длинна кеша
     },
 
     /**
@@ -55,7 +57,7 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
     fire: function (name, options, context) {
         this._super();
 
-        //передадим обработчик выше
+        //передадим обработчик выше (всплытие событий)
         if (this.parent)
             if (this.parent.fire) this.parent.fire.apply(this.parent, arguments);
 
@@ -103,35 +105,36 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
      */
     set: function (name, value) {
         var me = this;
-        this.data[name] = value;
-        this[name] = value;//удалить
+        this.data[name] = value; // сохраняем данные
+        this[name] = value;//удалить (данные копируются в this)
 
+        //обновляем кэш и длинну
         this.cache = Object.keys(this.data);
-
         this.length = this.cache.length;
 
-        //сгенерируем
+        //если value это модель или коллекция то установим parent 
         if (value.isCollection || value.isModel) {
             //сделаем родителем коллекции эту модель
             value.parent = me;
         }
-
+        
+        //подожгем событие
         this.fireChange({
             operation: "set",
             field: name,
             value: value
         });
-
     },
 
     //возвращает значение по индексу
+    // TODO проверить код
     item: function (index) {
-        return this[ this.cache[index] ];
+        return this.data[ this.cache[index] ];
     },
 
     // Удаляет записи
     remove: function () {
-
+        //TODO сделать удаление записей
     },
 
     /**
@@ -146,7 +149,11 @@ Define('core.data.ObjectCollection', /** @lends core.data.ObjectCollection.proto
     forEach: function (callback, context) {
         var prop;
         for (prop in this.data) {
-            if (this[prop] === this.proto[prop]) continue;
+            // если вдруг мы нашли свойство из прототипа тогда пропускаем 
+            // TODO вероятно такая ситуация невозможна, в this.data такой обьект попасть неможет
+            // так что проверка вероятно лишняя (заметка от diablo)
+            if (this[prop] === this.proto[prop]) continue; 
+            
             if (isFinite(parseInt(prop, 10))) callback.call(context || window, this.data[prop], prop, this);
         }
         return this;

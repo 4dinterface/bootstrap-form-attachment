@@ -35,19 +35,16 @@ Define('app.timeline.panels.right.Transition', {
                 //alert(8);
                 //var offsetX = event.pageX - this.getRootOffsetX();
                 //this.dragShiftX = offsetX + this.parent.parent.parent.getEditorOffsetX();
-                this.dragShiftX=event.pageX;                
+                this.dragShiftX=event.pageX;      
                 
                 var block=new app.business.model.KeyframeBlock({
                     model:this.keyframeCollection,
                     time:this.model[0].get('key')
                 });
                 
-                //this.composition.get('selectedBlock').setBlock([block]);
-                this.composition.get('selectedBlock').add(block);
-                
-                //if (this.model[0].get('select')!==true) block.set('select',true);                
-                //else block.set('select',false);                                
-                //console.log(block);
+                if (event.ctrlKey == true) this.composition.get('selectedBlock').add(block);
+                else this.composition.get('selectedBlock').setBlock(block);
+                                                    
                                 
                 this.addListeners(['document'], this.events);                
                 this.model[0].on('keyframechange',this.refresh.bind(this));                
@@ -59,7 +56,10 @@ Define('app.timeline.panels.right.Transition', {
         document: {
             mousemove: function(event) {
                 //console.log(event.pageX - this.dragShiftX);                
-                this.composition.get('selectedBlock').offset(event.pageX - this.dragShiftX);                               
+                var x = Math.max(event.pageX - this.dragShiftX, 0),
+                    ms = this.utilites.toMilliseconds(this.composition.pixelsPerSecond, x);
+            
+                this.composition.get('selectedBlock').offset(ms);                               
                 //this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';
             },
             mouseup: function() {

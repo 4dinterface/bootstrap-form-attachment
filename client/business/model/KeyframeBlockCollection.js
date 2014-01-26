@@ -51,7 +51,11 @@ Define('app.business.model.KeyframeBlockCollection', /** @lends {app.business.mo
     
     //добавляет элемент к коллекции
     setBlock:function(value){                
-        this.data=value.length?value:[value];
+        //уберем выделение предыдущих блоков 
+        this.set('select',false);
+        
+        //новый блок
+        this.data=[value];        //todo length будет выдавать ошибку если это не массиа
     },
     
     

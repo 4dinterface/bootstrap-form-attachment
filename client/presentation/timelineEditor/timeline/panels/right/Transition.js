@@ -3,9 +3,9 @@
 'use strict';
 
 Define('app.timeline.panels.right.Transition', {
-    extend: 'app.timeline.Component',
-
-
+    extend: 'app.timeline.Component',    
+    block:null,
+    
     init: function() {
         this._super();
         //this.collection=
@@ -18,6 +18,9 @@ Define('app.timeline.panels.right.Transition', {
 
         this.dragShiftX = 0; //
         this.addListeners(['root'], this.events);
+        this.keyframeCollection.on('keyframechange',function(){
+            this.refresh();
+        }.bind(this));
     },
 
 
@@ -32,19 +35,36 @@ Define('app.timeline.panels.right.Transition', {
                 //alert(8);
                 //var offsetX = event.pageX - this.getRootOffsetX();
                 //this.dragShiftX = offsetX + this.parent.parent.parent.getEditorOffsetX();
-                //this.addListeners(['document'], this.events);
-                //event.stopPropagation();
-                //event.preventDefault();
-                var block=new app.business.model.KeyframeBlock();
+                this.dragShiftX=event.pageX;                
                 
+                var block=new app.business.model.KeyframeBlock({
+                    model:this.keyframeCollection,
+                    time:this.model[0].get('key')
+                });
+                
+                //this.composition.get('selectedBlock').setBlock([block]);
+                this.composition.get('selectedBlock').add(block);
+                
+                //if (this.model[0].get('select')!==true) block.set('select',true);                
+                //else block.set('select',false);                                
+                //console.log(block);
+                                
+                this.addListeners(['document'], this.events);                
+                this.model[0].on('keyframechange',this.refresh.bind(this));                
+                
+                event.stopPropagation();
+                event.preventDefault();                
             }
         },
         document: {
             mousemove: function(event) {
-                this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';
+                //console.log(event.pageX - this.dragShiftX);                
+                this.composition.get('selectedBlock').offset(event.pageX - this.dragShiftX);                               
+                //this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';
             },
             mouseup: function() {
                 this.removeListeners(['document'], this.events);
+                this.composition.get('selectedBlock').fixPosition();
             }
         }
     },
@@ -53,6 +73,20 @@ Define('app.timeline.panels.right.Transition', {
     getRootOffsetX: function() {
         var rect = this.dom.root.getBoundingClientRect();
         return rect.left;
+    },
+    
+    refresh:function(){        
+        var x1=this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[0].get('key'));
+        var x2=this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[1].get('key'));
+
+        this.dom.root.style.left=x1+ 'px';                
+        
+        //this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';        
+        if (this.model[0].get('select')){
+            this.dom.root.classList.add('timeline__transition_select')    
+        } else {
+            this.dom.root.classList.remove('timeline__transition_select');            
+        }                
     },
 
 

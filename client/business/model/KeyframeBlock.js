@@ -30,8 +30,9 @@ Define('app.business.model.KeyframeBlock', /** @lends {app.business.model.Keyfra
         this.time=prop.time;
         this.model=prop.model;
         this.keyframeBuffer=[];
-
-        this.model.get('keyframeCollection').forEach(function(item){     
+        
+        this.collection=this.model.get('keyframeCollection')||this.model;
+        this.collection.forEach(function(item){     
             
             //если слева нашли easing=none тода сбросим массив найденных ключей
             if(item.get('key')<this.time && item.get('easing')=='none'){                                                
@@ -59,6 +60,13 @@ Define('app.business.model.KeyframeBlock', /** @lends {app.business.model.Keyfra
         //console.log('block',this.keyframeBuffer);
         //console.log('model',this.model);                        
         
+        this.keyframeBuffer.forEach(function(item){ 
+            if( item.keyframe.get('select') )  item.keyframe.set('select',false);            
+            else item.keyframe.set('select',true);            
+             
+        });
+        
+        
         this._super();                        
     },
     
@@ -80,7 +88,7 @@ Define('app.business.model.KeyframeBlock', /** @lends {app.business.model.Keyfra
     offset:function(value){
         var me=this;            
         this.keyframeBuffer.forEach(function(item){         
-            me.model.get('keyframeCollection').moveKeyframe(
+            me.collection.moveKeyframe(
                item.keyframe.get('key'), 
                Math.round(item.time+value)
             );

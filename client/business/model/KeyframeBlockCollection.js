@@ -81,6 +81,12 @@ Define('app.business.model.KeyframeBlockCollection', /** @lends {app.business.mo
         this.length=this.data.length;
     },
     
+    resetBlock:function(value){
+        this.set('select',false);
+        this.data=[];
+        this.length=this.data.length;
+    },
+    
     
     //offset
     offset:function(value){        

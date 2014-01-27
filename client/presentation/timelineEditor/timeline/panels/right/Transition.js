@@ -35,6 +35,7 @@ Define('app.timeline.panels.right.Transition', {
                 //alert(8);
                 //var offsetX = event.pageX - this.getRootOffsetX();
                 //this.dragShiftX = offsetX + this.parent.parent.parent.getEditorOffsetX();
+                
                 this.dragShiftX=event.pageX;      
                 
                 var block=new app.business.model.KeyframeBlock({
@@ -42,29 +43,44 @@ Define('app.timeline.panels.right.Transition', {
                     time:this.model[0].get('key')
                 });
                 
-                if (event.ctrlKey == true) this.composition.get('selectedBlock').add(block);
-                else this.composition.get('selectedBlock').setBlock(block);
-                                                    
+                //блок который будет добавлен при опускании кнопки мыши
+                
+                this.block=false;
+                if (event.ctrlKey == true) {
+                    this.composition.get('selectedBlock').add(block);
+                }
+                else{                    
+                    if (this.model[0].get('select')==true && this.composition.get('selectedBlock').length>1) {
+                        this.block=block;
+                    } else {
+                        this.composition.get('selectedBlock').setBlock(block);                                        
+                    }
+                }                                                     
                                 
                 this.addListeners(['document'], this.events);                
                 this.model[0].on('keyframechange',this.refresh.bind(this));                
                 
                 event.stopPropagation();
                 event.preventDefault();                
-            }
+            },            
         },
         document: {
             mousemove: function(event) {
                 //console.log(event.pageX - this.dragShiftX);                
-                var x = Math.max(event.pageX - this.dragShiftX, 0),
+                var x = event.pageX - this.dragShiftX,
                     ms = this.utilites.toMilliseconds(this.composition.pixelsPerSecond, x);
+                console.log(x);
             
                 this.composition.get('selectedBlock').offset(ms);                               
-                //this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';
+                
+                //сбросим установку блока при отпускании
+                this.block=false;                
             },
             mouseup: function() {
                 this.removeListeners(['document'], this.events);
                 this.composition.get('selectedBlock').fixPosition();
+                
+                if (this.block!==false) this.composition.get('selectedBlock').setBlock(this.block);
             }
         }
     },

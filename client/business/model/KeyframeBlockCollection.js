@@ -26,6 +26,7 @@ Define('app.business.model.KeyframeBlockCollection', /** @lends {app.business.mo
     rightBorder:0,
     leftBorder:0,
     data:null,
+    length:0,
 
     /**
      * @constructor
@@ -39,14 +40,33 @@ Define('app.business.model.KeyframeBlockCollection', /** @lends {app.business.mo
     //применяет set к выборке
     set:function(name,value){
         this.data.forEach(function(item){
-            console.log('item',item);
+            //console.log('item',item);
             item.set(name,value);
-        })        
+        })
+        this.length=this.data.length;
     },    
     
     //добавляет элемент к коллекции
-    add:function(value){
-        this.data.push(value);
+    add:function(value){        
+        var isNew=true,
+            l=this.data.length;
+    
+        //
+        while(l--){        
+            if(this.data[l].keyframeBuffer[0].keyframe.id==value.keyframeBuffer[0].keyframe.id){
+                value.set('select',false );
+                this.data.splice(l,1);
+                isNew=false;               
+                break;
+            }            
+        }
+        
+        if (isNew) {
+            this.data.push(value);
+            value.set('select',true);
+        }
+        
+        this.length=this.data.length;
     },
     
     //добавляет элемент к коллекции
@@ -56,11 +76,14 @@ Define('app.business.model.KeyframeBlockCollection', /** @lends {app.business.mo
         
         //новый блок
         this.data=[value];        //todo length будет выдавать ошибку если это не массиа
+        value.set('select',true);
+        
+        this.length=this.data.length;
     },
     
     
     //offset
-    offset:function(value){
+    offset:function(value){        
         this.data.forEach(function(item,i){
             item.offset(value);
         })                        

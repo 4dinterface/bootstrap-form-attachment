@@ -60,11 +60,10 @@ Define('app.business.model.KeyframeBlock', /** @lends {app.business.model.Keyfra
         //console.log('block',this.keyframeBuffer);
         //console.log('model',this.model);                        
         
-        this.keyframeBuffer.forEach(function(item){ 
-            if( item.keyframe.get('select') )  item.keyframe.set('select',false);            
-            else item.keyframe.set('select',true);            
-             
-        });
+//        this.keyframeBuffer.forEach(function(item){ 
+//            if( item.keyframe.get('select') )  item.keyframe.set('select',false);            
+//            else item.keyframe.set('select',true);                         
+//        });
         
         
         this._super();                        
@@ -85,7 +84,7 @@ Define('app.business.model.KeyframeBlock', /** @lends {app.business.model.Keyfra
      * Смещает ключи в группе на значение value
      * @param {string} name Имя свойства.
      */
-    offset:function(value){
+    offset:function(value){        
         var me=this;            
         this.keyframeBuffer.forEach(function(item){         
             me.collection.moveKeyframe(

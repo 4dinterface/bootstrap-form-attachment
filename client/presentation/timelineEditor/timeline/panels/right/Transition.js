@@ -20,10 +20,7 @@ Define('app.timeline.panels.right.Transition', {
         });
         
         this.dom.keyframeStart=this.dom.root.getElementsByClassName("timeline__keyframe__start")[0];
-        this.dom.keyframeEnd=this.dom.root.getElementsByClassName("timeline__keyframe__end")[0];
-        
-        
-        //alert(this.dom.keyframeStart);
+        this.dom.keyframeEnd=this.dom.root.getElementsByClassName("timeline__keyframe__end")[0];                
 
         this.dragShiftX = 0; //
         this.addListeners(['root','editorBody','keyframeStart','keyframeEnd'], this.events);                
@@ -108,6 +105,7 @@ Define('app.timeline.panels.right.Transition', {
             
                 if(this.selectKeyfame){
                     this.keyframeCollection.moveKeyframe(this.selectKeyfame.get('key'),this.startKey+ms);            
+                    //if(this.selectKeyfame.get('key')<0)this.selectKeyfame.set('key',1)
                 } else {
                     this.composition.get('selectedBlock').offset(ms);                                               
                 }   

@@ -10,16 +10,23 @@ Define('app.timeline.panels.right.Transition', {
         this._super();
         //this.collection=
 
-        this.dom.editorBody=document.getElementsByClassName("timeline__editor_body")[0];
-        this.dom.document = document;
+        this.dom.editorBody=document.getElementsByClassName("timeline__editor_body")[0];        
+        
+        
+        this.dom.document = this.dom.documentKeyframe= document;
         this.dom.root = this.dom.children = this.template.compile({
             left: this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[0].get('key')),
             width: this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[1].get('key') - this.model[0].get('key'))
         });
+        
+        this.dom.keyframeStart=this.dom.root.getElementsByClassName("timeline__keyframe__start")[0];
+        this.dom.keyframeEnd=this.dom.root.getElementsByClassName("timeline__keyframe__end")[0];
+        
+        
+        //alert(this.dom.keyframeStart);
 
         this.dragShiftX = 0; //
-        this.addListeners(['root'], this.events);
-        this.addListeners(['editorBody'], this.events);
+        this.addListeners(['root','editorBody','keyframeStart','keyframeEnd'], this.events);                
         
         this.keyframeCollection.on('keyframechange',function(){
             this.refresh();
@@ -66,36 +73,64 @@ Define('app.timeline.panels.right.Transition', {
                 event.stopPropagation();
                 event.preventDefault();                
             },            
+        },                
+        
+        keyframeStart:{
+            mousedown: function(event) {
+                this.dragShiftX=event.pageX;                      
+                this.selectKeyfame=this.model[0];
+                this.startKey=this.model[0].get('key');
+                
+                this.addListeners(['document'], this.events);   
+                event.stopPropagation();
+                event.preventDefault();                                
+            }            
         },
+        
+        keyframeEnd: {
+            mousedown: function(event) {
+                this.dragShiftX=event.pageX;                      
+                this.selectKeyfame=this.model[1];
+                this.startKey=this.model[1].get('key');
+                
+                this.addListeners(['document'], this.events);   
+                
+                event.stopPropagation();
+                event.preventDefault();                                
+            }
+        },         
+        
         document: {
             mousemove: function(event) {
                 //console.log(event.pageX - this.dragShiftX);                
                 var x = event.pageX - this.dragShiftX,
-                    ms = this.utilites.toMilliseconds(this.composition.pixelsPerSecond, x);
-                console.log(x);
+                    ms = this.utilites.toMilliseconds(this.composition.pixelsPerSecond, x);          
             
-                this.composition.get('selectedBlock').offset(ms);                               
-                
-                //сбросим установку блока при отпускании
-                this.block=false;                
-            },
+                if(this.selectKeyfame){
+                    this.keyframeCollection.moveKeyframe(this.selectKeyfame.get('key'),this.startKey+ms);            
+                } else {
+                    this.composition.get('selectedBlock').offset(ms);                                               
+                }   
+                //сбросим установку блока при отпускании                
+            },            
             mouseup: function() {
                 this.removeListeners(['document'], this.events);
                 this.composition.get('selectedBlock').fixPosition();
                 
+                this.selectKeyfame=null;
+                
                 //if (this.block!==false) this.composition.get('selectedBlock').setBlock(this.block);
-            },
-            
-            //сброс при клике мимо transition
-            //mousedown:function(){
-            //    this.composition.get('selectedBlock').resetBlock();
-            //}
+            },            
         },
+        
         editorBody:{
             mousedown:function(){
                 this.composition.get('selectedBlock').resetBlock();
             }
-        }
+        },
+        
+        
+        
     },
 
     
@@ -109,6 +144,7 @@ Define('app.timeline.panels.right.Transition', {
         var x2=this.utilites.toPixels(this.composition.pixelsPerSecond, this.model[1].get('key'));
 
         this.dom.root.style.left=x1+ 'px';                
+        this.dom.root.style.width=(x2-x1)+ 'px';                
         
         //this.dom.root.style.left = event.pageX - this.dragShiftX + 'px';        
         if (this.model[0].get('select')){

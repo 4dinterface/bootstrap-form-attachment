@@ -111,12 +111,12 @@ Define('app.timeline.panels.right.Transition', {
                 }   
                 //сбросим установку блока при отпускании                
             },            
+            
             mouseup: function() {
                 this.removeListeners(['document'], this.events);
                 this.composition.get('selectedBlock').fixPosition();
                 
-                this.selectKeyfame=null;
-                
+                this.selectKeyfame=null                
                 //if (this.block!==false) this.composition.get('selectedBlock').setBlock(this.block);
             },            
         },

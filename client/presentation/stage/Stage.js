@@ -9,9 +9,19 @@ Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */
 
 	extend: "createjs.Stage",
         mixins:[ "core.Component" ],
-
+        
+        //move
+        //x:-90, //скролл по X
+        //y:600, //скролл по Y        
+        
+        //zoom
+        //scaleX:2, //масштабирование  по X
+        //scaleY:2, //масштабирование  по Y
+        
 	// инициализация
-	init  : function () {            
+	init  : function () { 
+            console.log(this);
+            
             var me = this;
             this.event={};
 

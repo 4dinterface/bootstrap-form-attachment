@@ -1,16 +1,35 @@
-windows.Player=windows.Player||{};
+window.player=window.player||{};
 
-(function(){    
-    
-    windows.Player=function(){
-        this.stage=null;
-    }
-    
-    var p=windows.Player.prototype;
-    
-    p.setModel=function(){
+(function(player){        
+    var Player=function(cfg){        
+        //создадим сцену
+        this.stage=new player.stage.Stage();
         
+        // создадим ролик                
+        this.movie=new player.movie.Movie({
+            timeline:cfg.timeline,
+            stage:this.stage,
+            ignoreReflow: false
+        })
+        
+        // создадим конструктор сцены
+        // TODO возможно stagebuilder должен отсутствовать на клиентском плеере, 
+        // так какего роль в синхронизации модели и сцены, но у конечного пользователя 
+        // таймлайн неменяется 
+        this.stageBuilder=new player.StageBuilder({
+            composition:cfg.timeline,
+            stage:this.stage
+        })        
     }
+        
+    var p=Player.prototype;
     
+    //Установка символа который будет считаться плеером главным
+    p.setRootSymbol=function(symbol){
+        
+    },
+        
+    p.setModel=function(){}
     
-})()
+    player.Player=Player;        
+})(window.player)

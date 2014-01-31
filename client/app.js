@@ -14,10 +14,7 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
     var                
         // создадим проект
         project = new app.business.model.Project(),
-        
-        //сцена         
-        stage=new app.presentation.stage.Stage(),                                
-                                                        
+                                                                                                      
         //загрузчик данных, который загрузит данные на сцену, и в таймлайн
         reader=new app.proxy.Reader({            
             project:project
@@ -32,50 +29,40 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
         reader.load(data,function(){                                                            
                     
             var 
-                // создадим ролик                
-                movie=new app.movie.Movie({
-                    timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
-                    stage:stage,
-                    ignoreReflow: false
-                }),
-                    
-                //создадим конструктор сцены
-                stageBuilder=new app.movie.StageBuilder({
-                    composition:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
-                    stage:stage
-                }),
-                    
+                play=new player.Player({
+                    timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),                    
+                }),                                
+                                                                                        
                 //Фасад бизнес слоя
                 facade=new app.business.Facade({
-                    movie:movie,
+                    movie:play.movie,
                     project:project,
-                    stageBuilder:stageBuilder
+                    stageBuilder:play.stageBuilder
                 }),                    
                                         
                 //Редактор таймлайна
                 timelineEditor=new app.presentation.timelineEditor.Component({
-                    movie:movie,
+                    movie:play.movie,
                     //TODO композиция должна устанавливаться после инициализации
                     composition:project.get('symbolCollection').get('root').get('compositionCollection').get('0')
                  }),
                     
-                    
-                    
+                                        
                  //Редактор свойств
                  propertyEditor=new app.presentation.properties.Component({                                                
-                    stage:stage,
+                    stage:play.stage,
                     facade:facade
                  }),                                                                                                              
                     
                  //Редактор холста
                  stageEditor=new app.presentation.stageEditor.Component({
-                    stage:stage,
+                    stage:play.stage,
                     facade:facade
                  }),
                                     
                  //панель управления воспроизведением
                  transport=new app.presentation.panels.Transport({
-                    movie:movie                    
+                    movie:play.movie                    
                  })
                     
                  //TODO убрать КОСТЫЛЬ  !!!!!!

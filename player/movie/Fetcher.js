@@ -11,7 +11,7 @@
  * @extends {app.Component}
  * @class
  */
-Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
+Define('player.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
 
     extend: "core.Component",
 
@@ -75,8 +75,10 @@ Define('app.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
                 item.target[ propertyName ] = self.interpolate(keyframes.first, keyframes.second, elapsedTime, propertyName);
             }
 
-            item.target.renderToCache();
+            
         });
+        
+        item.target.renderToCache();
 
         return somePropRendered;
     },

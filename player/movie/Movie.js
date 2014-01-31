@@ -35,8 +35,9 @@
  *     
  *     
  */
+window.player=window.player||{};
 
-Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
+Define('player.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
     extend: "core.Component",
 
@@ -123,7 +124,7 @@ Define('app.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
     init: function (cfg) {
         this._super();
 
-        this.fetch = new app.movie.Fetch();
+        this.fetch = new player.movie.Fetch();
         this.tick = this.tick.bind(this);
 
         this.setStage(cfg.stage);

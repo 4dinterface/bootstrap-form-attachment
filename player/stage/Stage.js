@@ -5,7 +5,7 @@
  * @name app.scene.Stage
  * @extends {createjs.Stage}
  */
-Define('app.presentation.stage.Stage', /** @lends {app.scene.Stage.prototype} */({
+Define('player.stage.Stage', /** @lends {app.scene.Stage.prototype} */({
 
 	extend: "createjs.Stage",
         mixins:[ "core.Component" ],

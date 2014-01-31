@@ -1,4 +1,7 @@
 [
+    "/player/com/blur/Blur.js",
+    "/player/com/shadow/Shadow.js",
+    
     "/player/stage/shape/GeometricShape.js",
     "/player/stage/shape/HtmlElement.js",
     "/player/stage/shape/Text.js",

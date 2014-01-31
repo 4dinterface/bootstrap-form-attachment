@@ -13,7 +13,7 @@ this.createjs = this.createjs||{};
         _superClass=f.prototype=app.presentation.stage.shape.GeometricShape.prototype,        
         p = Rectangle.prototype= new f();
         
-    console.log('p=',Rectangle.prototype);
+    //console.log('p=',Rectangle.prototype);
     
     //TODO изьавляемся от properties заменя их тегами
     p.properties=[                                
@@ -37,17 +37,13 @@ this.createjs = this.createjs||{};
                        
     p.needUpdate=true;    
     p.needDraw=true;
-        
-    
+            
     p.width=100;
     p.height=40;
     p.blurX=0;
     p.borderSize=0;
-    p.alpha=1;
-
-    
+    p.alpha=1;   
     //p.properties=[ ];
-    
     
     p.init=function(cnf){
         
@@ -56,8 +52,8 @@ this.createjs = this.createjs||{};
         this.filters=[];
         
         this.components=[
-            new Shadow(this),
-            new Blur(this)
+            new player.com.Shadow(this),
+            new player.com.Blur(this)
         ];        
         
         this.initialize();                 
@@ -67,8 +63,7 @@ this.createjs = this.createjs||{};
         this.width=cnf.width||this.width;
         this.height=cnf.height||this.height;
         
-
-            //console.log('this',this.width);
+        //console.log('this',this.width);
         this.graphics
                 .beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130)
                 .setStrokeStyle(this["borderSize"])
@@ -100,8 +95,7 @@ this.createjs = this.createjs||{};
         
         //включим draw, который сработает когда updateContext завершится        
         this.needDraw=true;     
-        _superClass.updateContext.apply(this,arguments);        
-            
+        _superClass.updateContext.apply(this,arguments);                    
     }
         
    /**
@@ -110,7 +104,7 @@ this.createjs = this.createjs||{};
     * Это делается для борьбы с двойным срабатывание draw        
     */
     p.draw=function(){
-         if(this.needDraw) _superClass.draw.apply(this,arguments);
+        if(this.needDraw) _superClass.draw.apply(this,arguments);
     }         
             
     //console.log(new Rectangle());
@@ -119,29 +113,3 @@ this.createjs = this.createjs||{};
     core.NS('app.presentation.stage.shape.Rectangle',Rectangle);                
 })()    
 
-//============================= ЭКСПЕРЕМЕНТЫ С КОМПОНЕНТАМИ =============================//
-//
-//ТЕНЬ (ЭКСПЕРЕМЕНТ)
-function Shadow(target){        
-    this.init=function(){
-        target.shadow = new createjs.Shadow("#000000", target.shadowX, 15, 10);    
-        target.needUpdate=true;
-    }        
-    //TODO при изменении shadowX нужно отразить изменения
-    this.init();    
-}
-
-// BLUR (ЭКСПЕРЕМЕНТ)
-// shadow сначало X, затем Y, затем Размытие
-function Blur(target){
-    var blurFilter=null;
-    
-    this.init=function(){
-        //this.blurX>0||this.blurY>0 возможно невсегда нужно инициализировать
-        this.blurFilter = new createjs.BoxBlurFilter( 0,  0, 0);
-        target.filters.push(this.blurFilter);                                                               
-        target.needUpdate=true;
-        this.bounds = this.blurFilter.getBounds();
-    }        
-    this.init();
-}

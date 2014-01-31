@@ -6,7 +6,8 @@
  * @name app.movie.StageBuilder
  * 
  */
-Define('app.movie.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
+window.player=window.player||{};
+Define('player.StageBuilder', /** @lends {app.movie.Movie.prototype} */ ({
     extend: "core.Component",
     
     /**

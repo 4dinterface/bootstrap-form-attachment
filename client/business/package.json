@@ -15,11 +15,7 @@
     "client/business/model/CompositionCollection.js",
     "client/business/model/Symbol.js",
     "client/business/model/SymbolCollection.js",
-    "client/business/model/Project.js",        
-        
-    "client/business/movie/Fetcher.js",
-    "client/business/movie/Movie.js",
-    "client/business/movie/StageBuilder.js",
+    "client/business/model/Project.js",                            
                                          
     "client/business/Facade.js"
 ]

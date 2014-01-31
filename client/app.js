@@ -19,8 +19,7 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
         stage=new app.presentation.stage.Stage(),                                
                                                         
         //загрузчик данных, который загрузит данные на сцену, и в таймлайн
-        reader=new app.proxy.Reader({
-            stage:stage,
+        reader=new app.proxy.Reader({            
             project:project
         }),
                 
@@ -35,10 +34,10 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
             var 
                 // создадим ролик                
                 movie=new app.movie.Movie({
-                        timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
-                        stage:stage,
-                        ignoreReflow: false
-                    }),
+                    timeline:project.get('symbolCollection').get('root').get('compositionCollection').get('0'),
+                    stage:stage,
+                    ignoreReflow: false
+                }),
                     
                 //создадим конструктор сцены
                 stageBuilder=new app.movie.StageBuilder({

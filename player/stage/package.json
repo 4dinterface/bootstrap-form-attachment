@@ -1,0 +1,8 @@
+[
+    "/player/stage/shape/GeometricShape.js",
+    "/player/stage/shape/HtmlElement.js",
+    "/player/stage/shape/Text.js",
+    "/player/stage/shape/Circle.js",
+    "/player/stage/shape/Rectangle.js",
+    "/player/stage/Stage.js"
+]

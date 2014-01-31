@@ -1,5 +1,4 @@
-[             
-    "client/presentation/stage/package.json",                         
+[                                       
     "client/presentation/timelineEditor/package.json",
     "client/presentation/stageEditor/package.json",                         
     "client/presentation/propertiesEditor/package.json",             

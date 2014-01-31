@@ -41,7 +41,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         //this.timeline.clear(); //временно заремарил
         
         //TODO нежелательно обращаться напрямую к stage из reader
-        this.stage.removeAllChildren ();
+        //this.stage.removeAllChildren ();
         
         //Функция создаёт проект        
         this.makeProject(data);
@@ -56,7 +56,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         },1);
         
         //TODO нежелательно обращаться напрямую к stage из reader
-        this.stage.update();     
+        //this.stage.update();     
     },            
     
     //Создаёт проект

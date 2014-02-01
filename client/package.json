@@ -3,6 +3,7 @@
     
     "/client/business/package.json",                          
     "/client/proxy/package.json",    
+    
     "/player/package.json",
     
     "/client/presentation/package.json"

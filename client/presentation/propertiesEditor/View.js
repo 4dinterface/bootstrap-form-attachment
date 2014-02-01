@@ -51,8 +51,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
            //Список свойств которые будет отображать propertyEditor        
            prop=shape.properties;
     
-        //Отпишемся от старого разработчика
-       
+        //Отпишемся от старого разработчика       
         
         //создал shapeProxy
         this.shapeProxy=new core.data.Model(shape);//todo удалить shape
@@ -67,13 +66,28 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         }
         
         //перебераем все группы в shape
-        for(var i in prop){                
+        /*for(var i in prop){                
             srcData=typeof prop[i]=="string"?shape.libProperties[prop[i]]:prop[i];
             //Создаем в группе
             this.makeGroup(srcData, $('#property-panel'),this.shapeProxy);
+        }*/
+        
+        //============== ИНИЦИАЛИЗАЦИЯ РЕДАКТОРА КОМПОНЕНТОВ =================//        
+        this.editors=[];
+                
+        for(var i=0,l=shape.components.length;i<l;i++){                       
+            var editor=core.NS( shape.components[i].editor);
+            this.editors.push(new editor( this, shape.components[i] ) );            
+            $('#property-panel').append(this.editors[i].domTarget);                                                    
         }
         
+        var button=$('<br/> <button>ADD COMPONENT </button>');
+        button.on('click',function(){
+            alert('Добавление компонентов');
+        })
+        $('#property-panel').append(button)        
     },        
+        
 
     // создадим группу
     makeGroup:function(gr,panel,shape){
@@ -94,6 +108,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         }                        
         panel.append(sld.domTarget);                        
     },
+
 
     // создадим подгруппу
     makeSubGroup:function(item, shape){
@@ -116,6 +131,7 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
         return r;        
     },
 
+
     // создадим свойства
     makeProperty:function(item,shape){                
         
@@ -136,7 +152,6 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
                     scope:shape,            
                     'data-dsource':item.target
                 })          
-
             break;
 
             default:
@@ -148,6 +163,5 @@ Define( "app.presentation.properties.View", /** @lends {app.component} */ {
             break;                
         }
         return r1;        
-    }          
-    
+    }             
 });

@@ -6,7 +6,7 @@ window.player=window.player||{};
         this.stage=new player.stage.Stage();
         
         // создадим ролик                
-        this.movie=new player.movie.Movie({
+        this.rootMovie=new player.movie.Movie({
             timeline:cfg.timeline,
             stage:this.stage,
             ignoreReflow: false
@@ -33,3 +33,18 @@ window.player=window.player||{};
     
     player.Player=Player;        
 })(window.player)
+
+
+//устанавливает значение по неймспейсу
+player.NS=function(name, obj) {
+    var result = window;
+    name.split(".").forEach(function (val, num, arr) {        
+
+        if (num == arr.length - 1) result[val] = obj||result[val];
+        else result[val] = result[val] || {};
+
+        result = result[val];
+    });
+
+    return result;
+}   

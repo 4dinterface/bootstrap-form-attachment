@@ -35,14 +35,14 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
                                                                                         
                 //Фасад бизнес слоя
                 facade=new app.business.Facade({
-                    movie:play.movie,
+                    movie:play.rootMovie,
                     project:project,
                     stageBuilder:play.stageBuilder
                 }),                    
                                         
                 //Редактор таймлайна
                 timelineEditor=new app.presentation.timelineEditor.Component({
-                    movie:play.movie,
+                    movie:play.rootMovie,
                     //TODO композиция должна устанавливаться после инициализации
                     composition:project.get('symbolCollection').get('root').get('compositionCollection').get('0')
                  }),
@@ -62,7 +62,7 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
                                     
                  //панель управления воспроизведением
                  transport=new app.presentation.panels.Transport({
-                    movie:play.movie                    
+                    movie:play.rootMovie                    
                  })
                     
                  //TODO убрать КОСТЫЛЬ  !!!!!!

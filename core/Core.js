@@ -44,7 +44,7 @@ window.core.ClassLoader=window.core.ClassLoader||{};
         
         //Если функция define обьявлена то можно грузить асинхронно
         script.async=(core.Define)?true:false;        
-        //script.async=false;        
+        script.async=false;        
 
 	document.getElementsByTagName("head")[0].appendChild(script);        
         

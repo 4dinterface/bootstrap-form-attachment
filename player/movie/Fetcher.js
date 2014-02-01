@@ -78,7 +78,8 @@ Define('player.movie.Fetch', /** @lends {app.movie.Fetch.prototype} */ ({
             
         });
         
-        item.target.renderToCache();
+        //кеш теперь обновляется автоматически
+        //item.target.renderToCache(); 
 
         return somePropRendered;
     },

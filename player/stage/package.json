@@ -1,8 +1,18 @@
 [
+    "/player/com/Editor.js",
+    "/player/com/Com.js",
+    
+    "/player/com/base/Base.js",
+    "/player/com/base/Editor.js",
+    
     "/player/com/blur/Blur.js",
+    "/player/com/blur/Editor.js",
+    
     "/player/com/shadow/Shadow.js",
+    "/player/com/shadow/Editor.js",
     
     "/player/stage/shape/GeometricShape.js",
+    
     "/player/stage/shape/HtmlElement.js",
     "/player/stage/shape/Text.js",
     "/player/stage/shape/Circle.js",

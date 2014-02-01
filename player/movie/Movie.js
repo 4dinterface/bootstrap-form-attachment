@@ -37,6 +37,8 @@
  */
 window.player=window.player||{};
 
+//player.NS('player..movie.Movie',function(){}) //пример хелпера NS в плеере
+
 Define('player.movie.Movie', /** @lends {app.movie.Movie.prototype} */ ({
 
     extend: "core.Component",

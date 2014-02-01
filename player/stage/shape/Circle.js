@@ -2,7 +2,7 @@
  * Круг
  */
 Define('app.presentation.stage.shape.Circle', {
-	extend: "app.presentation.stage.shape.GeometricShape",
+	extend: "player.stage.shape.GeometricShape",
         width:100,
         height:100,
 	// инициализация

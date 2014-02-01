@@ -1,8 +1,8 @@
 [
+    "/player/Player.js",
     "/player/movie/Movie.js",
     "/player/movie/Fetcher.js",
     "/player/movie/StageBuilder.js",
     
-    "/player/stage/package.json",
-    "/player/Player.js"
+    "/player/stage/package.json"
 ]

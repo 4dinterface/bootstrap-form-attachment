@@ -1,15 +1,51 @@
 /* 
  * Базовый класс для примитивных фигур 
  */
+this.player = this.player||{};
 
-Define('app.presentation.stage.shape.GeometricShape', {
-    extend: "createjs.Shape",
-    init:function(){
-            
+//Define('player.stage.shape.GeometricShape', {
+(function() {        
+    //наследование учитывает ECMA3
+    var GeometricShape = function() {},
+        f=function(){},
+        _superClass=f.prototype=createjs.Shape.prototype,                
+        p = GeometricShape.prototype= new f();
+    
+    //extend: "createjs.Shape",
+    //init:function(){},
+    
+    p.renderToCache=function(){                                           
+        var bounds=this.filters[0].getBounds();
+        this.cache( bounds.x, bounds.y, this.width+bounds.width,this.height+bounds.height);                        
+        this.updateCache();                   
+    }
+    
+    p.updateContext=function(){                                       
+        this.needDraw=true;
+        
+        //если были выжные изменения то нужно обновить кэш        
+        if(this.needUpdate) {            
+            //обновим cache
+            this.renderToCache();                        
+            this.needDraw=false;
+        }                        
+        
+        _superClass.updateContext.apply(this,arguments);                    
+        this.needUpdate=false;       
     },
+        
+   /**
+    * Перерисует контекст из кеша
+    * Это произойдет только если needDraw==true. 
+    * Это делается для борьбы с двойным срабатывание draw        
+    */
+    p.draw=function(){
+        if(this.needDraw) _superClass.draw.apply(this,arguments);
+    }                
+        
                 
     //Библиотека заготовок
-    libProperties:{
+    p.libProperties={
         
         //Позиция и размеры
         "positionAndResize":{
@@ -96,7 +132,6 @@ Define('app.presentation.stage.shape.GeometricShape', {
             ]               
        }
        
-
     }
-        
-});        
+    core.NS('player.stage.shape.GeometricShape',GeometricShape);        
+})();        

@@ -2,18 +2,12 @@
  * Квадрат
  */
 
-// namespace:
-this.createjs = this.createjs||{};
-
-(function() {    
-    
+(function() {        
     //наследование учитывает ECMA3
     var Rectangle = function(cnf) {this.init(cnf) },            
         f=function(){},
-        _superClass=f.prototype=app.presentation.stage.shape.GeometricShape.prototype,        
-        p = Rectangle.prototype= new f();
-        
-    //console.log('p=',Rectangle.prototype);
+        _superClass=new player.stage.shape.GeometricShape()
+        p=Rectangle.prototype=_superClass ;            
     
     //TODO изьавляемся от properties заменя их тегами
     p.properties=[                                
@@ -52,8 +46,9 @@ this.createjs = this.createjs||{};
         this.filters=[];
         
         this.components=[
-            new player.com.Shadow(this),
-            new player.com.Blur(this)
+            new player.com.base.Component(this),
+            new player.com.shadow.Component(this),
+            new player.com.blur.Component(this)
         ];        
         
         this.initialize();                 
@@ -68,47 +63,14 @@ this.createjs = this.createjs||{};
                 .beginLinearGradientFill(["#FFF", "#000"], [0, 1], 0, 0, 0, 130)
                 .setStrokeStyle(this["borderSize"])
                 .beginStroke("rgba(190,50,50,1)")                    
-                    .drawRect(0, 0, me.width, me.height)
+                .drawRect(0, 0, me.width, me.height)
                 .endStroke();
         
         this.renderToCache();
-    }
+    }    
     
-    p.renderToCache=function(){                                           
-        var bounds=this.filters[0].getBounds();
-        this.cache( bounds.x, bounds.y, this.width+bounds.width,this.height+bounds.height);                        
-        this.updateCache();                   
-    }
-    
-    p.updateContext=function(){                       
-        //были выжные изменения нужно обновить кэш        
-        if(this.needUpdate) {
-            //отключим лишнее обновление drawкоторое срабаотае при вызове updateCache из renderCache
-            this.needDraw=false;
-            //обновим cache
-            this.renderToCache();
-            
-            //кэш обновили, флаг можно сбросить
-            this.needUpdate=false;
-        }
-        //console.log('zzz');            
-        
-        //включим draw, который сработает когда updateContext завершится        
-        this.needDraw=true;     
-        _superClass.updateContext.apply(this,arguments);                    
-    }
-        
-   /**
-    * Перерисует контекст из кеша
-    * Это произойдет только если needDraw==true. 
-    * Это делается для борьбы с двойным срабатывание draw        
-    */
-    p.draw=function(){
-        if(this.needDraw) _superClass.draw.apply(this,arguments);
-    }         
-            
     //console.log(new Rectangle());
-    
+        
     //неймспейс presentation
     core.NS('app.presentation.stage.shape.Rectangle',Rectangle);                
 })()    

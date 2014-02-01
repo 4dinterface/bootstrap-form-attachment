@@ -63,20 +63,20 @@ core.require([ "/core/package.json", "/client/package.json" ], function(){
                  //панель управления воспроизведением
                  transport=new app.presentation.panels.Transport({
                     movie:play.rootMovie                    
-                 })
+                 });
                     
-                 //TODO убрать КОСТЫЛЬ  !!!!!!
-                 project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});
+            //TODO убрать КОСТЫЛЬ  !!!!!!
+            project.get('symbolCollection').get('root').get('compositionCollection').get('0').fire('load',{});
 
-                 //=======================================================//
-                 //======== эксперемент с переключением композиций =======//
-                 //=======================================================//                    
-                 $('.tab-head-title__timeline').on('click',function(){                        
-                        setComposition( $(this).attr('target')  );
-                 })
+            //=======================================================//
+            //======== эксперемент с переключением композиций =======//
+            //=======================================================//                    
+            $('.tab-head-title__timeline').on('click',function(){                        
+                setComposition( $(this).attr('target')  );
+            })
                     
-                 function setComposition(compositionName){                                                            
-                    facade.selectComposition( compositionName );
-                 }                                
+            function setComposition(compositionName){                                                            
+                facade.selectComposition( compositionName );
+            }                                
         })
 })      

@@ -28,6 +28,7 @@ Define('app.timeline.panels.right.Transition', {
         this.keyframeCollection.on('keyframechange',function(){
             this.refresh();
         }.bind(this));
+        //this.model[0].on('keyframechange',this.refresh.bind(this));                
     },
 
 
@@ -65,7 +66,7 @@ Define('app.timeline.panels.right.Transition', {
                 }                                                     
                                 
                 this.addListeners(['document'], this.events);                
-                this.model[0].on('keyframechange',this.refresh.bind(this));                
+
                 
                 event.stopPropagation();
                 event.preventDefault();                

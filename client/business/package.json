@@ -7,8 +7,8 @@
     
     "client/business/model/Property.js",       
     "client/business/model/PropertyCollection.js",       
-    "client/business/model/Filter.js",   
-    "client/business/model/FilterCollection.js",             
+    "client/business/model/Component.js",   
+    "client/business/model/ComponentCollection.js",             
     "client/business/model/Shape.js",   
     "client/business/model/ShapeCollection.js",
     "client/business/model/Composition.js",

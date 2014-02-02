@@ -24,7 +24,7 @@
  * ====================================================================== *
  */
 
-Define('app.business.model.FilterCollection', /** @lends {app.Model} */ {
+Define('app.business.model.ComponentCollection', /** @lends {app.Model} */ {
     //можно унаследовать от 
     extend : "core.data.ArrayCollection",    
     /***

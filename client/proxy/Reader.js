@@ -108,7 +108,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
         //Подключаем фильтры
         for (i in filters) {
             //alert(i);
-            ts.get('filterCollection').set(i, this.makeTimelineFilter(filters[i],i) );                                        
+            ts.get('componentCollection').set(i, this.makeTimelineFilter(filters[i],i) );                                        
         }       
         
         ts.set('stageShape',shape.target);
@@ -120,7 +120,7 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
 
             
     makeTimelineFilter: function(filter){
-        var ts=new app.business.model.Filter({});         
+        var ts=new app.business.model.Component({});         
                 
         for (i in filter.property) {
             ts.get( 'propertyCollection' ).set(i, this.makeProperty( filter.property [ i ], i ) );                                        
@@ -163,6 +163,5 @@ Define( "app.proxy.Reader", /** @lends {app.component} */{
     makeKeyframe:function(i, col){
         col.key=parseInt(i, 10);            
         return new app.business.model.Keyframe( col );
-    }
-    
+    }    
 });

@@ -28,7 +28,7 @@
  * ====================================================================== *
  */
 
-Define('app.business.model.Filter', /** @lends {app.model.Keyframe.prototype} */ {
+Define('app.business.model.Component', /** @lends {app.model.Keyframe.prototype} */ {
 	extend : "core.data.Model",//
 	/***
 	 * Конструктор экземпляров

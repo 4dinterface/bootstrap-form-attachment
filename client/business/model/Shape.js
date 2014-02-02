@@ -55,8 +55,8 @@ Define('app.business.model.Shape', /** @lends {app.model.Shape.prototype} */ {
         this.get("propertyCollection").set('height', new app.business.model.Property());
 
         // непонятно как назвать толи filter толи FX
-        this.set("filterCollection", new app.business.model.FilterCollection() );
-        this.get("filterCollection").parent=this;
+        this.set("componentCollection", new app.business.model.ComponentCollection() );
+        this.get("componentCollection").parent=this;
 
         this.set('minimized', false);
         this.set('disabled', false);
